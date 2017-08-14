@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:796673024905:android:46982aef3afe4ccd",
+        "mobilesdk_app_id": "1:796673024905:android:7f76a776094434d8",
         "android_client_info": {
-          "package_name": "com.jhone.android"
+          "package_name": "com.colavo.android"
         }
       },
       "oauth_client": [

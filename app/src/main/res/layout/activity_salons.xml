@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:theme="@style/AppTheme"
+    android:theme="@style/AppTheme.NoActionBar"
     tools:context="com.colavo.android.ui.salons.SalonListActivity">
 
-    <android.support.design.widget.AppBarLayout
+<!--    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/toolbar_elevation">
+        android:elevation="@dimen/toolbar_elevation"
+        android:visibility="gone">
+    </android.support.design.widget.AppBarLayout>-->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -19,16 +21,15 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="@dimen/toolbar_elevation"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.NoActionBar"
             android:titleTextColor="@color/colorPrimaryDark"
             android:visibility="gone"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="Select a hair salon"
-            app:titleTextColor="@color/primaryTextColor" />
+            app:titleTextColor="@color/primaryTextColor" >
 
-    </android.support.design.widget.AppBarLayout>
+         </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_salons" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_salon"
@@ -37,5 +38,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/ic_plus" />
+
+    <include layout="@layout/content_salons" />
 
 </android.support.design.widget.CoordinatorLayout>
