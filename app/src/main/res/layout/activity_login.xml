@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.login.LoginActivity">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/backgroundWhite"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:weightSum="1">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageOval"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="147dp"
+                android:layout_weight="0.79"
+                android:scaleType="fitXY"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:srcCompat="@drawable/ic_intro_oval"
+                android:layout_marginRight="95dp"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageComb"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="42dp"
+                android:layout_weight="0.79"
+                android:adjustViewBounds="false"
+                android:scaleType="fitXY"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:srcCompat="@drawable/ic_intro_comb"
+                android:layout_marginLeft="68dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageDryer"
+                android:layout_width="300dp"
+                android:layout_height="340dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="0.79"
+                android:scaleType="fitXY"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:srcCompat="@drawable/ic_intro_dryer"
+                android:layout_marginTop="70dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <ImageView
+                android:id="@+id/ColavoTitle"
+                android:layout_width="220dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/ic_logocolavo"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Hair designer X Customer"
+                android:textAlignment="center"
+                android:textColor="@color/textSecondary"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/ColavoTitle"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/inputLayout"
+                android:layout_width="370dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                app:layout_constraintBottom_toTopOf="@+id/signinButton"
+                app:layout_constraintHorizontal_bias="0.511"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/textSecondary" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/prompt_password"
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/textSecondary" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/signinButton"
+                android:layout_width="360dp"
+                android:layout_height="55dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="27dp"
+                android:layout_marginLeft="@dimen/signin_activity_horizontal_margin"
+                android:layout_marginRight="@dimen/signin_activity_horizontal_margin"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="0.5"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/signInProgress"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/signInButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/buttonSecondary"
+                        android:text="@string/action_sign_in"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="0.5"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/registerProgress"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/registerButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorAccent"
+                        android:text="@string/action_register_and_sign_in"
+                        android:textColor="@color/backgroundWhite"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline"
+                app:layout_constraintGuide_begin="20dp"
+                android:orientation="horizontal" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

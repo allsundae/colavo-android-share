@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin">
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/salon_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="16sp"
+            tools:text="Brunch this weekend?" />
+
+        <!--        <TextView
+            android:id="@+id/conversation_last_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="Yesterday" />-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r1"
+        android:layout_gravity="center_vertical">
+
+<!--        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_icon" />-->
+
+        <TextView
+            android:id="@+id/salon_last_event_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="13sp"
+            tools:text="Ali Connors" />
+
+
+        <!--        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/dash"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/salon_last_event_user     android:layout_toEndOf="@+id/salon_last_event_user     android:id="@+id/conversation_dash"
+            android:textAppearance="?attr/textAppearanceListItem"/>-->
+
+        <!--       <TextView
+            android:id="@+id/conversation_last_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_alignBaseline="@+id/conversation_dash"
+            android:layout_alignBottom="@+id/conversation_dash"
+            android:layout_toRightOf="@+id/conversation_dash"
+            android:layout_toEndOf="@+id/conversation_dash"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="This is some last event from the chat, there is loads of interesting stuff in here"/>-->
+
+    </RelativeLayout>
+
+</RelativeLayout>
