@@ -23,8 +23,7 @@ import javax.inject.Inject
 class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : SalonsDataSource {
 
     override fun initialize(query: SalonsQuery.GetSalons): Observable<Pair<SalonModel, ResponseType>>
-            = Observable.create<Pair<SalonEntity, ResponseType>> { subscriber ->
-        firebaseDatabase.reference
+            = Observable.create<Pair<SalonEntity, ResponseType>> { subscriber -> firebaseDatabase.reference
                 .child("salons")
                 .addChildEventListener(object : ChildEventListener {
                     override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {

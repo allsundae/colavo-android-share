@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -12,10 +12,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin">
 
+    <!--    <RelativeLayout
+          android:id="@+id/r1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentStart="true">
+
+                <TextView
+              android:id="@+id/conversation_last_message_time"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginLeft="8dp"
+              android:textColor="@color/secondaryTextColor"
+              android:textSize="14sp"
+              android:textAppearance="?attr/textAppearanceListItem"
+              tools:text="Yesterday" />
+
+    </RelativeLayout>-->
+
     <RelativeLayout
-        android:id="@+id/r1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
@@ -25,64 +46,53 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="16sp"
-            tools:text="Brunch this weekend?" />
-
-        <!--        <TextView
-            android:id="@+id/conversation_last_message_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp"
-            android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="Yesterday" />-->
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/r1"
-        android:layout_gravity="center_vertical">
-
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Salon name" />
 <!--        <ImageView
             android:id="@+id/imageView"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_icon" />-->
-
         <TextView
-            android:id="@+id/salon_last_event_user"
+            android:id="@+id/salon_owner_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:fontFamily="serif"
+            android:maxLines="1"
+            android:text="Owner name"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/salon_name"
+            android:letterSpacing="-0.05"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/salon_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/secondaryTextColor"
             android:textSize="13sp"
-            tools:text="Ali Connors" />
+            tools:text="salon address"
+            android:layout_marginStart="11dp"
+            android:layout_alignBaseline="@+id/salon_owner_name"
+            android:layout_alignBottom="@+id/salon_owner_name"
+            android:layout_toEndOf="@+id/salon_owner_name" />
 
 
-        <!--        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/dash"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/salon_last_event_user     android:layout_toEndOf="@+id/salon_last_event_user     android:id="@+id/conversation_dash"
-            android:textAppearance="?attr/textAppearanceListItem"/>-->
+
 
         <!--       <TextView
             android:id="@+id/conversation_last_message"

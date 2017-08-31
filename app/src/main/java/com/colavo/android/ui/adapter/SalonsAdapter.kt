@@ -23,7 +23,7 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
                                val salonName: TextView = v.salon_name,
 /*                               val conversationLastMessageTime: TextView = v.conversation_last_message_time,
                                val conversationLastMessage: TextView = v.conversation_last_message,*/
-                               val salonLastEventUser: TextView = v.salon_last_event_user) : RecyclerView.ViewHolder(v) {
+                               val salonAddress: TextView = v.salon_address) : RecyclerView.ViewHolder(v) {
 
 /*        init {
             this.salonName.typeface = MediumTypeface.getInstance(v.context)
@@ -31,7 +31,7 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
 
         fun bind(salonModel: SalonModel) {
             this.salonName.text = salonModel.name
-            this.salonLastEventUser.text = salonModel.lastEventUser
+            this.salonAddress.text = salonModel.address
          /*   this.conversationLastMessageTime.text = salonModel.lastEventTime*/
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(salonModel) }

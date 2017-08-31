@@ -9,4 +9,5 @@ import java.io.Serializable
  */
 class SalonEntity(id: String = "",
                   @SerializedName("name") @Expose override var name: String = "",
-                  @SerializedName("lastEventId") @Expose var lastEventId: String? = null) : BaseSalon(id, name), Serializable
+                  @SerializedName("address") @Expose override var address: String = "",
+                  @SerializedName("lastEventId") @Expose var lastEventId: String? = null) : BaseSalon(id, name, address), Serializable

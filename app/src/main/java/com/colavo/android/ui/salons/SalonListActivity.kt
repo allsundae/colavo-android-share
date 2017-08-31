@@ -96,6 +96,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
     }
 
     override fun onLongItemClicked(item: SalonModel) {
+        removeSalon(item) //todo
     }
 
     override fun openEventActivity(salonModel: SalonModel) {

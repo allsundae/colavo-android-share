@@ -19,6 +19,8 @@ class SalonMapper {
             val salonModel = SalonModel()
             salonModel.id = baseSalon.id
             salonModel.name = baseSalon.name
+            salonModel.address = baseSalon.address
+
             if(eventEntity != null) {
                 salonModel.lastEvent = eventEntity.text
                 if(!eventEntity.time.equals("")) {
@@ -27,7 +29,7 @@ class SalonMapper {
             }
             if(user != null) {
                 if(user.name != null)
-                    salonModel.lastEventUser = user.name
+                    salonModel.address = user.name //todo address lastEventUser
             }
             return salonModel
         }
@@ -36,6 +38,7 @@ class SalonMapper {
             val salonModel = SalonModel()
             salonModel.id = salonEntity.id
             salonModel.name = salonEntity.name
+            salonModel.address = salonEntity.address
             return salonModel
         }
 
