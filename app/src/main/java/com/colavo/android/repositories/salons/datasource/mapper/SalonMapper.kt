@@ -15,32 +15,29 @@ class SalonMapper {
 
     companion object {
 
-        fun createSalonWithEventAndUser(baseSalon: BaseSalon, eventEntity: EventEntity?, user: User?): SalonModel {
+        fun createSalonWithEventAndUser(baseSalon: BaseSalon, user: User?): SalonModel { //eventEntity: EventEntity?,
             val salonModel = SalonModel()
             salonModel.id = baseSalon.id
             salonModel.name = baseSalon.name
             salonModel.address = baseSalon.address
+//todo
 
-            if(eventEntity != null) {
-                salonModel.lastEvent = eventEntity.text
-                if(!eventEntity.time.equals("")) {
-                    salonModel.lastEventTime = DateTime.parse(eventEntity.time).toChatTime()
-                }
-            }
-            if(user != null) {
-                if(user.name != null)
-                    salonModel.address = user.name //todo address lastEventUser
+            if (user != null) {
+                if (user.name != null)
+                    salonModel.owner = user.name //todo address lastEventUser
             }
             return salonModel
+
         }
 
-        fun transformFromEntity(salonEntity: SalonEntity): SalonModel {
-            val salonModel = SalonModel()
-            salonModel.id = salonEntity.id
-            salonModel.name = salonEntity.name
-            salonModel.address = salonEntity.address
-            return salonModel
-        }
+            fun transformFromEntity(salonEntity: SalonEntity): SalonModel {
+                val salonModel = SalonModel()
+                salonModel.id = salonEntity.id
+                salonModel.name = salonEntity.name
+                salonModel.address = salonEntity.address
+                return salonModel
+            }
+
 
     }
 

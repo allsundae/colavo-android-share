@@ -21,6 +21,7 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
 
     inner class ItemViewHolder(val v: View,
                                val salonName: TextView = v.salon_name,
+                                val salonOwner: TextView = v.salon_owner_name,
 /*                               val conversationLastMessageTime: TextView = v.conversation_last_message_time,
                                val conversationLastMessage: TextView = v.conversation_last_message,*/
                                val salonAddress: TextView = v.salon_address) : RecyclerView.ViewHolder(v) {
@@ -31,7 +32,9 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
 
         fun bind(salonModel: SalonModel) {
             this.salonName.text = salonModel.name
+            this.salonOwner.text = salonModel.owner
             this.salonAddress.text = salonModel.address
+
          /*   this.conversationLastMessageTime.text = salonModel.lastEventTime*/
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(salonModel) }
