@@ -47,7 +47,9 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
     }
 
     override fun setEvents(eventEntities: List<EventModel>) {
+       events_recycler.adapter = EventAdapter(this, eventEntities.toMutableList()) //todo
     }
+
 
     override fun addEvent(eventEntity: EventModel) {
         eventAdapter.items.add(eventEntity)

@@ -17,4 +17,9 @@
     <string name="prompt_password">비밀번호</string>
     <string name="title_activity_login1">로그인</string>
     <string name="wait">잠시만기다리세요</string>
+    <string name="bottom_navi_1">예약</string>
+    <string name="bottom_navi_2">결제내역</string>
+    <string name="bottom_navi_3">통계</string>
+    <string name="bottom_navi_4">고객</string>
+    <string name="bottom_navi_5">설정</string>
 </resources>

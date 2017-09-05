@@ -52,7 +52,6 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
-            android:textStyle="bold"
             tools:text="Salon name" />
 <!--        <ImageView
             android:id="@+id/imageView"
