@@ -4,12 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="8dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:padding="0dp"
     tools:context="com.colavo.android.ui.event.eventActivity">
 
+<!--
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:eventTextColor="@android:color/white"
+        app:textSize="12sp"
+        app:hourHeight="60dp"
+        app:headerColumnPadding="8dp"
+        app:headerColumnTextColor="#8f000000"
+        app:headerRowPadding="12dp"
+        app:columnGap="8dp"
+        app:noOfVisibleDays="3"
+        app:headerRowBackgroundColor="#ffefefef"
+        app:dayBackgroundColor="#05000000"
+        app:todayBackgroundColor="#1848adff"
+        app:headerColumnBackground="#ffffffff"/>
+-->
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar"
+        android:layout_marginBottom="20dp"/>
+
    <android.support.v7.widget.RecyclerView
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:paddingRight="@dimen/activity_horizontal_margin"
        android:id="@+id/events_recycler"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -22,7 +46,8 @@
        android:layout_height="wrap_content"
        android:orientation="horizontal"
        android:id="@+id/linearLayout"
-       android:layout_alignParentBottom="true">
+       android:layout_alignParentTop="true"
+       android:layout_alignEnd="@+id/bottomBar">
 
       <EditText
           android:layout_width="match_parent"
@@ -61,4 +86,22 @@
            app:itemTextColor="@color/primaryTextColor"
            app:menu="@menu/menu_bottom_navigation" />
        app:layout_behavior=".BottomNavigationBehavior" -->
+
+   <!-- This could be your fragment container, or something -->
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:paddingBottom="0dp"
+        android:paddingTop="2dp"
+        app:bb_activeTabAlpha="1"
+        app:bb_activeTabColor="@color/primaryTextColor"
+        app:bb_inActiveTabAlpha="0.6"
+        app:bb_showShadow="true"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_titleTextAppearance="@style/BottomBarText" />
+
 </RelativeLayout>

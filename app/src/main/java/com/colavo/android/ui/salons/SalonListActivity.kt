@@ -22,6 +22,13 @@ import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
+import android.animation.ObjectAnimator
+import android.animation.StateListAnimator
+import android.support.design.widget.AppBarLayout
+import android.support.v7.widget.Toolbar
+import com.colavo.android.R.id.toolBar
+import kotlinx.android.synthetic.main.toolbar.*
+
 
 class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnItemClickListener {
 
@@ -38,7 +45,8 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salons)
-  //      setSupportActionBar(toolbar)
+
+        setSupportActionBar(toolBar)
 
         (application as App).addSalonsComponent().inject(this)
         salonsAdapter = SalonsAdapter(this, mutableListOf<SalonModel>())
@@ -50,6 +58,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
 
         salonsPresenter.attachView(this)
         salonsPresenter.initialize()
+
 
     }
 

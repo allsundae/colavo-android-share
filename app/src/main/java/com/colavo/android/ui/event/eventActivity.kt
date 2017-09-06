@@ -1,8 +1,10 @@
 package com.colavo.android.ui.event
 
+import android.graphics.RectF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.alamkanak.weekview.MonthLoader
 import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.entity.event.EventModel
@@ -14,8 +16,30 @@ import com.colavo.android.utils.showSnackBar
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_event.*
 import javax.inject.Inject
+import com.alamkanak.weekview.WeekView
+import com.alamkanak.weekview.WeekViewEvent
+import kotlinx.android.synthetic.main.toolbar.*
+import java.util.*
 
-class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener {
+
+class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener, WeekView.EventClickListener
+                , MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener{
+
+    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onMonthChange(newYear: Int, newMonth: Int): MutableList<out WeekViewEvent> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onEventLongPress(event: WeekViewEvent?, eventRect: RectF?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onEmptyViewLongPress(time: Calendar?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     @Inject
     lateinit var eventPresenter: EventPresenterImpl
@@ -27,8 +51,25 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
 
         (application as App).addEventComponent().inject(this)
 
+      /*  val bottomBar = R.id.bottomBar as BottomBar
+        bottomBar.setOnTabSelectListener(object : OnTabSelectListener() {
+            fun onTabSelected(@IdRes tabId: Int) {
+                if (tabId == R.id.action_one) {
+                    // The tab with id R.id.tab_favorites was selected,
+                    // change your content accordingly.
+                }
+            }
+        })*/
+
+        // Get a reference for the week view in the layout.
+/*        val mWeekView = R.id.weekView as WeekView
+        mWeekView.setOnEventClickListener(this);
+        mWeekView.setMonthChangeListener(this);
+        mWeekView.setEventLongPressListener(this);*/
+
         eventAdapter = EventAdapter(this, mutableListOf<EventModel>())
         events_recycler.adapter = eventAdapter
+        setSupportActionBar(toolBar)
 
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         supportActionBar?.title = salon.name
@@ -92,3 +133,6 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
         eventPresenter.onDestroy()
     }
 }
+
+//private fun WeekView.setMonthChangeListener(eventActivity: eventActivity) {}
+//private fun WeekView.setEventLongPressListener(eventActivity: eventActivity) {}

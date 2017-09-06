@@ -22,4 +22,5 @@
     <string name="bottom_navi_3">통계</string>
     <string name="bottom_navi_4">고객</string>
     <string name="bottom_navi_5">설정</string>
+    <string name="title_select_salon">헤어샵 선택</string>
 </resources>

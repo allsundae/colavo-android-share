@@ -27,4 +27,5 @@
     <string name="bottom_navi_3">Stats.</string>
     <string name="bottom_navi_4">Customers</string>
     <string name="bottom_navi_5">Settings</string>
+    <string name="title_select_salon">Select a salon</string>
 </resources>
