@@ -11,6 +11,7 @@ import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.entity.query.event.EventQuery
 import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.net.FirebaseAPI
+import com.colavo.android.utils.Logger
 import com.colavo.android.repositories.event.datasource.mapper.EventMapper
 import retrofit2.Retrofit
 import rx.Observable
@@ -22,49 +23,52 @@ import rx.schedulers.Schedulers
  */
 class EventDataSourceImpl(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase, val firebaseAuth: FirebaseAuth) : EventDataSource {
 
-    override fun getEventMessages(query: EventQuery.GetSalonEvents): Observable<Pair<EventModel, ResponseType>> = Observable.create<Pair<EventEntity, ResponseType>>
-    { subscriber -> firebaseDatabase.reference
-                .child("events")
-                .orderByChild("salonId")
-                .equalTo(query.salonId)
+    override fun getEventMessages(query: EventQuery.GetSalonEvents): Observable<Pair<EventModel, ResponseType>>
+            = Observable.create<Pair<EventEntity, ResponseType>>
+                { subscriber -> firebaseDatabase.reference.child("events")
+                .orderByChild("salonId").equalTo(query.salonId)
                 .addChildEventListener(object : ChildEventListener {
-                    override fun onChildMoved(dataSnapshot: DataSnapshot?, p1: String?) {
-                    }
-
-                    override fun onChildChanged(dataSnapshot: DataSnapshot?, p1: String?) {
-                        if(dataSnapshot != null) {
-                            val event = dataSnapshot.getValue(EventEntity::class.java)
-                            event.id = dataSnapshot.key
-                            subscriber.onNext(event to ResponseType.CHANGED)
+                        override fun onChildMoved(dataSnapshot: DataSnapshot?, p1: String?) {
                         }
-                    }
 
-                    override fun onChildAdded(dataSnapshot: DataSnapshot?, p1: String?) {
-                        if(dataSnapshot != null) {
-                            val event = dataSnapshot.getValue(EventEntity::class.java)
-                            event.id = dataSnapshot.key
-                            subscriber.onNext(event to ResponseType.ADDED)
+                        override fun onChildChanged(dataSnapshot: DataSnapshot?, p1: String?) {
+                            if(dataSnapshot != null) {
+                                val event = dataSnapshot.getValue(EventEntity::class.java)
+                                event.id = dataSnapshot.key
+                                subscriber.onNext(event to ResponseType.CHANGED)
+                            }
                         }
-                    }
 
-                    override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
-                        if(dataSnapshot != null) {
-                            val event = dataSnapshot.getValue(EventEntity::class.java)
-                            event.id = dataSnapshot.key
-                            subscriber.onNext(event to ResponseType.REMOVED)
+                        override fun onChildAdded(dataSnapshot: DataSnapshot?, p1: String?) {
+                            if(dataSnapshot != null) {
+                                val event = dataSnapshot.getValue(EventEntity::class.java)
+                                event.id = dataSnapshot.key
+                                Logger.log("added ${event.text}")
+                                subscriber.onNext(event to ResponseType.ADDED)
+                            }
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError?) {
-                        subscriber.onError(error?.toException())
-                    }
-                })
-    }
-            .flatMap {
-                pair -> Observable.zip(Observable.just(pair),
-                                                getUserById(pair.first.userId).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()),
-                                                { pair, user -> EventMapper.transformFromMessageEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second }
-                                        ) }
+                        override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
+                            if(dataSnapshot != null) {
+                                val event = dataSnapshot.getValue(EventEntity::class.java)
+                                event.id = dataSnapshot.key
+                                subscriber.onNext(event to ResponseType.REMOVED)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError?) {
+                            subscriber.onError(error?.toException())
+                        }
+                    })
+                }
+                .flatMap { pair -> Observable.zip(Observable.just(pair)
+                        , getUserById(pair.first.userId).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                        , { pair, user -> EventMapper.transformFromEventEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second }
+                        ) }
+/*            .flatMap { pair -> Observable.zip(Observable.just(pair), getUserById(pair.first.userId)
+                                .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()),
+                               { pair, user -> EventMapper.transformFromMessageEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second }
+                        ) }*/
 
     override fun sendEvent(query: EventQuery.SendEvent): Observable<FirebaseResponse> {
         val event = EventEntity(salonId = query.salonId, text = query.text, time = query.time)

@@ -9,6 +9,5 @@ import com.google.gson.annotations.SerializedName
 data class EventEntity(var id: String = "",
                        @SerializedName("salonId") @Expose val salonId: String = "",
                        @SerializedName("userId") @Expose var userId: String = "",
-                       @SerializedName("name") @Expose var name: String = "", //todo
                        @SerializedName("text") @Expose val text: String = "",
                        @SerializedName("time") @Expose val time: String = "")

@@ -32,22 +32,26 @@
         android:layout_marginBottom="20dp"/>
 
    <android.support.v7.widget.RecyclerView
+       app:layoutManager="LinearLayoutManager"
        android:paddingLeft="@dimen/activity_horizontal_margin"
        android:paddingRight="@dimen/activity_horizontal_margin"
+       android:paddingTop="@dimen/toolbar_height"
+       android:paddingBottom="120dp"
        android:id="@+id/events_recycler"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:scrollbars="none"
-       android:layout_above="@+id/linearLayout"
+       android:layout_height="match_parent"
        android:layout_alignParentTop="true" />
 
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:paddingRight="@dimen/activity_horizontal_margin"
+       android:background="@color/backgroundWhite"
        android:orientation="horizontal"
        android:id="@+id/linearLayout"
-       android:layout_alignParentTop="true"
-       android:layout_alignEnd="@+id/bottomBar">
+       android:elevation="20dp"
+       android:layout_above="@+id/bottomBar">
 
       <EditText
           android:layout_width="match_parent"
@@ -95,8 +99,10 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
-        android:paddingBottom="0dp"
-        android:paddingTop="2dp"
+        android:paddingBottom="-30dp"
+        android:clipToPadding="true"
+        android:paddingTop="5dp"
+        app:bb_longPressHintsEnabled="true"
         app:bb_activeTabAlpha="1"
         app:bb_activeTabColor="@color/primaryTextColor"
         app:bb_inActiveTabAlpha="0.6"

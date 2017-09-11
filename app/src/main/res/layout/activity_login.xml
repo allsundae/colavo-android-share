@@ -149,7 +149,7 @@
 
             <LinearLayout
                 android:id="@+id/signinButton"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="27dp"
@@ -161,7 +161,7 @@
                 app:layout_constraintRight_toRightOf="parent">
 
                 <RelativeLayout
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_gravity="right"
                     android:layout_marginEnd="10dp"
@@ -189,7 +189,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0.5"

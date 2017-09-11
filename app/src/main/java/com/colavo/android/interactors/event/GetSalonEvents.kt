@@ -14,7 +14,7 @@ import javax.inject.Inject
 @UseCase
 class GetSalonEvents @Inject constructor(eventRepository: EventRepository) : EventUseCase(eventRepository) {
 
-    fun execute(conversationId: String, subscriber: Subscriber<Pair<EventModel, ResponseType>>)
-            = super.execute(EventQuery.GetSalonEvents(conversationId), subscriber)
+    fun execute(salonID: String, subscriber: Subscriber<Pair<EventModel, ResponseType>>)
+            = super.execute(EventQuery.GetSalonEvents(salonID), subscriber)
 
 }

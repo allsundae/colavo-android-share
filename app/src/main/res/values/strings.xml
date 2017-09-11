@@ -22,9 +22,9 @@
     <string name="conversations_loading">Loading salon</string>
     <string name="wait">Wait</string>
     <string name="dash">&#160;—&#160;</string>
-    <string name="bottom_navi_1">Reservations</string>
-    <string name="bottom_navi_2">Sales</string>
-    <string name="bottom_navi_3">Stats.</string>
+    <string name="bottom_navi_1">Calendar</string>
+    <string name="bottom_navi_2">Checkouts</string>
+    <string name="bottom_navi_3">Stats</string>
     <string name="bottom_navi_4">Customers</string>
     <string name="bottom_navi_5">Settings</string>
     <string name="title_select_salon">Select a salon</string>

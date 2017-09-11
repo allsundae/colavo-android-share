@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_event.*
 import javax.inject.Inject
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
+import com.colavo.android.utils.Logger
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
@@ -51,6 +52,14 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
 
         (application as App).addEventComponent().inject(this)
 
+        setSupportActionBar(toolBar)
+
+        val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        supportActionBar?.title = salon.name
+
+        eventAdapter = EventAdapter(this, mutableListOf<EventModel>())
+        events_recycler.adapter = eventAdapter
+        events_recycler.layoutManager = LinearLayoutManager(this)
       /*  val bottomBar = R.id.bottomBar as BottomBar
         bottomBar.setOnTabSelectListener(object : OnTabSelectListener() {
             fun onTabSelected(@IdRes tabId: Int) {
@@ -67,19 +76,11 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
         mWeekView.setMonthChangeListener(this);
         mWeekView.setEventLongPressListener(this);*/
 
-        eventAdapter = EventAdapter(this, mutableListOf<EventModel>())
-        events_recycler.adapter = eventAdapter
-        setSupportActionBar(toolBar)
 
-        val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        supportActionBar?.title = salon.name
-
-        events_recycler.layoutManager = LinearLayoutManager(this)
         button_send.setOnClickListener { sendEvent() }
 
         eventPresenter.attachView(this)
         eventPresenter.initialize(salon.id)
-
     }
 
     private fun sendEvent() {
@@ -93,17 +94,23 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
 
 
     override fun addEvent(eventEntity: EventModel) {
+        Logger.log("Event added")
+
         eventAdapter.items.add(eventEntity)
         eventAdapter.notifyItemInserted(eventAdapter.itemCount)
     }
 
     override fun changeEvent(eventEntity: EventModel) {
+        Logger.log("Event changed")
+
         val position = eventAdapter.items.indexOfFirst { it.id.equals(eventEntity.id) }
         eventAdapter.items[position] = eventEntity
         eventAdapter.notifyItemChanged(position)
     }
 
     override fun removeEvent(eventEntity: EventModel) {
+        Logger.log("Event removed")
+
         val position = eventAdapter.items.indexOfFirst { it.id.equals(eventEntity) }
         eventAdapter.items.removeAt(position)
         eventAdapter.notifyItemRemoved(position)

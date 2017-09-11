@@ -23,7 +23,8 @@ import javax.inject.Inject
 class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : SalonsDataSource {
 
     override fun initialize(query: SalonsQuery.GetSalons): Observable<Pair<SalonModel, ResponseType>>
-            = Observable.create<Pair<SalonEntity, ResponseType>> { subscriber -> firebaseDatabase.reference.child("salons")
+            = Observable.create<Pair<SalonEntity, ResponseType>>
+                { subscriber -> firebaseDatabase.reference.child("salons")
                 .addChildEventListener(object : ChildEventListener {
                     override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                     }
@@ -67,10 +68,10 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
             .createSalon(SalonEntity(name = query.salonName))
 
     private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
-        return getOwnerName((pair.first).owner_uid).concatMap { users -> Observable.zip(Observable.just(users),
-                    getUserById(users?.uid)) { users, user ->
-                SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
-        }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        return getOwnerName((pair.first).owner_uid)
+                .concatMap { users -> Observable.zip(Observable.just(users), getUserById(users?.uid))
+                              { users, user -> SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
+                             }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
     }
 /*   private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
         return getLastEvent((pair.first).lastEventId).concatMap { events ->
