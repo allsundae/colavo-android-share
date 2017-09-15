@@ -1,37 +1,39 @@
 package com.colavo.android.ui.salons
 
+/*
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
-import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
-
 import com.colavo.android.R
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
+import com.colavo.android.base.BaseFragment
 import com.colavo.android.ui.adapter.SalonsAdapter
 import com.colavo.android.ui.event.eventActivity
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.showSnackBar
-import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
-import javax.inject.Inject
-import android.animation.ObjectAnimator
-import android.animation.StateListAnimator
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.Toolbar
-import com.colavo.android.R.id.toolBar
-import com.colavo.android.ui.SalonMainActivity
 import kotlinx.android.synthetic.main.toolbar.*
+import java.text.SimpleDateFormat
+import javax.inject.Inject
 
+/**
+ * Created by macbookpro on 2017. 9. 13..
+ */
+class SalonCalendarFragment : BaseFragment() {
 
-class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnItemClickListener {
+    override fun getLayout() = R.layout.activity_salons
+
+    companion object {
+        fun newInstance() = SalonCalendarFragment()
+    }
 
     @Inject
     lateinit var salonsPresenter: SalonsPresenterImpl
@@ -43,9 +45,8 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
                 .progress(true, 0)
                 .build() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_salons)
+    override fun onViewCreate(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreate(view, savedInstanceState)
 
         setSupportActionBar(toolBar)
 
@@ -110,8 +111,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
     }
 
     override fun openEventActivity(salonModel: SalonModel) {
-        //val intent = Intent(this, eventActivity::class.java)
-        val intent = Intent(this, SalonMainActivity::class.java)
+        val intent = Intent(this, eventActivity::class.java)
         intent.putExtra(EXTRA_CONVERSATION, salonModel)
         startActivity(intent)
     }
@@ -160,3 +160,5 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
     }
 
 }
+
+        */

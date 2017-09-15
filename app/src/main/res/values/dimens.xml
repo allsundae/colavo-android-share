@@ -6,5 +6,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar_elevation">0dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
-    <item name="disabledOpacity" type="dimen" format="float">0.25</item>
+    <dimen name="height_bottombar">50dp</dimen>
+    <item name="disabledOpacity" format="float" type="dimen">0.25</item>
 </resources>

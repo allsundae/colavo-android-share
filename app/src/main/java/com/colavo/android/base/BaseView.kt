@@ -1,4 +1,4 @@
-package com.colavo.android.ui
+package com.colavo.android.base
 
 /**
  * Created by RUS on 22.07.2016.

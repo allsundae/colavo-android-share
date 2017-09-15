@@ -1,6 +1,6 @@
 package com.colavo.android.ui.login
 
-import com.colavo.android.ui.BaseView
+import com.colavo.android.base.BaseView
 
 /**
  * Created by RUS on 11.07.2016.

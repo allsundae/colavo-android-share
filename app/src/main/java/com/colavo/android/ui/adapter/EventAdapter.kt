@@ -37,6 +37,7 @@ class EventAdapter(val onItemClickListener: OnItemClickListener, val items: Muta
             else
                 params.gravity = Gravity.START
             this.eventText.layoutParams = params
+            this.eventUserAndTime.layoutParams = params
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(eventModel) }
         }
@@ -51,7 +52,7 @@ class EventAdapter(val onItemClickListener: OnItemClickListener, val items: Muta
     override fun getItemCount(): Int = items.size
 
     companion object {
-        val PATTERN: String = "dd/MM/yyyy HH:mm"
+        val PATTERN: String = "HH:mm yy/MM/dd"
     }
 
 }
