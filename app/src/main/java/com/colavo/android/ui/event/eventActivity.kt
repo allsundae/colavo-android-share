@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 
+
 class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener, WeekView.EventClickListener
                 , MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener{
 

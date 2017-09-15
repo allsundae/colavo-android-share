@@ -4,19 +4,28 @@ import android.os.Bundle
 import android.view.View
 import com.colavo.android.R
 import com.colavo.android.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_01.*
+import com.alamkanak.weekview.WeekViewEvent
+import com.alamkanak.weekview.MonthLoader
+import com.alamkanak.weekview.WeekView
+import android.widget.Toast
+import android.graphics.RectF
+import com.alamkanak.weekview.DateTimeInterpreter
+import com.colavo.android.utils.toast
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 /**
  * Created by macbookpro on 2017. 9. 13..
  */
-class PlaceholderFragment : BaseFragment() {
+class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+    private val TYPE_DAY_VIEW = 1
+    private val TYPE_THREE_DAY_VIEW = 2
+    private val TYPE_WEEK_VIEW = 3
+    private val mWeekViewType = TYPE_DAY_VIEW
+    private var mWeekView: WeekView? = null
 
-/*    override fun getLayout(position: Int) = when (position) {
-        1 -> R.layout.fragment_01
-        2 -> R.layout.fragment_02
-        3 -> R.layout.fragment_03
-        4 -> R.layout.fragment_04
-        else -> R.layout.fragment_05
-    }*/
     override fun getLayout() = R.layout.fragment_01
 
     companion object {
@@ -25,5 +34,199 @@ class PlaceholderFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mWeekView?.setNumberOfVisibleDays(1)
+
+        // Get a reference for the week view in the layout.
+//        mWeekView = findViewById(R.id.weekView) as WeekView
+
+        // Show a toast message about the touched event.
+        weekView.setOnEventClickListener(this)
+
+        // The week view has infinite scrolling horizontally. We have to provide the events of a
+        // month every time the month changes on the week view.
+        weekView.setMonthChangeListener(this)
+
+        // Set long press listener for events.
+        weekView.eventLongPressListener = this
+
+        // Set long press listener for empty view
+        weekView.emptyViewLongPressListener = this
+
+        // Set up a date time interpreter to interpret how the date and time will be formatted in
+        // the week view. This is optional.
+        setupDateTimeInterpreter(false)
+
     }
+
+
+
+    override fun onMonthChange(newYear: Int, newMonth: Int): List<WeekViewEvent> {
+        // Populate the week view with some events.
+        val events = ArrayList<WeekViewEvent>()
+
+        var startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        var endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR, 1)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        var event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
+//        event.color = resources.getColor(R.color.event_color_01)
+        events.add(event)
+
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 4)
+        startTime.set(Calendar.MINUTE, 20)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.set(Calendar.HOUR_OF_DAY, 5)
+        endTime.set(Calendar.MINUTE, 0)
+        event = WeekViewEvent(10, getEventTitle(startTime), startTime, endTime)
+ //       event.color = resources.getColor(R.color.event_color_03)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 5)
+        startTime.set(Calendar.MINUTE, 30)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(2, getEventTitle(startTime), startTime, endTime)
+ //       event.color = resources.getColor(R.color.event_color_02)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 5)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 1)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(3, getEventTitle(startTime), startTime, endTime)
+ //       event.color = resources.getColor(R.color.event_color_03)
+        events.add(event)
+
+/*
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.DAY_OF_MONTH, 1)
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+  //      event.color = resources.getColor(R.color.event_color_01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.DAY_OF_MONTH, startTime.getActualMaximum(Calendar.DAY_OF_MONTH))
+        startTime.set(Calendar.HOUR_OF_DAY, 15)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+ //       event.color = resources.getColor(R.color.event_color_02)
+        events.add(event)
+
+        //AllDay event
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 0)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 23)
+        event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
+ //       event.color = resources.getColor(R.color.event_color_04)
+        events.add(event)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.DAY_OF_MONTH, 8)
+        startTime.set(Calendar.HOUR_OF_DAY, 2)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.set(Calendar.DAY_OF_MONTH, 10)
+        endTime.set(Calendar.HOUR_OF_DAY, 23)
+        event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
+  //      event.color = resources.getColor(R.color.event_color_03)
+        events.add(event)
+
+        // All day event until 00:00 next day
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.DAY_OF_MONTH, 10)
+        startTime.set(Calendar.HOUR_OF_DAY, 0)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.SECOND, 0)
+        startTime.set(Calendar.MILLISECOND, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.set(Calendar.DAY_OF_MONTH, 11)
+        event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
+  //      event.color = resources.getColor(R.color.event_color_01)
+        events.add(event)*/
+
+        return events
+    }
+    /**
+     * Set up a date time interpreter which will show short date values when in week view and long
+     * date values otherwise.
+     * @param shortDate True if the date values should be short.
+     */
+    private fun setupDateTimeInterpreter(shortDate: Boolean) {
+        mWeekView?.setDateTimeInterpreter(object : DateTimeInterpreter {
+            override fun interpretDate(date: Calendar): String {
+                val weekdayNameFormat = SimpleDateFormat("EEE", Locale.getDefault())
+                var weekday = weekdayNameFormat.format(date.time)
+                val format = SimpleDateFormat(" M/d", Locale.getDefault())
+
+                // All android api level do not have a standard way of getting the first letter of
+                // the week day name. Hence we get the first char programmatically.
+                // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
+                if (shortDate)
+                    weekday = weekday[0].toString()
+                return weekday.toUpperCase() + format.format(date.time)
+            }
+
+            override fun interpretTime(hour: Int): String {
+                return if (hour > 11) (hour - 12).toString() + " PM" else if (hour == 0) "12 AM" else hour.toString() + " AM"
+            }
+        })
+    }
+
+    protected fun getEventTitle(time: Calendar): String {
+        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
+    }
+
+    override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
+        //    Toast.makeText(this, "Clicked " + event.name, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onEventLongPress(event: WeekViewEvent, eventRect: RectF) {
+        //    Toast.makeText(this, "Long pressed event: " + event.name, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onEmptyViewLongPress(time: Calendar) {
+        //    Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show()
+    }
+
+    fun getWeekView(): WeekView? {
+        return mWeekView
+    }
+
 }
