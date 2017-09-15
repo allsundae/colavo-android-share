@@ -11,13 +11,13 @@ interface MainContract {
 
     interface View : BaseView {
 
-        fun updatePager()
+        fun updatePager() //WTF
     }
 
     interface Presenter : BasePresenter<View> {
 
         fun setSectionPagerModel(sectionPagerModel: SectionsPagerModel)
 
-        fun loadSectionPagerItem()
+        fun loadSectionPagerItem() //WTF
     }
 }

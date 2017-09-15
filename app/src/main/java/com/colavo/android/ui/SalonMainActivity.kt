@@ -2,6 +2,7 @@ package com.colavo.android.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.PagerAdapter
 import android.view.MenuItem
 import com.colavo.android.R
 import kotlinx.android.synthetic.main.activity_salon_main.*
@@ -11,14 +12,10 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.adapter.SectionsPagerAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.ui.salons.SalonListActivity
-import com.roughike.bottombar.BottomBar
 import kotlinx.android.synthetic.main.toolbar.*
-import com.colavo.android.R.id.bottomBar
-import com.colavo.android.R.id.toolBar
 import com.colavo.android.base.view.BasePresenterActivity
-import android.support.annotation.NonNull
-import android.support.design.widget.BottomNavigationView
 import com.colavo.android.main.presenter.MainContract
+import com.colavo.android.ui.adapter.SectionsPagerModel
 import com.colavo.android.view.main.presenter.MainPresenter
 
 
@@ -95,7 +92,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
 /*       getPresenter().setSectionPagerModel(mSectionsPagerAdapter);
        getPresenter().loadSectionPagerItem();*/
         presenter?.setSectionPagerModel(mSectionsPagerAdapter)
-        presenter?.loadSectionPagerItem()
+        presenter?.loadSectionPagerItem() //WTF
 
     }
 
@@ -118,8 +115,11 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
         finish()
     }
 
-    override fun updatePager() {
-        mSectionsPagerAdapter?.notifyDataSetChanged()
+    override fun updatePager() { //WTF
+        val pagerAdapter : PagerAdapter = container.getAdapter()
+        if (pagerAdapter != null) pagerAdapter.notifyDataSetChanged()
+
+        //mSectionsPagerAdapter?.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
@@ -137,11 +137,12 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     private var prevBottomNavigation: MenuItem? = null
 
     override fun onPageSelected(position: Int) {
-        if (prevBottomNavigation != null) {
+/*        if (prevBottomNavigation != null) {
             prevBottomNavigation!!.isChecked = false
         }
-     //   prevBottomNavigation = bottomBar.getTabAtPosition(position)
-        prevBottomNavigation!!.isChecked = true
+        prevBottomNavigation = bottomBar.getTabAtPosition(position)
+        prevBottomNavigation!!.isChecked = true*/
+        bottomBar.selectTabAtPosition(position)
     }
 
     override fun onPageScrollStateChanged(state: Int) {

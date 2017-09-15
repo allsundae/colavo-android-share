@@ -16,7 +16,7 @@ class MainPresenter : AbstractPresenter<MainContract.View>(), MainContract.Prese
         this.sectionsPagerModel = sectionPagerModel
     }
 
-    override fun loadSectionPagerItem() {
+    override fun loadSectionPagerItem() { //WTF
         sectionsPagerModel!!.setListItem(1)
         sectionsPagerModel!!.setListItem(2)
         sectionsPagerModel!!.setListItem(3)
@@ -24,7 +24,7 @@ class MainPresenter : AbstractPresenter<MainContract.View>(), MainContract.Prese
         sectionsPagerModel!!.setListItem(5)
 
         //getView().updatePager()
-        view!!.updatePager()
+        view!!.updatePager() //WTF
     }
 
 }
