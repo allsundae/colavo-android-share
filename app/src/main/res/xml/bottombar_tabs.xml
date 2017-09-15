@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="30dp"
+    android:paddingBottom="0dp"
+    android:layout_marginTop="100dp"
+    android:orientation="vertical">
+    ≈>
+<tabs>
+    <tab
+        id="@+id/action_calendar"
+        icon="@drawable/ic_calendar"
+        title="@string/bottom_navi_1" />
+    <tab
+        id="@+id/action_checkouts"
+        icon="@drawable/ic_calculator"
+        title="@string/bottom_navi_2" />
+    <tab
+        id="@+id/action_stats"
+        icon="@drawable/ic_chart"
+        title="@string/bottom_navi_3" />
+    <tab
+        id="@+id/action_customers"
+        icon="@drawable/ic_person"
+        title="@string/bottom_navi_4" />
+    <tab
+        id="@+id/action_settings"
+        icon="@drawable/ic_gear"
+        title="@string/bottom_navi_5" />
+</tabs>
+</LinearLayout>

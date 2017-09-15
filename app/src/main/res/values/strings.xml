@@ -28,4 +28,8 @@
     <string name="bottom_navi_4">Customers</string>
     <string name="bottom_navi_5">Settings</string>
     <string name="title_select_salon">Select a salon</string>
+    <string name="title_activity_salon_main">SalonMainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

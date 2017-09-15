@@ -1,7 +1,7 @@
 package com.colavo.android.ui.salons
 
 import com.colavo.android.entity.salon.SalonModel
-import com.colavo.android.ui.BaseView
+import com.colavo.android.base.BaseView
 
 /**
  * Created by RUS on 17.07.2016.

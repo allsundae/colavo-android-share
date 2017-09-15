@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="c34160cf143137e9c1519e99607a3159af242652">
+        sha1="e7694f886c29d0cbeb5e36ce49e98368ee2bd477">
         <dex dex="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_24ab318043c6584dcb4069eaf44184dbeef61e2b/classes.dex" />
     </item>
 

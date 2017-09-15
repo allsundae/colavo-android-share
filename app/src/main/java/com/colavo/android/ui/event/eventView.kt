@@ -1,7 +1,7 @@
 package com.colavo.android.ui.event
 
 import com.colavo.android.entity.event.EventModel
-import com.colavo.android.ui.BaseView
+import com.colavo.android.base.BaseView
 
 /**
  * Created by RUS on 23.07.2016.
