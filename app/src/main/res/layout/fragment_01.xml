@@ -3,26 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/buttonSecondary">
+    android:background="@color/backgroundWhite"
+    android:paddingTop="@dimen/toolbar_height">
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:eventTextColor="@android:color/white"
+        app:eventTextColor="@color/primaryTextColor"
         app:eventPadding="5dp"
         app:eventCornerRadius="5dp"
         app:eventTextSize="14dp"
+        app:eventMarginVertical="2dp"
+        app:hourSeparatorColor="#DDE0E2"
+        app:overlappingEventGap="10dp"
+        app:showNowLine="true"
+        app:nowLineColor="#FE7C92"
         app:textSize="11sp"
-        app:hourHeight="60dp"
-        app:headerColumnPadding="8dp"
+        app:hourHeight="100dp"
+        app:headerColumnPadding="2dp"
         app:headerColumnTextColor="#8f000000"
-        app:headerRowPadding="12dp"
-        app:columnGap="8dp"
+        app:headerRowPadding="25dp"
+        app:columnGap="2dp"
         app:noOfVisibleDays="3"
         app:headerRowBackgroundColor="#ffefefef"
-        app:dayBackgroundColor="#05000000"
-        app:todayBackgroundColor="#1848adff"
+        app:dayBackgroundColor="@color/backgroundWhite"
+        app:todayBackgroundColor="@color/backgroundWhite"
         app:headerColumnBackground="#ffffffff"/>
 
 

@@ -8,12 +8,14 @@ import kotlinx.android.synthetic.main.fragment_01.*
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.MonthLoader
 import com.alamkanak.weekview.WeekView
-import android.widget.Toast
 import android.graphics.RectF
+import android.support.v4.content.ContextCompat
+import android.widget.Toast
 import com.alamkanak.weekview.DateTimeInterpreter
-import com.colavo.android.utils.toast
+import kotlinx.android.synthetic.main.event_item.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 
 /**
@@ -32,10 +34,14 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         fun newInstance() = PlaceholderFragment()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupDateTimeInterpreter(true)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mWeekView?.setNumberOfVisibleDays(1)
 
         // Get a reference for the week view in the layout.
 //        mWeekView = findViewById(R.id.weekView) as WeekView
@@ -55,7 +61,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(false)
+        setupDateTimeInterpreter(true)
 
     }
 
@@ -74,7 +80,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.add(Calendar.HOUR, 1)
         endTime.set(Calendar.MONTH, newMonth - 1)
         var event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
-//        event.color = resources.getColor(R.color.event_color_01)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
 
@@ -87,7 +93,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.set(Calendar.HOUR_OF_DAY, 5)
         endTime.set(Calendar.MINUTE, 0)
         event = WeekViewEvent(10, getEventTitle(startTime), startTime, endTime)
- //       event.color = resources.getColor(R.color.event_color_03)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -99,7 +105,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(2, getEventTitle(startTime), startTime, endTime)
- //       event.color = resources.getColor(R.color.event_color_02)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -112,10 +118,10 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(3, getEventTitle(startTime), startTime, endTime)
- //       event.color = resources.getColor(R.color.event_color_03)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
         events.add(event)
 
-/*
+
         startTime = Calendar.getInstance()
         startTime.set(Calendar.DAY_OF_MONTH, 1)
         startTime.set(Calendar.HOUR_OF_DAY, 3)
@@ -125,7 +131,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
-  //      event.color = resources.getColor(R.color.event_color_01)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -137,10 +143,10 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
- //       event.color = resources.getColor(R.color.event_color_02)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
-        //AllDay event
+  /*      //AllDay event
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 0)
         startTime.set(Calendar.MINUTE, 0)
@@ -149,7 +155,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 23)
         event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
- //       event.color = resources.getColor(R.color.event_color_04)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
         events.add(event)
 
@@ -163,7 +169,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.set(Calendar.DAY_OF_MONTH, 10)
         endTime.set(Calendar.HOUR_OF_DAY, 23)
         event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
-  //      event.color = resources.getColor(R.color.event_color_03)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
         // All day event until 00:00 next day
@@ -178,7 +184,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.set(Calendar.DAY_OF_MONTH, 11)
         event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
-  //      event.color = resources.getColor(R.color.event_color_01)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)*/
 
         return events
@@ -189,7 +195,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
      * @param shortDate True if the date values should be short.
      */
     private fun setupDateTimeInterpreter(shortDate: Boolean) {
-        mWeekView?.setDateTimeInterpreter(object : DateTimeInterpreter {
+        mWeekView?.dateTimeInterpreter = object : DateTimeInterpreter {
             override fun interpretDate(date: Calendar): String {
                 val weekdayNameFormat = SimpleDateFormat("EEE", Locale.getDefault())
                 var weekday = weekdayNameFormat.format(date.time)
@@ -200,29 +206,38 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
                 // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
                 if (shortDate)
                     weekday = weekday[0].toString()
-                return weekday.toUpperCase() + format.format(date.time)
+                //return weekday.toUpperCase() + format.format(date.time)
+                return weekday + format.format(date.time)
             }
 
             override fun interpretTime(hour: Int): String {
-                return if (hour > 11) (hour - 12).toString() + " PM" else if (hour == 0) "12 AM" else hour.toString() + " AM"
+                if (hour == 12 ) {
+                    return if (hour > 11) (hour - 12).toString() + " PM"
+                    else if (hour == 0) "12 AM" else hour.toString() + " AM"
+                }
+                else
+                    return ""
             }
-        })
+        }
     }
 
     protected fun getEventTitle(time: Calendar): String {
-        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
+        return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
+        Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
+        //showToast("Clicked $event.name")
         //    Toast.makeText(this, "Clicked " + event.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onEventLongPress(event: WeekViewEvent, eventRect: RectF) {
+        Toast.makeText(context, "Long pressed event: ${event.name}" , Toast.LENGTH_LONG).show()
         //    Toast.makeText(this, "Long pressed event: " + event.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onEmptyViewLongPress(time: Calendar) {
-        //    Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show()
     }
 
     fun getWeekView(): WeekView? {
