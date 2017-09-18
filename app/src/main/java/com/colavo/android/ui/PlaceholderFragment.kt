@@ -1,5 +1,7 @@
 package com.colavo.android.ui
 
+import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.colavo.android.R
@@ -15,6 +17,14 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import kotlinx.android.synthetic.main.event_item.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.graphics.Color.parseColor
+import com.meetic.marypopup.MaryPopup
+import android.graphics.Color.parseColor
+import butterknife.ButterKnife
+import butterknife.OnClick
+
+
+
 
 
 
@@ -27,6 +37,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     private val TYPE_WEEK_VIEW = 3
     private val mWeekViewType = TYPE_DAY_VIEW
     private var mWeekView: WeekView? = null
+
+    private lateinit var popup: MaryPopup
 
     override fun getLayout() = R.layout.fragment_01
 
@@ -62,6 +74,18 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
+
+/*        val marypopup = MaryPopup.with(this.activity)
+                .cancellable(true)
+                .draggable(true)
+                .blackOverlayColor(Color.parseColor("#DD444444"))
+                .backgroundColor(Color.parseColor("#EFF4F5"))
+                .content(R.layout.popup_content)*/
+        popup = MaryPopup.with(this.activity)
+                .cancellable(true)
+                .draggable(true)
+                .blackOverlayColor(Color.parseColor("#DD444444"))
+                .backgroundColor(Color.parseColor("#EFF4F5"));
 
     }
 
@@ -227,8 +251,18 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
         Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
-        //showToast("Clicked $event.name")
-        //    Toast.makeText(this, "Clicked " + event.name, Toast.LENGTH_SHORT).show()
+        popup.content(R.layout.popup_content)
+                .from(this.view)
+                .show()
+
+    }
+
+    fun onBackPressed() {
+        if (popup.isOpened) {
+            popup.close(true)
+        } else {
+            //super.onBackPressed()
+        }
     }
 
     override fun onEventLongPress(event: WeekViewEvent, eventRect: RectF) {

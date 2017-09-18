@@ -20,8 +20,8 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
     }
 
     inner class ItemViewHolder(val v: View,
-                               val salonName: TextView = v.salon_name,
-                                val salonOwner: TextView = v.salon_owner_name,
+                               val salonName: TextView = v.pop_status,
+                               val salonOwner: TextView = v.modifiedDate,
 /*                               val conversationLastMessageTime: TextView = v.conversation_last_message_time,
                                val conversationLastMessage: TextView = v.conversation_last_message,*/
                                val salonAddress: TextView = v.salon_address) : RecyclerView.ViewHolder(v) {

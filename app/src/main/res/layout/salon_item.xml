@@ -41,7 +41,7 @@
         android:layout_alignParentStart="true">
 
         <TextView
-            android:id="@+id/salon_name"
+            android:id="@+id/pop_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -60,11 +60,11 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_icon" />-->
         <TextView
-            android:id="@+id/salon_owner_name"
+            android:id="@+id/modifiedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/salon_name"
+            android:layout_below="@+id/pop_status"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:letterSpacing="-0.05"
@@ -78,10 +78,10 @@
             android:id="@+id/salon_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/salon_owner_name"
-            android:layout_alignBottom="@+id/salon_owner_name"
+            android:layout_alignBaseline="@+id/modifiedDate"
+            android:layout_alignBottom="@+id/modifiedDate"
             android:layout_marginStart="11dp"
-            android:layout_toEndOf="@+id/salon_owner_name"
+            android:layout_toEndOf="@+id/modifiedDate"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
