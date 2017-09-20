@@ -22,10 +22,7 @@ import com.meetic.marypopup.MaryPopup
 import android.graphics.Color.parseColor
 import butterknife.ButterKnife
 import butterknife.OnClick
-
-
-
-
+import com.colavo.android.ui.event.eventView
 
 
 /**
@@ -75,7 +72,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
 
-/*        val marypopup = MaryPopup.with(this.activity)
+/*        val marypopup = MaryPopup.with(t   his.activity)
                 .cancellable(true)
                 .draggable(true)
                 .blackOverlayColor(Color.parseColor("#DD444444"))
@@ -250,7 +247,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
-        Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
+  //      Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
         popup.content(R.layout.popup_content)
                 .from(this.view)
                 .show()

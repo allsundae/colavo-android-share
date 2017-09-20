@@ -7,8 +7,9 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$USER_HOME$/Workspace/git/colavo_android" />
-            <option value="$USER_HOME$/Workspace/git/colavo_android/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/weekviewlib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Workspace/git/colavo_android/app/app.iml" filepath="$USER_HOME$/Workspace/git/colavo_android/app/app.iml" />
-      <module fileurl="file://$USER_HOME$/Workspace/git/colavo_android/colavo_android.iml" filepath="$USER_HOME$/Workspace/git/colavo_android/colavo_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/colavo_android.iml" filepath="$PROJECT_DIR$/colavo_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weekviewlib/weekviewlib.iml" filepath="$PROJECT_DIR$/weekviewlib/weekviewlib.iml" />
     </modules>
   </component>
 </project>
