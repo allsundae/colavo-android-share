@@ -20,9 +20,12 @@ import java.util.*
 import android.graphics.Color.parseColor
 import com.meetic.marypopup.MaryPopup
 import android.graphics.Color.parseColor
+import android.view.ViewGroup
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.colavo.android.ui.event.eventView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 
 
 /**
@@ -256,7 +259,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     protected fun getEventTitle(time: Calendar): String {
  //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
         return String.format("Event of %02d:%02d " +
-                            "\n%s/%d"
+                            "%s/%d"
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
                             , time.get(Calendar.MONTH) + 1
@@ -265,8 +268,37 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
   //      Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
+
+        var mView = RelativeLayout(this.context)
+
+//        // Gets the layout params that will allow you to resize the layout
+//        var params = mView.getLayoutParams()
+//        // Changes the height and width to the specified *pixels*
+//        params.left = eventRect.left.toInt()
+//        params.top = eventRect.top.toInt()
+//        params.height = eventRect.width().toInt()
+//        params.width = eventRect.height().toInt()
+//        mView.setLayoutParams(params)
+
+        // val params = mView.layoutParams
+        mView.setX (eventRect.left)
+        mView.setY (eventRect.top)
+        mView.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        var params = mView.getLayoutParams()
+        params.width = eventRect.width().toInt()
+        params.height = eventRect.height().toInt()
+        mView.setLayoutParams(params)
+
+     //   mView.setLayoutParams(eventRect.width().toInt(), eventRect.height().toInt())
+
+
+/*        mView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        mView.left = eventRect.left.toInt()
+        mView.top = eventRect.top.toInt()*/
+
         popup.content(R.layout.popup_content)
-                .from(this.view)
+                .cancellable(true)
+                .from(mView)
                 .show()
 
     }
