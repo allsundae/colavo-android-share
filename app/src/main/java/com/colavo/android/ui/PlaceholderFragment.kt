@@ -100,10 +100,21 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         var endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR, 1)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        var event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
+        var event = WeekViewEvent(1, getEventTitle(startTime),"\nLocation", startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
 
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 4)
@@ -243,7 +254,13 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     }
 
     protected fun getEventTitle(time: Calendar): String {
-        return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
+ //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
+        return String.format("Event of %02d:%02d " +
+                            "\n%s/%d"
+                            , time.get(Calendar.HOUR_OF_DAY)
+                            , time.get(Calendar.MINUTE)
+                            , time.get(Calendar.MONTH) + 1
+                            , time.get(Calendar.DAY_OF_MONTH))
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
