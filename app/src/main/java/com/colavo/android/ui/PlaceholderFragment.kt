@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.event_item.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.graphics.Color.parseColor
-import com.meetic.marypopup.MaryPopup
 import android.graphics.Color.parseColor
 import android.view.ViewGroup
 import butterknife.ButterKnife
@@ -26,6 +25,10 @@ import butterknife.OnClick
 import com.colavo.android.ui.event.eventView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.view.Gravity
+import android.R.attr.gravity
+import android.support.annotation.VisibleForTesting
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
 
 
 /**
@@ -38,7 +41,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     private val mWeekViewType = TYPE_DAY_VIEW
     private var mWeekView: WeekView? = null
 
-    private lateinit var popup: MaryPopup
+//    private lateinit var popup: MaryPopup
 
     override fun getLayout() = R.layout.fragment_01
 
@@ -75,18 +78,13 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
 
-/*        val marypopup = MaryPopup.with(t   his.activity)
-                .cancellable(true)
-                .draggable(true)
-                .blackOverlayColor(Color.parseColor("#DD444444"))
-                .backgroundColor(Color.parseColor("#EFF4F5"))
-                .content(R.layout.popup_content)*/
+/*
         popup = MaryPopup.with(this.activity)
                 .cancellable(true)
                 .draggable(true)
                 .blackOverlayColor(Color.parseColor("#DD444444"))
                 .backgroundColor(Color.parseColor("#EFF4F5"));
-
+*/
     }
 
 
@@ -267,49 +265,51 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
-  //      Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
 
-        var mView = RelativeLayout(this.context)
+        val mView = LinearLayout(this.context)
 
-//        // Gets the layout params that will allow you to resize the layout
-//        var params = mView.getLayoutParams()
-//        // Changes the height and width to the specified *pixels*
-//        params.left = eventRect.left.toInt()
-//        params.top = eventRect.top.toInt()
-//        params.height = eventRect.width().toInt()
-//        params.width = eventRect.height().toInt()
-//        mView.setLayoutParams(params)
+        // Gets the layout params that will allow you to resize the layout
 
-        // val params = mView.layoutParams
-        mView.setX (eventRect.left)
-        mView.setY (eventRect.top)
-        mView.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        var params = mView.getLayoutParams()
-        params.width = eventRect.width().toInt()
-        params.height = eventRect.height().toInt()
-        mView.setLayoutParams(params)
+        val relativeParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT)
+        relativeParams.setMargins(eventRect.left.toInt(), eventRect.top.toInt(), 0, 0)
+        relativeParams.width = eventRect.width().toInt()
+        relativeParams.height = eventRect.height().toInt()
+        mView.setBackgroundColor(Color.rgb(255,0,0))
+        mView.run {
+            setLayoutParams(relativeParams)
+            setVisibility(View.VISIBLE)
+        }
 
-     //   mView.setLayoutParams(eventRect.width().toInt(), eventRect.height().toInt())
+        //Show Tooltip Window
 
-
-/*        mView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        mView.left = eventRect.left.toInt()
-        mView.top = eventRect.top.toInt()*/
-
+        SimpleTooltip.Builder(context)
+                .anchorView(weekView)
+                .text("Text do Tooltip")
+                .gravity(Gravity.END)
+                .animated(true)
+                .transparentOverlay(false)
+                .build()
+                .show()
+/* MaryPopup
         popup.content(R.layout.popup_content)
                 .cancellable(true)
                 .from(mView)
                 .show()
+*/
 
     }
 
+/*  MaryPopup
     fun onBackPressed() {
         if (popup.isOpened) {
             popup.close(true)
         } else {
             //super.onBackPressed()
         }
-    }
+    }*/
 
     override fun onEventLongPress(event: WeekViewEvent, eventRect: RectF) {
         Toast.makeText(context, "Long pressed event: ${event.name}" , Toast.LENGTH_LONG).show()

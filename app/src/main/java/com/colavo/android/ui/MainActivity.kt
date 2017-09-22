@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.colavo.android.App
+import com.colavo.android.R
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.ui.login.LoginActivity
 import javax.inject.Inject
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
 
         (application as App).appComponent.inject(this)
