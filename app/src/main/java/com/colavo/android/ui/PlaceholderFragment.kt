@@ -28,7 +28,9 @@ import android.widget.RelativeLayout
 import android.view.Gravity
 import android.R.attr.gravity
 import android.support.annotation.VisibleForTesting
-import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
+import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
+
+
 
 
 /**
@@ -270,6 +272,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         val mView = LinearLayout(this.context)
 
         // Gets the layout params that will allow you to resize the layout
+/*
 
         val relativeParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -282,17 +285,24 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
             setLayoutParams(relativeParams)
             setVisibility(View.VISIBLE)
         }
+*/
 
         //Show Tooltip Window
+        SwipeDismissDialog.Builder(this.context)
+                .setLayoutResId(R.layout.popup_content)
+                .setFlingVelocity(0.06f)
+                .build()
+                .show()
 
-        SimpleTooltip.Builder(context)
+/* SimpleTooltip
+       SimpleTooltip.Builder(context)
                 .anchorView(weekView)
                 .text("Text do Tooltip")
                 .gravity(Gravity.END)
                 .animated(true)
                 .transparentOverlay(false)
                 .build()
-                .show()
+                .show()*/
 /* MaryPopup
         popup.content(R.layout.popup_content)
                 .cancellable(true)

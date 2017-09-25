@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_4f606f69ed26a061141ad59c1b5ee7da8ba092fe/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.0"
-        sha1="27771797a75e278adb42f6bcced9a6b75daa9c99">
+        revision="25.0.3"
+        sha1="265c919acc6d3c8ce4d0664910ef707d48dd53ef">
         <dex dex="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_24ab318043c6584dcb4069eaf44184dbeef61e2b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/macbookpro/Workspace/git/colavo_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_4f606f69ed26a061141ad59c1b5ee7da8ba092fe/classes.dex" />
     </item>
 
 </items>

@@ -1,73 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="340dp"
-    android:layout_height="wrap_content"
-    android:background="#EFF4F5"
-    android:elevation="24dp"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_logocolavo"
-            android:tint="@color/backgroundWhite" />
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="30dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_select_salon"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/common_google_play_services_enable_button"
-            android:textColor="#bc3e3e3e"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@android:string/ok"
-            android:textColor="@color/buttonSecondary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-</LinearLayout>-->
-
-
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin">
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:elevation="24dp"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="@layout/rounded"
+    android:id="@+id/popupcontent">
 
     <LinearLayout
         android:layout_width="363dp"
@@ -226,7 +167,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <TextView
-            android:id="@+id/modifiedDate"
+            android:id="@+id/modifyButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
