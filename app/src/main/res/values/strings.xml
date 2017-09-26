@@ -17,7 +17,8 @@
     </string>
     <string name="title_activity_conversations">ConversationsActivity</string>
     <string name="create_conversation">Create a salon</string>
-    <string name="input_conversation_name">Input salon name</string>
+    <string name="input_salon_name">Input salon name</string>
+    <string name="input_salon_address">Input salon address</string>
     <string name="conversation_name">salon name</string>
     <string name="conversations_loading">Loading salon</string>
     <string name="wait">Wait</string>

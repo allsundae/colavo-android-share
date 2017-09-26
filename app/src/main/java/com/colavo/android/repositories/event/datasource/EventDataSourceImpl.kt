@@ -21,7 +21,9 @@ import rx.schedulers.Schedulers
 /**
  * Created by RUS on 23.07.2016.
  */
-class EventDataSourceImpl(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase, val firebaseAuth: FirebaseAuth) : EventDataSource {
+class EventDataSourceImpl(val retrofit: Retrofit,
+                          val firebaseDatabase: FirebaseDatabase,
+                          val firebaseAuth: FirebaseAuth) : EventDataSource {
 
     override fun getEventMessages(query: EventQuery.GetSalonEvents): Observable<Pair<EventModel, ResponseType>>
             = Observable.create<Pair<EventEntity, ResponseType>>

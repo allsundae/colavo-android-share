@@ -14,7 +14,6 @@ import com.colavo.android.R
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.adapter.SalonsAdapter
-import com.colavo.android.ui.event.eventActivity
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.showSnackBar
@@ -22,12 +21,8 @@ import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
-import android.animation.ObjectAnimator
-import android.animation.StateListAnimator
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.Toolbar
-import com.colavo.android.R.id.toolBar
 import com.colavo.android.ui.SalonMainActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -42,6 +37,8 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
                 .content(R.string.wait)
                 .progress(true, 0)
                 .build() }
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +55,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
         add_salon.setOnClickListener { salonsPresenter.onCreateSalonButtonClicked() }
 
         salonsPresenter.attachView(this)
-        salonsPresenter.initialize()
+        salonsPresenter.initialize(firebaseAuth.currentUser!!.uid)
 
 
     }
@@ -66,10 +63,11 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
     override fun showCreateSalonlistFragment() {
         MaterialDialog.Builder(this)
                 .title(R.string.create_conversation)
-                .content(R.string.input_conversation_name)
+                .content(R.string.input_salon_name)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .positiveText(R.string.create_conversation)
-                .input("", "", false) { dialog, input -> salonsPresenter.createSalon(input.toString()) }.show()
+                .input("", "", false) { dialog, input -> salonsPresenter.createSalon(input.toString()
+                        ,"made from Adroid outer space", firebaseAuth.currentUser!!.uid) }.show() //TODO replace this code
     }
 
     override fun setSalonlist(salonEntities: List<SalonModel>?) {

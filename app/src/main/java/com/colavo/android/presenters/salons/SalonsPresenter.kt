@@ -10,10 +10,10 @@ interface SalonsPresenter : BasePresenter {
 
     fun attachView(salonlistView: SalonlistView)
 
-    fun initialize()
+    fun initialize(ownerId: String)
 
     fun onCreateSalonButtonClicked()
 
-    fun createSalon(salonName: String)
+    fun createSalon(salonName: String, salonAddress: String, ownerUid: String)
 
 }

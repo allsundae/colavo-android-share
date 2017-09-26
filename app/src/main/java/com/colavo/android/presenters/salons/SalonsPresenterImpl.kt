@@ -17,21 +17,24 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
                                               val createSalon: CreateSalon) : SalonsPresenter {
 
     var salonlistView: SalonlistView? = null
+    lateinit var ownerId: String
 
     override fun attachView(salonlistView: SalonlistView) {
         this.salonlistView = salonlistView
     }
 
-    override fun initialize() {
-        getSalons.execute(SalonsSubscriber())
+    override fun initialize(ownerUid: String) {
+        this.ownerId = ownerUid
+        Logger.log(ownerUid)
+        getSalons.execute(ownerUid, SalonsSubscriber())
     }
 
     override fun onCreateSalonButtonClicked() {
         salonlistView?.showCreateSalonlistFragment()
     }
 
-    override fun createSalon(salonName: String) {
-        createSalon.execute(salonName, CreateSalonSubscriber())
+    override fun createSalon(salonName: String, salonAddress: String, ownerUid: String) {
+        createSalon.execute(salonName, salonAddress, ownerUid, CreateSalonSubscriber())
     }
 
     override fun onDestroy() {

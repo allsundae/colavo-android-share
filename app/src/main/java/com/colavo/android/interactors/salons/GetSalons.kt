@@ -14,7 +14,7 @@ import javax.inject.Inject
 @UseCase
 class GetSalons @Inject constructor(salonsRepository: SalonsRepository) : SalonsUseCase(salonsRepository) {
 
-    fun execute(subscriber: Subscriber<Pair<SalonModel, ResponseType>>)
-            = super.execute(SalonsQuery.GetSalons(), subscriber)
+    fun execute(ownerUid:String, subscriber: Subscriber<Pair<SalonModel, ResponseType>>)
+            = super.execute(SalonsQuery.GetSalons(ownerUid), subscriber)
 
 }
