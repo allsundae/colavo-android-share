@@ -1,7 +1,6 @@
 package com.colavo.android.ui
 
-import android.app.Activity
-import android.graphics.Color
+
 import android.os.Bundle
 import android.view.View
 import com.colavo.android.R
@@ -14,21 +13,16 @@ import android.graphics.RectF
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.alamkanak.weekview.DateTimeInterpreter
-import kotlinx.android.synthetic.main.event_item.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.graphics.Color.parseColor
-import android.graphics.Color.parseColor
-import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.OnClick
-import com.colavo.android.ui.event.eventView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.view.Gravity
-import android.R.attr.gravity
-import android.support.annotation.VisibleForTesting
+import kotlinx.android.synthetic.main.toolbar.*
+import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.ui.salons.SalonListActivity
 import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
+import android.support.v7.app.AppCompatActivity
+
+
 
 
 
@@ -47,6 +41,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     override fun getLayout() = R.layout.fragment_01
 
+
     companion object {
         fun newInstance() = PlaceholderFragment()
     }
@@ -54,11 +49,17 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupDateTimeInterpreter(true)
+
+
+      //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
 
         // Get a reference for the week view in the layout.
 //        mWeekView = findViewById(R.id.weekView) as WeekView

@@ -18,4 +18,8 @@
     <color name="eventColor04">#F0E8DE</color>
     <color name="buttonFlatPanelBG">#8e80e7</color>
 
+    <color name="colorTodayTab">#FF718A</color>
+    <color name="colorCalendarBackground">#F8F8F8</color>
+
+
 </resources>
