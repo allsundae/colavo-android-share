@@ -618,11 +618,14 @@ public class WeekView extends View {
                 throw new IllegalStateException("A DateTimeInterpreter must not return null time");
             if (top < getHeight()) canvas.drawText(time, mTimeTextWidth + mHeaderColumnPadding, top + mTimeTextHeight, mTimeTextPaint);
         }
+
+        canvas.clipRect(0, mHeaderHeight, getWidth(), getHeight(), Region.Op.REPLACE);
+        drawNowLine(canvas);
     }
 
     private void drawHeaderRowAndEvents(Canvas canvas) {
         // Calculate the available width for each day.
-        mNumberOfVisibleDays = 7; //TODO Weekview
+        //mNumberOfVisibleDays = 7; //TODO Weekview
         mHeaderColumnWidth = mTimeTextWidth + mHeaderColumnPadding *2;
         mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
         mWidthPerDay = mWidthPerDay/mNumberOfVisibleDays;
@@ -784,26 +787,8 @@ public class WeekView extends View {
             startPixel += mWidthPerDay + mColumnGap; //TODO Weekview
         }
 
-        //TODO Weekview Nowline
-        // Draw the line at the current time.
-        if (mShowNowLine ){ //TODO Weekview && sameDay
-            float startY = mHeaderHeight + mTimelineMarginTop + mTimeTextHeight/2 + mHeaderMarginBottom + mCurrentOrigin.y;
-            Calendar now = Calendar.getInstance();
-            float beforeNow = (now.get(Calendar.HOUR_OF_DAY) + now.get(Calendar.MINUTE)/60.0f) * mHourHeight;
+        //drawNowLine(canvas);
 
-            long nowMsec = System.currentTimeMillis();
-            Date date = new Date(nowMsec);
-            SimpleDateFormat sdfNow = new SimpleDateFormat("h:mm");
-            String hourNow = sdfNow.format(nowMsec);
-
-            canvas.drawLine(0, startY + beforeNow, getWidth(), startY + beforeNow, mNowLinePaint);
-            mShowNowLinePaint = new Paint();
-            RectF mShowNowLineRects = new RectF(mHeaderColumnPadding-20, startY + beforeNow - 35, mHeaderColumnPadding+130, startY + beforeNow +35);
-            mShowNowLinePaint.setColor(Color.WHITE);
-
-            canvas.drawRoundRect(mShowNowLineRects, mEventCornerRadius, mEventCornerRadius, mShowNowLinePaint);
-            canvas.drawText(hourNow, mHeaderColumnPadding+55, startY + beforeNow + 15, mShowNowLineTextPaint);
-        }
 
         // Hide everything in the first cell (top left corner).
      //   canvas.clipRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderHeight + mHeaderRowPadding * 2, Region.Op.REPLACE);
@@ -878,6 +863,29 @@ public class WeekView extends View {
             startPixel += mWidthPerDay + mColumnGap;
         }
 
+    }
+
+    private void drawNowLine(Canvas canvas) {
+        //TODO Weekview Nowline
+        // Draw the line at the current time.
+        if (mShowNowLine ){ //TODO Weekview && sameDay
+            float startY = mHeaderHeight + mTimelineMarginTop + mTimeTextHeight/2 + mHeaderMarginBottom + mCurrentOrigin.y;
+            Calendar now = Calendar.getInstance();
+            float beforeNow = (now.get(Calendar.HOUR_OF_DAY) + now.get(Calendar.MINUTE)/60.0f) * mHourHeight;
+
+            long nowMsec = System.currentTimeMillis();
+            Date date = new Date(nowMsec);
+            SimpleDateFormat sdfNow = new SimpleDateFormat("h:mm");
+            String hourNow = sdfNow.format(nowMsec);
+
+            canvas.drawLine(0, startY + beforeNow, getWidth(), startY + beforeNow, mNowLinePaint);
+            mShowNowLinePaint = new Paint();
+            RectF mShowNowLineRects = new RectF(mHeaderColumnPadding-20, startY + beforeNow - 35, mHeaderColumnPadding+130, startY + beforeNow +35);
+            mShowNowLinePaint.setColor(Color.WHITE);
+
+            canvas.drawRoundRect(mShowNowLineRects, mEventCornerRadius, mEventCornerRadius, mShowNowLinePaint);
+            canvas.drawText(hourNow, mHeaderColumnPadding+55, startY + beforeNow + 15, mShowNowLineTextPaint);
+        }
     }
 
     /**
@@ -1099,7 +1107,7 @@ public class WeekView extends View {
         SpannableStringBuilder bob = new SpannableStringBuilder();
         if (event.getName() != null) {
             bob.append(event.getName());
-            bob.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, bob.length(), 0); //BOLD
+            bob.setSpan(new StyleSpan(Typeface.BOLD), 0, bob.length(), 0); //BOLD
             bob.append(' ');
         }
 
