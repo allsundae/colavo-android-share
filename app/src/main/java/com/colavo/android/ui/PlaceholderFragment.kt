@@ -184,6 +184,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
+
+  /*      //AllDay event
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 0)
         startTime.set(Calendar.MINUTE, 0)
@@ -193,9 +195,6 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.add(Calendar.HOUR_OF_DAY, 23)
         event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
-        events.add(event)
-  /*      //AllDay event
-
         events.add(event)
 
         startTime = Calendar.getInstance()

@@ -619,7 +619,7 @@ public class WeekView extends View {
             if (top < getHeight()) canvas.drawText(time, mTimeTextWidth + mHeaderColumnPadding, top + mTimeTextHeight, mTimeTextPaint);
         }
 
-        canvas.clipRect(0, mHeaderHeight, getWidth(), getHeight(), Region.Op.REPLACE);
+
         drawNowLine(canvas);
     }
 
@@ -868,6 +868,8 @@ public class WeekView extends View {
     private void drawNowLine(Canvas canvas) {
         //TODO Weekview Nowline
         // Draw the line at the current time.
+        canvas.clipRect(0, mHeaderHeight, getWidth(), getHeight(), Region.Op.REPLACE);
+
         if (mShowNowLine ){ //TODO Weekview && sameDay
             float startY = mHeaderHeight + mTimelineMarginTop + mTimeTextHeight/2 + mHeaderMarginBottom + mCurrentOrigin.y;
             Calendar now = Calendar.getInstance();
