@@ -97,7 +97,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_conversations, menu)
         return true
@@ -108,7 +108,8 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
             R.id.action_sign_out -> openLoginActivity()
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
+
     private fun openLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.putExtra(SalonListActivity.EXTRA_SIGN_OUT, true)

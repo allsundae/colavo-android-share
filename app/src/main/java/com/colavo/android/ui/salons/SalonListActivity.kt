@@ -140,6 +140,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
         salonsPresenter.onDestroy()
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_conversations, menu)
         return true
@@ -151,6 +152,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     companion object {
         val EXTRA_SIGN_OUT: String = "SIGN_OUT"

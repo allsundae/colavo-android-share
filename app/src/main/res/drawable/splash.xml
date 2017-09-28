@@ -7,13 +7,14 @@
             android:top="200dp"
             android:width="700dp"
             android:height="700dp" />
+    <item
+        android:drawable="@drawable/ic_logocolavo"
+        android:gravity="center_horizontal"
+        android:top="150dp"
+        android:width="165dp"
+        android:height="27dp" />
     <!--
-        <item
-            android:drawable="@drawable/ic_logocolavo"
-            android:gravity="center_horizontal"
-            android:top="290dp"
-            android:width="130dp"
-            aid:height="20dp" />
+
 
         <item>
             <bitmap

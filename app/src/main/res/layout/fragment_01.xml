@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/toolbar_height"
-        app:noOfVisibleDays="6"
+        android:layout_marginBottom="@dimen/height_bottombar"
+        app:noOfVisibleDays="7"
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerTodayTabColor="@color/colorTodayTab"
         app:headerColumnBackground="#ffffffff"
@@ -30,7 +31,7 @@
         app:todayBackgroundColor="@color/colorCalendarBackground"
 
         app:eventTextColor="@color/primaryTextColor"
-        app:eventPadding="8dp"
+        app:eventPadding="4dp"
         app:eventCornerRadius="6dp"
         app:eventTextSize="12dp"
         app:eventMarginVertical="2dp"
@@ -39,9 +40,13 @@
 
         app:showNowLine="true"
         app:nowLineColor="#FE7C92"
+        app:nowLineThickness="2dp"
 
         app:textSize="11sp"
         app:hourHeight="80dp"
+
+        app:paddingEnd="20dp"
+        app:paddingStart="20dp"
 
         app:columnGap="2dp"
 

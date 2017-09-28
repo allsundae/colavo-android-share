@@ -21,10 +21,10 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.salons.SalonListActivity
 import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
 import android.support.v7.app.AppCompatActivity
-
-
-
-
+import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 
 
 /**
@@ -34,8 +34,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     private val TYPE_DAY_VIEW = 1
     private val TYPE_THREE_DAY_VIEW = 2
     private val TYPE_WEEK_VIEW = 3
-    private val mWeekViewType = TYPE_DAY_VIEW
-    private var mWeekView: WeekView? = null
+    private var mWeekViewType = TYPE_THREE_DAY_VIEW
+    private var mWeekView: WeekView? = weekView
 
 //    private lateinit var popup: MaryPopup
 
@@ -49,7 +49,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupDateTimeInterpreter(true)
-
+        setHasOptionsMenu(true)
 
       //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
     }
@@ -62,7 +62,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
 
         // Get a reference for the week view in the layout.
-//        mWeekView = findViewById(R.id.weekView) as WeekView
+       // mWeekView = R.id.weekView as WeekView
+
 
         // Show a toast message about the touched event.
         weekView.setOnEventClickListener(this)
@@ -80,6 +81,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
+
 
 /*
         popup = MaryPopup.with(this.activity)
@@ -182,7 +184,6 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
-  /*      //AllDay event
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 0)
         startTime.set(Calendar.MINUTE, 0)
@@ -193,6 +194,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
+  /*      //AllDay event
+
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -231,11 +234,11 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
      * @param shortDate True if the date values should be short.
      */
     private fun setupDateTimeInterpreter(shortDate: Boolean) {
-        mWeekView?.dateTimeInterpreter = object : DateTimeInterpreter {
+        mWeekView?.dateTimeInterpreter = object : DateTimeInterpreter { //TODO mWeekView -> weekView
             override fun interpretDate(date: Calendar): String {
                 val weekdayNameFormat = SimpleDateFormat("EEE", Locale.getDefault())
                 var weekday = weekdayNameFormat.format(date.time)
-                val format = SimpleDateFormat(" M/d", Locale.getDefault())
+                val format = SimpleDateFormat("\nM/d", Locale.getDefault())
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
@@ -248,8 +251,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
             override fun interpretTime(hour: Int): String {
                 if (hour == 12 ) {
-                    return if (hour > 11) (hour - 12).toString() + " PM"
-                    else if (hour == 0) "12 AM" else hour.toString() + " AM"
+                    return if (hour > 11) (hour - 12).toString() + " P"
+                    else if (hour == 0) "12 AM" else hour.toString() + " A"
                 }
                 else
                     return ""
@@ -333,6 +336,63 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     fun getWeekView(): WeekView? {
         return mWeekView
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.salon_main, menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        setupDateTimeInterpreter(id == R.id.action_week_view)
+        when (id) {
+            R.id.action_today -> {
+                weekView.goToToday()
+                return true
+            }
+            R.id.action_day_view -> {
+                if (mWeekViewType != TYPE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_DAY_VIEW
+                    weekView.setNumberOfVisibleDays(1)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+            R.id.action_three_day_view -> {
+                if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_THREE_DAY_VIEW
+                    weekView.setNumberOfVisibleDays(3)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+            R.id.action_week_view -> {
+                if (mWeekViewType != TYPE_WEEK_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_WEEK_VIEW
+                    weekView.setNumberOfVisibleDays(7)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

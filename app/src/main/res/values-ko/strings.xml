@@ -24,4 +24,9 @@
     <string name="bottom_navi_4">고객</string>
     <string name="bottom_navi_5">설정</string>
     <string name="title_select_salon">헤어샵 선택</string>
+    <!--Calendar View-->
+    <string name="action_today">오늘</string>
+    <string name="action_day_view">일별보기</string>
+    <string name="action_three_day_view">3일보기</string>
+    <string name="action_week_view">주간보기</string>
 </resources>

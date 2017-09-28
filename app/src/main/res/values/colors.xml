@@ -20,6 +20,7 @@
 
     <color name="colorTodayTab">#FF718A</color>
     <color name="colorCalendarBackground">#F8F8F8</color>
+    <color name="bottomBarInactiveColor">#A0B4C2</color>
 
 
 </resources>
