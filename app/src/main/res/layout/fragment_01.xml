@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
+
         app:noOfVisibleDays="7"
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerTodayTabColor="@color/colorTodayTab"
@@ -44,9 +45,6 @@
 
         app:textSize="11sp"
         app:hourHeight="80dp"
-
-        app:paddingEnd="20dp"
-        app:paddingStart="20dp"
 
         app:columnGap="2dp"
 

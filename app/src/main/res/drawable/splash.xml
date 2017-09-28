@@ -5,14 +5,14 @@
     <item android:drawable="@drawable/ic_icon"
             android:gravity="center_horizontal"
             android:top="200dp"
-            android:width="700dp"
-            android:height="700dp" />
+            android:width="40dp"
+            android:height="40dp" />
     <item
         android:drawable="@drawable/ic_logocolavo"
         android:gravity="center_horizontal"
-        android:top="150dp"
-        android:width="165dp"
-        android:height="27dp" />
+        android:top="270dp"
+        android:width="110dp"
+        android:height="18dp" />
     <!--
 
 
