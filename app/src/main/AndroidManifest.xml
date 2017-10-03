@@ -27,13 +27,17 @@
         <activity
             android:name=".ui.salons.SalonListActivity"
             android:label="@string/title_select_salon"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".ui.SalonMainActivity"
             android:label="@string/title_activity_salon_main"
-            android:parentActivityName=".ui.salons.SalonListActivity">
+            android:parentActivityName=".ui.salons.SalonListActivity"/>
+        <activity
+            android:name=".ui.event.eventActivity"
+            android:label="Event"
+            android:parentActivityName=".ui.salons.SalonListActivity"/>
 
-        </activity>
+
 
     </application>
 

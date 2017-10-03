@@ -2,6 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MyActivity" >
+    <item
+        android:id="@+id/action_settings" android:title="@string/bottom_navi_5"
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_gear"
+        ></item>
+    <item
+        android:id="@+id/action_sign_out" android:title="@string/action_sign_out"
+        android:orderInCategory="200" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_bell"
+        ></item>
     <item android:id="@+id/action_today"
         android:title="@string/action_today"
         android:orderInCategory="100"
@@ -21,4 +31,5 @@
             android:orderInCategory="100"
             app:showAsAction="ifRoom"/>
     </group>
+
 </menu>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
@@ -13,6 +14,7 @@ import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
+import com.colavo.android.ui.MainActivity
 import com.colavo.android.ui.adapter.SalonsAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
@@ -22,7 +24,9 @@ import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
 import com.colavo.android.ui.SalonMainActivity
+import com.colavo.android.ui.event.eventActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_01.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -67,7 +71,7 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .positiveText(R.string.create_conversation)
                 .input("", "", false) { dialog, input -> salonsPresenter.createSalon(input.toString()
-                        ,"made from Adroid outer space", firebaseAuth.currentUser!!.uid) }.show() //TODO replace this code
+                        ,"made from Android outer space", firebaseAuth.currentUser!!.uid) }.show() //TODO replace this code
     }
 
     override fun setSalonlist(salonEntities: List<SalonModel>?) {
@@ -140,23 +144,41 @@ class SalonListActivity : AppCompatActivity(), SalonlistView, SalonsAdapter.OnIt
         salonsPresenter.onDestroy()
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_conversations, menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_conversations, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_sign_out -> openLoginActivity()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_conversations, menu);
+    }*/
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.action_sign_out -> {
+                openLoginActivity()
+                return true
+            }
+            R.id.action_settings -> {
+                showToast("Hello world")
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
     companion object {
         val EXTRA_SIGN_OUT: String = "SIGN_OUT"
         val EXTRA_CONVERSATION: String = "CONVERSATION"
     }
-
 }

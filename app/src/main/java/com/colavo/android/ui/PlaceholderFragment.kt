@@ -99,14 +99,14 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         val events = ArrayList<WeekViewEvent>()
 
         var startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.HOUR_OF_DAY, 1)
         startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         var endTime = startTime.clone() as Calendar
-        endTime.add(Calendar.HOUR, 1)
+        endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        var event = WeekViewEvent(1, getEventTitle(startTime),"\nLocation", startTime, endTime)
+        var event = WeekViewEvent(1, "James\n",getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
@@ -118,19 +118,19 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(2, "James\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 4)
-        startTime.set(Calendar.MINUTE, 20)
+        startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
-        endTime.set(Calendar.HOUR_OF_DAY, 5)
+        endTime.set(Calendar.HOUR_OF_DAY, 6)
         endTime.set(Calendar.MINUTE, 0)
-        event = WeekViewEvent(10, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(3, "John Mayer\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
         events.add(event)
 
@@ -142,7 +142,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(2, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(4, "Frank Ocean\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
         events.add(event)
 
@@ -155,7 +155,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(3, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(5, "Kanye\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
         events.add(event)
 
@@ -168,7 +168,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
-        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(6, "Depp\n",getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
@@ -180,7 +180,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
-        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(7, "Amtonito\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
@@ -261,7 +261,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     protected fun getEventTitle(time: Calendar): String {
  //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
-        return String.format("Event of %02d:%02d " +
+        return String.format("%d:%02d " +
                             "%s/%d"
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
@@ -389,6 +389,12 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
                 }
                 return true
             }
+
+            R.id.action_sign_out -> {
+
+                return true
+            }
+
         }
 
         return super.onOptionsItemSelected(item)

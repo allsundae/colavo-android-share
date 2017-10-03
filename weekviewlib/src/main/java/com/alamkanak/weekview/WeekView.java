@@ -23,6 +23,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -176,6 +177,8 @@ public class WeekView extends View {
 
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
+
+
         @Override
         public boolean onDown(MotionEvent e) {
             goToNearestOrigin();
@@ -217,6 +220,7 @@ public class WeekView extends View {
                     break;
                 }
             }
+            //mNumberOfVisibleDays = 1; //TODO scroll
 
             // Calculate the new origin after scroll.
             switch (mCurrentScrollDirection) {
@@ -566,11 +570,15 @@ public class WeekView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // Draw the header row.
-        drawHeaderRowAndEvents(canvas);
+        // Draw events
+        drawEvents(canvas);
+
         // Draw the time column and all the axes/separators.
         drawTimeColumnAndAxes(canvas);
+        // Draw the header row.
+        drawHeader(canvas);
 
+        drawNowLine(canvas);
     }
 
     private void calculateHeaderHeight(){
@@ -620,12 +628,158 @@ public class WeekView extends View {
         }
 
 
-        drawNowLine(canvas);
+
     }
 
-    private void drawHeaderRowAndEvents(Canvas canvas) {
+    private void drawHeader(Canvas canvas) {
         // Calculate the available width for each day.
-        //mNumberOfVisibleDays = 7; //TODO Weekview
+        //mNumberOfVisibleDays = 7; //TODO Scroll
+        mHeaderColumnWidth = mTimeTextWidth + mHeaderColumnPadding *2;
+        mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
+        mWidthPerDay = mWidthPerDay/mNumberOfVisibleDays;
+
+        calculateHeaderHeight(); //Make sure the header is the right size (depends on AllDay events)
+
+        Calendar today = today();
+
+        if (mAreDimensionsInvalid) {
+            mEffectiveMinHourHeight= Math.max(mMinHourHeight, (int) ((getHeight() - mHeaderHeight ) / 24)); //TODO - mHeaderRowPadding * 2 - mHeaderMarginBottom
+
+            mAreDimensionsInvalid = false;
+            if(mScrollToDay != null)
+                goToDate(mScrollToDay);
+
+            mAreDimensionsInvalid = false;
+            if(mScrollToHour >= 0)
+                goToHour(mScrollToHour);
+
+            mScrollToDay = null;
+            mScrollToHour = -1;
+            mAreDimensionsInvalid = false;
+        }
+        if (mIsFirstDraw){
+            mIsFirstDraw = false;
+
+            // If the week view is being drawn for the first time, then consider the first day of the week.
+            if(mNumberOfVisibleDays >= 7 && today.get(Calendar.DAY_OF_WEEK) != mFirstDayOfWeek && mShowFirstDayOfWeekFirst) {
+                int difference = (today.get(Calendar.DAY_OF_WEEK) - mFirstDayOfWeek);
+                mCurrentOrigin.x += (mWidthPerDay + mColumnGap) * difference;
+            }
+        }
+
+        // Calculate the new height due to the zooming.
+        if (mNewHourHeight > 0){
+            if (mNewHourHeight < mEffectiveMinHourHeight)
+                mNewHourHeight = mEffectiveMinHourHeight;
+            else if (mNewHourHeight > mMaxHourHeight)
+                mNewHourHeight = mMaxHourHeight;
+
+            mCurrentOrigin.y = (mCurrentOrigin.y/mHourHeight)*mNewHourHeight;
+            mHourHeight = mNewHourHeight;
+            mNewHourHeight = -1;
+        }
+
+        // If the new mCurrentOrigin.y is invalid, make it valid.
+        if (mCurrentOrigin.y < getHeight() - mHourHeight * 24 - mHeaderHeight - mTimelineMarginTop - mHeaderMarginBottom - mTimeTextHeight/2)
+            mCurrentOrigin.y = getHeight() - mHourHeight * 24 - mHeaderHeight - mTimelineMarginTop - mHeaderMarginBottom - mTimeTextHeight/2;
+
+        // Don't put an "else if" because it will trigger a glitch when completely zoomed out and
+        // scrolling vertically.
+        if (mCurrentOrigin.y > 0) {
+            mCurrentOrigin.y = 0;
+        }
+
+        // Consider scroll offset.
+        int leftDaysWithGaps = (int) -(Math.ceil(mCurrentOrigin.x / (mWidthPerDay + mColumnGap)));
+        float startFromPixel = mCurrentOrigin.x + (mWidthPerDay + mColumnGap) * leftDaysWithGaps +
+                mHeaderColumnWidth;
+        float startPixel = startFromPixel;
+
+        // Prepare to iterate for each day.
+        Calendar day = (Calendar) today.clone();
+        day.add(Calendar.HOUR, 6);
+
+        // Prepare to iterate for each hour to draw the hour lines.
+        int lineCount = (int) ((getHeight() - mHeaderHeight - mTimelineMarginTop -
+                mHeaderMarginBottom) / mHourHeight) + 1;
+        lineCount = (lineCount) * (mNumberOfVisibleDays+1);
+        float[] hourLines = new float[lineCount * 4];
+
+        //drawNowLine(canvas);
+
+
+        // Hide everything in the first cell (top left corner).
+     //   canvas.clipRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderHeight + mHeaderRowPadding * 2, Region.Op.REPLACE);
+     //   canvas.drawRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderHeight + mHeaderRowPadding * 2, mHeaderBackgroundPaint);
+
+        // Clip to paint header row only.
+        canvas.clipRect(0, 0, getWidth(), (mHeaderHeight)+60, Region.Op.REPLACE); //mHeaderColumnWidth
+
+        // Draw the header background.
+        canvas.drawRect(0, 0, getWidth(), mHeaderHeight, mHeaderBackgroundPaint);
+        // Prepare header background paint.
+        // Draw header shadow
+        GradientDrawable linearGradient = null;
+        int height = (int) (mHeaderHeight);
+        int width = getWidth();
+        int[] colors;
+        final int START_COLOR = Color.parseColor("#07000000");
+        final int END_COLOR = Color.parseColor("#00000000");
+        final int SHADOW_LENGTH = (int) (10 * Resources.getSystem().getDisplayMetrics().density);
+
+        colors = new int[]{START_COLOR, END_COLOR};
+        linearGradient = new GradientDrawable(TOP_BOTTOM, colors);
+        linearGradient.setBounds(0, height, width, height + SHADOW_LENGTH);
+        linearGradient.setOrientation(TOP_BOTTOM);
+        linearGradient.draw(canvas);
+
+        mHeaderBackgroundShadow = new Paint();
+        mHeaderBackgroundShadow.setColor(Color.argb(90, 200, 208, 218));
+        canvas.drawRect(
+                            0
+                            , mHeaderHeight
+                            , getWidth()
+                            , mHeaderHeight + 2
+                            , mHeaderBackgroundShadow
+                        );
+
+        // Draw the header row texts.
+        startPixel = startFromPixel; //TODO Weekview startFromPixel;
+
+        for (int dayNumber=leftDaysWithGaps+1; dayNumber <= leftDaysWithGaps + mNumberOfVisibleDays + 1; dayNumber++) {
+            // Check if the day is today.
+            day = (Calendar) today.clone();
+            day.add(Calendar.DATE, dayNumber - 1);
+            boolean sameDay = isSameDay(day, today);
+
+            // Draw the day labels.
+            String dayLabel = getDateTimeInterpreter().interpretDate(day);
+            if (dayLabel == null)
+                throw new IllegalStateException("A DateTimeInterpreter must not return null date");
+
+            String[] lines = dayLabel.split("\n");
+            canvas.drawText(lines[0], startPixel + mWidthPerDay / 2, mHeaderTextHeight + mHeaderRowPadding/2 + mNumberofEventHeight, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);
+            canvas.drawText(lines[1], startPixel + mWidthPerDay / 2 - 5, mHeaderText2ndHeight + mHeaderRowPadding + mNumberofEventHeight, sameDay ? mTodayHeaderText2ndPaint : mHeaderText2ndPaint);
+
+            // Draw selected date tab bar
+            if ( sameDay == true ) {
+                canvas.drawRect(
+                          startPixel + mHeaderColumnPadding
+                        , mHeaderHeight - mHeaderTabHeight
+                        , startPixel + mWidthPerDay - mHeaderColumnPadding
+                        , mHeaderHeight
+                        , mHeaderTodayTab );
+            }
+
+            drawNumofEvents(day, startPixel, canvas);
+
+            startPixel += mWidthPerDay + mColumnGap;
+        }
+    }
+
+    private void drawEvents(Canvas canvas) {
+        // Calculate the available width for each day.
+        //mNumberOfVisibleDays = 1; //TODO Scroll
         mHeaderColumnWidth = mTimeTextWidth + mHeaderColumnPadding *2;
         mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
         mWidthPerDay = mWidthPerDay/mNumberOfVisibleDays;
@@ -794,74 +948,7 @@ public class WeekView extends View {
      //   canvas.clipRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderHeight + mHeaderRowPadding * 2, Region.Op.REPLACE);
      //   canvas.drawRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderHeight + mHeaderRowPadding * 2, mHeaderBackgroundPaint);
 
-        // Clip to paint header row only.
-        canvas.clipRect(0, 0, getWidth(), (mHeaderHeight)+60, Region.Op.REPLACE); //mHeaderColumnWidth
 
-        // Draw the header background.
-        canvas.drawRect(0, 0, getWidth(), mHeaderHeight, mHeaderBackgroundPaint);
-        // Prepare header background paint.
- /*       mHeaderBackgroundShadow = new Paint();
-        mHeaderBackgroundShadow.setColor(Color.argb(70, 200, 208, 218));
-        canvas.drawRect(0, mHeaderHeight + mHeaderRowPadding * 2, getWidth(), (mHeaderHeight + mHeaderRowPadding * 2)+6, mHeaderBackgroundShadow);
-        mHeaderBackgroundShadow.setShadowLayer(40.0f, 0.0f, 20.0f, 0xFF000000); // radius=10, y-offset=2, color=black//TODO
-*/
-        // Draw header shadow
-        GradientDrawable linearGradient = null;
-        int height = (int) (mHeaderHeight);
-        int width = getWidth();
-        int[] colors;
-        final int START_COLOR = Color.parseColor("#07000000");
-        final int END_COLOR = Color.parseColor("#00000000");
-        final int SHADOW_LENGTH = (int) (10 * Resources.getSystem().getDisplayMetrics().density);
-
-        colors = new int[]{START_COLOR, END_COLOR};
-        linearGradient = new GradientDrawable(TOP_BOTTOM, colors);
-        linearGradient.setBounds(0, height, width, height + SHADOW_LENGTH);
-        linearGradient.setOrientation(TOP_BOTTOM);
-        linearGradient.draw(canvas);
-
-        mHeaderBackgroundShadow = new Paint();
-        mHeaderBackgroundShadow.setColor(Color.argb(90, 200, 208, 218));
-        canvas.drawRect(
-                            0
-                            , mHeaderHeight
-                            , getWidth()
-                            , mHeaderHeight + 2
-                            , mHeaderBackgroundShadow
-                        );
-
-        // Draw the header row texts.
-        startPixel = startFromPixel; //TODO Weekview startFromPixel;
-
-        for (int dayNumber=leftDaysWithGaps+1; dayNumber <= leftDaysWithGaps + mNumberOfVisibleDays + 1; dayNumber++) {
-            // Check if the day is today.
-            day = (Calendar) today.clone();
-            day.add(Calendar.DATE, dayNumber - 1);
-            boolean sameDay = isSameDay(day, today);
-
-            // Draw the day labels.
-            String dayLabel = getDateTimeInterpreter().interpretDate(day);
-            if (dayLabel == null)
-                throw new IllegalStateException("A DateTimeInterpreter must not return null date");
-
-            String[] lines = dayLabel.split("\n");
-            canvas.drawText(lines[0], startPixel + mWidthPerDay / 2, mHeaderTextHeight + mHeaderRowPadding/2 + mNumberofEventHeight, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);
-            canvas.drawText(lines[1], startPixel + mWidthPerDay / 2 - 5, mHeaderText2ndHeight + mHeaderRowPadding + mNumberofEventHeight, sameDay ? mTodayHeaderText2ndPaint : mHeaderText2ndPaint);
-
-            // Draw selected date tab bar
-            if ( sameDay == true ) {
-                canvas.drawRect(
-                          startPixel + mHeaderColumnPadding
-                        , mHeaderHeight - mHeaderTabHeight
-                        , startPixel + mWidthPerDay - mHeaderColumnPadding
-                        , mHeaderHeight
-                        , mHeaderTodayTab );
-            }
-
-            drawNumofEvents(day, startPixel, canvas);
-
-            startPixel += mWidthPerDay + mColumnGap;
-        }
 
     }
 
@@ -1110,6 +1197,7 @@ public class WeekView extends View {
         if (event.getName() != null) {
             bob.append(event.getName());
             bob.setSpan(new StyleSpan(Typeface.BOLD), 0, bob.length(), 0); //BOLD
+            bob.setSpan(new AbsoluteSizeSpan(mEventTextSize+10), 0, bob.length(), 0); //BOLD
             bob.append(' ');
         }
 
