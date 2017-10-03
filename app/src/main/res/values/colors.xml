@@ -7,14 +7,20 @@
     <color name="primaryTextColor">#51536c</color>
     <color name="secondaryTextColor">#929292</color>
     <color name="dividerColor">#B6B6B6</color>
-    <color name="buttonSecondary">#eeeef1</color>
+    <color name="buttonSecondary">#a499eb</color>
     <color name="textSecondary">#c4c1c6</color>
     <color name="foreground_material_light">#000000</color>
     <color name="colorIntroOval">#b8dc4c</color>
     <color name="colorSecondary">#f49797</color>
-    <color name="eventColor01">#F5E9FF</color>
+    <color name="eventColor01">#E1EEF6</color>
     <color name="eventColor02">#e3ddff</color>
     <color name="eventColor03">#D8E7FF</color>
     <color name="eventColor04">#F0E8DE</color>
+    <color name="buttonFlatPanelBG">#8e80e7</color>
+
+    <color name="colorTodayTab">#FF718A</color>
+    <color name="colorCalendarBackground">#F8F8F8</color>
+    <color name="bottomBarInactiveColor">#A0B4C2</color>
+
 
 </resources>

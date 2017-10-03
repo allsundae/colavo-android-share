@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.colavo.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +14,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".ui.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,25 +23,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:launchMode="singleTop"></activity>
+            android:name=".ui.login.LoginActivity" />
         <activity
             android:name=".ui.salons.SalonListActivity"
             android:label="@string/title_select_salon"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.event.eventActivity"
-            android:parentActivityName=".ui.salons.SalonListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".ui.SalonMainActivity"
             android:label="@string/title_activity_salon_main"
-            android:parentActivityName=".ui.salons.SalonListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.colavo.android.ui.salons.SalonListActivity" />
-        </activity>
+            android:parentActivityName=".ui.salons.SalonListActivity"/>
+        <activity
+            android:name=".ui.event.eventActivity"
+            android:label="Event"
+            android:parentActivityName=".ui.salons.SalonListActivity"/>
+
+
+
     </application>
 
 </manifest>

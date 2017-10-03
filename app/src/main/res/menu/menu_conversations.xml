@@ -5,7 +5,14 @@
 
     <item
         android:id="@+id/action_sign_out" android:title="@string/action_sign_out"
-        android:orderInCategory="100" app:showAsAction="never" >
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_bell"
+        >
+    </item>    <item
+        android:id="@+id/action_settings" android:title="@string/bottom_navi_5"
+        android:orderInCategory="200" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_gear"
+        >
     </item>
 
 </menu>

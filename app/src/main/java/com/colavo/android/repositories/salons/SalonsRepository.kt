@@ -4,6 +4,7 @@ import com.colavo.android.entity.query.salons.SalonsQuery
 import com.colavo.android.repositories.BaseRepository
 import com.colavo.android.repositories.salons.datasource.SalonsDataSourceImpl
 import com.colavo.android.utils.HandleUtils
+import com.google.firebase.database.FirebaseDatabase
 import rx.Observable
 import javax.inject.Inject
 import javax.inject.Singleton

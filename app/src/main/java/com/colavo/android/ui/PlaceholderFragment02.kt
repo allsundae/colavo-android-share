@@ -10,13 +10,13 @@ import com.colavo.android.base.BaseFragment
  */
 class PlaceholderFragment02 : BaseFragment() {
 
-/*    override fun getLayout(position: Int) = when (position) {
-        1 -> R.layout.fragment_01
-        2 -> R.layout.fragment_02
-        3 -> R.layout.fragment_03
-        4 -> R.layout.fragment_04
-        else -> R.layout.fragment_05
-    }*/
+    /*    override fun getLayout(position: Int) = when (position) {
+            1 -> R.layout.fragment_01
+            2 -> R.layout.fragment_02
+            3 -> R.layout.fragment_03
+            4 -> R.layout.fragment_04
+            else -> R.layout.fragment_05
+        }*/
     override fun getLayout() = R.layout.fragment_02
 
     companion object {

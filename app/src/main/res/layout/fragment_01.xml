@@ -3,33 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundWhite"
-    android:paddingTop="@dimen/toolbar_height">
+    android:background="@color/backgroundWhite">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        layout="@layout/toolbar"
+
+        />
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:eventTextColor="@color/primaryTextColor"
-        app:eventPadding="8dp"
-        app:eventCornerRadius="8dp"
-        app:eventTextSize="12dp"
-        app:eventMarginVertical="4dp"
-        app:hourSeparatorColor="#DDE0E2"
-        app:overlappingEventGap="4dp"
-        app:showNowLine="true"
-        app:nowLineColor="#FE7C92"
-        app:textSize="12sp"
-        app:hourHeight="100dp"
-        app:headerColumnPadding="16dp"
-        app:headerColumnTextColor="#8f000000"
-        app:headerRowPadding="25dp"
-        app:columnGap="0dp"
+        android:layout_marginTop="@dimen/toolbar_height"
+        android:layout_marginBottom="@dimen/height_bottombar"
+
         app:noOfVisibleDays="1"
         app:headerRowBackgroundColor="@color/backgroundWhite"
-        app:dayBackgroundColor="@color/backgroundWhite"
-        app:todayBackgroundColor="@color/backgroundWhite"
-        app:headerColumnBackground="#ffffffff"/>
+        app:headerTodayTabColor="@color/colorTodayTab"
+        app:headerColumnBackground="#ffffffff"
+        app:headerColumnPadding="16dp"
+        app:headerColumnTextColor="#4f000000"
+        app:todayHeaderTextColor="#474962"
+        app:headerRowPadding="25dp"
+
+        app:dayBackgroundColor="@color/colorCalendarBackground"
+        app:todayBackgroundColor="@color/colorCalendarBackground"
+
+        app:eventTextColor="@color/primaryTextColor"
+        app:eventPadding="4dp"
+        app:eventCornerRadius="6dp"
+        app:eventTextSize="12dp"
+        app:eventMarginVertical="2dp"
+        app:hourSeparatorColor="#DDE0E2"
+        app:overlappingEventGap="2dp"
+
+        app:showNowLine="true"
+        app:nowLineColor="#FE7C92"
+        app:nowLineThickness="2dp"
+
+        app:textSize="11sp"
+        app:hourHeight="80dp"
+
+        app:columnGap="2dp"
+
+
+        />
 
 
 </RelativeLayout>

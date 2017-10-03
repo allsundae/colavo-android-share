@@ -43,7 +43,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:srcCompat="@drawable/ic_intro_oval"
                 android:layout_marginRight="95dp"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginEnd="95dp" />
 
             <ImageView
                 android:id="@+id/imageComb"
@@ -57,13 +58,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:srcCompat="@drawable/ic_intro_comb"
                 android:layout_marginLeft="68dp"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="68dp" />
 
             <ImageView
                 android:id="@+id/imageDryer"
                 android:layout_width="300dp"
                 android:layout_height="340dp"
-                android:layout_marginLeft="0dp"
                 android:layout_weight="0.79"
                 android:scaleType="fitXY"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -82,7 +83,9 @@
                 android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/textView"
@@ -97,7 +100,9 @@
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
 
             <LinearLayout
                 android:id="@+id/inputLayout"
@@ -113,7 +118,9 @@
                 app:layout_constraintBottom_toTopOf="@+id/signinButton"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -149,7 +156,7 @@
 
             <LinearLayout
                 android:id="@+id/signinButton"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="27dp"
@@ -158,7 +165,9 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginStart="@dimen/signin_activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/signin_activity_horizontal_margin">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -222,7 +231,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/guideline"
                 app:layout_constraintGuide_begin="20dp"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteY="45dp"
+                tools:layout_editor_absoluteX="0dp" />
 
 
         </android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ import java.io.Serializable
 class SalonModel(id: String = "",
                  name: String = "",
                  address: String = "",
+                 ownerUid: String ="",
                  var owner: String ="",
                  var lastEvent: String = "",
-                 var lastEventTime: String = "") : BaseSalon(id, name, address), Serializable
+                 var lastEventTime: String = "") : BaseSalon(id, name, address, ownerUid), Serializable

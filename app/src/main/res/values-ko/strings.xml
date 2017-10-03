@@ -11,7 +11,8 @@
     <string name="error_incorrect_password">패스워드가 잘못되었습니다</string>
     <string name="error_invalid_email">이메일주소가 잘못되었습니다</string>
     <string name="error_invalid_password">패스워드가 너무 짧습니다</string>
-    <string name="input_conversation_name">헤어샵 이름을 입력해주세요</string>
+    <string name="input_salon_name">헤어샵 이름을 입력해주세요</string>
+    <string name="input_salon_address">헤어샵 주소를 입력해주세요</string>
     <string name="prompt_email">이메일</string>
     <string name="prompt_name">이름</string>
     <string name="prompt_password">비밀번호</string>
@@ -23,4 +24,9 @@
     <string name="bottom_navi_4">고객</string>
     <string name="bottom_navi_5">설정</string>
     <string name="title_select_salon">헤어샵 선택</string>
+    <!--Calendar View-->
+    <string name="action_today">오늘</string>
+    <string name="action_day_view">일별보기</string>
+    <string name="action_three_day_view">3일보기</string>
+    <string name="action_week_view">주간보기</string>
 </resources>

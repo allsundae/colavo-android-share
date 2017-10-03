@@ -18,6 +18,9 @@ class FirebaseModule {
 
     @Provides
     @Singleton
-    fun getFirebaseDatabase(): FirebaseDatabase = FirebaseDatabase.getInstance()
+    fun getFirebaseDatabase(): FirebaseDatabase {
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        return FirebaseDatabase.getInstance()
+    }
 }

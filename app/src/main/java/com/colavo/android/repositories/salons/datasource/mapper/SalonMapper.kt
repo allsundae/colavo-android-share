@@ -20,6 +20,7 @@ class SalonMapper {
             salonModel.id = baseSalon.id
             salonModel.name = baseSalon.name
             salonModel.address = baseSalon.address
+            salonModel.owner_uid = baseSalon.owner_uid
 //todo
 
             if (user != null) {
@@ -35,6 +36,7 @@ class SalonMapper {
                 salonModel.id = salonEntity.id
                 salonModel.name = salonEntity.name
                 salonModel.address = salonEntity.address
+                salonModel.owner_uid = salonEntity.owner_uid
                 return salonModel
             }
 

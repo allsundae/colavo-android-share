@@ -1,7 +1,6 @@
 package com.colavo.android.ui
 
-import android.app.Activity
-import android.graphics.Color
+
 import android.os.Bundle
 import android.view.View
 import com.colavo.android.R
@@ -14,18 +13,18 @@ import android.graphics.RectF
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.alamkanak.weekview.DateTimeInterpreter
-import kotlinx.android.synthetic.main.event_item.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.graphics.Color.parseColor
-import com.meetic.marypopup.MaryPopup
-import android.graphics.Color.parseColor
-import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.OnClick
-import com.colavo.android.ui.event.eventView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import kotlinx.android.synthetic.main.toolbar.*
+import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.ui.salons.SalonListActivity
+import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
+import android.support.v7.app.AppCompatActivity
+import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 
 
 /**
@@ -35,12 +34,13 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     private val TYPE_DAY_VIEW = 1
     private val TYPE_THREE_DAY_VIEW = 2
     private val TYPE_WEEK_VIEW = 3
-    private val mWeekViewType = TYPE_DAY_VIEW
-    private var mWeekView: WeekView? = null
+    private var mWeekViewType = TYPE_THREE_DAY_VIEW
+    private var mWeekView: WeekView? = weekView
 
-    private lateinit var popup: MaryPopup
+//    private lateinit var popup: MaryPopup
 
     override fun getLayout() = R.layout.fragment_01
+
 
     companion object {
         fun newInstance() = PlaceholderFragment()
@@ -49,14 +49,21 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupDateTimeInterpreter(true)
+        setHasOptionsMenu(true)
+
+      //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
 
         // Get a reference for the week view in the layout.
-//        mWeekView = findViewById(R.id.weekView) as WeekView
+       // mWeekView = R.id.weekView as WeekView
+
 
         // Show a toast message about the touched event.
         weekView.setOnEventClickListener(this)
@@ -75,18 +82,14 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
 
-/*        val marypopup = MaryPopup.with(t   his.activity)
-                .cancellable(true)
-                .draggable(true)
-                .blackOverlayColor(Color.parseColor("#DD444444"))
-                .backgroundColor(Color.parseColor("#EFF4F5"))
-                .content(R.layout.popup_content)*/
+
+/*
         popup = MaryPopup.with(this.activity)
                 .cancellable(true)
                 .draggable(true)
                 .blackOverlayColor(Color.parseColor("#DD444444"))
                 .backgroundColor(Color.parseColor("#EFF4F5"));
-
+*/
     }
 
 
@@ -96,14 +99,14 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         val events = ArrayList<WeekViewEvent>()
 
         var startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.HOUR_OF_DAY, 1)
         startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         var endTime = startTime.clone() as Calendar
-        endTime.add(Calendar.HOUR, 1)
+        endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        var event = WeekViewEvent(1, getEventTitle(startTime),"\nLocation", startTime, endTime)
+        var event = WeekViewEvent(1, "James\n",getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
@@ -115,19 +118,19 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(1, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(2, "James\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 4)
-        startTime.set(Calendar.MINUTE, 20)
+        startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
-        endTime.set(Calendar.HOUR_OF_DAY, 5)
+        endTime.set(Calendar.HOUR_OF_DAY, 6)
         endTime.set(Calendar.MINUTE, 0)
-        event = WeekViewEvent(10, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(3, "John Mayer\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
         events.add(event)
 
@@ -139,7 +142,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(2, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(4, "Frank Ocean\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
         events.add(event)
 
@@ -152,7 +155,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(3, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(5, "Kanye\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
         events.add(event)
 
@@ -165,7 +168,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
-        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(6, "Depp\n",getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
@@ -177,9 +180,10 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
-        event = WeekViewEvent(5, getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(7, "Amtonito\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
+
 
   /*      //AllDay event
         startTime = Calendar.getInstance()
@@ -191,7 +195,6 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         endTime.add(Calendar.HOUR_OF_DAY, 23)
         event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
-        events.add(event)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -230,11 +233,11 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
      * @param shortDate True if the date values should be short.
      */
     private fun setupDateTimeInterpreter(shortDate: Boolean) {
-        mWeekView?.dateTimeInterpreter = object : DateTimeInterpreter {
+        mWeekView?.dateTimeInterpreter = object : DateTimeInterpreter { //TODO mWeekView -> weekView
             override fun interpretDate(date: Calendar): String {
                 val weekdayNameFormat = SimpleDateFormat("EEE", Locale.getDefault())
                 var weekday = weekdayNameFormat.format(date.time)
-                val format = SimpleDateFormat(" M/d", Locale.getDefault())
+                val format = SimpleDateFormat("\nM/d", Locale.getDefault())
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
@@ -247,8 +250,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
             override fun interpretTime(hour: Int): String {
                 if (hour == 12 ) {
-                    return if (hour > 11) (hour - 12).toString() + " PM"
-                    else if (hour == 0) "12 AM" else hour.toString() + " AM"
+                    return if (hour > 11) (hour - 12).toString() + " P"
+                    else if (hour == 0) "12 AM" else hour.toString() + " A"
                 }
                 else
                     return ""
@@ -258,7 +261,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     protected fun getEventTitle(time: Calendar): String {
  //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
-        return String.format("Event of %02d:%02d " +
+        return String.format("%d:%02d " +
                             "%s/%d"
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
@@ -267,49 +270,59 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
-  //      Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
 
-        var mView = RelativeLayout(this.context)
+        val mView = LinearLayout(this.context)
 
-//        // Gets the layout params that will allow you to resize the layout
-//        var params = mView.getLayoutParams()
-//        // Changes the height and width to the specified *pixels*
-//        params.left = eventRect.left.toInt()
-//        params.top = eventRect.top.toInt()
-//        params.height = eventRect.width().toInt()
-//        params.width = eventRect.height().toInt()
-//        mView.setLayoutParams(params)
+        // Gets the layout params that will allow you to resize the layout
+/*
 
-        // val params = mView.layoutParams
-        mView.setX (eventRect.left)
-        mView.setY (eventRect.top)
-        mView.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        var params = mView.getLayoutParams()
-        params.width = eventRect.width().toInt()
-        params.height = eventRect.height().toInt()
-        mView.setLayoutParams(params)
+        val relativeParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT)
+        relativeParams.setMargins(eventRect.left.toInt(), eventRect.top.toInt(), 0, 0)
+        relativeParams.width = eventRect.width().toInt()
+        relativeParams.height = eventRect.height().toInt()
+        mView.setBackgroundColor(Color.rgb(255,0,0))
+        mView.run {
+            setLayoutParams(relativeParams)
+            setVisibility(View.VISIBLE)
+        }
+*/
 
-     //   mView.setLayoutParams(eventRect.width().toInt(), eventRect.height().toInt())
+        //Show Tooltip Window
+        SwipeDismissDialog.Builder(this.context)
+                .setLayoutResId(R.layout.popup_content)
+                .setFlingVelocity(0.06f)
+                .build()
+                .show()
 
-
-/*        mView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        mView.left = eventRect.left.toInt()
-        mView.top = eventRect.top.toInt()*/
-
+/* SimpleTooltip
+       SimpleTooltip.Builder(context)
+                .anchorView(weekView)
+                .text("Text do Tooltip")
+                .gravity(Gravity.END)
+                .animated(true)
+                .transparentOverlay(false)
+                .build()
+                .show()*/
+/* MaryPopup
         popup.content(R.layout.popup_content)
                 .cancellable(true)
                 .from(mView)
                 .show()
+*/
 
     }
 
+/*  MaryPopup
     fun onBackPressed() {
         if (popup.isOpened) {
             popup.close(true)
         } else {
             //super.onBackPressed()
         }
-    }
+    }*/
 
     override fun onEventLongPress(event: WeekViewEvent, eventRect: RectF) {
         Toast.makeText(context, "Long pressed event: ${event.name}" , Toast.LENGTH_LONG).show()
@@ -322,6 +335,69 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     fun getWeekView(): WeekView? {
         return mWeekView
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.salon_main, menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        setupDateTimeInterpreter(id == R.id.action_week_view)
+        when (id) {
+            R.id.action_today -> {
+                weekView.goToToday()
+                return true
+            }
+            R.id.action_day_view -> {
+                if (mWeekViewType != TYPE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_DAY_VIEW
+                    weekView.setNumberOfVisibleDays(1)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+            R.id.action_three_day_view -> {
+                if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_THREE_DAY_VIEW
+                    weekView.setNumberOfVisibleDays(3)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+            R.id.action_week_view -> {
+                if (mWeekViewType != TYPE_WEEK_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_WEEK_VIEW
+                    weekView.setNumberOfVisibleDays(7)
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics).toInt())
+                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
+                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
+                }
+                return true
+            }
+
+            R.id.action_sign_out -> {
+
+                return true
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

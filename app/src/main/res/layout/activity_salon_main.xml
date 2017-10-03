@@ -8,11 +8,11 @@
     android:padding="0dp"
     tools:context="com.colavo.android.ui.SalonMainActivity">
 
-    <include
+<!--    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/toolbar"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"/>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
@@ -26,10 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_bottombar"
         android:layout_alignBottom="@+id/container"
-
         android:gravity="bottom"
+
         app:bb_activeTabAlpha="1"
         app:bb_activeTabColor="@color/primaryTextColor"
+        app:bb_inActiveTabColor="@color/bottomBarInactiveColor"
         app:bb_inActiveTabAlpha="0.6"
         app:bb_longPressHintsEnabled="true"
         app:bb_showShadow="true"

@@ -25,7 +25,7 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
     override fun initialize(query: SalonsQuery.GetSalons): Observable<Pair<SalonModel, ResponseType>>
             = Observable.create<Pair<SalonEntity, ResponseType>>
                 { subscriber -> firebaseDatabase.reference.child("salons")
-                .addChildEventListener(object : ChildEventListener {
+                        .orderByChild("owner_uid").equalTo(query.ownerUid).addChildEventListener(object : ChildEventListener {
                     override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                     }
 
@@ -65,7 +65,7 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
     
     override fun createSalon(query: SalonsQuery.CreateSalon): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
-            .createSalon(SalonEntity(name = query.salonName))
+            .createSalon(SalonEntity(name = query.salonName, address = query.salonAddress, owner_uid = query.ownerUid))
 
     private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
         return getOwnerName((pair.first).owner_uid)

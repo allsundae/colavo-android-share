@@ -61,10 +61,11 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salon_main)
-        setSupportActionBar(toolBar)
 
+        // toolbar
+/*        setSupportActionBar(toolBar)
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        supportActionBar?.title = salon.name
+        supportActionBar?.title = salon.name*/
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -96,7 +97,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_conversations, menu)
         return true
@@ -107,7 +108,8 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
             R.id.action_sign_out -> openLoginActivity()
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
+
     private fun openLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.putExtra(SalonListActivity.EXTRA_SIGN_OUT, true)

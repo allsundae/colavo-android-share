@@ -13,7 +13,7 @@ import javax.inject.Inject
 @UseCase
 class CreateSalon @Inject constructor(salonsRepository: SalonsRepository) : SalonsUseCase(salonsRepository) {
 
-    fun execute(salonName: String, subscriber: Subscriber<FirebaseResponse>)
-            = super.execute(SalonsQuery.CreateSalon(salonName), subscriber)
+    fun execute(salonName: String, salonAddress: String, ownerUid: String, subscriber: Subscriber<FirebaseResponse>)
+            = super.execute(SalonsQuery.CreateSalon(salonName, salonAddress, ownerUid), subscriber)
 
 }

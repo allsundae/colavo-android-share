@@ -17,7 +17,8 @@
     </string>
     <string name="title_activity_conversations">ConversationsActivity</string>
     <string name="create_conversation">Create a salon</string>
-    <string name="input_conversation_name">Input salon name</string>
+    <string name="input_salon_name">Input salon name</string>
+    <string name="input_salon_address">Input salon address</string>
     <string name="conversation_name">salon name</string>
     <string name="conversations_loading">Loading salon</string>
     <string name="wait">Wait</string>
@@ -32,4 +33,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <!--Calendar View-->
+    <string name="action_today">Today</string>
+    <string name="action_day_view">Day view</string>
+    <string name="action_three_day_view">3 day view</string>
+    <string name="action_week_view">Week view</string>
+
 </resources>

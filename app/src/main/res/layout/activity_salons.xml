@@ -14,14 +14,68 @@
         layout="@layout/toolbar"
         android:layout_marginBottom="20dp"/>
 
-    <android.support.design.widget.FloatingActionButton
+<!--    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_salon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_plus" />
+        android:src="@mipmap/ic_plus"
+        app:elevation="24dp" />-->
 
     <include layout="@layout/content_salons" />
+
+    <RelativeLayout
+        style="@style/BottomSheetTheme"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="bottom"
+        android:background="@color/buttonFlatPanelBG">
+
+        <TextView
+            android:id="@+id/neednewhairshop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Needs another hairshop?"
+            android:textColor="@color/backgroundWhite"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_weight="0.5"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:id="@+id/relativeLayout">
+
+            <ProgressBar
+                android:id="@+id/signInProgress"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/add_salon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/buttonSecondary"
+                android:text="Inivitation / New hairshop"
+                android:textColor="@color/backgroundWhite"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
