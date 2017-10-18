@@ -11,4 +11,5 @@ class SalonEntity(id: String = "",
                   @SerializedName("name") @Expose override var name: String = "",
                   @SerializedName("address") @Expose override var address: String = "",
                   @SerializedName("owner_uid") @Expose override var owner_uid: String = "", //todo
-                  @SerializedName("lastEventId") @Expose var lastEventId: String? = null) : BaseSalon(id, name, address, owner_uid ), Serializable
+                  @SerializedName("lastEventId") @Expose var lastEventId: String? = null)
+    : BaseSalon(id, name, address, owner_uid ), Serializable

@@ -1,5 +1,6 @@
 package com.colavo.android.net
 
+import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.event.EventEntity
 import com.colavo.android.entity.salon.SalonEntity
 import com.colavo.android.entity.response.FirebaseResponse
@@ -21,10 +22,16 @@ interface FirebaseAPI {
     @POST("salons.json")
     fun createSalon(@Body salonEntity: SalonEntity): Observable<FirebaseResponse>
 
-    @POST("events.json")
-    fun sendEvent(@Body eventEntity: EventEntity): Observable<FirebaseResponse>
+    @POST("salon_events/{id}.json")
+    fun sendEvent(@Path("id") id: String, @Body eventEntity: EventEntity): Observable<FirebaseResponse>
 
-    @GET("events/{id}.json")
+    @GET("salon_events/{id}.json")
     fun getEventById(@Path("id") id: String): Observable<EventEntity>
+
+    @GET("salon_customers/{id}.json")
+    fun getCustomerBySalonId(@Path("id") uid: String): Observable<CustomerEntity>
+
+    @GET("salon_customers/{id}.json")
+    fun createCustomer(@Path("id") id: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>
 
 }

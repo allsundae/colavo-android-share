@@ -13,7 +13,8 @@ class EventMapper {
     companion object {
 
         fun transformFromEventEntityAndUser(eventEntity: EventEntity, user: User, isEventMine: Boolean): EventModel
-                = EventModel(eventEntity.id, eventEntity.text, user.name, DateTime.parse(eventEntity.time), isEventMine)
+//                = EventModel(eventEntity.id, eventEntity.text, user.name, DateTime.parse(eventEntity.time), isEventMine)
+                = EventModel(eventEntity.id, eventEntity.text, user.name, "test_time" , isEventMine)//eventEntity.time.toString()
 
     }
 

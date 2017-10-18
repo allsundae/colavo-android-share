@@ -27,7 +27,8 @@ class EventAdapter(val onItemClickListener: OnItemClickListener, val items: Muta
 
         fun bind(eventModel: EventModel) {
             this.eventText.text = eventModel.text
-            this.eventUserAndTime.text = "${eventModel.userName}, ${eventModel.time.toString(PATTERN)}"
+      //      this.eventUserAndTime.text = "${eventModel.userName}, ${eventModel.time.toString(PATTERN)}"
+            this.eventUserAndTime.text = "${eventModel.userName}, ${eventModel.time.toString()}"
 
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             params.gravity = Gravity.END

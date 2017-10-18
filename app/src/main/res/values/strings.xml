@@ -21,6 +21,7 @@
     <string name="input_salon_address">Input salon address</string>
     <string name="conversation_name">salon name</string>
     <string name="conversations_loading">Loading salon</string>
+    <string name="customers_loading">Loading customer</string>
     <string name="wait">Wait</string>
     <string name="dash">&#160;—&#160;</string>
     <string name="bottom_navi_1">Calendar</string>

@@ -31,12 +31,16 @@
         <activity
             android:name=".ui.SalonMainActivity"
             android:label="@string/title_activity_salon_main"
-            android:parentActivityName=".ui.salons.SalonListActivity"/>
+            android:parentActivityName=".ui.salons.SalonListActivity"
+            />
+        <activity
+            android:name=".ui.customer.CustomerListActivity"
+            android:label="@string/bottom_navi_4"
+            />
         <activity
             android:name=".ui.event.eventActivity"
-            android:label="Event"
-            android:parentActivityName=".ui.salons.SalonListActivity"/>
-
+            android:label="@string/bottom_navi_4"
+            />
 
 
     </application>

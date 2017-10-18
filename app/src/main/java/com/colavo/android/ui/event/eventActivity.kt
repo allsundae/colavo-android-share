@@ -61,22 +61,6 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
         eventAdapter = EventAdapter(this, mutableListOf<EventModel>())
         events_recycler.adapter = eventAdapter
         events_recycler.layoutManager = LinearLayoutManager(this)
-      /*  val bottomBar = R.id.bottomBar as BottomBar
-        bottomBar.setOnTabSelectListener(object : OnTabSelectListener() {
-            fun onTabSelected(@IdRes tabId: Int) {
-                if (tabId == R.id.action_one) {
-                    // The tab with id R.id.tab_favorites was selected,
-                    // change your content accordingly.
-                }
-            }
-        })*/
-
-        // Get a reference for the week view in the layout.
-/*        val mWeekView = R.id.weekView as WeekView
-        mWeekView.setOnEventClickListener(this);
-        mWeekView.setMonthChangeListener(this);
-        mWeekView.setEventLongPressListener(this);*/
-
 
         button_send.setOnClickListener { sendEvent() }
 
@@ -141,6 +125,3 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
         eventPresenter.onDestroy()
     }
 }
-
-//private fun WeekView.setMonthChangeListener(eventActivity: eventActivity) {}
-//private fun WeekView.setEventLongPressListener(eventActivity: eventActivity) {}

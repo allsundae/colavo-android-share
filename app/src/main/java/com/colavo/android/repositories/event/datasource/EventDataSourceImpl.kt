@@ -1,10 +1,6 @@
 package com.colavo.android.repositories.event.datasource
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.colavo.android.entity.event.EventEntity
 import com.colavo.android.entity.event.EventModel
 import com.colavo.android.entity.response.ResponseType
@@ -13,6 +9,7 @@ import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.net.FirebaseAPI
 import com.colavo.android.utils.Logger
 import com.colavo.android.repositories.event.datasource.mapper.EventMapper
+import com.google.firebase.database.*
 import retrofit2.Retrofit
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -27,8 +24,10 @@ class EventDataSourceImpl(val retrofit: Retrofit,
 
     override fun getEventMessages(query: EventQuery.GetSalonEvents): Observable<Pair<EventModel, ResponseType>>
             = Observable.create<Pair<EventEntity, ResponseType>>
-                { subscriber -> firebaseDatabase.reference.child("events")
-                .orderByChild("salonId").equalTo(query.salonId)
+                { subscriber -> firebaseDatabase.reference.child("salon_events")
+                //.orderByChild("salonId").equalTo(query.salonId)
+                        .child(query.salonId)
+                        .orderByChild("text")
                 .addChildEventListener(object : ChildEventListener {
                         override fun onChildMoved(dataSnapshot: DataSnapshot?, p1: String?) {
                         }
@@ -75,7 +74,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
     override fun sendEvent(query: EventQuery.SendEvent): Observable<FirebaseResponse> {
         val event = EventEntity(salonId = query.salonId, text = query.text, time = query.time)
         event.userId = firebaseAuth.currentUser?.uid.toString()
-        return retrofit.create(FirebaseAPI::class.java).sendEvent(event)
+        return retrofit.create(FirebaseAPI::class.java).sendEvent(query.salonId, event)
                 .doOnNext { response -> event.id = response.id }
                 .doOnNext { updateEvent(event) }
     }
