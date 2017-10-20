@@ -9,6 +9,7 @@ import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.presenters.customer.CustomerPresenter
 import com.colavo.android.presenters.customer.CustomerPresenterImpl
 import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.salons.SalonListActivity
@@ -24,13 +25,8 @@ class CustomerListActivity : AppCompatActivity()
         , CustomerlistView, CustomerAdapter.OnItemClickListener {
 
     @Inject
-    lateinit var customerPresenter: CustomerPresenterImpl
+    var customerPresenter: CustomerPresenterImpl? = null
     lateinit var customerAdapter: CustomerAdapter
-
-    init {
-
-    }
-
     private val progressDialog: MaterialDialog by lazy {
         MaterialDialog.Builder(this)
                 .title(R.string.customers_loading)
@@ -41,9 +37,11 @@ class CustomerListActivity : AppCompatActivity()
     lateinit var firebaseAuth: FirebaseAuth
 
 
+/*
     companion object {
         fun newInstance() = CustomerListActivity()
     }
+*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,26 +50,25 @@ class CustomerListActivity : AppCompatActivity()
 
         setSupportActionBar(toolBar)
 
+   //TODO WTF     (application as App).addCustomerComponent().inject(this)
+/*        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+        customers_recyclerView.adapter = customerAdapter*/
+
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         supportActionBar?.setTitle (salon.name)
 
-        (application as App).addCustomerComponent().inject(this)
-
-        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
-        customers_recyclerView.adapter = customerAdapter
-
+/*
         customers_recyclerView.layoutManager = LinearLayoutManager(this)
 
-        add_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked() }
-
-        customerPresenter.attachView(this)
-        customerPresenter.initialize(salon.id)
+        customerPresenter?.attachView(this)
+        customerPresenter?.initialize(salon.id)
+*/
 
     }
 
 
     override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
-        customers_recyclerView.adapter = CustomerAdapter(this, customerEntities!!.toMutableList()) //todo
+        //customers_recyclerView.adapter = CustomerAdapter(this, customerEntities!!.toMutableList()) //todo
     }
 
     override fun showCreateCustomerlistFragment() {
@@ -81,7 +78,7 @@ class CustomerListActivity : AppCompatActivity()
                 .content(R.string.input_salon_name)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .positiveText(R.string.create_conversation)
-                .input("", "", false) { dialog, input -> customerPresenter.createCustomer(
+                .input("", "", false) { dialog, input -> customerPresenter?.createCustomer(
                         "customerUid"
                         , "010-4707-9934"
                         , input.toString()
@@ -149,12 +146,12 @@ class CustomerListActivity : AppCompatActivity()
     }
 
     override fun showSnackbar(event: String) {
-        customers_recyclerView.showSnackBar(event)
+//        customers_recyclerView.showSnackBar(event)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         //clearCustomerComponent()
-        customerPresenter.onDestroy()
+        customerPresenter?.onDestroy()
     }
 }

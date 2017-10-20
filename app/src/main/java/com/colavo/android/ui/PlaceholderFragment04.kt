@@ -11,6 +11,7 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.R
+import com.colavo.android.R.menu.menu_customer
 import com.colavo.android.base.BaseFragment
 import com.colavo.android.base.BasePresenterFragment
 import com.colavo.android.entity.customer.CustomerModel
@@ -33,12 +34,14 @@ import kotlin.reflect.jvm.internal.impl.javax.inject.Inject
 
 
 class PlaceholderFragment04 : BaseFragment()
-        , CustomerlistView, CustomerAdapter.OnItemClickListener {
+        , CustomerAdapter.OnItemClickListener {
+    override fun onItemClicked(item: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-
-    @Inject
-    lateinit var customerPresenter: CustomerPresenterImpl
-    lateinit var customerAdapter: CustomerAdapter
+    override fun onLongItemClicked(item: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun getLayout() = R.layout.fragment_04
 
@@ -46,132 +49,49 @@ class PlaceholderFragment04 : BaseFragment()
         fun newInstance() = PlaceholderFragment04()
     }
 
-
     private val progressDialog: MaterialDialog by lazy {
         MaterialDialog.Builder(this.context)
                 .title(R.string.customers_loading)
                 .content(R.string.wait)
                 .progress(true, 0)
-                .build() }
+                .build()
+    }
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // (activity.application as App).getNetComponent().inject(this)
-//        (getActivity().getApplication() as App).addCustomerComponent().inject(this)
-//TODO WTF        (getActivity().getApplication() as App).addCustomerComponent().inject(this)
-
         setHasOptionsMenu(true)
+
+        // (activity.application as App).getNetComponent().inject(this)
+        //       (getActivity().getApplication() as App).addCustomerComponent().inject(this)
+        //      (getActivity().getApplication() as App).addCustomerComponent().inject(this)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        (activity as AppCompatActivity).supportActionBar?.setTitle (R.string.bottom_navi_4)
+        toolBar.inflateMenu(menu_customer)
 
-     //TODO WTF   (activity as App).addCustomerComponent().inject(this)
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
-
-        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+/*        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
         customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        customerPresenter!!.attachView(this)
-        customerPresenter!!.initialize(salon.id)
+        customerPresenter?.attachView(this)
+        customerPresenter?.initialize(salon.id)*/
 
     }
 
 
-
-
-    override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
-        customers_recyclerView.adapter = CustomerAdapter(this, customerEntities!!.toMutableList()) //todo
-    }
-
-    override fun showCreateCustomerlistFragment() {
-         //todo
-        MaterialDialog.Builder(this.context)
-                .title(R.string.create_conversation)
-                .content(R.string.input_salon_name)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .positiveText(R.string.create_conversation)
-                .input("", "", false) { dialog, input -> customerPresenter?.createCustomer(
-                        "customerUid"
-                        , "010-4707-9934"
-                        , input.toString()
-                        , "image_url"
-                )}.show()
-    }
-
-    override fun openCustomerFragment(customerModel: CustomerModel) {
-         //todo
-/*
-        val intent = Intent(this, SalonMainActivity::class.java)
-        intent.putExtra(SalonListActivity.EXTRA_CONVERSATION, salonModel)
-        startActivity(intent)
-
-        */
-    }
-
-
-    override fun addCustomer(customerEntity: CustomerModel) {
-        Logger.log("Customer added")
-
-        customerAdapter.items.add(customerEntity)
-        customerAdapter.notifyItemInserted(customerAdapter.itemCount)
-    }
-
-    override fun changeCustomer(customerEntity: CustomerModel) {
-        Logger.log("Customer changed")
-
-        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity.uid) }
-        customerAdapter.items[position] = customerEntity
-        customerAdapter.notifyItemChanged(position)
-    }
-
-    override fun removeCustomer(customerEntity: CustomerModel) {
-        Logger.log("Customer removed")
-
-        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
-        customerAdapter.items.removeAt(position)
-        customerAdapter.notifyItemRemoved(position)
-    }
-
-
-    override fun showProgress() {
-        progressDialog.show()
-    }
-
-    override fun hideProgress() {
-        progressDialog.hide()
-    }
-
-    override fun onItemClicked(item: CustomerModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
-    override fun onLongItemClicked(item: CustomerModel) {
-    }
-
-    override fun onError(throwable: Throwable) {
-        showToast(throwable.toString())
-    }
-
-    override fun showToast(event: String) {
-        (activity as AppCompatActivity).toast(event)
-    }
-
-    override fun showSnackbar(event: String) {
-        customers_recyclerView.showSnackBar(event)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
         //clearCustomerComponent()
-        customerPresenter?.onDestroy()
     }
+
+
+
 }

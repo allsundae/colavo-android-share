@@ -19,6 +19,8 @@ import com.colavo.android.repositories.salons.SalonsRepository
 import com.colavo.android.repositories.salons.datasource.SalonsDataSourceImpl
 import com.colavo.android.repositories.session.SessionRepository
 import com.colavo.android.repositories.session.datasource.SessionDataSourceImpl
+import com.colavo.android.repositories.customer.CustomerRepository
+import com.colavo.android.repositories.customer.datasource.CustomerDataSourceImpl
 import com.colavo.android.utils.HandleUtils
 import com.colavo.android.utils.Logger
 

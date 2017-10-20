@@ -9,10 +9,10 @@
     tools:showIn="@layout/activity_salons">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/salons_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/salons_recyclerView"
-        android:paddingTop="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:background="@color/backgroundWhite"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>

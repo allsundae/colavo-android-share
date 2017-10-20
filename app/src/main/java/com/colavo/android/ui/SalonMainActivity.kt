@@ -40,19 +40,10 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
- //   @BindView(R.id.toolBar)
- //   val toolbar: Toolbar? = null
-
     /**
      * The [ViewPager] that will host the section contents.
      */
- //   @BindView(R.id.container)
- //  val viewPager: ViewPager? = null
 
-//    @BindView(R.id.bottomBar)
-//    val bottomNavigationView: BottomNavigationView? = null
-
-//    override fun onCreatePresenter() = MainPresenter()
 
     override fun onCreatePresenter(): MainContract.Presenter? {
         return MainPresenter()
@@ -61,7 +52,6 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salon_main)
-
         // toolbar
 /*        setSupportActionBar(toolBar)
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel

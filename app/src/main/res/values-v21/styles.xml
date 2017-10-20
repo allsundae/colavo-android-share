@@ -1,5 +1,7 @@
+
 <resources>
 
+<!--
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -8,7 +10,7 @@
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/buttonSecondary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -19,4 +21,6 @@
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:textColorPrimary">@color/primary_text_material_light</item>
     </style>
+    -->
 </resources>
+

@@ -22,5 +22,7 @@
     <color name="colorCalendarBackground">#F8F8F8</color>
     <color name="bottomBarInactiveColor">#A0B4C2</color>
 
+    <color name="customerPlaceholderColor">#7BDDE5</color>
+    <color name="toolBarIcon">#C5D2DC</color>
 
 </resources>

@@ -50,7 +50,6 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         super.onCreate(savedInstanceState)
         setupDateTimeInterpreter(true)
         setHasOptionsMenu(true)
-
       //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
     }
 
@@ -60,6 +59,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
+        toolBar.inflateMenu(R.menu.salon_main)
 
         // Get a reference for the week view in the layout.
        // mWeekView = R.id.weekView as WeekView

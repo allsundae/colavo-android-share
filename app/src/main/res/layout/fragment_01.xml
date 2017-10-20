@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
 
-        app:noOfVisibleDays="1"
+        app:noOfVisibleDays="7"
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerTodayTabColor="@color/colorTodayTab"
         app:headerColumnBackground="#ffffffff"

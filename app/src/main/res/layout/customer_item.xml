@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/colorSecondary"
     android:clickable="true"
     android:focusable="true"
     android:orientation="horizontal"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_icon" />
+            android:src="@drawable/ic_rounded" />
     </LinearLayout>
 
     <LinearLayout

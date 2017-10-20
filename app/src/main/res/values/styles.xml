@@ -25,11 +25,15 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
     </style>
 
-    <style name="AppTheme.ActionBar">
+    <style name="AppTheme.ActionBar" >
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
+        <item name="android:elevation">0dp</item>
+        <item name="colorPrimary">@color/backgroundWhite</item>
+        <item name="colorPrimaryDark">@color/buttonSecondary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
@@ -40,6 +44,14 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--ToolBar-->
+    <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/toolBarIcon</item>
+        <item name="android:textColorSecondary">@color/toolBarIcon</item>
+        <item name="android:tint">@color/toolBarIcon</item>
+        <item name="actionMenuTextColor">@color/toolBarIcon</item>
+    </style>
 
     <!-- for BottomBar -->
     <style name="BottomBarText">

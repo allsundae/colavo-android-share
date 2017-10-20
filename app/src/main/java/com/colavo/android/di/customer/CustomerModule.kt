@@ -27,7 +27,6 @@ class CustomerModule() {
     @Provides
     @CustomerScope
     fun getCustomerDataSourceImplementation(retrofit: Retrofit, firebaseDatabase: FirebaseDatabase):
-            CustomerDataSourceImpl
-            = CustomerDataSourceImpl(retrofit, firebaseDatabase)
+            CustomerDataSourceImpl = CustomerDataSourceImpl(retrofit, firebaseDatabase)
 
 }

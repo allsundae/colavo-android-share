@@ -13,8 +13,8 @@ import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
+import com.colavo.android.ui.SalonMainActivity
 import com.colavo.android.ui.adapter.SalonsAdapter
-import com.colavo.android.ui.customer.CustomerListActivity
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.showSnackBar
@@ -22,7 +22,6 @@ import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
-import com.colavo.android.ui.event.eventActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -46,7 +45,12 @@ class SalonListActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salons)
 
-        setSupportActionBar(toolBar)
+//        setSupportActionBar(toolBar)
+//        getActionBar().setElevation(0F);
+        if(getSupportActionBar() != null)
+        {
+            getSupportActionBar()?.setElevation(0F);
+        }
 
         (application as App).addSalonsComponent().inject(this)
         salonsAdapter = SalonsAdapter(this, mutableListOf<SalonModel>())
@@ -58,7 +62,6 @@ class SalonListActivity : AppCompatActivity()
 
         salonsPresenter.attachView(this)
         salonsPresenter.initialize(firebaseAuth.currentUser!!.uid)
-
 
     }
 
@@ -110,9 +113,9 @@ class SalonListActivity : AppCompatActivity()
     }
 
     override fun openEventActivity(salonModel: SalonModel) {
-        val intent = Intent(this, eventActivity::class.java)
+        //val intent = Intent(this, eventActivity::class.java)
         //TODO WTF
-        //val intent = Intent(this, SalonMainActivity::class.java)
+        val intent = Intent(this, SalonMainActivity::class.java)
         //val intent = Intent(this, CustomerListActivity::class.java)
         intent.putExtra(EXTRA_CONVERSATION, salonModel)
         startActivity(intent)
