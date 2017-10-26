@@ -3,6 +3,18 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="signin_activity_horizontal_margin">30dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="bigger_margin">20dp</dimen>
+    <dimen name="medium_margin">0dp</dimen>
+    <dimen name="small_margin">14dp</dimen>
+
+    <!-- List -->
+    <dimen name="list_divider_margin">4dp</dimen>
+    <dimen name="list_divider_margin_top">26dp</dimen>
+
+
+    <dimen name="small_text_size">11sp</dimen>
+
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar_elevation">0dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>

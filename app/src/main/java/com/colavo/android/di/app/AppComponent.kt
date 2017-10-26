@@ -28,5 +28,5 @@ interface AppComponent {
     fun addCustomerComponent(customerModule: CustomerModule): CustomerComponent
 
     fun inject(mainActivity: MainActivity)
-    fun inject(placeholderFragment04: PlaceholderFragment04)
+  //  fun inject(placeholderFragment04: PlaceholderFragment04)
 }

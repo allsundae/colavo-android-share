@@ -15,6 +15,7 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
 import com.colavo.android.ui.adapter.SalonsAdapter
+import com.colavo.android.ui.event.eventActivity
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.showSnackBar

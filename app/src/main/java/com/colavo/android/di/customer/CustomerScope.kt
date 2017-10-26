@@ -1,6 +1,6 @@
 package com.colavo.android.di.customer
 
-import javax.inject.Scope
+import kotlin.reflect.jvm.internal.impl.javax.inject.Scope
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)

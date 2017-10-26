@@ -33,8 +33,8 @@ class PlaceholderFragment05 : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        toolBar.setTitle (bottom_navi_5)
-        toolBar.inflateMenu(menu_customer)
+        toolBar?.setTitle (bottom_navi_5)
+        toolBar?.inflateMenu(menu_customer)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

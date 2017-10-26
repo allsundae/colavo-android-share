@@ -19,7 +19,8 @@ import com.colavo.android.ui.adapter.SectionsPagerModel
 import com.colavo.android.view.main.presenter.MainPresenter
 
 
-class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
+class SalonMainActivity : BasePresenterActivity<MainContract.View
+        , MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
     override fun onError(throwable: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -140,6 +141,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     override fun onPageScrollStateChanged(state: Int) {
 
     }
+
 
 
 }

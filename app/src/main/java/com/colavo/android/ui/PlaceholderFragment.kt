@@ -10,6 +10,8 @@ import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.MonthLoader
 import com.alamkanak.weekview.WeekView
 import android.graphics.RectF
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.alamkanak.weekview.DateTimeInterpreter
@@ -25,6 +27,11 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.support.design.widget.FloatingActionButton
+import android.widget.TextView
+import com.colavo.android.R.id.fab
+import kotlinx.android.synthetic.main.popup_content.*
+import kotlinx.android.synthetic.main.popup_content.view.*
 
 
 /**
@@ -51,6 +58,14 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         setupDateTimeInterpreter(true)
         setHasOptionsMenu(true)
       //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
+        val fabButton =
+                (activity as AppCompatActivity).findViewById(R.id.fab) as FloatingActionButton?
+        fabButton?.setOnClickListener {
+            view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
+/*            val dialogFrag : CreateFabFragment = CreateFabFragment()
+            dialogFrag.setParentFab(fab)
+            dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -58,7 +73,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
+        toolBar.setTitle (salon.name)
         toolBar.inflateMenu(R.menu.salon_main)
 
         // Get a reference for the week view in the layout.
@@ -297,7 +312,10 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
                 .build()
                 .show()
 
-/* SimpleTooltip
+        updateEventPoptip(event)
+
+
+        /* SimpleTooltip
        SimpleTooltip.Builder(context)
                 .anchorView(weekView)
                 .text("Text do Tooltip")
@@ -350,6 +368,12 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
                 weekView.goToToday()
                 return true
             }
+            R.id.action_create_event ->{
+                val dialogFrag = CreateFabFragment.newInstance()
+                dialogFrag.setParentFab(fab)
+                dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
+                return true
+            }
             R.id.action_day_view -> {
                 if (mWeekViewType != TYPE_DAY_VIEW) {
                     item.isChecked = !item.isChecked
@@ -399,5 +423,16 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
         return super.onOptionsItemSelected(item)
     }
+
+
+    fun updateEventPoptip(event: WeekViewEvent){
+            Toast.makeText(context, "Clicked Poptip ${event.name}" , Toast.LENGTH_LONG).show()
+        val popName = (activity as AppCompatActivity).findViewById(R.id.pop_customer_name) as TextView?
+        popName?.setText("${event.name}")
+
+    }
+
+
+
 
 }

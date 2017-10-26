@@ -6,7 +6,9 @@
     <color name="colorAccent">#9a86ee</color>
     <color name="primaryTextColor">#51536c</color>
     <color name="secondaryTextColor">#929292</color>
-    <color name="dividerColor">#B6B6B6</color>
+    <color name="dividerColor">#60B6B6B6</color>
+    <color name="dividerTextColor">#6D6D72</color>
+
     <color name="buttonSecondary">#a499eb</color>
     <color name="textSecondary">#c4c1c6</color>
     <color name="foreground_material_light">#000000</color>

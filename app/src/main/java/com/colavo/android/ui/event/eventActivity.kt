@@ -53,7 +53,11 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
 
         (application as App).addEventComponent().inject(this)
 
-        setSupportActionBar(toolBar)
+//        setSupportActionBar(toolBar)
+        if(getSupportActionBar() != null)
+        {
+            getSupportActionBar()?.setElevation(0F);
+        }
 
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         supportActionBar?.title = salon.name

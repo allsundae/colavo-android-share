@@ -33,8 +33,52 @@ import kotlin.reflect.jvm.internal.impl.javax.inject.Inject
 
 
 
-class PlaceholderFragment04 : BaseFragment()
+class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         , CustomerAdapter.OnItemClickListener {
+    override fun onError(throwable: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showToast(event: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showSnackbar(event: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showCreateCustomerlistFragment() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun openCustomerFragment(customerModel: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun addCustomer(customerEntity: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun changeCustomer(customerEntity: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun removeCustomer(customerEntity: CustomerModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showProgress() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideProgress() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onItemClicked(item: CustomerModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -42,6 +86,11 @@ class PlaceholderFragment04 : BaseFragment()
     override fun onLongItemClicked(item: CustomerModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    @Inject
+    //lateinit var customerPresenter: CustomerPresenterImpl
+    var customerPresenter: CustomerPresenterImpl? = null
+    lateinit var customerAdapter: CustomerAdapter
 
     override fun getLayout() = R.layout.fragment_04
 
@@ -66,7 +115,7 @@ class PlaceholderFragment04 : BaseFragment()
 
         // (activity.application as App).getNetComponent().inject(this)
         //       (getActivity().getApplication() as App).addCustomerComponent().inject(this)
-        //      (getActivity().getApplication() as App).addCustomerComponent().inject(this)
+        (getActivity().getApplication() as App).addCustomerComponent().inject(this)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -83,6 +132,15 @@ class PlaceholderFragment04 : BaseFragment()
         customerPresenter?.attachView(this)
         customerPresenter?.initialize(salon.id)*/
 
+        (activity.application as App).addCustomerComponent().inject(this)
+        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+        customers_recyclerView.adapter = customerAdapter
+        customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+
+        customerPresenter?.attachView(this)
+        customerPresenter?.initialize(salon.id)
     }
 
 
