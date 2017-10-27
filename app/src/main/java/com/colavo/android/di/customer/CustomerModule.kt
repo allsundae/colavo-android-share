@@ -10,7 +10,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-class CustomerModule() {
+class CustomerModule {
 
     @Provides
     @CustomerScope

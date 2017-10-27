@@ -14,18 +14,16 @@ import com.colavo.android.presenters.customer.CustomerPresenterImpl
 import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
-import com.colavo.android.utils.showSnackBar
 import com.colavo.android.utils.toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_04.*
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlin.reflect.jvm.internal.impl.javax.inject.Inject
+import javax.inject.Inject
 
 class CustomerListActivity : AppCompatActivity()
         , CustomerlistView, CustomerAdapter.OnItemClickListener {
 
     @Inject
-    var customerPresenter: CustomerPresenterImpl? = null
+    lateinit var customerPresenter: CustomerPresenterImpl
     lateinit var customerAdapter: CustomerAdapter
     private val progressDialog: MaterialDialog by lazy {
         MaterialDialog.Builder(this)
@@ -48,21 +46,21 @@ class CustomerListActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_04)
 
-        setSupportActionBar(toolBar)
+//        setSupportActionBar(toolBar)
 
-   //TODO WTF     (application as App).addCustomerComponent().inject(this)
-/*        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
-        customers_recyclerView.adapter = customerAdapter*/
+       (application as App).addCustomerComponent().inject(this)
+        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+        customers_recyclerView.adapter = customerAdapter
 
         val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         supportActionBar?.setTitle (salon.name)
 
-/*
+
         customers_recyclerView.layoutManager = LinearLayoutManager(this)
 
-        customerPresenter?.attachView(this)
-        customerPresenter?.initialize(salon.id)
-*/
+        customerPresenter.attachView(this)
+        customerPresenter.initialize(salon.id)
+
 
     }
 
@@ -107,9 +105,15 @@ class CustomerListActivity : AppCompatActivity()
     override fun changeCustomer(customerEntity: CustomerModel) {
         Logger.log("Customer changed")
 
+        val position = (customers_recyclerView.adapter as CustomerAdapter).items.indexOfFirst { it.uid.equals(customerEntity.uid) }
+        (customers_recyclerView.adapter as CustomerAdapter).items[position] = customerEntity
+        customers_recyclerView.adapter.notifyItemChanged(position)
+
+/*
         val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity.uid) }
         customerAdapter.items[position] = customerEntity
         customerAdapter.notifyItemChanged(position)
+*/
     }
 
     override fun removeCustomer(customerEntity: CustomerModel) {
@@ -152,6 +156,6 @@ class CustomerListActivity : AppCompatActivity()
     override fun onDestroy() {
         super.onDestroy()
         //clearCustomerComponent()
-        customerPresenter?.onDestroy()
+        customerPresenter.onDestroy()
     }
 }

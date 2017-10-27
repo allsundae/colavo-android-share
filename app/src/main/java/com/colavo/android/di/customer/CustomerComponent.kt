@@ -4,11 +4,8 @@ import com.colavo.android.ui.PlaceholderFragment04
 import com.colavo.android.ui.customer.CustomerListActivity
 import dagger.Subcomponent
 
-
-@Subcomponent(modules = arrayOf(CustomerModule::class))
 @CustomerScope
+@Subcomponent(modules = arrayOf(CustomerModule::class))
 interface CustomerComponent {
-
-    fun inject(placeholderFragment04: PlaceholderFragment04)  //TODO WTF
-
+    fun inject(placeholderFragment04: CustomerListActivity)  //TODO WTF
 }
