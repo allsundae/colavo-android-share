@@ -11,7 +11,8 @@ import com.colavo.android.entity.customer.CustomerModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.customer_item.view.*
 
-class CustomerAdapter(val onItemClickListener: OnItemClickListener, val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CustomerAdapter(val onItemClickListener: OnItemClickListener
+                      , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClicked(item: CustomerModel)
@@ -32,18 +33,23 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener, val items: M
             this.customerName.text = customerModel.name
             this.customerPhone.text = customerModel.phone
            // this.customerImage.loadUrl(customerModel.image_url)
-            Picasso.with(context)
-                    .load(customerModel.image_url)
-                    .resize(50, 50)
-                    .centerCrop()
-                    .into(this.customerImage)
+/*
+            if (customerModel.image_url != null) {
+                Picasso.with(context)
+                        .load(customerModel.image_url)
+                        .resize(50, 50)
+                        .centerCrop()
+                        .into(this.customerImage)
+            }
+*/
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel) }
         }
 
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) = (holder as ItemViewHolder).bind(items[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int)
+            = (holder as ItemViewHolder).bind(items[position])
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder?
             = ItemViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.customer_item, parent, false))

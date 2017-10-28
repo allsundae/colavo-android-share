@@ -58,6 +58,8 @@ class CustomerListActivity : AppCompatActivity()
 
         customers_recyclerView.layoutManager = LinearLayoutManager(this)
 
+        fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
+
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 

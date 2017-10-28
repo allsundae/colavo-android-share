@@ -4,7 +4,6 @@ import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.customer.CustomerQuery
-import com.colavo.android.repositories.salons.datasource.mapper.SalonMapper
 import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.net.FirebaseAPI
@@ -22,7 +21,8 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     override fun initialize(query: CustomerQuery.GetCustomer): Observable<Pair<CustomerModel, ResponseType>>
             = Observable.create<Pair<CustomerEntity, ResponseType>>
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
-                        .orderByChild("key").equalTo(query.salonUid)
+                     //   .orderByChild("key").equalTo(query.salonUid)
+                        .child(query.salonUid)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
