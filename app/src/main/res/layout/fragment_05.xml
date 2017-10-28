@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:background="#FBFBFD"
         android:layout_below="@+id/toolBar"
+        android:paddingBottom="@dimen/height_bottombar"
         android:layout_alignParentStart="true">
 
         <LinearLayout

@@ -47,8 +47,8 @@ class CustomerListActivity : AppCompatActivity()
         setContentView(R.layout.fragment_04)
 
 //        setSupportActionBar(toolBar)
-
-       (application as App).addCustomerComponent().inject(this)
+//WTF
+       //(application as App).addCustomerComponent().inject(this)
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
 
@@ -82,7 +82,7 @@ class CustomerListActivity : AppCompatActivity()
                         "customerUid"
                         , "010-4707-9934"
                         , input.toString()
-                        , "image_url"
+                        , "image"
                 )}.show()
     }
 

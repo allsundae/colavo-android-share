@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="top|center_horizontal">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/customers_recyclerView"
         android:layout_width="match_parent"
@@ -13,14 +12,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/backgroundWhite"
+        android:paddingTop="@dimen/toolbar_height"
+        android:paddingBottom="@dimen/height_bottombar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginTop="0dp"
-        android:id="@+id/include" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_customer"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="@dimen/margin_fab_bottombar"
         android:layout_marginEnd="14dp"
         android:clickable="true"
         android:src="@drawable/ic_plus"

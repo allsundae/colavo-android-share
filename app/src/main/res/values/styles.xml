@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
-<!--        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>-->
+        <!--        <item name="windowActionBar">false</item>
+                <item name="windowNoTitle">true</item>-->
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/buttonSecondary</item>
@@ -28,7 +29,7 @@
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
     </style>
 
-    <style name="AppTheme.ActionBar" >
+    <style name="AppTheme.ActionBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
         <item name="android:elevation">0dp</item>
@@ -37,7 +38,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-       <item name="android:elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
         <item name="colorPrimary">@color/backgroundWhite</item>
         <item name="colorPrimaryDark">@color/buttonSecondary</item>
 
@@ -52,6 +53,7 @@
         <item name="android:tint">@color/toolBarIcon</item>
         <item name="actionMenuTextColor">@color/toolBarIcon</item>
     </style>
+
 
     <!-- for BottomBar -->
     <style name="BottomBarText">

@@ -116,8 +116,8 @@ class SalonListActivity : AppCompatActivity()
     override fun openEventActivity(salonModel: SalonModel) {
         //val intent = Intent(this, eventActivity::class.java)
         //TODO WTF
-        //val intent = Intent(this, SalonMainActivity::class.java)
-        val intent = Intent(this, CustomerListActivity::class.java)
+        val intent = Intent(this, SalonMainActivity::class.java)
+        //val intent = Intent(this, CustomerListActivity::class.java)
         intent.putExtra(EXTRA_CONVERSATION, salonModel)
         startActivity(intent)
     }

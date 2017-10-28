@@ -6,13 +6,13 @@ import java.sql.Timestamp
 
 
 open abstract class BaseCustomer(
-                                    var uid: String,
-                                    open var phone: String,
-                                    open var national_phone: String,
-                                    open var name: String,
-                                    open var image_url: String,
-                                    open var recent_appointment_begin_at: String,
-                                    open var recent_appointment_end_at: String,
-                                    open var is_removed: Boolean,
-                                    open var fund: Double
+        var uid: String,
+        open var phone: String,
+        open var national_phone: String,
+        open var name: String,
+        open var image: String,
+        open var recent_appointment_begin_at: String,
+        open var recent_appointment_end_at: String,
+        open var is_removed: Boolean,
+        open var fund: Double
                                 ) : Serializable

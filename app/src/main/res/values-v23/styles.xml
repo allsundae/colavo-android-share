@@ -3,17 +3,17 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
-<!--        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/backgroundWhite</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/backgroundWhite</item>
         <item name="android:statusBarColor">@color/backgroundWhite</item>
         <item name="android:windowLightStatusBar">true</item>
-<!--        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimaryInverse">@color/colorPrimaryDark</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
         <item name="android:textColorSecondaryInverse">@color/md_edittext_error</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:colorForeground">@color/foreground_material_light</item>
-        <item name="android:textColorPrimary">@color/primary_text_material_light</item>-->
+        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
         <!--<item name="android:windowContentOverlay">@null</item>-->
         <item name="android:elevation">0dp</item>
     </style>

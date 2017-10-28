@@ -7,5 +7,5 @@ import dagger.Subcomponent
 @CustomerScope
 @Subcomponent(modules = arrayOf(CustomerModule::class))
 interface CustomerComponent {
-    fun inject(placeholderFragment04: CustomerListActivity)  //TODO WTF
+    fun inject(placeholderFragment04: PlaceholderFragment04)  //TODO WTF
 }

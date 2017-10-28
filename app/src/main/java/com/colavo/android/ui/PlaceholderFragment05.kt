@@ -10,6 +10,9 @@ import com.colavo.android.R
 import com.colavo.android.R.menu.menu_customer
 import com.colavo.android.R.string.bottom_navi_5
 import com.colavo.android.base.BaseFragment
+import com.colavo.android.common.MyTextView
+import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.ui.salons.SalonListActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -35,6 +38,13 @@ class PlaceholderFragment05 : BaseFragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar?.setTitle (bottom_navi_5)
         toolBar?.inflateMenu(menu_customer)
+
+
+        val salonTitle: MyTextView = (activity as AppCompatActivity).findViewById(R.id.settings_salon_name) as MyTextView
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        salonTitle.text = salon.name
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
