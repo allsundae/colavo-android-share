@@ -1,6 +1,7 @@
 package com.colavo.android.presenters.customer
 
 import com.colavo.android.entity.customer.CustomerModel
+import com.colavo.android.entity.customer.ImageUrl
 import com.colavo.android.entity.query.customer.CustomerQuery
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.entity.response.FirebaseResponse
@@ -36,8 +37,8 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
         customerlistView?.showCreateCustomerlistFragment()
     }
 
-    override fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrl: String) {
-        createCustomer.execute(salonUid, customerUid, customerPhone, customerName, customerImageUrl, CreateCustomerSubscriber())
+    override fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrls: ImageUrl?) {
+        createCustomer.execute(salonUid, customerUid, customerPhone, customerName, customerImageUrls!!, CreateCustomerSubscriber())
     }
 
     override fun onDestroy() {

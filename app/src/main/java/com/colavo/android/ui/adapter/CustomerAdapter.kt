@@ -38,12 +38,13 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
             this.customerName.text = customerModel.name
             this.customerPhone.text = customerModel.phone
            // this.customerImage.loadUrl(customerModel.image)
+            val thisThumbImage:String = customerModel.image_urls!!.getThumbUrl()
 
-           if (customerModel.image != "") {
+           if (thisThumbImage != "") {
                val transForm = CircleTransform()
 
                 Picasso.with(context)
-                        .load(customerModel.image.toString()) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(thisThumbImage) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(40, 40)
                         .centerCrop()
                         .placeholder(R.drawable.ic_customer_holder_person)

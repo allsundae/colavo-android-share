@@ -34,12 +34,9 @@ kapt {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:multidex:1.0.0'
-
-
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.5@aar')
-    {
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.5@aar') {
         transitive = true
     }
     // Android week view
@@ -54,6 +51,7 @@ dependencies {
     // Weekview
     //    compile 'com.github.alamkanak:android-week-view:1.2.6'
     // Popup view
+    compile 'com.google.dagger:dagger:2.4'
     //compile 'com.meetic.marypopup:marypopup:1.0.0'
     //compile 'com.meetic.dragueur:dragueur:1.0.3'
     compile 'com.github.andreilisun:swipedismissdialog:0.1'
@@ -75,12 +73,10 @@ dependencies {
     compile 'io.reactivex:rxkotlin:0.60.0'
     compile 'joda-time:joda-time:2.9.4'
     compile 'com.roughike:bottom-bar:2.3.1'
-    compile 'com.google.dagger:dagger:2.4'
-//    compile 'com.github.douglasjunior:android-simple-tooltip:0.2.1'
     kapt 'com.google.dagger:dagger-compiler:2.4'
+    //    compile 'com.github.douglasjunior:android-simple-tooltip:0.2.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.4'
-
+    //    annotationProcessor 'com.google.dagger:dagger-android-processor:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.allattentionhere:fabulousfilter:0.0.4'
 }

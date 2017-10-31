@@ -44,12 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-
+            android:letterSpacing="-0.05"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="20sp"
+            android:textSize="@dimen/list_1sttext"
             tools:text="Salon name" />
         <!--        <ImageView
                     android:id="@+id/imageView"
@@ -69,8 +69,8 @@
             android:maxLines="1"
             android:text="Owner name"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp" />
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext" />
 
         <TextView
             android:id="@+id/salon_address"
@@ -80,11 +80,12 @@
             android:layout_alignBottom="@+id/modifiedDate"
             android:layout_marginStart="11dp"
             android:layout_toEndOf="@+id/modifiedDate"
+            android:letterSpacing="-0.05"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext"
             tools:text="salon address" />
 
 

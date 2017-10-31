@@ -23,6 +23,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.salonUid)
                         .child(query.salonUid)
+                        .orderByChild("name").limitToFirst(60)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
@@ -67,8 +68,9 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
     override fun createCustomer(query: CustomerQuery.CreateCustomer): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
-            .createCustomer(query.salonUid, CustomerEntity(uid = query.customerUid, phone = query.customerPhone
-                            , name = query.customerName, image = query.customerImageUrl))
+            .createCustomer(query.salonUid
+                            , CustomerEntity(uid = query.customerUid, phone = query.customerPhone
+                                                , name = query.customerName, image_urls = query.customerImageUrls))
 
 /*    private fun convertToCustomerModel(pair: Pair<CustomerEntity, ResponseType>)
             : Observable<Pair<CustomerModel, ResponseType>> {

@@ -1,5 +1,6 @@
 package com.colavo.android.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.customer.CustomerPresenterImpl
 import com.colavo.android.ui.adapter.CustomerAdapter
+import com.colavo.android.ui.customer.CustomerDetailFragment
 import com.colavo.android.ui.customer.CustomerlistView
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
@@ -35,6 +37,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     companion object {
         fun newInstance() = PlaceholderFragment04()
+        val EXTRA_CUSTOMER: String = "CUSTOMER"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -63,9 +66,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        toolBar?.setTitle (R.string.bottom_navi_4)
-        toolBar?.inflateMenu(menu_customer)
+
 
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
@@ -80,6 +81,10 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar?.setTitle ("Customers ${customerAdapter.getItemCount()}" ) //R.string.bottom_navi_4
+        toolBar?.inflateMenu(menu_customer)
+        //TODO update number of customers
     }
 
 
@@ -91,7 +96,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     override fun showCreateCustomerlistFragment() {
         //todo
-        MaterialDialog.Builder(this.context)
+/*        MaterialDialog.Builder(this.context)
                 .title(R.string.create_conversation)
                 .content(R.string.input_salon_name)
                 .inputType(InputType.TYPE_CLASS_TEXT)
@@ -100,8 +105,8 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
                         "customerUid"
                         , "010-4707-9934"
                         , input.toString()
-                        , "image"
-                )}.show()
+                        , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
+                )}.show()*/
     }
 
     override fun openCustomerFragment(customerModel: CustomerModel) {
@@ -116,7 +121,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun addCustomer(customerEntity: CustomerModel) {
-        Logger.log("Customer added")
+        Logger.log("Customer added :  " + customerEntity.name)
 
         customerAdapter.items.add(customerEntity)
         customerAdapter.notifyItemInserted(customerAdapter.itemCount)
@@ -155,6 +160,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     override fun onItemClicked(item: CustomerModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this.context, CustomerDetailFragment::class.java)
+        intent.putExtra(EXTRA_CUSTOMER, item)
+        startActivity(intent)
     }
 
 
