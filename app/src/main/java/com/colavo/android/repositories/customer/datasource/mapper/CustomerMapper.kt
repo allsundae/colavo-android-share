@@ -3,6 +3,7 @@ package com.colavo.android.repositories.customer.datasource.mapper
 import com.colavo.android.entity.customer.BaseCustomer
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
+import com.colavo.android.entity.customer.ImageUrl
 
 
 class CustomerMapper {
@@ -15,8 +16,8 @@ class CustomerMapper {
             customerModel.phone = baseCustomer.phone
             customerModel.national_phone = baseCustomer.national_phone
             customerModel.name = baseCustomer.name
-            customerModel.image_urls!!.image_full_url = baseCustomer.image_urls!!.image_full_url
-            customerModel.image_urls!!.image_thumb_url = baseCustomer.image_urls!!.image_thumb_url
+            customerModel.image_urls[0].image_full_url = baseCustomer.image_urls[0].image_full_url
+            customerModel.image_urls[0].image_thumb_url = baseCustomer.image_urls[0].image_thumb_url
             customerModel.recent_appointment_begin_at = baseCustomer.recent_appointment_begin_at
             customerModel.recent_appointment_end_at = baseCustomer.recent_appointment_end_at
             customerModel.is_removed = baseCustomer.is_removed
@@ -36,8 +37,8 @@ class CustomerMapper {
                 customerModel.phone = customerEntity.phone
                 customerModel.national_phone = customerEntity.national_phone
                 customerModel.name = customerEntity.name
-                customerModel.image_urls?.image_full_url = customerEntity.image_urls!!.getFullUrl()// customerEntity.image_urls!!.image_full_url
-                customerModel.image_urls?.image_thumb_url = customerEntity.image_urls!!.image_thumb_url
+                customerModel.image_urls[0]?.image_full_url = customerEntity.image_urls[0]?.image_full_url// customerEntity.image_urls!!.image_full_url
+                customerModel.image_urls[0]?.image_thumb_url = customerEntity.image_urls[0]?.image_thumb_url
                 customerModel.recent_appointment_begin_at = customerEntity.recent_appointment_begin_at
                 customerModel.recent_appointment_end_at = customerEntity.recent_appointment_end_at
                 customerModel.is_removed = customerEntity.is_removed

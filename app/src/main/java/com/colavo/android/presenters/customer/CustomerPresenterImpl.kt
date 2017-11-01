@@ -37,8 +37,8 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
         customerlistView?.showCreateCustomerlistFragment()
     }
 
-    override fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrls: ImageUrl?) {
-        createCustomer.execute(salonUid, customerUid, customerPhone, customerName, customerImageUrls!!, CreateCustomerSubscriber())
+    override fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrls:List<ImageUrl>) {
+        createCustomer.execute(salonUid, customerUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
     }
 
     override fun onDestroy() {

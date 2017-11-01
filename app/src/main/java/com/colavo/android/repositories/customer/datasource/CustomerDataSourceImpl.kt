@@ -2,6 +2,7 @@ package com.colavo.android.repositories.customer.datasource
 
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
+import com.colavo.android.entity.customer.ImageUrl
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.customer.CustomerQuery
 import com.colavo.android.entity.response.FirebaseResponse
@@ -23,7 +24,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.salonUid)
                         .child(query.salonUid)
-                        .orderByChild("name").limitToFirst(60)
+                        .orderByChild("name").limitToFirst(90)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
@@ -40,6 +41,17 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
+                                    //    val urls:ImageUrl = dataSnapshot.child("image_url").child("thumb").getValue(ImageUrl::class.java)
+
+                                        if ( dataSnapshot.child("image_url").child("thumb").value != null) {
+                                            customer.image_urls[0]!!.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                                            Logger.log("Image Thumb Url : ${dataSnapshot.child("image_url").child("thumb").value.toString()}")
+                                            Logger.log("Image Thumb Url : ${customer.image_urls[0].image_thumb_url}")
+                                        }
+
+
+                                                //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()
+                                    //    customer.image_urls?.image_thumb_url = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
                                         customer.uid = dataSnapshot.key
                                         Logger.log("added ${customer.name}")
                                         subscriber.onNext(customer to ResponseType.ADDED)
@@ -61,6 +73,10 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                             })
             }
  /*           .flatMap { response -> convertToCustomerModel(response)  }*/
+            /*.flatMap { pair -> Observable.zip(Observable.just(pair)
+                    , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                    , { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
+            ) }*/
             .flatMap { pair -> Observable.zip(Observable.just(pair)
                     , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                     , { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
