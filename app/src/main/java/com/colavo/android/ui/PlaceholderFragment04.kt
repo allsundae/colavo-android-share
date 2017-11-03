@@ -160,13 +160,28 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
     override fun onItemClicked(item: CustomerModel) {
-/*        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+/*
         val intent = Intent(this.context, CustomerDetailFragment::class.java)
         intent.putExtra(EXTRA_CUSTOMER, item)
-        startActivity(intent)*/
+        startActivity(intent)
+*/
+/*
         val dialogFrag = CreateFabFragment.newInstance()
         dialogFrag.setParentFab(fab_customer as FloatingActionButton)
         dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
+*/
+
+// Create new fragment and transaction
+        val newFragment = CustomerDetailFragment()
+        val transaction = fragmentManager.beginTransaction()
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+        transaction.replace(R.id.customer_list_holder, newFragment) //container
+        transaction.addToBackStack(null)
+
+// Commit the transaction
+        transaction.commit()
 
 
     }

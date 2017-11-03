@@ -49,6 +49,10 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                             Logger.log("Image Thumb Url : ${customer.image_urls[0].image_thumb_url}")
                                         }
 
+                                        if ( dataSnapshot.child("image_url").child("full").value != null) {
+                                            customer.image_urls[0]!!.image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
+                                        }
+
 
                                                 //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()
                                     //    customer.image_urls?.image_thumb_url = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
