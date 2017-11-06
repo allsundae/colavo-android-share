@@ -24,7 +24,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.salonUid)
                         .child(query.salonUid)
-                        .orderByChild("name").limitToFirst(90)
+                        .orderByChild("name").limitToFirst(120)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
@@ -77,14 +77,15 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                             })
             }
  /*           .flatMap { response -> convertToCustomerModel(response)  }*/
-            /*.flatMap { pair -> Observable.zip(Observable.just(pair)
-                    , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                    , { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
-            ) }*/
-            .flatMap { pair -> Observable.zip(Observable.just(pair)
+                .flatMap { pair -> Observable.zip(Observable.just(pair)
                     , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                     , { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
             ) }
+/*
+            .concatMap { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonKey(pair.first.uid))
+                           { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
+                    }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+*/
 
     override fun createCustomer(query: CustomerQuery.CreateCustomer): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
@@ -102,6 +103,12 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
     private fun getCustomerbySalonKey(uid: String?)
             : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerBySalonId(uid ?: "")
-    
+
+/*    private fun getNumberofCustomer : Int (){
+
+        val numOfCustomers: Int = datasnapshot.getChildrenCount()
+        return val
+    }
+    */
 
 }

@@ -1,15 +1,18 @@
 package com.colavo.android.ui.customer
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.colavo.android.R
 import com.colavo.android.base.BaseFragment
 import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.ui.adapter.CustomerAdapter
 import android.view.animation.AlphaAnimation
+import com.flipboard.bottomsheet.commons.BottomSheetFragment
 
 
-class CustomerDetailFragment : BaseFragment()
+class CustomerDetailFragment : BottomSheetFragment()
         , CustomerAdapter.OnItemClickListener  {
 
     private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
@@ -20,7 +23,6 @@ class CustomerDetailFragment : BaseFragment()
     private var mIsTheTitleContainerVisible = true
 
 
-    override fun getLayout() = R.layout.customer_detail_fragment
 
     companion object {
         fun newInstance() = CustomerDetailFragment()
@@ -33,6 +35,10 @@ class CustomerDetailFragment : BaseFragment()
 
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.customer_detail_fragment, container, false)
+
+    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

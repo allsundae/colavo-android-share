@@ -1,12 +1,16 @@
 package com.colavo.android.ui
 
+import android.app.Fragment
+import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.R
@@ -25,6 +29,8 @@ import kotlinx.android.synthetic.main.fragment_04.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
+import com.flipboard.bottomsheet.BottomSheetLayout
+import kotlinx.android.synthetic.main.customer_detail_bottom_fragment.*
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
@@ -52,22 +58,23 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     lateinit var firebaseAuth: FirebaseAuth
 
 
+    protected lateinit var bottomSheetLayout: BottomSheetLayout
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
         (context.applicationContext as App).addCustomerComponent().inject(this)
-
+   // this works     (context.applicationContext as App).addCustomerComponent().inject(this)
         //   (context.applicationContext as App).addCustomerComponent().inject(this)
+        //    (getActivity().getApplication() as App).addCustomerComponent().inject(this)
 
-    //    (getActivity().getApplication() as App).addCustomerComponent().inject(this)
+
     }
 
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
@@ -86,6 +93,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         toolBar?.setTitle ("Customers ${customerAdapter.getItemCount()}" ) //R.string.bottom_navi_4
         toolBar?.inflateMenu(menu_customer)
         //TODO update number of customers
+
+
+
     }
 
 
@@ -160,6 +170,14 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
     override fun onItemClicked(item: CustomerModel) {
+        Toast.makeText(context, "Clicked ${item.name}" , Toast.LENGTH_LONG).show()
+/*        with(activity){
+            bottomsheet.showWithSheetView(LayoutInflater.from(context).inflate(R.layout.fragment_04, bottomsheet, false))
+        }*/
+        //(activity as AppCompatActivity)
+        CustomerDetailFragment().show(activity.getSupportFragmentManager(), R.id.bottomsheet)
+//
+ //      item.setOnClickListener(View.OnClickListener { MyFragment().show(getSupportFragmentManager(), R.id.bottomsheet) })
 /*
         val intent = Intent(this.context, CustomerDetailFragment::class.java)
         intent.putExtra(EXTRA_CUSTOMER, item)
@@ -170,6 +188,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         dialogFrag.setParentFab(fab_customer as FloatingActionButton)
         dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
 */
+
+
+
 
 // Create new fragment and transaction
         val newFragment = CustomerDetailFragment()
@@ -188,6 +209,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun onLongItemClicked(item: CustomerModel) {
+
     }
 
     override fun onError(throwable: Throwable) {

@@ -16,7 +16,8 @@
         <item name="android:textColorSecondaryInverse">@color/md_edittext_error</item>
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:textColorPrimary">@color/primary_text_material_light</item>
-
+        <!--for shared element transition-->
+        <item name="android:windowContentTransitions">true</item>
         <!-- for ripple color -->
         <item name="colorControlHighlight">@color/ripple_material_dark</item>
         <item name="android:colorEdgeEffect">@color/colorAccent</item>
