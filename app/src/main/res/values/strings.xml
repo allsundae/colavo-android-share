@@ -45,5 +45,7 @@
     <string name="action_week_view">Week view</string>
     <string name="needs_another_hairshop">Needs another hairshop?</string>
     <string name="inivitation_new_hairshop">Inivitation / New hairshop</string>
+    <!-- Shared element transition -->
+    <string name="logoTransitionName">customer_name</string>
 
 </resources>

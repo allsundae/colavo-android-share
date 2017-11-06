@@ -59,7 +59,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
     }
 
-    inner class CircleTransform : Transformation {
+    public class CircleTransform : Transformation {
         override fun transform(source: Bitmap): Bitmap {
             val size = Math.min(source.width, source.height)
 
