@@ -18,7 +18,6 @@
           android:layout_height="wrap_content"
           android:layout_alignParentTop="true"
           android:layout_alignParentStart="true">
-
                 <TextView
               android:id="@+id/conversation_last_message_time"
               android:layout_width="wrap_content"
@@ -30,7 +29,6 @@
               android:textSize="14sp"
               android:textAppearance="?attr/textAppearanceListItem"
               tools:text="Yesterday" />
-
     </RelativeLayout>-->
 
     <RelativeLayout
@@ -46,19 +44,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-
+            android:letterSpacing="-0.05"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="20sp"
+            android:textSize="@dimen/list_1sttext"
             tools:text="Salon name" />
-<!--        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_icon" />-->
+        <!--        <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_icon" />-->
         <TextView
             android:id="@+id/modifiedDate"
             android:layout_width="wrap_content"
@@ -71,8 +69,8 @@
             android:maxLines="1"
             android:text="Owner name"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp" />
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext" />
 
         <TextView
             android:id="@+id/salon_address"
@@ -82,11 +80,12 @@
             android:layout_alignBottom="@+id/modifiedDate"
             android:layout_marginStart="11dp"
             android:layout_toEndOf="@+id/modifiedDate"
+            android:letterSpacing="-0.05"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext"
             tools:text="salon address" />
 
 

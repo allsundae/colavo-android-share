@@ -17,10 +17,15 @@
     </string>
     <string name="title_activity_conversations">ConversationsActivity</string>
     <string name="create_conversation">Create a salon</string>
+    <string name="create_customer">Create a customer</string>
+    <string name="create_event">Create a event</string>
+    <string name="checkout_stat">Monthly stat.</string>
+
     <string name="input_salon_name">Input salon name</string>
     <string name="input_salon_address">Input salon address</string>
     <string name="conversation_name">salon name</string>
     <string name="conversations_loading">Loading salon</string>
+    <string name="customers_loading">Loading customer</string>
     <string name="wait">Wait</string>
     <string name="dash">&#160;—&#160;</string>
     <string name="bottom_navi_1">Calendar</string>
@@ -38,5 +43,7 @@
     <string name="action_day_view">Day view</string>
     <string name="action_three_day_view">3 day view</string>
     <string name="action_week_view">Week view</string>
+    <string name="needs_another_hairshop">Needs another hairshop?</string>
+    <string name="inivitation_new_hairshop">Inivitation / New hairshop</string>
 
 </resources>

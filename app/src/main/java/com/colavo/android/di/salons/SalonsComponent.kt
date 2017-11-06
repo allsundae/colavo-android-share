@@ -10,6 +10,6 @@ import dagger.Subcomponent
 @SalonsScope
 interface SalonsComponent {
 
-    fun inject(salonListActivity: SalonListActivity)
+    fun inject(salonListActivity: SalonListActivity) //salonListActivity
 
 }

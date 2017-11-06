@@ -1,9 +1,19 @@
 package com.colavo.android.ui
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import com.colavo.android.R
+import com.colavo.android.R.menu.menu_customer
+import com.colavo.android.R.string.bottom_navi_5
 import com.colavo.android.base.BaseFragment
+import com.colavo.android.common.MyTextView
+import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.ui.salons.SalonListActivity
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by macbookpro on 2017. 9. 13..
@@ -25,5 +35,34 @@ class PlaceholderFragment05 : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar?.setTitle (bottom_navi_5)
+        toolBar?.inflateMenu(menu_customer)
+
+
+        val salonTitle: MyTextView = (activity as AppCompatActivity).findViewById(R.id.settings_salon_name) as MyTextView
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        salonTitle.text = salon.name
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.menu_customer, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.action_create_customer -> {
+                //TODO create a customer
+                return true
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
 
-        app:noOfVisibleDays="1"
+        app:noOfVisibleDays="3"
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerTodayTabColor="@color/colorTodayTab"
         app:headerColumnBackground="#ffffffff"
@@ -50,6 +50,23 @@
 
 
         />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+
+        android:layout_alignBottom="@+id/weekView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/ic_plus"
+        app:backgroundTint="@color/colorAccent"
+        android:clickable="true"
+        app:pressedTranslationZ="32dp"
+        app:rippleColor="@color/colorSecondary"
+        android:tint="@color/backgroundWhite"
+        />
+
 
 
 </RelativeLayout>

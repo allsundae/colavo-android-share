@@ -28,6 +28,7 @@
         android:layout_alignBottom="@+id/container"
         android:gravity="bottom"
 
+        app:bb_behavior="iconsOnly"
         app:bb_activeTabAlpha="1"
         app:bb_activeTabColor="@color/primaryTextColor"
         app:bb_inActiveTabColor="@color/bottomBarInactiveColor"

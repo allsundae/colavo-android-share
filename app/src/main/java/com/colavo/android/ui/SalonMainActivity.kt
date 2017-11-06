@@ -19,7 +19,9 @@ import com.colavo.android.ui.adapter.SectionsPagerModel
 import com.colavo.android.view.main.presenter.MainPresenter
 
 
-class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
+class SalonMainActivity : BasePresenterActivity<MainContract.View
+        , MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
+
     override fun onError(throwable: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -33,26 +35,11 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     }
     // Set up the ViewPager with the sections adapter.
 
-/*    val mViewPager = findViewById(R.id.container) as ViewPager
-    val bottomBar = findViewById(R.id.bottomBar) as BottomBar
-
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null*/
-
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
-
- //   @BindView(R.id.toolBar)
- //   val toolbar: Toolbar? = null
 
     /**
      * The [ViewPager] that will host the section contents.
      */
- //   @BindView(R.id.container)
- //  val viewPager: ViewPager? = null
-
-//    @BindView(R.id.bottomBar)
-//    val bottomNavigationView: BottomNavigationView? = null
-
-//    override fun onCreatePresenter() = MainPresenter()
 
     override fun onCreatePresenter(): MainContract.Presenter? {
         return MainPresenter()
@@ -61,11 +48,6 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salon_main)
-
-        // toolbar
-/*        setSupportActionBar(toolBar)
-        val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        supportActionBar?.title = salon.name*/
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -90,24 +72,21 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
             }
         }
 
-/*       getPresenter().setSectionPagerModel(mSectionsPagerAdapter);
-       getPresenter().loadSectionPagerItem();*/
+
         presenter?.setSectionPagerModel(mSectionsPagerAdapter)
         presenter?.loadSectionPagerItem() //WTF
 
+  //      loadCustomerFragment(savedInstanceState)
+
     }
 
-/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_conversations, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.action_sign_out -> openLoginActivity()
+/*    private fun loadCustomerFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .add(R.layout.fragment_04, PlaceholderFragment04(), PlaceholderFragment04::class.simpleName)
+                    .commit()
         }
-        return super.onOptionsItemSelected(item)
     }*/
 
     private fun openLoginActivity() {
@@ -150,6 +129,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View, MainContract.
     override fun onPageScrollStateChanged(state: Int) {
 
     }
+
 
 
 }

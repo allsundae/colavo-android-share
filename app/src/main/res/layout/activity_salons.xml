@@ -8,11 +8,11 @@
     android:theme="@style/AppTheme"
     tools:context="com.colavo.android.ui.salons.SalonListActivity">
 
-    <include
+<!--    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/toolbar"
-        android:layout_marginBottom="20dp"/>
+        />-->
 
 <!--    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_salon"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Needs another hairshop?"
+            android:text="@string/needs_another_hairshop"
             android:textColor="@color/backgroundWhite"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/buttonSecondary"
-                android:text="Inivitation / New hairshop"
+                android:text="@string/inivitation_new_hairshop"
                 android:textColor="@color/backgroundWhite"
                 android:textStyle="bold" />
 

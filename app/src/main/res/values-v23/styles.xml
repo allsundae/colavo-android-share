@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/backgroundWhite</item>
-        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:statusBarColor">@color/backgroundWhite</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimaryInverse">@color/colorPrimaryDark</item>

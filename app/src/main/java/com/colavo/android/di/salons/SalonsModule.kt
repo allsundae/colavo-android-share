@@ -29,6 +29,7 @@ class SalonsModule() {
 
     @Provides
     @SalonsScope
-    fun getSalonDataSourceImplementation(retrofit: Retrofit, firebaseDatabase: FirebaseDatabase): SalonsDataSourceImpl = SalonsDataSourceImpl(retrofit, firebaseDatabase)
+    fun getSalonDataSourceImplementation(retrofit: Retrofit, firebaseDatabase: FirebaseDatabase):
+            SalonsDataSourceImpl = SalonsDataSourceImpl(retrofit, firebaseDatabase)
 
 }

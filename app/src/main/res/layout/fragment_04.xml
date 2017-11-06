@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customer_list_holder"
+    android:gravity="top|center_horizontal">
 
-    <TextView
-        android:id="@+id/editText"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/customers_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="@dimen/toolbar_height"
+        android:paddingBottom="@dimen/height_bottombar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:text="Fragment 4"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/margin_fab_bottombar"
+        android:layout_marginEnd="14dp"
+        android:clickable="true"
+        android:src="@drawable/ic_plus"
+        android:tint="@color/backgroundWhite"
+        app:backgroundTint="@color/colorAccent"
+        app:pressedTranslationZ="32dp"
+        app:rippleColor="@color/colorSecondary" />
+
 </RelativeLayout>

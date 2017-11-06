@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.salon_item.view.*
 /**
  * Created by RUS on 17.07.2016.
  */
-class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: MutableList<SalonModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SalonsAdapter(val onItemClickListener: OnItemClickListener
+                    , val items: MutableList<SalonModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClicked(item: SalonModel)
@@ -51,7 +52,8 @@ class SalonsAdapter(val onItemClickListener: OnItemClickListener, val items: Mut
         }*/
     }
  
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) = (holder as ItemViewHolder).bind(items[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int)
+            = (holder as ItemViewHolder).bind(items[position])
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder?
             = ItemViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.salon_item, parent, false))

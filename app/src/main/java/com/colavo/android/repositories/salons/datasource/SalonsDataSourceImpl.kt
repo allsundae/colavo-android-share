@@ -67,7 +67,8 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
             = retrofit.create(FirebaseAPI::class.java)
             .createSalon(SalonEntity(name = query.salonName, address = query.salonAddress, owner_uid = query.ownerUid))
 
-    private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
+    private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>)
+            : Observable<Pair<SalonModel, ResponseType>> {
         return getOwnerName((pair.first).owner_uid)
                 .concatMap { users -> Observable.zip(Observable.just(users), getUserById(users?.uid))
                               { users, user -> SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }

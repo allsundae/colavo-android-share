@@ -5,6 +5,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.colavo.android.di.app.AppComponent
 import com.colavo.android.di.app.AppModule
 import com.colavo.android.di.app.DaggerAppComponent
+import com.colavo.android.di.customer.CustomerComponent
+import com.colavo.android.di.customer.CustomerModule
 import com.colavo.android.di.event.EventComponent
 import com.colavo.android.di.event.EventModule
 import com.colavo.android.di.salons.SalonsComponent
@@ -17,6 +19,8 @@ import com.colavo.android.repositories.salons.SalonsRepository
 import com.colavo.android.repositories.salons.datasource.SalonsDataSourceImpl
 import com.colavo.android.repositories.session.SessionRepository
 import com.colavo.android.repositories.session.datasource.SessionDataSourceImpl
+import com.colavo.android.repositories.customer.CustomerRepository
+import com.colavo.android.repositories.customer.datasource.CustomerDataSourceImpl
 import com.colavo.android.utils.HandleUtils
 import com.colavo.android.utils.Logger
 
@@ -30,6 +34,7 @@ class App : Application() {
     private var sessionComponent: SessionComponent? = null
     private var salonsComponent: SalonsComponent? = null
     private var eventComponent: EventComponent? = null
+    private var customerComponent: CustomerComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -64,6 +69,13 @@ class App : Application() {
         return eventComponent as EventComponent
     }
 
+    fun addCustomerComponent(): CustomerComponent {
+        if(customerComponent == null) {
+            customerComponent = appComponent.addCustomerComponent(CustomerModule())
+        }
+        return customerComponent as CustomerComponent
+    }
+
     fun clearSessionComponent() {
         sessionComponent = null
     }
@@ -74,6 +86,10 @@ class App : Application() {
 
     fun clearEventComponent() {
         eventComponent = null
+    }
+
+    fun clearCustomerComponent() {
+        customerComponent = null
     }
 
 }

@@ -8,5 +8,6 @@ import org.joda.time.DateTime
 data class EventModel(var id: String,
                       var text: String,
                       var userName: String,
-                      var time: DateTime,
+                      var time: String,
+                      //var time: DateTime,
                       var isMine: Boolean)
