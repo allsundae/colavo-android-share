@@ -18,6 +18,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
+        android:background="?selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
 
         app:noOfVisibleDays="3"
         app:headerRowBackgroundColor="@color/backgroundWhite"

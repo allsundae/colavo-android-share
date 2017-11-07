@@ -20,7 +20,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
                       , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClicked(item: CustomerModel)
+        fun onItemClicked(item: CustomerModel, position: Int)
         fun onLongItemClicked(item: CustomerModel)
     }
 
@@ -45,7 +45,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
                 Picasso.with(context)
                         .load(customerModel.image_urls[0].image_thumb_url) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
-                        .resize(60, 60)
+                        .resize(240, 240)
                         .centerCrop()
                         .placeholder(R.drawable.ic_customer_holder_person)
                         .transform(transForm)
@@ -54,7 +54,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
             }
 
 
-            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel) }
+            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel, position) }
         }
 
     }

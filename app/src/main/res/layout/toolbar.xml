@@ -6,8 +6,8 @@
     android:layout_height="?attr/actionBarSize"
     android:minHeight="?attr/actionBarSize"
 
-    android:background="@android:color/transparent"
     android:elevation="0dp"
+    android:clickable="true"
     app:elevation="0dp"
     app:theme="@style/MyToolbarStyle"
     android:subtitleTextColor="@color/colorAccent"

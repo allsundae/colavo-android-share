@@ -11,9 +11,9 @@
     <!-- List -->
     <dimen name="list_divider_margin">4dp</dimen>
     <dimen name="list_divider_margin_top">26dp</dimen>
-    <dimen name="list_1sttext">16dp</dimen>
-    <dimen name="list_2ndtext">14dp</dimen>
-    <dimen name="list_Bigtext">20dp</dimen>
+    <dimen name="list_1sttext">16sp</dimen>
+    <dimen name="list_2ndtext">14sp</dimen>
+    <dimen name="list_Bigtext">20sp</dimen>
     <dimen name="list_vertical_padding">10dp</dimen>
 
 

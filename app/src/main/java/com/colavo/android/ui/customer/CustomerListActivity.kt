@@ -136,7 +136,7 @@ class CustomerListActivity : AppCompatActivity()
         progressDialog.hide()
     }
 
-    override fun onItemClicked(item: CustomerModel) {
+    override fun onItemClicked(item: CustomerModel, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailActivity::class.java)
         intent.putExtra(EXTRA_CUSTOMER, item)

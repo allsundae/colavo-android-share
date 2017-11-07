@@ -3,6 +3,7 @@ package com.colavo.android.ui
 import android.app.Fragment
 import android.app.FragmentManager
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -40,7 +41,10 @@ import butterknife.ButterKnife
 import android.transition.TransitionInflater
 import com.colavo.android.R.string.logoTransitionName
 import com.colavo.android.ui.animations.DetailsTransition
+import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import kotlinx.android.synthetic.main.customer_item.*
+import kotlinx.android.synthetic.main.customer_item.view.*
+import java.io.ByteArrayOutputStream
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
@@ -181,15 +185,24 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         progressDialog.hide()
     }
 
-    override fun onItemClicked(item: CustomerModel) {
+    override fun onItemClicked(item: CustomerModel, position: Int) {
         Toast.makeText(context, "Clicked ${item.name}" , Toast.LENGTH_LONG).show()
 
   //      CustomerDetailFragment().show(activity.getSupportFragmentManager(), R.id.bottomsheet)
 
+        customer_image.buildDrawingCache()
+        val bitmap = customer_image?.getDrawingCache()
+        val bs = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, bs)
+        val byteArray = bs.toByteArray()
+
+
+
         val newFragment = CustomerDetailFragment()
 
-        val bundle = Bundle(1)
+        val bundle = Bundle(2)
         bundle.putSerializable(EXTRA_CUSTOMER, item)
+        bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

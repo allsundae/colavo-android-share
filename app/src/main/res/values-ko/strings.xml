@@ -42,4 +42,16 @@
 
     <string name="needs_another_hairshop">헤어샵 추가하기</string>
     <string name="inivitation_new_hairshop">초대권 / 새 헤어샵 만들기</string>
+
+
+    <!--Customer Detail-->
+    <string name="action_call">전화하기</string>
+    <string name="action_edit_customer">고객정보 수정</string>
+    <string name="action_prohibit">예약 금지</string>
+    <string name="action_cancel">취소</string>
+
+    <!-- Shared element transition -->
+    <string name="logoTransitionName">customer_name</string>
+    <string name="checkout_Text">Checkout</string>
+
 </resources>
