@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MyActivity" >
+    <item
+        android:id="@+id/action_customer_call" android:title="@string/action_call"
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_phone"
+        ></item>
+    <item
+        android:id="@+id/action_customer_edit" android:title="@string/action_edit_customer"
+        android:orderInCategory="200" app:showAsAction="never"
+        ></item>
+    <item
+        android:id="@+id/action_customer_prohibit" android:title="@string/action_prohibit"
+        android:orderInCategory="300" app:showAsAction="never"
+        ></item>
+
+</menu>

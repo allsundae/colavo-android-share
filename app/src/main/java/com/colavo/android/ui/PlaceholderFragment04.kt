@@ -1,12 +1,22 @@
 package com.colavo.android.ui
 
+import android.app.Fragment
+import android.app.FragmentManager
 import android.content.Intent
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.FloatingActionButton
+import android.support.transition.Fade
+import android.support.transition.TransitionSet
+import android.support.v4.app.BundleCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.R
@@ -25,10 +35,25 @@ import kotlinx.android.synthetic.main.fragment_04.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
+import com.flipboard.bottomsheet.BottomSheetLayout
+import kotlinx.android.synthetic.main.customer_detail_bottom_fragment.*
+import butterknife.ButterKnife
+import android.transition.TransitionInflater
+import com.colavo.android.R.string.logoTransitionName
+import com.colavo.android.ui.animations.DetailsTransition
+import kotlinx.android.synthetic.main.customer_detail_fragment.*
+import kotlinx.android.synthetic.main.customer_item.*
+import kotlinx.android.synthetic.main.customer_item.view.*
+import java.io.ByteArrayOutputStream
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         , CustomerAdapter.OnItemClickListener {
+    /* Transition */
+    private val MOVE_DEFAULT_TIME: Long = 1000
+    private val FADE_DEFAULT_TIME: Long = 300
+    private val mDelayedTransactionHandler = Handler()
+    private val mRunnable = Runnable { this.performTransition() }
 
     @Inject
     lateinit var customerPresenter: CustomerPresenterImpl
@@ -52,22 +77,23 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     lateinit var firebaseAuth: FirebaseAuth
 
 
+    protected lateinit var bottomSheetLayout: BottomSheetLayout
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
         (context.applicationContext as App).addCustomerComponent().inject(this)
-
+   // this works     (context.applicationContext as App).addCustomerComponent().inject(this)
         //   (context.applicationContext as App).addCustomerComponent().inject(this)
+        //    (getActivity().getApplication() as App).addCustomerComponent().inject(this)
 
-    //    (getActivity().getApplication() as App).addCustomerComponent().inject(this)
+
     }
 
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
@@ -159,35 +185,75 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         progressDialog.hide()
     }
 
-    override fun onItemClicked(item: CustomerModel) {
-/*
-        val intent = Intent(this.context, CustomerDetailFragment::class.java)
-        intent.putExtra(EXTRA_CUSTOMER, item)
-        startActivity(intent)
-*/
-/*
-        val dialogFrag = CreateFabFragment.newInstance()
-        dialogFrag.setParentFab(fab_customer as FloatingActionButton)
-        dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
-*/
+    override fun onItemClicked(item: CustomerModel, position: Int) {
+        Toast.makeText(context, "Clicked ${item.name}" , Toast.LENGTH_LONG).show()
 
-// Create new fragment and transaction
+  //      CustomerDetailFragment().show(activity.getSupportFragmentManager(), R.id.bottomsheet)
+
+        customer_image.buildDrawingCache()
+        val bitmap = customer_image?.getDrawingCache()
+        val bs = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, bs)
+        val byteArray = bs.toByteArray()
+
+
+
         val newFragment = CustomerDetailFragment()
-        val transaction = fragmentManager.beginTransaction()
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
+        val bundle = Bundle(2)
+        bundle.putSerializable(EXTRA_CUSTOMER, item)
+        bundle.putByteArray("BYTE", byteArray)
+        newFragment.setArguments(bundle)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            newFragment.setSharedElementEnterTransition(DetailsTransition())
+            newFragment.setEnterTransition(android.transition.Fade())
+            exitTransition = android.transition.Fade()
+            newFragment.setSharedElementReturnTransition(DetailsTransition())
+        }
+
+        val transaction = fragmentManager.beginTransaction()
+        transaction.addSharedElement(customer_name,"customer_name" )//logoTransitionName.toString()
         transaction.replace(R.id.customer_list_holder, newFragment) //container
         transaction.addToBackStack(null)
-
-// Commit the transaction
         transaction.commit()
+     //   mDelayedTransactionHandler.postDelayed(mRunnable, 1000);
+    }
 
+    private fun performTransition() {
 
+/*        val previousFragment = fragmentManager.findFragmentById(R.id.customer_list_holder)
+        val nextFragment = CustomerDetailFragment.newInstance()
+
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        // 1. Exit for Previous Fragment
+        val exitFade = android.support.transition.Fade()
+        exitFade.setDuration(FADE_DEFAULT_TIME)
+        previousFragment.exitTransition = exitFade
+
+        // 2. Shared Elements Transition
+        val enterTransitionSet = android.support.transition.TransitionSet()
+        enterTransitionSet.addTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.move))
+        enterTransitionSet.setDuration(MOVE_DEFAULT_TIME)
+        enterTransitionSet.setStartDelay(FADE_DEFAULT_TIME)
+        nextFragment.setSharedElementEnterTransition(enterTransitionSet)
+
+        // 3. Enter Transition for New Fragment
+        val enterFade = android.support.transition.Fade()
+        enterFade.setStartDelay(MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME)
+        enterFade.setDuration(FADE_DEFAULT_TIME)
+        nextFragment.setEnterTransition(enterFade)
+
+        val logo = ButterKnife.findById(this, R.id.fragment1_logo)
+        fragmentTransaction.addSharedElement(logo, logo.getTransitionName())
+        fragmentTransaction.replace(R.id.fragment_container, nextFragment)
+        fragmentTransaction.commitAllowingStateLoss()*/
     }
 
 
     override fun onLongItemClicked(item: CustomerModel) {
+
     }
 
     override fun onError(throwable: Throwable) {
@@ -205,6 +271,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun onDestroy() {
         super.onDestroy()
         //clearCustomerComponent()
+        mDelayedTransactionHandler.removeCallbacks(mRunnable);
         customerPresenter.onDestroy()
     }
 

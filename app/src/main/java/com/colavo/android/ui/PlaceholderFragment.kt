@@ -427,8 +427,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     fun updateEventPoptip(event: WeekViewEvent){
             Toast.makeText(context, "Clicked Poptip ${event.name}" , Toast.LENGTH_LONG).show()
-        val popName = (activity as AppCompatActivity).findViewById(R.id.pop_customer_name) as TextView?
-        popName?.setText("${event.name}")
+        pop_customer_name?.setText("${event.name}")
 
     }
 

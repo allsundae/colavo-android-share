@@ -46,4 +46,13 @@
     <string name="needs_another_hairshop">Needs another hairshop?</string>
     <string name="inivitation_new_hairshop">Inivitation / New hairshop</string>
 
+    <!--Customer Detail-->
+    <string name="action_call">Call</string>
+    <string name="action_edit_customer">Edit customer\'s info</string>
+    <string name="action_prohibit">Prohibit reservation</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="checkout_Text">Checkout</string>
+
+    소
+
 </resources>

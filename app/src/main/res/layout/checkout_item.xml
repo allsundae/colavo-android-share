@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/list_vertical_padding"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/list_vertical_padding">
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/checkout_time_ampm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="PM"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext" />
+
+        <TextView
+            android:id="@+id/checkout_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3:32"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/customer_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_customer_holder_person" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/list_1sttext"
+            android:transitionName="@string/logoTransitionName"
+            tools:text="Customer name" />
+
+        <TextView
+            android:id="@+id/checkout_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/customer_name"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="-0.05"
+            android:maxLines="1"
+            android:text="Menus"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="@dimen/list_2ndtext" />
+
+        <TextView
+            android:id="@+id/checkout_memo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/customer_name"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_rectangular"
+            android:drawableTint="@color/checkoutMemoTextColor"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="10dp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="-0.05"
+            android:maxLines="2"
+            android:text="New memo"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/checkoutMemoTextColor"
+            android:textSize="@dimen/list_2ndtext" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ctn_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_button_line"
+            android:text="@string/checkout_Text"
+            android:textColor="@color/buttonSecondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

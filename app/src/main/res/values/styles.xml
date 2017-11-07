@@ -16,7 +16,8 @@
         <item name="android:textColorSecondaryInverse">@color/md_edittext_error</item>
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:textColorPrimary">@color/primary_text_material_light</item>
-
+        <!--for shared element transition-->
+        <item name="android:windowContentTransitions">true</item>
         <!-- for ripple color -->
         <item name="colorControlHighlight">@color/ripple_material_dark</item>
         <item name="android:colorEdgeEffect">@color/colorAccent</item>
@@ -27,6 +28,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="android:listSelector">?attr/selectableItemBackground</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="AppTheme.ActionBar">
@@ -41,7 +44,7 @@
         <item name="android:elevation">0dp</item>
         <item name="colorPrimary">@color/backgroundWhite</item>
         <item name="colorPrimaryDark">@color/buttonSecondary</item>
-
+        <!--<item name="actionBarItemBackground">?attr/selectableItemBackground</item>-->
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -52,6 +55,8 @@
         <item name="android:textColorSecondary">@color/toolBarIcon</item>
         <item name="android:tint">@color/toolBarIcon</item>
         <item name="actionMenuTextColor">@color/toolBarIcon</item>
+        <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
+
     </style>
 
 

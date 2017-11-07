@@ -27,4 +27,6 @@
     <color name="customerPlaceholderColor">#7BDDE5</color>
     <color name="toolBarIcon">#C5D2DC</color>
 
+    <color name="checkoutMemoTextColor">#bfab99</color>
+
 </resources>
