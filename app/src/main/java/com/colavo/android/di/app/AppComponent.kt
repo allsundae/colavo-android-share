@@ -1,5 +1,7 @@
 package com.colavo.android.di.app
 
+import com.colavo.android.di.checkout.CheckoutComponent
+import com.colavo.android.di.checkout.CheckoutModule
 import com.colavo.android.di.customer.CustomerComponent
 import com.colavo.android.di.customer.CustomerModule
 import com.colavo.android.di.event.EventComponent
@@ -26,6 +28,7 @@ interface AppComponent {
     fun addSessionComponent(sessionModule: SessionModule): SessionComponent
     fun addSalonsComponent(salonModule: SalonsModule): SalonsComponent
     fun addCustomerComponent(customerModule: CustomerModule): CustomerComponent
+    fun addCheckoutComponent(checkoutModule: CheckoutModule): CheckoutComponent
 
     fun inject(mainActivity: MainActivity)
   //  fun inject(placeholderFragment04: PlaceholderFragment04)

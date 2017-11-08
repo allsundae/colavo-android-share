@@ -1,5 +1,6 @@
 package com.colavo.android.net
 
+import com.colavo.android.entity.checkout.CheckoutEntity
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.event.EventEntity
 import com.colavo.android.entity.salon.SalonEntity
@@ -33,5 +34,11 @@ interface FirebaseAPI {
 
     @GET("salon_customers/{id}.json")
     fun createCustomer(@Path("id") id: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>
+
+    @GET("salon_checkouts/{id}.json")
+    fun getCheckoutBySalonId(@Path("id") uid: String): Observable<CheckoutEntity>
+
+    @GET("salon_checkouts/{id}.json")
+    fun createCheckout(@Path("id") id: String, @Body checkoutEntity: CheckoutEntity): Observable<FirebaseResponse>
 
 }

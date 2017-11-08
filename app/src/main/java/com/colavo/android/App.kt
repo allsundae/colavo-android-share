@@ -5,6 +5,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.colavo.android.di.app.AppComponent
 import com.colavo.android.di.app.AppModule
 import com.colavo.android.di.app.DaggerAppComponent
+import com.colavo.android.di.checkout.CheckoutComponent
+import com.colavo.android.di.checkout.CheckoutModule
 import com.colavo.android.di.customer.CustomerComponent
 import com.colavo.android.di.customer.CustomerModule
 import com.colavo.android.di.event.EventComponent
@@ -35,6 +37,7 @@ class App : Application() {
     private var salonsComponent: SalonsComponent? = null
     private var eventComponent: EventComponent? = null
     private var customerComponent: CustomerComponent? = null
+    private var checkoutComponent: CheckoutComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -74,6 +77,13 @@ class App : Application() {
             customerComponent = appComponent.addCustomerComponent(CustomerModule())
         }
         return customerComponent as CustomerComponent
+    }
+
+    fun addCheckoutComponent(): CheckoutComponent {
+        if(checkoutComponent == null) {
+            checkoutComponent = appComponent.addCheckoutComponent(CheckoutModule())
+        }
+        return checkoutComponent as CheckoutComponent
     }
 
     fun clearSessionComponent() {
