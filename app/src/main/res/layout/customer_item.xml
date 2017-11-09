@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,14 +17,15 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/customer_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_customer_holder_person"
-            />
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_customer_holder_person_smaller"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp"
+            app:civ_fill_color="@color/customerPlaceholderColor" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,9 +45,9 @@
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/list_1sttext"
-            tools:text="Customer name"
-            android:transitionName="@string/logoTransitionName"/>
+            android:textSize="@dimen/list_2ndtext"
+            android:transitionName="@string/logoTransitionName"
+            tools:text="Customer name" />
 
         <TextView
             android:id="@+id/customer_phone"
@@ -55,7 +57,7 @@
             android:layout_below="@+id/customer_name"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
-            android:letterSpacing="-0.05"
+            android:letterSpacing="-0.02"
             android:maxLines="1"
             android:text="01047079934"
             android:textAppearance="?attr/textAppearanceListItem"

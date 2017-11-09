@@ -84,6 +84,8 @@ dependencies {
     compile 'com.allattentionhere:fabulousfilter:0.0.4'
     compile 'com.flipboard:bottomsheet-core:1.5.3'
     compile 'com.flipboard:bottomsheet-commons:1.5.3'
+
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 }
 
 repositories {

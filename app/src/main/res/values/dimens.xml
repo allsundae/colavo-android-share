@@ -14,6 +14,7 @@
     <dimen name="list_1sttext">16sp</dimen>
     <dimen name="list_2ndtext">14sp</dimen>
     <dimen name="list_Bigtext">20sp</dimen>
+    <dimen name="list_Timetext">12sp</dimen>
     <dimen name="list_vertical_padding">10dp</dimen>
 
 
