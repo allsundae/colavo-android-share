@@ -10,8 +10,14 @@ import javax.inject.Inject
 //TODO Customer
 class CreateCustomer @Inject constructor(customerRepository: CustomerRepository) : CustomerUseCase(customerRepository) {
 
-    fun execute(salonUid: String, customerUid: String, customerPhone: String,  customerName: String,  customerImageUrls: List<ImageUrl>
+    fun execute(
+            salonUid: String
+            , customerUid: String
+            , customerPhone: String
+            ,  customerName: String
+            ,  customerImageUrls: List<ImageUrl>
                 , subscriber: Subscriber<FirebaseResponse>)
-            = super.execute(CustomerQuery.CreateCustomer(salonUid, customerUid, customerPhone, customerName, customerImageUrls ), subscriber)
+            = super.execute(CustomerQuery.CreateCustomer(
+            salonUid, customerUid, customerPhone, customerName, customerImageUrls ), subscriber)
 
 }

@@ -12,9 +12,9 @@
     android:paddingTop="@dimen/list_vertical_padding">
 
     <LinearLayout
-        android:layout_width="60dp"
+        android:layout_width="40dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/list_inside_margin_hor"
         android:orientation="vertical">
 
         <TextView
@@ -24,17 +24,9 @@
             android:layout_alignParentStart="true"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
-            android:maxLines="1"
-            android:text="PM"
+            android:maxLines="2"
+            android:text="PM\n12:88"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/listTextSecondary"
-            android:textSize="@dimen/list_2ndtext" />
-
-        <TextView
-            android:id="@+id/checkout_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3:32"
             android:textColor="@color/listTextSecondary"
             android:textSize="@dimen/list_2ndtext" />
 
@@ -43,7 +35,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/list_inside_margin_hor"
         android:orientation="vertical">
 
         <ImageView
@@ -56,7 +48,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
@@ -114,18 +106,19 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
+        android:gravity="right|center_horizontal"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/ctn_checkout"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:background="@drawable/ic_button_line"
             android:text="@string/checkout_Text"
             android:textColor="@color/buttonSecondary"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
 

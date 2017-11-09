@@ -36,7 +36,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.uid = dataSnapshot.key
+                                        checkout.checkout_uid = dataSnapshot.key
                                         Logger.log("changed ${checkout.event_key}")
                                         subscriber.onNext(checkout to ResponseType.CHANGED)
                                     }
@@ -45,7 +45,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.uid = dataSnapshot.key
+                                        checkout.checkout_uid = dataSnapshot.key
                                         Logger.log("added ${checkout.event_key}")
                                         subscriber.onNext(checkout to ResponseType.ADDED)
                                     }
@@ -54,7 +54,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.uid = dataSnapshot.key
+                                        checkout.checkout_uid = dataSnapshot.key
                                         subscriber.onNext(checkout to ResponseType.REMOVED)
                                     }
                                 }
@@ -67,7 +67,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
             }
  /*           .flatMap { response -> convertToCheckoutModel(response)  }*/
                 .flatMap { pair -> Observable.zip(Observable.just(pair)
-                    , getCheckoutbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                    , getCheckoutbySalonKey(pair.first.checkout_uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                     , { pair, user -> CheckoutMapper.transformFromEntity(pair.first) to pair.second }
             ) }
 /*
@@ -79,20 +79,20 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     override fun createCheckout(query: CheckoutQuery.CreateCheckout): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
             .createCheckout(query.salon_key
-                            , CheckoutEntity(uid = query.uid
+                            , CheckoutEntity(checkout_uid = query.checkout_uid
                                             ,salon_key = query.salon_key
-            ,event_key = query.event_key
-            ,price = query.price
-            ,is_manual_price = query.is_manual_price
-            ,reserve_fund = query.reserve_fund
-            ,paid_fund = query.paid_fund
-            ,author_employee_key = query.author_employee_key
-            ,paid_types = query.paid_types
-            ,created_at = query.created_at
-            ,updated_at = query.updated_at
-            ,reservedFund = query.reservedFund
-            ,paidFund = query.paidFund
-            ,tip = query.tip
+                                            ,event_key = query.event_key
+                                            ,price = query.price
+                                            ,is_manual_price = query.is_manual_price
+                                            ,reserve_fund = query.reserve_fund
+                                            ,paid_fund = query.paid_fund
+                                            ,author_employee_key = query.author_employee_key
+                                            ,paid_types = query.paid_types
+                                            ,created_at = query.created_at
+                                            ,updated_at = query.updated_at
+                                            ,reserveFund = query.reserveFund
+                                            ,paidFund = query.paidFund
+                                            ,tip = query.tip
                                                 ))
 
 /*    private fun convertToCheckoutModel(pair: Pair<CheckoutEntity, ResponseType>)

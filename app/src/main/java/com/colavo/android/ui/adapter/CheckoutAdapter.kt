@@ -34,7 +34,7 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
             this.checkoutName.text = checkoutModel.event_key
-            this.checkoutMenu.text = checkoutModel.paid_types[position].name
+           // this.checkoutMenu.text = checkoutModel.paid_types[position].name
            // this.checkoutImage.loadUrl(checkoutModel.image)
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()
 /*

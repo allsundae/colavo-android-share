@@ -18,6 +18,7 @@ import com.colavo.android.presenters.checkout.CheckoutPresenterImpl
 import com.colavo.android.ui.adapter.CheckoutAdapter
 import com.colavo.android.ui.checkout.CheckoutlistView
 import com.colavo.android.ui.salons.SalonListActivity
+import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_01.*
 import kotlinx.android.synthetic.main.fragment_02.*
@@ -100,47 +101,52 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
         return super.onOptionsItemSelected(item)
     }
     override fun onError(throwable: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showToast(event: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showSnackbar(event: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setCheckoutlist(customerEntities: List<CheckoutModel>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showCreateCheckoutlistFragment() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun openCheckoutFragment(customerModel: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addCheckout(customerEntity: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addCheckout(checkoutEntity: CheckoutModel) {
+        Logger.log("Checkout added :  " + checkoutEntity.checkout_uid)
+
+        checkoutAdapter.items.add(checkoutEntity)
+        checkoutAdapter.notifyItemInserted(checkoutAdapter.itemCount)
     }
 
-    override fun changeCheckout(customerEntity: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun changeCheckout(checkoutEntity: CheckoutModel) {
+        Logger.log("Checkout changed")
+
+        val position = (checkout_recyclerView.adapter as CheckoutAdapter).items.indexOfFirst { it.checkout_uid.equals(checkoutEntity.checkout_uid) }
+        (checkout_recyclerView.adapter as CheckoutAdapter).items[position] = checkoutEntity
+        checkout_recyclerView.adapter.notifyItemChanged(position)
     }
 
-    override fun removeCheckout(customerEntity: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun removeCheckout(checkoutEntity: CheckoutModel) {
+        Logger.log("Checkout removed")
+
+        val position = checkoutAdapter.items.indexOfFirst { it.checkout_uid.equals(checkoutEntity) }
+        checkoutAdapter.items.removeAt(position)
+        checkoutAdapter.notifyItemRemoved(position)
     }
 
     override fun showProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressDialog.show()
     }
 
     override fun hideProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressDialog.hide()
     }
 
 }

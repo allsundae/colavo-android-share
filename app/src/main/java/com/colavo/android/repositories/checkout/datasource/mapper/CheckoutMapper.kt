@@ -11,7 +11,7 @@ class CheckoutMapper {
 
         fun createCheckoutWithEventAndUser(baseCheckout: BaseCheckout, checkout: CheckoutEntity?): CheckoutModel { //eventEntity: EventEntity?,
             val checkoutModel = CheckoutModel ()
-            checkoutModel.uid = baseCheckout.uid
+            checkoutModel.checkout_uid = baseCheckout.checkout_uid
             checkoutModel.salon_key  = baseCheckout.salon_key
             checkoutModel.event_key  = baseCheckout.event_key
             checkoutModel.price   = baseCheckout.price
@@ -22,7 +22,7 @@ class CheckoutMapper {
             checkoutModel.paid_types     = baseCheckout.paid_types
             checkoutModel.created_at = baseCheckout.created_at
             checkoutModel.updated_at = baseCheckout.updated_at
-            checkoutModel.reservedFund   = baseCheckout.reservedFund
+            checkoutModel.reserveFund   = baseCheckout.reserveFund
             checkoutModel.paidFund  = baseCheckout.paidFund
             checkoutModel.tip  = baseCheckout.tip
 
@@ -31,7 +31,7 @@ class CheckoutMapper {
 
             fun transformFromEntity(checkoutEntity: CheckoutEntity): CheckoutModel {
                 val checkoutModel = CheckoutModel()
-                checkoutModel.uid = checkoutEntity.uid
+                checkoutModel.checkout_uid = checkoutEntity.checkout_uid
                 checkoutModel.salon_key  = checkoutEntity.salon_key
                 checkoutModel.event_key  = checkoutEntity.event_key
                 checkoutModel.price   = checkoutEntity.price
@@ -42,7 +42,7 @@ class CheckoutMapper {
                 checkoutModel.paid_types     = checkoutEntity.paid_types
                 checkoutModel.created_at = checkoutEntity.created_at
                 checkoutModel.updated_at = checkoutEntity.updated_at
-                checkoutModel.reservedFund   = checkoutEntity.reservedFund
+                checkoutModel.reserveFund   = checkoutEntity.reserveFund
                 checkoutModel.paidFund  = checkoutEntity.paidFund
                 checkoutModel.tip  = checkoutEntity.tip
 

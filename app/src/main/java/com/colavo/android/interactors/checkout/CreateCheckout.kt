@@ -11,23 +11,23 @@ import javax.inject.Inject
 class CreateCheckout @Inject constructor(checkoutRepository: CheckoutRepository) : CheckoutUseCase(checkoutRepository) {
 
     fun execute(
-              uid: String
+            checkout_uid: String
             , salon_key: String
             , event_key: String
-            , price: Double
+            , price: String
             , is_manual_price: Boolean
-            , reserve_fund: Double
-            , paid_fund: Double
+            , reserve_fund: String
+            , paid_fund: String
             , author_employee_key: String
             , paid_types: List<PaidType>
             , created_at: String
             , updated_at: String
-            , reservedFund: Double
-            , paidFund: Double
-            , tip: Double
+            , reservedFund: String
+            , paidFund: String
+            , tip: String
                 , subscriber: Subscriber<FirebaseResponse>)
             = super.execute(CheckoutQuery.CreateCheckout(
-                        uid, salon_key, event_key, price, is_manual_price, reserve_fund
+            checkout_uid, salon_key, event_key, price, is_manual_price, reserve_fund
                         ,paid_fund, author_employee_key, paid_types, created_at, updated_at,  reservedFund
                         ,paidFund, tip ), subscriber)
 
