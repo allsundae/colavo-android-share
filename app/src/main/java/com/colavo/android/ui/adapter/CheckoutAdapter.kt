@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.colavo.android.R
 import com.colavo.android.entity.checkout.CheckoutModel
+import com.colavo.android.utils.ConvertTimestampToDateandTime
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.checkout_item.view.*
@@ -25,7 +26,9 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
                                val checkoutName: TextView = v.checkout_customer_name,
                                val checkoutMenu: TextView = v.checkout_menu,
                                val checkoutImage: ImageView = v.checkout_customer_image,
-                               val checkoutMemo: TextView = v.checkout_memo) : RecyclerView.ViewHolder(v) {
+                               val checkoutMemo: TextView = v.checkout_memo,
+                               val checkoutTime: TextView = v.checkout_time_ampm
+                            ) : RecyclerView.ViewHolder(v) {
 
         init {
           //TODO
@@ -34,6 +37,9 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
             this.checkoutName.text = checkoutModel.event_key
+            this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
+            this.checkoutMemo.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "dd-MM-yyyy HH:mm:ss")
+
            // this.checkoutMenu.text = checkoutModel.paid_types[position].name
            // this.checkoutImage.loadUrl(checkoutModel.image)
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()

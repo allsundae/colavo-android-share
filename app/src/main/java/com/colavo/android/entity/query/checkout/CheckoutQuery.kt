@@ -10,16 +10,16 @@ sealed class CheckoutQuery : BaseQuery {
                          val checkout_uid: String
                          , val salon_key: String
                          , val event_key: String
-                         , val price: String
+                         , val price: Double
                          , val is_manual_price: Boolean
-                         , val reserve_fund: String
-                         , val paid_fund: String
+                         , val reserve_fund: Double
+                         , val paid_fund: Double
                          , val author_employee_key: String
                          , val paid_types: List<PaidType>
-                         , val created_at: String
-                         , val updated_at: String
-                         , val reserveFund: String
-                         , val paidFund: String
-                         , val tip: String
+                         , val created_at: Double
+                         , val updated_at: Double
+                         , val reserveFund: Double
+                         , val paidFund: Double
+                         , val tip: Double
     ) : CheckoutQuery()
 }

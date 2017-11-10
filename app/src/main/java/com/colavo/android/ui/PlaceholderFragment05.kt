@@ -2,6 +2,7 @@ package com.colavo.android.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -12,8 +13,23 @@ import com.colavo.android.R.string.bottom_navi_5
 import com.colavo.android.base.BaseFragment
 import com.colavo.android.common.MyTextView
 import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.entity.session.User
 import com.colavo.android.ui.salons.SalonListActivity
+import com.colavo.android.utils.Logger
 import kotlinx.android.synthetic.main.toolbar.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+
+
+
+
+
+
 
 /**
  * Created by macbookpro on 2017. 9. 13..
@@ -45,6 +61,50 @@ class PlaceholderFragment05 : BaseFragment() {
         salonTitle.text = salon.name
 
 
+        val userName: MyTextView = (activity as AppCompatActivity).findViewById(R.id.settings_user_name) as MyTextView
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("users").child(user.uid)
+
+            val name = user.displayName
+            val email = user.email
+            val photoUrl = user.photoUrl
+            val uid = user.uid
+
+
+            if (name != "" && name != null ) {
+                userName.text =  name
+            }
+            else {
+                userName.text = email
+            }
+
+            Logger.log("LOGGED IN NAME : ${name}")
+            Logger.log("LOGGED IN NAME : ${userName.text}")
+
+            /*          myRef.addListenerForSingleValueEvent(
+                  object : ValueEventListener {
+                      override fun onDataChange(dataSnapshot: DataSnapshot) {
+                           userclass = dataSnapshot.getValue(User::class.java)
+
+                          if (name != "" || name != null )
+                              userName.text =  userclass.name
+                          else
+                              userName.text = email
+
+                          Logger.log("LOGGED IN NAME : ${userclass.name}")
+                      }
+
+              override fun onCancelled(error: DatabaseError) {
+                  Logger.log("Failed to read value. : ${error.toException()}")
+              }
+          })*/
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,4 +125,6 @@ class PlaceholderFragment05 : BaseFragment() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
 }

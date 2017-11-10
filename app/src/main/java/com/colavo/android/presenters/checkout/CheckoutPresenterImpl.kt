@@ -34,7 +34,7 @@ class CheckoutPresenterImpl @Inject constructor(val getCheckout: GetSalonCheckou
         checkoutlistView?.showCreateCheckoutlistFragment()
     }
 
-    override fun createCheckout(checkout_uid: String, salon_key: String, event_key: String, price: String, is_manual_price: Boolean, reserve_fund: String, paid_fund: String, author_employee_key: String, paid_types: List<PaidType>, created_at: String, updated_at: String, reservedFund: String, paidFund: String, tip: String) {
+    override fun createCheckout(checkout_uid: String, salon_key: String, event_key: String, price: Double, is_manual_price: Boolean, reserve_fund: Double, paid_fund: Double, author_employee_key: String, paid_types: List<PaidType>, created_at: Double, updated_at: Double, reservedFund: Double, paidFund: Double, tip: Double) {
         createCheckout.execute(checkout_uid, salon_key, event_key, price, is_manual_price, reserve_fund
                 ,paid_fund, author_employee_key, paid_types, created_at, updated_at,  reservedFund
                 ,paidFund, tip

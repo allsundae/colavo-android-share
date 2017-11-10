@@ -112,6 +112,8 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         toolBar?.setTitle ("Customers ${customerAdapter.getItemCount()}" ) //R.string.bottom_navi_4
         toolBar?.inflateMenu(menu_customer)
         //TODO update number of customers
+
+
     }
 
 
