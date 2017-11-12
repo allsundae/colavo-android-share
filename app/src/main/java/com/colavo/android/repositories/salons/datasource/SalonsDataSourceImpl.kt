@@ -61,19 +61,20 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
 
                 })
             }
-            .flatMap { response -> convertToSalonModel(response)  }
-    
+            .concatMap { response -> convertToSalonModel(response)  }
+         //   .flatMap { response -> convertToSalonModel(response)  }
+
     override fun createSalon(query: SalonsQuery.CreateSalon): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
             .createSalon(SalonEntity(name = query.salonName, address = query.salonAddress, owner_uid = query.ownerUid))
 
     private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>)
             : Observable<Pair<SalonModel, ResponseType>> {
-        return getOwnerName((pair.first).owner_uid)
-                .concatMap { users -> Observable.zip(Observable.just(users), getUserById(users?.uid))
-                              { users, user -> SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
-                             }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-    }
+                    return getOwnerName((pair.first).owner_uid)
+                            .concatMapEager { salons -> Observable.zip(Observable.just(salons), getUserById(salons?.uid))
+                                                { salons, user -> SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
+                                            }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                }
 /*   private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
         return getLastEvent((pair.first).lastEventId).concatMap { events ->
             Observable.zip(Observable.just(events),

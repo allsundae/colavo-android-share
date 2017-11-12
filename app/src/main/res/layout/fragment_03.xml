@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/color_gradient">
+
     <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        layout="@layout/toolbar"
-        />
+        android:id="@+id/include" />
+
     <TextView
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_below="@+id/include"
+        android:layout_marginTop="62dp"
         android:ems="10"
-        android:text="Fragment 3"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/poppins_bold"
+        android:lineSpacingExtra="-40sp"
+        android:text="STATS. will be here"
+        android:textColor="@color/backgroundWhite"
+        android:textSize="56sp" />
+
+    <TextView
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:ems="10"
+        android:fontFamily="@font/playfair_display_bold_italic"
+        android:text="Under Construction"
+        android:textColor="@color/colorCalendarBackground"
+        android:textSize="16sp" />
 </RelativeLayout>
