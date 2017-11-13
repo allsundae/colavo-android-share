@@ -24,7 +24,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.salonUid)
                         .child(query.salonUid)
-                        .orderByChild("name").limitToFirst(120)
+                        .orderByChild("name").limitToFirst(200)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
@@ -76,15 +76,21 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                             })
             }
- /*           .flatMap { response -> convertToCustomerModel(response)  }*/
-                .flatMap { pair -> Observable.zip(Observable.just(pair)
-                    , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                    , { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
-            ) }
+          .concatMapEager { pair -> Observable.zip(Observable.just(pair)
+                        , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                        , { pair, u -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
+                     ) }
+
 /*
-            .concatMap { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonKey(pair.first.uid))
-                           { pair, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
-                    }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+            .concatMap { response -> convertToCustomerModel(response)  }
+
+    private fun convertToCustomerModel(pair: Pair<CustomerEntity, ResponseType>)
+              :Observable<Pair<CustomerModel, ResponseType>> {
+                        return getCustomerbySalonKey(pair.first.uid)
+                                .concatMapEager {customer -> Observable.zip(Observable.just(customer), getCustomerbySalonKey(customer?.uid))
+                                                    {customer, user -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
+                                                }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                 }
 */
 
     override fun createCustomer(query: CustomerQuery.CreateCustomer): Observable<FirebaseResponse>

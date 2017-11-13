@@ -5,12 +5,13 @@ buildscript {
     ext {
         ext.kotlin_version = '1.0.3'
         butterKnifeVersion = '8.4.0'
+        buildToolsVersion =  '25.3.1'
         VERSION = version()
     }
 
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -46,3 +47,4 @@ def String version() {
 
     return versionProps['major'] + "." + versionProps['minor'] + "." + versionProps['patch']
 }
+

@@ -18,11 +18,11 @@
         android:layout_below="@+id/include"
         android:layout_marginTop="62dp"
         android:ems="10"
-        android:fontFamily="@font/poppins_bold"
-        android:lineSpacingExtra="-40sp"
+        android:lineSpacingExtra="-10sp"
         android:text="STATS. will be here"
         android:textColor="@color/backgroundWhite"
-        android:textSize="56sp" />
+        android:textSize="56sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/editText2"
@@ -34,7 +34,6 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:ems="10"
-        android:fontFamily="@font/playfair_display_bold_italic"
         android:text="Under Construction"
         android:textColor="@color/colorCalendarBackground"
         android:textSize="16sp" />
