@@ -25,13 +25,23 @@
             android:orientation="horizontal"
             android:padding="@dimen/activity_margin">
 
-            <ImageView
+<!--            <ImageView
                 android:id="@+id/customer_image_detail"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_customer_holder_person" />
-
+                android:src="@drawable/ic_customer_holder_person" />-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/customer_image_detail"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_customer_holder_person_smaller"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:civ_fill_color="@color/customerPlaceholderColor" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

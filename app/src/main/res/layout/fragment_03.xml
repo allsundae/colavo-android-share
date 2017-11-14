@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/color_gradient">
+    android:background="@color/backgroundWhite">
 
     <include
         layout="@layout/toolbar"
@@ -16,12 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editText2"
         android:layout_below="@+id/include"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:lineSpacingExtra="-10sp"
         android:text="STATS. will be here"
-        android:textColor="@color/backgroundWhite"
-        android:textSize="56sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="36sp"
         android:textStyle="bold" />
 
     <TextView
@@ -35,6 +36,15 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:ems="10"
         android:text="Under Construction"
-        android:textColor="@color/colorCalendarBackground"
+        android:textColor="@color/colorSecondary"
         android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        app:srcCompat="@drawable/ic_oval" />
 </RelativeLayout>

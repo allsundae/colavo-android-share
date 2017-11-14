@@ -24,7 +24,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.salonUid)
                         .child(query.salonUid)
-                        .orderByChild("name").limitToFirst(200)
+                        .orderByChild("name").limitToFirst(500)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }

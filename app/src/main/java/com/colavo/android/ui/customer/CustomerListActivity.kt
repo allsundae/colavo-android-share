@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
+import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.R
@@ -18,6 +19,7 @@ import com.colavo.android.utils.Logger
 import com.colavo.android.utils.toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_04.*
+import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 class CustomerListActivity : AppCompatActivity()
@@ -136,7 +138,7 @@ class CustomerListActivity : AppCompatActivity()
         progressDialog.hide()
     }
 
-    override fun onItemClicked(item: CustomerModel, position: Int) {
+    override fun onItemClicked(item: CustomerModel, position: Int, v: View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailActivity::class.java)
         intent.putExtra(EXTRA_CUSTOMER, item)
@@ -165,6 +167,11 @@ class CustomerListActivity : AppCompatActivity()
         customerPresenter.onDestroy()
     }
 
+    override fun updateNumberofCustomer(){
+
+        toolBar?.setTitle ("Customers ${customerAdapter.itemCount}" )
+        Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
+    }
 /*    companion object {
         val EXTRA_CUSTOMER: String = "CUSTOMER"
     }*/
