@@ -31,12 +31,17 @@ class SalonMapper {
 
         }
 
-            fun transformFromEntity(salonEntity: SalonEntity): SalonModel {
+            fun transformFromEntity(salonEntity: SalonEntity, user: User?): SalonModel {
                 val salonModel = SalonModel()
                 salonModel.id = salonEntity.id
                 salonModel.name = salonEntity.name
                 salonModel.address = salonEntity.address
                 salonModel.owner_uid = salonEntity.owner_uid
+
+                if (user != null) {
+                    if (user.name != null)
+                        salonModel.owner = user.name //todo address lastEventUser
+                }
                 return salonModel
             }
 

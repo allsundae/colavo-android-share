@@ -76,8 +76,8 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                             })
             }
-          .concatMapEager { pair -> Observable.zip(Observable.just(pair)
-                        , getCustomerbySalonKey(pair.first.uid).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+          .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonKey(pair.first.uid)
+                  .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                         , { pair, u -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
                      ) }
 

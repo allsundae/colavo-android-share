@@ -36,27 +36,27 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
-            this.checkoutName.text = checkoutModel.event_key
+            this.checkoutName.text = checkoutModel.user_name
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
             this.checkoutMemo.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "dd-MM-yyyy HH:mm:ss")
 
-           // this.checkoutMenu.text = checkoutModel.paid_types[position].name
+            this.checkoutMenu.text = checkoutModel.user_menu
            // this.checkoutImage.loadUrl(checkoutModel.image)
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()
-/*
-           if (checkoutModel.image_urls[0].image_thumb_url != "") {
-               val transForm = CircleTransform()
+
+           if (checkoutModel.user_image != "") {
+               val transForm = CustomerAdapter.CircleTransform()
 
                 Picasso.with(context)
-                        .load(checkoutModel.image_urls[0].image_thumb_url) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(checkoutModel.user_image) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)
                         .centerCrop()
-                        .placeholder(R.drawable.ic_checkout_holder_person)
+                        .placeholder(R.drawable.ic_customer_holder_person)
                         .transform(transForm)
                         .into(this.checkoutImage)
 
             }
-*/
+
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(checkoutModel, position) }
         }

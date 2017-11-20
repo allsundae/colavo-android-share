@@ -68,13 +68,13 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
             = retrofit.create(FirebaseAPI::class.java)
             .createSalon(SalonEntity(name = query.salonName, address = query.salonAddress, owner_uid = query.ownerUid))
 
-    private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>)
-            : Observable<Pair<SalonModel, ResponseType>> {
-                    return getOwnerName((pair.first).owner_uid)
-                            .concatMapEager { salons -> Observable.zip(Observable.just(salons), getUserById(salons?.uid))
-                                                { salons, user -> SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
-                                            }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                }
+    private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>) : Observable<Pair<SalonModel, ResponseType>> {
+        Logger.log("convertToSalonModel : ${pair.first.name}")
+        return getUserById((pair.first).owner_uid)
+                .concatMapEager { test -> Observable.zip(Observable.just(test),  getUserById(test?.uid))
+                                    { WTF, user -> SalonMapper.transformFromEntity(pair.first, user) to pair.second }
+                                }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+    }
 /*   private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
         return getLastEvent((pair.first).lastEventId).concatMap { events ->
             Observable.zip(Observable.just(events),
@@ -100,7 +100,7 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
         return salonEntity
     }
     
-    private fun getLastEvent(eventId: String?): Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventById(eventId ?: "")
+    private fun getEventBySalonId(salonId: String?): Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventById(salonId ?: "")
 
     private fun getOwnerName(userId: String?) : Observable<User> = retrofit.create(FirebaseAPI::class.java).getUserById(userId ?: "")
     
