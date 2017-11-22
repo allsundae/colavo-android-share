@@ -14,6 +14,7 @@
     <dimen name="list_1sttext">16sp</dimen>
     <dimen name="list_2ndtext">14sp</dimen>
     <dimen name="list_Bigtext">20sp</dimen>
+    <dimen name="list_Timetext">12sp</dimen>
     <dimen name="list_vertical_padding">10dp</dimen>
 
 
@@ -24,5 +25,6 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="height_bottombar">50dp</dimen>
     <dimen name="margin_fab_bottombar">65dp</dimen>
+    <dimen name="list_inside_margin_hor">10dp</dimen>
     <item name="disabledOpacity" format="float" type="dimen">0.25</item>
 </resources>

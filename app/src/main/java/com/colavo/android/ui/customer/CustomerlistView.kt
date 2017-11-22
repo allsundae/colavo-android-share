@@ -22,4 +22,6 @@ interface CustomerlistView : BaseView {
 
     fun hideProgress()
 
+    fun updateNumberofCustomer()
+
 }

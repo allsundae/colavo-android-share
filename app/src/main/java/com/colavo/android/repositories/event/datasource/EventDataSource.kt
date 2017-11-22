@@ -16,6 +16,6 @@ interface EventDataSource {
     fun getEventMessages(query: EventQuery.GetSalonEvents): Observable<Pair<EventModel, ResponseType>>
 
     @Handle(EventQuery.SendEvent::class)
-    fun sendEvent(query: EventQuery.SendEvent): Observable<FirebaseResponse>
+    fun sendEvent(query: EventQuery.SendEvent)
 
 }

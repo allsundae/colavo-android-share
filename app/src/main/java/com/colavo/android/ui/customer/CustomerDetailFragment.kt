@@ -55,33 +55,37 @@ class CustomerDetailFragment : BottomSheetFragment()
         }*/
 
       //  val bundle : Bundle = this.arguments
+
         val bundle:Bundle = arguments
         val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CUSTOMER) as CustomerModel
         customer_name_detail.setText (customer.name)
         customer_phone_detail.setText(customer.phone)
 
-        val byteArray = bundle.getByteArray("BYTE")
-        val decodedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
-        customer_image_detail.setImageBitmap(decodedBitmap)
+        if (customer.image_urls[0].image_thumb_url !="") {
 
-        if (customer.image_urls[0].image_full_url != "") {
-            val transForm = CustomerAdapter.CircleTransform()
+            val byteArray = bundle.getByteArray("BYTE")
+            val decodedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+            customer_image_detail.setImageBitmap(decodedBitmap)
 
-            Picasso.with(context)
-                    .load(customer.image_urls[0].image_full_url)
-                    .resize(280, 280)
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_customer_holder_person)
-                    .transform(transForm)
-                    .into(this.customer_image_detail)
+            if (customer.image_urls[0].image_full_url != "") {
+                val transForm = CustomerAdapter.CircleTransform()
 
+                Picasso.with(context)
+                        .load(customer.image_urls[0].image_full_url)
+                        .resize(280, 280)
+                        .centerCrop()
+                        //.placeholder(R.drawable.ic_customer_holder_person)
+                        .transform(transForm)
+                        .noPlaceholder()
+                        .into(this.customer_image_detail)
+
+            }
         }
-
 
 
         // Toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        toolBar.setTitle (" " ) //R.string.bottom_navi_4
+        toolBar.setTitle ("" ) //R.string.bottom_navi_4
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
         toolBar.inflateMenu(R.menu.menu_customer_detail)
@@ -92,6 +96,9 @@ class CustomerDetailFragment : BottomSheetFragment()
                 (activity as AppCompatActivity).onBackPressed()
             }
         })
+
+
+
     }
 
 /*
@@ -114,7 +121,7 @@ class CustomerDetailFragment : BottomSheetFragment()
     }
 
 
-    override fun onItemClicked(item: CustomerModel, position: Int) {
+    override fun onItemClicked(item: CustomerModel, position: Int, v:View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailFragment::class.java)
         intent.putExtra(EXTRA_CUSTOMER, item)

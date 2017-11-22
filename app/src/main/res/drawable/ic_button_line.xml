@@ -4,7 +4,7 @@
     >
 
     <stroke
-        android:width="2dip"
+        android:width="1dip"
         android:color="@color/buttonSecondary" />
     <corners
         android:bottomRightRadius="7dip"

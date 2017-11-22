@@ -2,11 +2,11 @@ package com.colavo.android.utils
 
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by RUS on 30.07.2016.
- */
+
 fun DateTime.isToday(): Boolean {
     val today = LocalDate.now()
     return this.toLocalDate().equals(today)
@@ -20,4 +20,11 @@ fun DateTime.toChatTime(): String {
     else if(this.isYesterday())
         return "Yesterday"
     else return this.toString("dd MMM", Locale.ENGLISH)
+}
+
+fun ConvertTimestampToDateandTime (timestamp: Long, pattern: String) : String {
+
+    val sfd : SimpleDateFormat = SimpleDateFormat(pattern) //"dd-MM-yyyy HH:mm:ss"
+    return sfd.format(Date(timestamp*1000))
+
 }

@@ -26,14 +26,14 @@ class EventAdapter(val onItemClickListener: OnItemClickListener, val items: Muta
                                val eventUserAndTime: TextView = v.event_user_and_time) : RecyclerView.ViewHolder(v) {
 
         fun bind(eventModel: EventModel) {
-            this.eventText.text = eventModel.text
+            this.eventText.text = eventModel.salon_key
       //      this.eventUserAndTime.text = "${eventModel.userName}, ${eventModel.time.toString(PATTERN)}"
-            this.eventUserAndTime.text = "${eventModel.userName}, ${eventModel.time.toString()}"
+            this.eventUserAndTime.text = "${eventModel.begin_at}, ${eventModel.begin_at.toString()}"
 
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             params.gravity = Gravity.END
 
-            if(eventModel.isMine)
+            if(eventModel.booked_by_customer)
                 params.gravity = Gravity.END
             else
                 params.gravity = Gravity.START

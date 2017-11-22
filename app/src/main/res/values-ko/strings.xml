@@ -53,5 +53,6 @@
     <!-- Shared element transition -->
     <string name="logoTransitionName">customer_name</string>
     <string name="checkout_Text">Checkout</string>
+    <string name="btn_edit_profile">프로필 편집</string>
 
 </resources>

@@ -13,7 +13,12 @@ interface CustomerPresenter : BasePresenter {
 
     fun onCreateCustomerButtonClicked()
 
-    fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrl: List<ImageUrl>)
+    fun createCustomer(
+            customerUid: String
+            , customerPhone: String
+            , customerName: String
+            , customerImageUrl: List<ImageUrl>
+    )
 
     override fun onDestroy()
 }

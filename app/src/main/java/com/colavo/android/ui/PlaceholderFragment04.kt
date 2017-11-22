@@ -108,10 +108,23 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        toolBar?.setTitle ("Customers ${customerAdapter.getItemCount()}" ) //R.string.bottom_navi_4
+        val title = R.string.bottom_navi_4
+        toolBar?.setTitle (title) //R.string.bottom_navi_4
         toolBar?.inflateMenu(menu_customer)
+        Logger.log("TOOLBAR DISPLAYED : ${title} ${customerAdapter.itemCount}")
         //TODO update number of customers
+    }
+
+    override fun updateNumberofCustomer(){
+
+        toolBar?.setTitle ("${R.string.bottom_navi_4} ${customerAdapter.itemCount}" )
+        Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
     }
 
 
@@ -148,10 +161,10 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun addCustomer(customerEntity: CustomerModel) {
-        Logger.log("Customer added :  " + customerEntity.name)
 
         customerAdapter.items.add(customerEntity)
         customerAdapter.notifyItemInserted(customerAdapter.itemCount)
+        Logger.log("Customer added : ${customerEntity.name} (${customerAdapter.itemCount})")
     }
 
     override fun changeCustomer(customerEntity: CustomerModel) {
@@ -185,13 +198,13 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         progressDialog.hide()
     }
 
-    override fun onItemClicked(item: CustomerModel, position: Int) {
-        Toast.makeText(context, "Clicked ${item.name}" , Toast.LENGTH_LONG).show()
+    override fun onItemClicked(item: CustomerModel, position: Int, v: View) {
+        Toast.makeText(context, "Clicked ${item.name} : ${position}" , Toast.LENGTH_LONG).show()
 
   //      CustomerDetailFragment().show(activity.getSupportFragmentManager(), R.id.bottomsheet)
 
-        customer_image.buildDrawingCache()
-        val bitmap = customer_image?.getDrawingCache()
+        v.customer_image.buildDrawingCache()
+        val bitmap = v.customer_image.getDrawingCache()
         val bs = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, bs)
         val byteArray = bs.toByteArray()

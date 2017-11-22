@@ -36,8 +36,8 @@
 
         app:eventTextColor="@color/primaryTextColor"
         app:eventPadding="4dp"
-        app:eventCornerRadius="6dp"
-        app:eventTextSize="12dp"
+        app:eventCornerRadius="8dp"
+        app:eventTextSize="10dp"
         app:eventMarginVertical="2dp"
         app:hourSeparatorColor="#DDE0E2"
         app:overlappingEventGap="2dp"

@@ -37,8 +37,13 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
         customerlistView?.showCreateCustomerlistFragment()
     }
 
-    override fun createCustomer(customerUid: String, customerPhone: String, customerName: String, customerImageUrls:List<ImageUrl>) {
-        createCustomer.execute(salonUid, customerUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
+    override fun createCustomer
+            (customerUid: String
+             , customerPhone: String
+             , customerName: String
+             , customerImageUrls:List<ImageUrl>) {
+        createCustomer.execute(
+                salonUid, customerUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
     }
 
     override fun onDestroy() {
@@ -52,6 +57,7 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
         }
 
         override fun onCompleted() {
+
         }
 
         override fun onError(throwable: Throwable?) {
@@ -67,7 +73,10 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
             if(throwable != null) customerlistView?.onError(throwable)
         }
 
-        override fun onCompleted() {}
+        override fun onCompleted() {
+            customerlistView?.updateNumberofCustomer()
+            Logger.log("CustomerSubscriber: COMPLETED")
+        }
 
         override fun onNext(pair: Pair<CustomerModel, ResponseType>?) {
             when(pair?.second) {

@@ -1,8 +1,8 @@
 package com.colavo.android.repositories.event.datasource
 
+import com.colavo.android.entity.customer.CustomerEntity
+import com.colavo.android.entity.event.*
 import com.google.firebase.auth.FirebaseAuth
-import com.colavo.android.entity.event.EventEntity
-import com.colavo.android.entity.event.EventModel
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.entity.query.event.EventQuery
 import com.colavo.android.entity.response.FirebaseResponse
@@ -27,7 +27,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                 { subscriber -> firebaseDatabase.reference.child("salon_events")
                 //.orderByChild("salonId").equalTo(query.salonId)
                         .child(query.salonId)
-                        .orderByChild("text")
+                        .orderByChild("begin_at")
                 .addChildEventListener(object : ChildEventListener {
                         override fun onChildMoved(dataSnapshot: DataSnapshot?, p1: String?) {
                         }
@@ -44,7 +44,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                             if(dataSnapshot != null) {
                                 val event = dataSnapshot.getValue(EventEntity::class.java)
                                 event.id = dataSnapshot.key
-                                Logger.log("added ${event.text}")
+                                Logger.log("added ${event.id}")
                                 subscriber.onNext(event to ResponseType.ADDED)
                             }
                         }
@@ -62,30 +62,37 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                         }
                     })
                 }
-                .flatMap { pair -> Observable.zip(Observable.just(pair)
-                        , getUserById(pair.first.userId).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                        , { pair, user -> EventMapper.transformFromEventEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second }
+                .concatMapEager { pair -> Observable.zip(Observable.just(pair)
+                                    , getSalonCustomerById(pair.first.salon_key, pair.first.customer_key)
+//                                    , getServiceById(pair.first.services)
+//                                    , getDiscountById(pair.first.discounts)
+//                                    , getLogById(pair.first.logs)
+                        .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                        , { pair, customer -> EventMapper.createEventWithEventAndUser(pair.first, customer) to pair.second }
                         ) }
 /*            .flatMap { pair -> Observable.zip(Observable.just(pair), getUserById(pair.first.userId)
                                 .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()),
                                { pair, user -> EventMapper.transformFromMessageEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second }
                         ) }*/
 
-    override fun sendEvent(query: EventQuery.SendEvent): Observable<FirebaseResponse> {
-        val event = EventEntity(salonId = query.salonId, text = query.text, time = query.time)
+    override fun sendEvent(query: EventQuery.SendEvent) { //: Observable<FirebaseResponse>
+/*        val event = EventEntity(salonId = query.salonId, text = query.text, time = query.time)
         event.userId = firebaseAuth.currentUser?.uid.toString()
         return retrofit.create(FirebaseAPI::class.java).sendEvent(query.salonId, event)
                 .doOnNext { response -> event.id = response.id }
-                .doOnNext { updateEvent(event) }
+                .doOnNext { updateEvent(event) }*/
     }
 
-    private fun getUserById(userId: String) = retrofit.create(FirebaseAPI::class.java).getUserById(userId)
+    private fun getSalonCustomerById(salonKey: String, customerKey: String) : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salonKey, customerKey)
+/*    private fun getServiceById(services: List<ServiceMenu>) : Observable<ServiceMenu> = retrofit.create(FirebaseAPI::class.java).getServiceById(services)
+    private fun getDiscountById(discounts: List<DiscountMenu>) : Observable<DiscountMenu> = retrofit.create(FirebaseAPI::class.java).getDiscountById(discounts)
+    private fun getLogById(logs: List<EventLogs>) : Observable<EventLogs> = retrofit.create(FirebaseAPI::class.java).getLogById(logs)*/
 
     private fun updateEvent(eventEntity: EventEntity) {
         val map = mutableMapOf<String, Any>("lastEventId" to eventEntity.id)
         firebaseDatabase.reference
-                .child("salons")
-                .child(eventEntity.salonId)
+                .child("salon_events")
+                .child(eventEntity.id)
                 .updateChildren(map)
     }
 

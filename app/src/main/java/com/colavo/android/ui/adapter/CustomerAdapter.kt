@@ -20,7 +20,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
                       , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClicked(item: CustomerModel, position: Int)
+        fun onItemClicked(item: CustomerModel, position: Int, v: View)
         fun onLongItemClicked(item: CustomerModel)
     }
 
@@ -54,7 +54,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
             }
 
 
-            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel, position) }
+            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel, position, v) }
         }
 
     }

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="top"
+    android:id="@+id/item_container"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/list_vertical_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/list_vertical_padding">
 
-    <LinearLayout
-        android:layout_width="60dp"
+    <RelativeLayout
+        android:layout_width="33dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/list_inside_margin_hor"
+        android:id="@+id/item_time"
         android:orientation="vertical">
 
         <TextView
@@ -24,46 +26,43 @@
             android:layout_alignParentStart="true"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
-            android:maxLines="1"
-            android:text="PM"
+            android:maxLines="2"
+            android:text="PM\n12:88"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/listTextSecondary"
-            android:textSize="@dimen/list_2ndtext" />
+            android:textSize="@dimen/list_Timetext" />
 
-        <TextView
-            android:id="@+id/checkout_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3:32"
-            android:textColor="@color/listTextSecondary"
-            android:textSize="@dimen/list_2ndtext" />
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/item_profile_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/list_inside_margin_hor"
+        android:layout_toRightOf="@+id/item_time"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/customer_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="top"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_customer_holder_person" />
-    </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/checkout_customer_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_customer_holder_person_smaller"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp"
+            app:civ_fill_color="@color/customerPlaceholderColor" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="160dp"
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/item_profile_image"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/customer_name"
+            android:id="@+id/checkout_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -72,7 +71,7 @@
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/list_1sttext"
+            android:textSize="@dimen/list_2ndtext"
             android:transitionName="@string/logoTransitionName"
             tools:text="Customer name" />
 
@@ -113,20 +112,25 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+    <RelativeLayout
+        android:id="@+id/item_checkout"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="top|right"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/ctn_checkout"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
             android:background="@drawable/ic_button_line"
             android:text="@string/checkout_Text"
             android:textColor="@color/buttonSecondary"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

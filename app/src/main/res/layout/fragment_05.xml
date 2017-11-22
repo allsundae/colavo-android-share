@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/selectableItemBackground"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
@@ -52,6 +53,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:text="Edit"
+                    android:textAlignment="textEnd"
                     android:textSize="12sp" />
 
             </RelativeLayout>
@@ -92,10 +94,112 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/salon_status_layout"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:paddingLeft="@dimen/activity_margin"
                 android:text="Period, Till Sep 4, 2018 at 12:59 PM" />
+
+            <ImageView
+                android:id="@+id/hairshop_settings_profile_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@color/dividerColor"
+                android:importantForAccessibility="no" />
+
+            <RelativeLayout
+                android:id="@+id/user_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/list_vertical_padding"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/list_vertical_padding">
+
+                <RelativeLayout
+                    android:id="@+id/item_profile_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/list_inside_margin_hor"
+                    android:layout_toRightOf="@+id/item_time"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/user_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/ic_customer_holder_person_smaller"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="0dp"
+                        app:civ_fill_color="@color/customerPlaceholderColor" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_user_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/item_profile_image"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.colavo.android.common.MyTextView
+                        android:id="@+id/settings_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/list_1sttext"
+                        tools:text="User name" />
+
+                    <com.colavo.android.common.MyTextView
+                        android:id="@+id/settings_user_class"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/customer_name"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="-0.05"
+                        android:maxLines="1"
+                        android:text="Designer"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        android:textColor="@color/listTextSecondary"
+                        android:textSize="@dimen/list_2ndtext" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item_checkout"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="top|right"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/edit_profile"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:text="Edit"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/hairshop_settings_divider"
