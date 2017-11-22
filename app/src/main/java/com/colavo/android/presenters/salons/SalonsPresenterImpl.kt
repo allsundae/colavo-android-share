@@ -59,7 +59,7 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
     private inner class SalonsSubscriber : Subscriber<Pair<SalonModel, ResponseType>>() {
 
         override fun onError(throwable: Throwable?) {
-            Logger.log("response: Error")
+            Logger.log("SalonsSubscriber : response: Error")
             if(throwable != null) salonlistView?.onError(throwable)
         }
 

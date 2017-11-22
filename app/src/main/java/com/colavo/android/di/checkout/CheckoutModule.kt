@@ -5,6 +5,7 @@ import com.colavo.android.interactors.checkout.CreateCheckout
 import com.colavo.android.interactors.checkout.GetSalonCheckout
 import com.colavo.android.repositories.checkout.CheckoutRepository
 import com.colavo.android.repositories.checkout.datasource.CheckoutDataSourceImpl
+import com.colavo.android.utils.SimpleCallback
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

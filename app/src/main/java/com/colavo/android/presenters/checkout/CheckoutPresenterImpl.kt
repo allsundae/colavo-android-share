@@ -63,13 +63,16 @@ class CheckoutPresenterImpl @Inject constructor(val getCheckout: GetSalonCheckou
     private inner class CheckoutSubscriber : Subscriber<Pair<CheckoutModel, ResponseType>>() {
 
         override fun onError(throwable: Throwable?) {
-            Logger.log("response: Error")
+            Logger.log("CheckoutSubscriber : response: Error")
             if(throwable != null) checkoutlistView?.onError(throwable)
         }
 
-        override fun onCompleted() {}
+        override fun onCompleted() {
+            Logger.log("CheckoutSubscriber : onCompleted ( )")
+        }
 
         override fun onNext(pair: Pair<CheckoutModel, ResponseType>?) {
+            Logger.log("CheckoutSubscriber : onNext(checkout_uid) : ${pair?.first?.checkout_uid}")
             when(pair?.second) {
                 ResponseType.ADDED -> checkoutlistView?.addCheckout(pair?.first as CheckoutModel)
                 ResponseType.CHANGED -> checkoutlistView?.changeCheckout(pair?.first as CheckoutModel)
