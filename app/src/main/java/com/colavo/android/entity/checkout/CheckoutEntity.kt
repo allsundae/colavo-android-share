@@ -21,11 +21,12 @@ class  CheckoutEntity(
         @SerializedName("updated_at")                  @Expose override var updated_at: Double = 0.0,
         @SerializedName("reserveFund")                 @Expose override var reserveFund: Double  = 0.0,
         @SerializedName("paidFund")                    @Expose override var paidFund: Double = 0.0,
-        @SerializedName("tip")                         @Expose override var tip: Double = 0.0
+        @SerializedName("tip")                         @Expose override var tip: Double = 0.0,
+        @SerializedName("customer_key")                @Expose override var customer_key: String = ""
 )
     : BaseCheckout(checkout_uid, salon_key, event_key, price, is_manual_price, reserve_fund
                     ,paid_fund, author_employee_key, paid_types, created_at, updated_at,  reserveFund
-                    ,paidFund, tip), Serializable
+                    ,paidFund, tip, customer_key), Serializable
 
 
 

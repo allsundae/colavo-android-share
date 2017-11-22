@@ -7,9 +7,7 @@ import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.entity.response.ResponseType
 import rx.Observable
 
-/**
- * Created by RUS on 17.07.2016.
- */
+
 interface CheckoutDataSource {
 
     @Handle(CheckoutQuery.GetCheckout::class)

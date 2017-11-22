@@ -8,6 +8,8 @@ import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.entity.event.EventEntity
 import com.colavo.android.entity.event.EventModel
 import com.colavo.android.entity.session.User
+import com.colavo.android.utils.Logger
+import com.colavo.android.utils.SimpleCallback
 
 
 class CheckoutMapper {
@@ -31,7 +33,15 @@ class CheckoutMapper {
             checkoutModel.paidFund = baseCheckout.paidFund
             checkoutModel.tip = baseCheckout.tip
 
-            checkoutModel.user_name = "TEST"//customer.name
+            //checkoutModel.user_name = baseCheckout.
+/*                    getCustomerKeybySalonEventKey(baseCheckout.salon_key, baseCheckout.event_key,
+                            object : SimpleCallback<String> {
+                                override fun callback(data: String) {
+                                    checkoutModel.user_name = data
+                                    Logger.log("CHECKOUT added : callback data: ${data}, customer_key :${checkout.customer_key}")
+                                }
+                            }
+                    )*/
             /*if (customer != null) {
                 if (customer.name != null)
                     checkoutModel.user_name = "TEST"customer.name //todo address lastEventUser
@@ -43,7 +53,7 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity/*, eventEntity: EventEntity*/): CheckoutModel {
+            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity): CheckoutModel { //,  customerEntity: CustomerEntity
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_uid = checkoutEntity.checkout_uid
                 checkoutModel.salon_key = checkoutEntity.salon_key
@@ -60,9 +70,18 @@ class CheckoutMapper {
                 checkoutModel.paidFund = checkoutEntity.paidFund
                 checkoutModel.tip = checkoutEntity.tip
 
-                checkoutModel.user_name = "TEST"
-              //  checkoutModel.user_name = eventEntity.services[0].name
-                checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC2p08Hh4w8DqdAkc%2Fprofiles%2Fprofile_thumb.png?alt=media&token=b674e47d-59de-467c-8cb8-52b59febf12e"
+                if (customerEntity != null){
+                    checkoutModel.user_name = customerEntity.name
+                    checkoutModel.user_image = customerEntity.image_urls[0].image_thumb_url
+                }
+                else {
+                    checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
+                    checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC2p08Hh4w8DqdAkc%2Fprofiles%2Fprofile_thumb.png?alt=media&token=b674e47d-59de-467c-8cb8-52b59febf12e"
+                }
+
+
+                checkoutModel.user_menu = "Menu 1, Menu 2"
+
 
 /*                if (customer != null) {
                     if (customer.name != null)
@@ -71,6 +90,7 @@ class CheckoutMapper {
                     if (customer.image_urls[0].image_thumb_url != "")
                         checkoutModel.user_image = customer.image_urls[0].image_thumb_url
                 }*/
+
                 return checkoutModel
             }
 

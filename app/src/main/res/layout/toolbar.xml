@@ -10,10 +10,8 @@
 
             android:elevation="0dp"
             android:clickable="true"
-            app:elevation="0dp"
-            app:theme="@style/MyToolbarStyle"
-            android:subtitleTextColor="@color/colorAccent"
             android:theme="@style/MyToolbarStyle"
+            android:subtitleTextColor="@color/colorAccent"
             >
         </android.support.v7.widget.Toolbar>
 

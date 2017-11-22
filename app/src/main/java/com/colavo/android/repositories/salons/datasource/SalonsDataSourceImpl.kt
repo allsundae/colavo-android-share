@@ -104,6 +104,7 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
 
     private fun getOwnerName(userId: String?) : Observable<User> = retrofit.create(FirebaseAPI::class.java).getUserById(userId ?: "")
     
-    private fun getUserById(userId: String?): Observable<User> = retrofit.create(FirebaseAPI::class.java).getUserById(userId ?: "")
+    private fun getUserById(userId: String?)
+            : Observable<User> = retrofit.create(FirebaseAPI::class.java).getUserById(userId ?: "")
 
 }

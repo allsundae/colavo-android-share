@@ -43,7 +43,7 @@ interface FirebaseAPI {
     fun getEventbySalonEventKey( @Path("id" ) event_key: String): Observable<EventEntity>
 
     @GET("salon_customers/{id}/{id2}.json") //todo
-    fun getCustomerbySalonCustomerKey(@Path("id") salon_key: String, @Path("id2" ) customer_key: String): Observable<CustomerEntity>
+    fun getCustomerbySalonCustomerKey(@Path("id") salon_key: String ="-KxLewgRxUVdD-10r-9k", @Path("id2") customer_key: String ="-KusC3nS4hFb0KfQiCy9"): Observable<CustomerEntity>
 
 
 

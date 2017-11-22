@@ -37,3 +37,9 @@ fun Int.getFormattedDuration(): String {
 
 // TODO: how to do "flags & ~flag" in kotlin?
 fun Int.removeFlag(flag: Int) = (this or flag) - flag
+
+
+// You could do it as well generic, that's what I do in my lib:
+interface SimpleCallback<T> {
+    fun callback(data: T)
+}

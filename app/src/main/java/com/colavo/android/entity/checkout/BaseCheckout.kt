@@ -19,5 +19,6 @@ open abstract class BaseCheckout(
         open var updated_at: Double,              //required
         open var reserveFund: Double,
         open var paidFund: Double,
-        open var tip: Double
+        open var tip: Double,
+        open var customer_key: String
 )
