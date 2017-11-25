@@ -26,7 +26,7 @@ class CheckoutPresenterImpl @Inject constructor(val getCheckout: GetSalonCheckou
 
     override fun initialize(salonUid: String) {
         this.salonUid = salonUid
-        Logger.log(salonUid)
+        Logger.log("CheckoutPresenterImpl : initialize : ${salonUid}")
         getCheckout.execute(salonUid, CheckoutSubscriber())
     }
 

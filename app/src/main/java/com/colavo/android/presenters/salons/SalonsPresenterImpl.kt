@@ -25,7 +25,7 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
 
     override fun initialize(ownerUid: String) {
         this.ownerId = ownerUid
-        Logger.log(ownerUid)
+        Logger.log("SalonsPresenterImpl : initialize : ${ownerUid}")
         getSalons.execute(ownerUid, SalonsSubscriber())
     }
 

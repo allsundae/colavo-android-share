@@ -25,15 +25,12 @@ import com.google.firebase.database.DatabaseReference
 import android.support.annotation.NonNull
 import com.colavo.android.utils.SimpleCallback
 
-
 class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CheckoutDataSource {
 
     override fun initialize(query: CheckoutQuery.GetCheckout): Observable<Pair<CheckoutModel, ResponseType>>
             = Observable.create<Pair<CheckoutEntity, ResponseType>>
                 { subscriber -> firebaseDatabase.reference.child("salon_checkouts")
                         .child(query.salonUid)
-                        //.orderByChild("name")
-                        //.limitToFirst(200)
                         .orderByChild("author_employee_key").equalTo(getCurrentFirebaseUserKey())
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
@@ -83,7 +80,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                     }
                                                 })
 
-                                        subscriber.onNext(checkout to ResponseType.ADDED)
+                                       // subscriber.onNext(checkout to ResponseType.ADDED)
                                     }
                                 }
 
@@ -102,33 +99,37 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                         })
             }
             /*. DEVELOPING */
-           // .concatMap { response -> convertToCheckoutModel(response)}
-
+            .concatMap { response -> convertToCheckoutModel(response)}
 /* TODO This is WORKING on GITHUB */
-            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCheckoutbySalonKey(pair.first.salon_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
+/*            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCheckoutbySalonKey(pair.first.salon_key) , getCustomerbyCustomerKey(pair.first.customer_key)//getCheckoutbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
                                         .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                                        , { pair, user -> CheckoutMapper.transformFromEntity(pair.first) to pair.second }
+                                        , { pair, idontknow, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
                                         )
                             }
+*/
 
     private fun convertToCheckoutModel(pair: Pair<CheckoutEntity, ResponseType>) : Observable< Pair<CheckoutModel, ResponseType>> {
-     //   val event = getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
-
-
-/*        getCustomerKeybySalonEventKey(pair.first.salon_key, pair.first.event_key, object : SimpleCallback<String> {
-            override fun callback(data: String) {
-                pair.first.customer_key = data
-                Logger.log("CHECKOUT added : callback data: ${data} -> customer_key :${pair.first.customer_key}")
-            }
-        })*/
-
         Logger.log("convertToCheckoutModel : checkout_uid: ${pair.first.checkout_uid}, customer_key: ${pair.first.customer_key}")
 
-        return getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key) //getCheckoutbySalonKey(pair.first.salon_key)
-                .concatMapEager { test -> Observable.zip(Observable.just(test), getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key))
-                    { checkout, customer -> CheckoutMapper.transformFromEntity(pair.first) to pair.second }
-              //      { checkout, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
-                }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        var customer : CustomerEntity? = null
+
+        getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key, object : SimpleCallback<CustomerEntity>{
+            override fun callback(customerCallback: CustomerEntity){
+                customer = customerCallback
+                Logger.log("getCustomerbySalonCustomerKey : Callback : ${customerCallback.name} -> var customer : ${customer!!.name}")
+            }
+        })
+
+        return Observable.zip(Observable.just(pair.first), Observable.just(customer!!))
+                {WTF, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second}
+        .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+
+/*        return getCheckoutbySalonKey(pair.first.salon_key)
+                .concatMapEager { test ->
+                    Observable.zip(Observable.just(test), getCheckoutbySalonKey(pair.first.salon_key))
+                    { WTF, arigato -> CheckoutMapper.transformFromEntity(pair.first, customer!!) to pair.second }
+                } .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())*/
+
     }
 /* DEVELOPING
         return event //getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
@@ -143,6 +144,10 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     }
 */
 
+    private fun getCustomerbySalonKey(salon_key: String?) : Observable<CustomerEntity>  {
+        Logger.log("getCustomerbySalonKey: ${salon_key}")
+        return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonId(salon_key ?: "")
+    }
 
 
 
@@ -223,13 +228,42 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
     }
 
+    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?, finishedCallback: SimpleCallback<CustomerEntity>)
+    {
+        val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
+        firebaseDatabase3.reference.child("salon_customers")
+                //    .child(checkout.author_employee_key)
+                .child(salon_key)
+                .child(customer_key)
+                .addListenerForSingleValueEvent( object :ValueEventListener {
 
-    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?)
-            : Observable<CustomerEntity> {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
+                        finishedCallback.callback(customer);
+                        Logger.log("getCustomerbySalonCustomerKey : customer_name: ${customer.name}")
+                        //subscriber.onNext(customer to ResponseType.ADDED)
+                    }
 
-        Logger.log("getCustomerbySalonCustomerKey: ${salon_key} : ${customer_key}")
-        return  retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salon_key ?: "", customer_key ?: "")
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        Logger.log("getCustomerbySalonCustomerKey : FAILED: ${databaseError.code.toString()}")
+                    }
+                })
+
     }
+
+    /*
+       private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?)
+               : Observable<CustomerEntity> //= retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salon_key ?: "", customer_key ?: "")
+
+       {
+           val salon_customer_key="${salon_key}/${customer_key}"
+           Logger.log("getCustomerbySalonCustomerKey: ${salon_customer_key}")
+   //        Logger.log("getCustomerbySalonCustomerKey: ${salon_customer_key} : ${customer_key}")
+           return  retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salon_customer_key ?:"")
+       }
+   */
+
+
 /*    private fun getNumberofCheckout : Int (){
 
         val numOfCheckouts: Int = datasnapshot.getChildrenCount()
@@ -242,6 +276,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
         return currentFirebaseUser!!.uid
     }
 
-    private fun getEventbyId(eventId: String?): Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventById(eventId ?: "")
+ //   private fun getEventbyId(eventId: String?): Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventById(eventId ?: "")
 
 }

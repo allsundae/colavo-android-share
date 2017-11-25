@@ -63,7 +63,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                     })
                 }
                 .concatMapEager { pair -> Observable.zip(Observable.just(pair)
-                                    , getSalonCustomerById(pair.first.salon_key, pair.first.customer_key)
+                                    , getSalonCustomerById(pair.first.salon_key) //, pair.first.customer_key
 //                                    , getServiceById(pair.first.services)
 //                                    , getDiscountById(pair.first.discounts)
 //                                    , getLogById(pair.first.logs)
@@ -83,7 +83,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                 .doOnNext { updateEvent(event) }*/
     }
 
-    private fun getSalonCustomerById(salonKey: String, customerKey: String) : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salonKey, customerKey)
+    private fun getSalonCustomerById(salonKey: String) : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salonKey) //, customerKey: String
 /*    private fun getServiceById(services: List<ServiceMenu>) : Observable<ServiceMenu> = retrofit.create(FirebaseAPI::class.java).getServiceById(services)
     private fun getDiscountById(discounts: List<DiscountMenu>) : Observable<DiscountMenu> = retrofit.create(FirebaseAPI::class.java).getDiscountById(discounts)
     private fun getLogById(logs: List<EventLogs>) : Observable<EventLogs> = retrofit.create(FirebaseAPI::class.java).getLogById(logs)*/

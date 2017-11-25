@@ -54,7 +54,7 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity): CheckoutModel { //,  customerEntity: CustomerEntity
+            fun transformFromEntity(checkoutEntity: CheckoutEntity ,  customerEntity: CustomerEntity): CheckoutModel { //,  customerEntity: CustomerEntity
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_uid = checkoutEntity.checkout_uid
                 checkoutModel.salon_key = checkoutEntity.salon_key
@@ -73,17 +73,24 @@ class CheckoutMapper {
                 checkoutModel.customer_key = checkoutEntity.customer_key
 
 
-/*                if (customerEntity != null){
+
+/*
+
+               if (customerEntity != null){
                     checkoutModel.user_name = customerEntity.name
                     checkoutModel.user_image = customerEntity.image_urls[0].image_thumb_url
+                   Logger.log("CHECKOUTMAPPER : customerEntity.name : ${customerEntity.name}")
                 }
                 else {
                     checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
                     checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC2p08Hh4w8DqdAkc%2Fprofiles%2Fprofile_thumb.png?alt=media&token=b674e47d-59de-467c-8cb8-52b59febf12e"
-                }*/
+                }
+*/
+
 
                 checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
-                checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC2p08Hh4w8DqdAkc%2Fprofiles%2Fprofile_thumb.png?alt=media&token=b674e47d-59de-467c-8cb8-52b59febf12e"
+                checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC-aZyWqiAP_LmHk7%2Fprofiles%2Fprofile_thumb.png?alt=media&token=37904776-f8a1-4f43-937d-edb25466b5b9"
+
 
                 checkoutModel.user_menu = "Menu 1, Menu 2"
 
