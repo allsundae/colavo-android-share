@@ -54,7 +54,7 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity ,  customerEntity: CustomerEntity): CheckoutModel { //,  customerEntity: CustomerEntity
+            fun transformFromEntity(checkoutEntity: CheckoutEntity ): CheckoutModel { //,  customerEntity: CustomerEntity
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_uid = checkoutEntity.checkout_uid
                 checkoutModel.salon_key = checkoutEntity.salon_key
@@ -71,9 +71,10 @@ class CheckoutMapper {
                 checkoutModel.paidFund = checkoutEntity.paidFund
                 checkoutModel.tip = checkoutEntity.tip
                 checkoutModel.customer_key = checkoutEntity.customer_key
-
-
-
+                checkoutModel.customer_name = checkoutEntity.customer_name
+                checkoutModel.customer_image = checkoutEntity.customer_image
+                checkoutModel.customer_menu = checkoutEntity.customer_menu
+                Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutEntity.customer_name}")
 /*
 
                if (customerEntity != null){
@@ -87,12 +88,14 @@ class CheckoutMapper {
                 }
 */
 
+/*
 
                 checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
                 checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC-aZyWqiAP_LmHk7%2Fprofiles%2Fprofile_thumb.png?alt=media&token=37904776-f8a1-4f43-937d-edb25466b5b9"
 
+*/
 
-                checkoutModel.user_menu = "Menu 1, Menu 2"
+                checkoutModel.customer_menu = "Menu 1, Menu 2"
 
 
 /*                if (customer != null) {

@@ -6,10 +6,10 @@
     android:background="@color/backgroundWhite">
 
     <include
+        android:id="@+id/include"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:id="@+id/include" />
+        android:layout_height="@dimen/toolbar_height" />
 
     <TextView
         android:id="@+id/editText"
@@ -22,7 +22,7 @@
         android:lineSpacingExtra="-10sp"
         android:text="STATS. will be here"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView

@@ -49,7 +49,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
                                         checkout.checkout_uid = dataSnapshot.key
-                                        Logger.log("CHECKOUT ADDED : event_key : ${checkout.event_key}")
+                                        Logger.log("(1) CHECKOUT ADDED : event_key : ${checkout.event_key}")
 /*
                                         getCustomerKeybySalonEventKey(checkout.salon_key, checkout.event_key, object : SimpleCallback<String> {
                                             override fun callback(data: String) {
@@ -70,8 +70,23 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                         val customer_key : String = dataSnapshot2.getValue(String::class.java)
                                                       //  customerCallback.callback(customer_key)
                                                         checkout.customer_key = customer_key
-                                                        Logger.log("CHECKOUT ADDED : customer_key: ${customer_key} -> ${checkout.customer_key}")
-                                                        subscriber.onNext(checkout to ResponseType.ADDED)
+                                                        Logger.log("(2) CHECKOUT ADDED : customer_key: ${customer_key} -> ${checkout.customer_key}")
+
+                                                        var customer : CustomerEntity? = null
+                                                        getCustomerbySalonCustomerKey(checkout.salon_key, checkout.customer_key, object : SimpleCallback<CustomerEntity>{
+                                                            override fun callback(customerCallback: CustomerEntity){
+                                                                customer = customerCallback
+                                                                checkout.customer_name = customer!!.name
+                                                                checkout.customer_image = customer!!.image_urls[0].image_thumb_url
+                                                                Logger.log("(3) getCustomerbySalonCustomerKey : Callback : -> [var customer] : ${customer!!.name} -> [checkout] : ${checkout.customer_name} (${checkout.customer_image})")
+
+                                                                subscriber.onNext(checkout to ResponseType.ADDED)
+                                                            }
+                                                        })
+
+
+
+
                                                     }
 
                                                     override fun onCancelled(databaseError: DatabaseError) {
@@ -99,14 +114,15 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                         })
             }
             /*. DEVELOPING */
-            .concatMap { response -> convertToCheckoutModel(response)}
+//            .concatMap { response -> convertToCheckoutModel(response)}
 /* TODO This is WORKING on GITHUB */
-/*            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCheckoutbySalonKey(pair.first.salon_key) , getCustomerbyCustomerKey(pair.first.customer_key)//getCheckoutbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
+            .concatMapEager {
+                pair -> Observable.zip(Observable.just(pair), Observable.just(pair.first)//getCheckoutbySalonKey(pair.first.salon_key) //getCheckoutbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
                                         .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                                        , { pair, idontknow, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
+                                        , { pair, test -> CheckoutMapper.transformFromEntity(pair.first) to pair.second }
                                         )
                             }
-*/
+
 
     private fun convertToCheckoutModel(pair: Pair<CheckoutEntity, ResponseType>) : Observable< Pair<CheckoutModel, ResponseType>> {
         Logger.log("convertToCheckoutModel : checkout_uid: ${pair.first.checkout_uid}, customer_key: ${pair.first.customer_key}")
@@ -120,15 +136,16 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
             }
         })
 
+        return Observable.just(pair)
+                .concatMapEager { test ->
+                    Observable.zip(Observable.just(pair.first), Observable.just(customer!!))
+                    { WTF, arigato -> CheckoutMapper.transformFromEntity(pair.first) to pair.second }
+                } .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+/* Ahhhhhhhhhh
         return Observable.zip(Observable.just(pair.first), Observable.just(customer!!))
                 {WTF, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second}
         .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-
-/*        return getCheckoutbySalonKey(pair.first.salon_key)
-                .concatMapEager { test ->
-                    Observable.zip(Observable.just(test), getCheckoutbySalonKey(pair.first.salon_key))
-                    { WTF, arigato -> CheckoutMapper.transformFromEntity(pair.first, customer!!) to pair.second }
-                } .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())*/
+*/
 
     }
 /* DEVELOPING
@@ -239,7 +256,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        finishedCallback.callback(customer);
+                        finishedCallback.callback(customer)
                         Logger.log("getCustomerbySalonCustomerKey : customer_name: ${customer.name}")
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }
