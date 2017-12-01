@@ -50,26 +50,25 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
                                         checkout.checkout_uid = dataSnapshot.key
                                         Logger.log("(1) CHECKOUT ADDED : event_key : ${checkout.event_key}")
-/*
-                                        getCustomerKeybySalonEventKey(checkout.salon_key, checkout.event_key, object : SimpleCallback<String> {
-                                            override fun callback(data: String) {
-                                                checkout.customer_key = data
-                                                Logger.log("CHECKOUT added : callback data: ${data} -> customer_key :${checkout.customer_key}")
-                                            }
-                                        })
-*/
+
                                         val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
-                                        firebaseDatabase2.reference.child("salon_events")
-                                                //    .child(checkout.author_employee_key)
+                                        firebaseDatabase2.reference.child("salon_events") //    .child(checkout.author_employee_key)
                                                 .child(checkout.salon_key)
                                                 .child(checkout.event_key)
-                                                .child("customer_key")
+//                                                .child("customer_key")
                                                 .addListenerForSingleValueEvent( object :ValueEventListener {
-
                                                     override fun onDataChange(dataSnapshot2: DataSnapshot) {
-                                                        val customer_key : String = dataSnapshot2.getValue(String::class.java)
-                                                      //  customerCallback.callback(customer_key)
-                                                        checkout.customer_key = customer_key
+
+                                                        if(dataSnapshot2 != null) {
+                                                            val event = dataSnapshot2.getValue(EventEntity::class.java)
+                                                            event.id = dataSnapshot2.key
+                                                            Logger.log("(2) CHECKOUT ADDED : event: ${event?.id}")
+                                                        }
+
+//                                                        val customer_key : String = dataSnapshot2.getValue(String::class.java)
+                                                        val customer_key : String = dataSnapshot2.child("customer_key").getValue(String::class.java)
+
+                                                        checkout.customer_key = customer_key // customerCallback.callback(customer_key)
                                                         Logger.log("(2) CHECKOUT ADDED : customer_key: ${customer_key} -> ${checkout.customer_key}")
 
                                                         var customer : CustomerEntity? = null
@@ -83,9 +82,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                                 subscriber.onNext(checkout to ResponseType.ADDED)
                                                             }
                                                         })
-
-
-
 
                                                     }
 
@@ -203,20 +199,22 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     private fun getEventEntitybySalonEventKey(salon_key: String?, event_key: String?)
             : Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventbySalonEventKey(event_key ?: "")
 
-    private fun getCustomerKeybySalonEventKey(salon_key: String?, event_key: String?, customerCallback: SimpleCallback<String>)
+    private fun getEventbySalonEventKey(salon_key: String?, event_key: String?, eventCallback: SimpleCallback<EventEntity>)
     {
         val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
         firebaseDatabase2.reference.child("salon_events")
-            //    .child(checkout.author_employee_key)
                 .child(salon_key)
                 .child(event_key)
                 .addListenerForSingleValueEvent( object :ValueEventListener {
-
                     override fun onDataChange(dataSnapshot2: DataSnapshot) {
-                        val customer_key : String = dataSnapshot2.getValue(String::class.java)
-                        customerCallback.callback(customer_key)
+                        val event : EventEntity = dataSnapshot2.getValue(EventEntity::class.java)
+                        for (i in 0..event.services.size){
+               //             event.services[i].key = dataSnapshot2.child("services").key[i]
+               //             event.services[i].name = dataSnapshot2.child("services").child("")
+                        }
 
-                        Logger.log("getCustomerKeybySalonEventKey : customer_key: ${customer_key}")
+                        Logger.log("getEventbySalonEventKey : customer_key: ${event.services.size}")
+                        eventCallback.callback(event)
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
@@ -224,24 +222,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                         Logger.log("getCustomerKeybySalonEventKey : CUSTOMER_KEY READ FAILED: ${databaseError.code.toString()}")
                     }
                 })
-
-/*        firebaseDatabase.reference.child("salon_events")
-                .child(salon_key)
-                .child(event_key)
-                .child("customer_key")
-                .addListenerForSingleValueEvent( object :ValueEventListener {
-
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val customer_key : String = dataSnapshot.getValue(String::class.java)
-                            finishedCallback.callback(customer_key)
-                            Logger.log("getCustomerKeybySalonEventKey : ${customer_key}")
-                        }
-
-                        override fun onCancelled(databaseError: DatabaseError) {
-                            val customer_Key = "CUSTOMER_KEY READ FAILED: " + databaseError.code
-                            Logger.log("getCustomerKeybySalonEventKey : CUSTOMER_KEY READ FAILED: ${databaseError.code.toString()}")
-                        }
-                })*/
 
     }
 
@@ -256,8 +236,9 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
+                        customer.image_urls[0]!!.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls[0].image_thumb_url})")
                         finishedCallback.callback(customer)
-                        Logger.log("getCustomerbySalonCustomerKey : customer_name: ${customer.name}")
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }
 
@@ -268,31 +249,12 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
     }
 
-    /*
-       private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?)
-               : Observable<CustomerEntity> //= retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salon_key ?: "", customer_key ?: "")
 
-       {
-           val salon_customer_key="${salon_key}/${customer_key}"
-           Logger.log("getCustomerbySalonCustomerKey: ${salon_customer_key}")
-   //        Logger.log("getCustomerbySalonCustomerKey: ${salon_customer_key} : ${customer_key}")
-           return  retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salon_customer_key ?:"")
-       }
-   */
-
-
-/*    private fun getNumberofCheckout : Int (){
-
-        val numOfCheckouts: Int = datasnapshot.getChildrenCount()
-        return val
-    }
-    */
     private fun getCurrentFirebaseUserKey() : String {
         val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
         Logger.log("current login user UID ${currentFirebaseUser!!.uid}")
         return currentFirebaseUser!!.uid
     }
 
- //   private fun getEventbyId(eventId: String?): Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventById(eventId ?: "")
 
 }

@@ -1197,8 +1197,8 @@ public class WeekView extends View {
         if (event.getName() != null) {
             bob.append(event.getName());
             bob.setSpan(new StyleSpan(Typeface.BOLD), 0, bob.length(), 0); //BOLD
-            bob.setSpan(new AbsoluteSizeSpan(mEventTextSize+10), 0, bob.length(), 0); //BOLD
-            bob.append(' ');
+            bob.setSpan(new AbsoluteSizeSpan(mEventTextSize), 0, bob.length(), 0); //BOLD
+            //bob.append(' ');
         }
 
         // Prepare the location of the event.

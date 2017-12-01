@@ -6,7 +6,7 @@
     android:background="@color/backgroundWhite">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/toolBar"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
@@ -16,12 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editText2"
-        android:layout_below="@+id/include"
+        android:layout_below="@+id/toolBar"
         android:layout_marginTop="32dp"
-        android:ems="10"
         android:lineSpacingExtra="-10sp"
         android:text="STATS. will be here"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorTodayTab"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -34,7 +33,6 @@
         android:layout_centerVertical="false"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:ems="10"
         android:text="Under Construction"
         android:textColor="@color/colorSecondary"
         android:textSize="16sp" />

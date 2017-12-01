@@ -19,7 +19,8 @@ class EventEntity(
        @SerializedName("memo_key")              @Expose override var memo_key: String = "",
        @SerializedName("checkout_key")          @Expose override var checkout_key: String = "",
        @SerializedName("cancel_reason")         @Expose override var cancel_reason: String = "",
-       @SerializedName("services")              @Expose  var services: List<ServiceMenu> = mutableListOf(ServiceMenu(0.0,0.0,0.0,"", "", "", 0.0, 0.0)),
+       @SerializedName("services")              @Expose  var services: List<ServiceMenu> = mutableListOf(ServiceMenu(
+               0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
        @SerializedName("discounts")             @Expose  var discounts: List<DiscountMenu> = mutableListOf(DiscountMenu("",false,"",0.0,0.0, 0.0)),
        @SerializedName("logs")                  @Expose  var logs: List<EventLogs> = mutableListOf(EventLogs(false))
                        ): BaseEvent(id, created_at, updated_at, begin_at, end_at, employee_only_event_title, booked_by_customer
@@ -28,13 +29,13 @@ class EventEntity(
 
 data class ServiceMenu (
         @SerializedName("created_at")           @Expose var created_at: Double = 0.0,
-        @SerializedName("duration_min")         @Expose var duration_min: Double = 0.0,         //e.g.  150min
-        @SerializedName("uniq_duration_min")    @Expose var uniq_duration_min: Double = 0.0,    //e.g.  120min
-//        @SerializedName("salon_key")          @Expose var salon_key: String = "",
+        @SerializedName("duration")             @Expose var duration: Double = 0.0,         //e.g.  150min
+        @SerializedName("uniq_duration")        @Expose var uniq_duration: Double = 0.0,    //e.g.  120min
         @SerializedName("key")                  @Expose var key: String = "",
         @SerializedName("name")                 @Expose var name: String = "",                  // e.g. Digital Perm
-        @SerializedName("desc")                 @Expose var desc: String = "",
         @SerializedName("price")                @Expose var price: Double = 0.0,
+        @SerializedName("salon_key")            @Expose var salon_key: String = "",
+        @SerializedName("service_type_key")     @Expose var service_type_key: String = "",  //e.g. Cut
         @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
         ) 
 

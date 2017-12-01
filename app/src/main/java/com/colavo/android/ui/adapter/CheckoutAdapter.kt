@@ -56,7 +56,6 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
                         .placeholder(R.drawable.ic_customer_holder_person)
                         .transform(transForm)
                         .into(this.checkoutImage)
-
             }
 
             Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_name}")
