@@ -20,5 +20,8 @@ open abstract class BaseCheckout(
         open var reserveFund: Double,
         open var paidFund: Double,
         open var tip: Double,
-        open var customer_key: String
+        open var customer_key: String,
+        open var customer_name: String,
+        open var customer_image: String,
+        open var customer_menu: String
 )

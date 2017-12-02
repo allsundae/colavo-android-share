@@ -25,7 +25,7 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
 
     override fun initialize(ownerUid: String) {
         this.ownerId = ownerUid
-        Logger.log(ownerUid)
+        Logger.log("SalonsPresenterImpl : initialize : ${ownerUid}")
         getSalons.execute(ownerUid, SalonsSubscriber())
     }
 
@@ -59,7 +59,7 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
     private inner class SalonsSubscriber : Subscriber<Pair<SalonModel, ResponseType>>() {
 
         override fun onError(throwable: Throwable?) {
-            Logger.log("response: Error")
+            Logger.log("SalonsSubscriber : response: Error")
             if(throwable != null) salonlistView?.onError(throwable)
         }
 

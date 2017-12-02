@@ -72,6 +72,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                                 override fun onCancelled(error: DatabaseError?) {
                                     subscriber.onError(error?.toException())
+
                                 }
 
                             })

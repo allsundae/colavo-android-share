@@ -27,4 +27,7 @@
     <dimen name="margin_fab_bottombar">65dp</dimen>
     <dimen name="list_inside_margin_hor">10dp</dimen>
     <item name="disabledOpacity" format="float" type="dimen">0.25</item>
+
+    <dimen name="pie_chart_text1_size">42sp</dimen>
+    <dimen name="pie_chart_text2_size">16dp</dimen>
 </resources>

@@ -122,7 +122,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
 
         checkoutAdapter.items.add(checkoutEntity)
         checkoutAdapter.notifyItemInserted(checkoutAdapter.itemCount)
-        Logger.log("addCheckout : ${checkoutEntity.checkout_uid} (${checkoutAdapter.itemCount})")
+        Logger.log("Checkout addCheckout : ${checkoutEntity.checkout_uid} (${checkoutAdapter.itemCount})")
     }
 
     override fun changeCheckout(checkoutEntity: CheckoutModel) {

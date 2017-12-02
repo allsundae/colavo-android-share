@@ -17,7 +17,8 @@ class EventModel(
         memo_key: String = "",
         checkout_key: String = "",
         cancel_reason: String = "",
-        var services: List<ServiceMenu>  = mutableListOf(ServiceMenu(0.0,0.0,0.0,"", "", "", 0.0, 0.0)),
+        var services: List<ServiceMenu>  = mutableListOf(ServiceMenu(
+                0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         var discounts: List<DiscountMenu> = mutableListOf(DiscountMenu("",false,"",0.0,0.0, 0.0)),
         var logs: List<EventLogs> = mutableListOf(EventLogs(false))
 ) : BaseEvent(id, created_at, updated_at, begin_at, end_at

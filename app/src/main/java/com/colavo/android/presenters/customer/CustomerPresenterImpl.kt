@@ -69,7 +69,7 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
     private inner class CustomerSubscriber : Subscriber<Pair<CustomerModel, ResponseType>>() {
 
         override fun onError(throwable: Throwable?) {
-            Logger.log("response: Error")
+            Logger.log("CustomerSubscriber : response: Error")
             if(throwable != null) customerlistView?.onError(throwable)
         }
 

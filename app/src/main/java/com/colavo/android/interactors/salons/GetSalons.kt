@@ -8,9 +8,6 @@ import com.colavo.android.repositories.salons.SalonsRepository
 import rx.Subscriber
 import javax.inject.Inject
 
-/**
- * Created by RUS on 01.08.2016.
- */
 @UseCase
 class GetSalons @Inject constructor(salonsRepository: SalonsRepository) : SalonsUseCase(salonsRepository) {
 
