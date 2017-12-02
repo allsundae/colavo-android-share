@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundWhite">
+    android:background="@color/backgroundWhite"
+    android:gravity="top|center">
 
     <include
         android:id="@+id/toolBar"
@@ -15,12 +16,12 @@
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_below="@+id/toolBar"
-        android:layout_marginTop="32dp"
+        android:layout_below="@+id/chart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
         android:lineSpacingExtra="-10sp"
         android:text="STATS. will be here"
-        android:textColor="@color/colorTodayTab"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -29,20 +30,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="false"
-        android:layout_centerVertical="false"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_centerHorizontal="true"
         android:text="Under Construction"
         android:textColor="@color/colorSecondary"
         android:textSize="16sp" />
 
-    <ImageView
+    <!--    <ImageView
         android:id="@+id/imageView4"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_below="@+id/editText2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="84dp"
-        app:srcCompat="@drawable/ic_oval" />
+        app:srcCompat="@drawable/ic_oval" />-->
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/chart"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true" />
+
 </RelativeLayout>

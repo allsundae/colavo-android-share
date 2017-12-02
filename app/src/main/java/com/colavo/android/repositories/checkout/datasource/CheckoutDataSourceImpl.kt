@@ -1,5 +1,6 @@
 package com.colavo.android.repositories.checkout.datasource
 
+import android.provider.SyncStateContract
 import com.colavo.android.entity.checkout.CheckoutEntity
 import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customer.CustomerEntity
@@ -24,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseReference
 import android.support.annotation.NonNull
 import com.colavo.android.utils.SimpleCallback
+import java.util.*
+
+
 
 class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CheckoutDataSource {
 
@@ -52,21 +56,33 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         Logger.log("(1) CHECKOUT ADDED : event_key : ${checkout.event_key}")
 
                                         val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
-                                        firebaseDatabase2.reference.child("salon_events") //    .child(checkout.author_employee_key)
+                                        firebaseDatabase2.reference.child("salon_events") // .child(checkout.author_employee_key)
                                                 .child(checkout.salon_key)
                                                 .child(checkout.event_key)
-//                                                .child("customer_key")
-                                                .addListenerForSingleValueEvent( object :ValueEventListener {
+                                                .child("customer_key")
+                                                .addListenerForSingleValueEvent( object : ValueEventListener {
                                                     override fun onDataChange(dataSnapshot2: DataSnapshot) {
+ /*                                                       val objectMap = dataSnapshot2.value as HashMap<String, Any>
+                                                        List<Match> = ArrayList<Match>()
+
+                                                        for (obj in objectMap.values) {
+                                                            if (obj is Map<*, *>) {
+                                                                val mapObj = obj as Map<String, Any>
+                                                                val match = Match()
+                                                                match.setSport(mapObj[SyncStateContract.Constants.SPORT] as String)
+                                                                match.setPlayingWith(mapObj[SyncStateContract.Constants.PLAYER] as String)
+                                                                list.add(match)
+                                                            }
+                                                        }
 
                                                         if(dataSnapshot2 != null) {
                                                             val event = dataSnapshot2.getValue(EventEntity::class.java)
                                                             event.id = dataSnapshot2.key
                                                             Logger.log("(2) CHECKOUT ADDED : event: ${event?.id}")
                                                         }
-
-//                                                        val customer_key : String = dataSnapshot2.getValue(String::class.java)
-                                                        val customer_key : String = dataSnapshot2.child("customer_key").getValue(String::class.java)
+*/
+                                                        val customer_key : String = dataSnapshot2.getValue(String::class.java)
+//                                                        val customer_key : String = dataSnapshot2.child("customer_key").getValue(String::class.java)
 
                                                         checkout.customer_key = customer_key // customerCallback.callback(customer_key)
                                                         Logger.log("(2) CHECKOUT ADDED : customer_key: ${customer_key} -> ${checkout.customer_key}")

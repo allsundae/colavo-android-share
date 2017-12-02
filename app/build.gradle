@@ -86,6 +86,7 @@ dependencies {
     compile 'com.flipboard:bottomsheet-commons:1.5.3'
 
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }
 
 repositories {
