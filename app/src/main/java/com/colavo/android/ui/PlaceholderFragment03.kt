@@ -24,7 +24,7 @@ import java.util.*
  */
 class PlaceholderFragment03 : BaseFragment() {
 
-    private var chart: PieChartView? = null
+    private var chart_pie: PieChartView? = null
     private var data: PieChartData? = null
 
     private var hasLabels = false

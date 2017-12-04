@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 
 import com.colavo.android.R
+import com.colavo.android.base.BaseActivity
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
@@ -28,7 +29,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.toolbar.*
 
 
-class SalonListActivity : AppCompatActivity()
+class SalonListActivity : BaseActivity()
         , SalonlistView, SalonsAdapter.OnItemClickListener {
 
     @Inject

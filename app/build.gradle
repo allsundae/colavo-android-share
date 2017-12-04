@@ -87,6 +87,7 @@ dependencies {
 
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.tsengvn:Typekit:1.0.0'
 }
 
 repositories {
