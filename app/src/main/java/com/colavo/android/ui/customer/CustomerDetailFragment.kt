@@ -3,20 +3,17 @@ package com.colavo.android.ui.customer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.colavo.android.R
-import com.colavo.android.base.BaseFragment
 import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.ui.adapter.CustomerAdapter
 import android.view.animation.AlphaAnimation
 import com.colavo.android.ui.PlaceholderFragment04
 import com.flipboard.bottomsheet.commons.BottomSheetFragment
 import kotlinx.android.synthetic.main.customer_detail_fragment.*
-import android.R.attr.defaultValue
-import android.R.attr.key
 import android.graphics.BitmapFactory
 import android.view.*
-import com.colavo.android.App
+import com.colavo.android.entity.checkout.CheckoutModel
+import com.colavo.android.ui.PlaceholderFragment02
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.customer_item.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -51,36 +48,69 @@ class CustomerDetailFragment : BottomSheetFragment()
         super.onViewCreated(view, savedInstanceState)
  /*       val bundle = this.arguments
         if (bundle != null) {
-            val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CUSTOMER) as CustomerModel
+            val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
         }*/
 
-      //  val bundle : Bundle = this.arguments
-
         val bundle:Bundle = arguments
-        val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CUSTOMER) as CustomerModel
-        customer_name_detail.setText (customer.name)
-        customer_phone_detail.setText(customer.phone)
+        val sender : String = bundle.getString("SENDER")
 
-        if (customer.image_urls[0].image_thumb_url !="") {
+        if (sender == "customer")
+        {
+            val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
+            customer_name_detail.setText (customer.name)
+            customer_phone_detail.setText(customer.phone)
 
-            val byteArray = bundle.getByteArray("BYTE")
-            val decodedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
-            customer_image_detail.setImageBitmap(decodedBitmap)
+            if (customer.image_urls[0].image_thumb_url !="") {
 
-            if (customer.image_urls[0].image_full_url != "") {
-                val transForm = CustomerAdapter.CircleTransform()
+                val byteArray = bundle.getByteArray("BYTE")
+                val decodedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+                customer_image_detail.setImageBitmap(decodedBitmap)
 
-                Picasso.with(context)
-                        .load(customer.image_urls[0].image_full_url)
-                        .resize(280, 280)
-                        .centerCrop()
-                        //.placeholder(R.drawable.ic_customer_holder_person)
-                        .transform(transForm)
-                        .noPlaceholder()
-                        .into(this.customer_image_detail)
+                if (customer.image_urls[0].image_full_url != "") {
+                    val transForm = CustomerAdapter.CircleTransform()
 
+                    Picasso.with(context)
+                            .load(customer.image_urls[0].image_full_url)
+                            .resize(280, 280)
+                            .centerCrop()
+                            //.placeholder(R.drawable.ic_customer_holder_person)
+                            .transform(transForm)
+                            .noPlaceholder()
+                            .into(this.customer_image_detail)
+
+                }
             }
         }
+        else if (sender == "checkout")
+        {
+            val customer = bundle.getSerializable(PlaceholderFragment02.BUNDLE_EXTRA) as CheckoutModel
+            customer_name_detail.setText (customer.customer_name)
+            customer_phone_detail.setText(customer.customer_menu)
+
+            if (customer.customer_image !="") {
+
+                val byteArray = bundle.getByteArray("BYTE")
+                val decodedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+                customer_image_detail.setImageBitmap(decodedBitmap)
+
+                if (customer.customer_image != "") {
+                    val transForm = CustomerAdapter.CircleTransform()
+
+                    Picasso.with(context)
+                            .load(customer.customer_image)
+                            .resize(280, 280)
+                            .centerCrop()
+                            //.placeholder(R.drawable.ic_customer_holder_person)
+                            .transform(transForm)
+                            .noPlaceholder()
+                            .into(this.customer_image_detail)
+
+                }
+            }
+        }
+
+
+
 
 
         // Toolbar
@@ -124,7 +154,7 @@ class CustomerDetailFragment : BottomSheetFragment()
     override fun onItemClicked(item: CustomerModel, position: Int, v:View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailFragment::class.java)
-        intent.putExtra(EXTRA_CUSTOMER, item)
+        intent.putExtra(BUNDLE_EXTRA, item)
         startActivity(intent)*/
     }
 

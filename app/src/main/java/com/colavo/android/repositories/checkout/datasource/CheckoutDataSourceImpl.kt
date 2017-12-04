@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseReference
 import android.support.annotation.NonNull
+import com.colavo.android.entity.event.ServiceMenu
 import com.colavo.android.utils.SimpleCallback
 import java.util.*
 
@@ -55,6 +56,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         checkout.checkout_uid = dataSnapshot.key
                                         Logger.log("(1) CHECKOUT ADDED : event_key : ${checkout.event_key}")
 
+                                        // 1. get Customer
                                         val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
                                         firebaseDatabase2.reference.child("salon_events") // .child(checkout.author_employee_key)
                                                 .child(checkout.salon_key)
@@ -62,28 +64,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                 .child("customer_key")
                                                 .addListenerForSingleValueEvent( object : ValueEventListener {
                                                     override fun onDataChange(dataSnapshot2: DataSnapshot) {
- /*                                                       val objectMap = dataSnapshot2.value as HashMap<String, Any>
-                                                        List<Match> = ArrayList<Match>()
-
-                                                        for (obj in objectMap.values) {
-                                                            if (obj is Map<*, *>) {
-                                                                val mapObj = obj as Map<String, Any>
-                                                                val match = Match()
-                                                                match.setSport(mapObj[SyncStateContract.Constants.SPORT] as String)
-                                                                match.setPlayingWith(mapObj[SyncStateContract.Constants.PLAYER] as String)
-                                                                list.add(match)
-                                                            }
-                                                        }
-
-                                                        if(dataSnapshot2 != null) {
-                                                            val event = dataSnapshot2.getValue(EventEntity::class.java)
-                                                            event.id = dataSnapshot2.key
-                                                            Logger.log("(2) CHECKOUT ADDED : event: ${event?.id}")
-                                                        }
-*/
                                                         val customer_key : String = dataSnapshot2.getValue(String::class.java)
-//                                                        val customer_key : String = dataSnapshot2.child("customer_key").getValue(String::class.java)
-
                                                         checkout.customer_key = customer_key // customerCallback.callback(customer_key)
                                                         Logger.log("(2) CHECKOUT ADDED : customer_key: ${customer_key} -> ${checkout.customer_key}")
 
@@ -94,11 +75,45 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                                 checkout.customer_name = customer!!.name
                                                                 checkout.customer_image = customer!!.image_urls[0].image_thumb_url
                                                                 Logger.log("(3) getCustomerbySalonCustomerKey : Callback : -> [var customer] : ${customer!!.name} -> [checkout] : ${checkout.customer_name} (${checkout.customer_image})")
+                                                                //subscriber.onNext(checkout to ResponseType.ADDED)
+                                                        /*start*/
+                                                                // 2. get Service menu
+                                                                val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
+                                                                firebaseDatabase3.reference.child("salon_events") // .child(checkout.author_employee_key)
+                                                                        .child(checkout.salon_key)
+                                                                        .child(checkout.event_key)
+                                                                        .child("services")
+                                                                        //.limitToFirst(1)
+                                                                        .addChildEventListener(object :ChildEventListener {
+                                                                            override fun onChildMoved(p0: DataSnapshot?, p1: String?) {
+                                                                            }
 
-                                                                subscriber.onNext(checkout to ResponseType.ADDED)
+                                                                            override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
+                                                                            }
+
+                                                                            override fun onChildRemoved(p0: DataSnapshot?) {
+                                                                            }
+
+                                                                            override fun onChildAdded(dataSnapshot3: DataSnapshot?, previousChildName: String?) {
+                                                                                if(dataSnapshot3 != null) {
+                                                                                    val service = dataSnapshot3.getValue(ServiceMenu::class.java)
+                                                                                    service.key = dataSnapshot3.key
+                                                                                    checkout.customer_menu = service.name
+                                                                                    Logger.log("(5) added event ${checkout.customer_name} : ${service.name} : ${service.key}")
+
+                                                                                    subscriber.onNext(checkout to ResponseType.ADDED)
+                                                                                }
+                                                                            }
+
+                                                                            override fun onCancelled(error: DatabaseError?) {
+                                                                                subscriber.onError(error?.toException())
+                                                                            }
+
+                                                                        })
+
+                                                                /*end*/
                                                             }
                                                         })
-
                                                     }
 
                                                     override fun onCancelled(databaseError: DatabaseError) {
@@ -107,8 +122,10 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                     }
                                                 })
 
+
                                        // subscriber.onNext(checkout to ResponseType.ADDED)
                                     }
+
                                 }
 
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {

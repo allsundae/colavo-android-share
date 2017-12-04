@@ -74,7 +74,7 @@ class CheckoutMapper {
                 checkoutModel.customer_name = checkoutEntity.customer_name
                 checkoutModel.customer_image = checkoutEntity.customer_image
                 checkoutModel.customer_menu = checkoutEntity.customer_menu
-                Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutEntity.customer_name}")
+                Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutEntity.customer_name} : ${checkoutModel.checkout_uid}")
 /*
 
                if (customerEntity != null){
@@ -95,7 +95,7 @@ class CheckoutMapper {
 
 */
 
-                checkoutModel.customer_menu = "Menu 1, Menu 2"
+ //               checkoutModel.customer_menu = "Menu 1, Menu 2"
 
 
 /*                if (customer != null) {
@@ -105,7 +105,7 @@ class CheckoutMapper {
                     if (customer.image_urls[0].image_thumb_url != "")
                         checkoutModel.user_image = customer.image_urls[0].image_thumb_url
                 }*/
-                Logger.log("CHECKOUTMAPPER : transformFromEntity : ${checkoutModel.checkout_uid}")
+
 
                 return checkoutModel
             }
