@@ -1,5 +1,6 @@
 package com.colavo.android.ui
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,9 @@ import com.colavo.android.R
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.ui.login.LoginActivity
 import javax.inject.Inject
+import com.tsengvn.typekit.TypekitContextWrapper
+
+
 
 class MainActivity : AppCompatActivity() {
 

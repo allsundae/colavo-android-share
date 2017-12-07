@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
     android:gravity="top"
-    android:id="@+id/item_container"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/list_vertical_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,10 +14,10 @@
     android:paddingTop="@dimen/list_vertical_padding">
 
     <RelativeLayout
+        android:id="@+id/item_time"
         android:layout_width="26dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/list_inside_margin_hor"
-        android:id="@+id/item_time"
         android:orientation="vertical">
 
         <TextView
@@ -90,25 +91,37 @@
             android:textColor="@color/listTextSecondary"
             android:textSize="@dimen/list_2ndtext" />
 
-        <TextView
-            android:id="@+id/checkout_memo"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/customer_name"
-            android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_rectangular"
-            android:drawableTint="@color/checkoutMemoTextColor"
-            android:ellipsize="marquee"
-            android:fadingEdge="horizontal"
-            android:fadingEdgeLength="10dp"
-            android:fontFamily="sans-serif"
-            android:letterSpacing="-0.05"
-            android:maxLines="2"
-            android:text="New memo"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/checkoutMemoTextColor"
-            android:textSize="@dimen/list_2ndtext" />
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                app:srcCompat="@drawable/ic_rectangular" />
+
+            <TextView
+                android:id="@+id/checkout_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/customer_name"
+                android:drawableLeft="@drawable/ic_rectangular"
+                android:drawableTint="@color/checkoutMemoTextColor"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:fadingEdgeLength="10dp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="-0.05"
+                android:maxLines="2"
+                android:text="New memo"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/checkoutMemoTextColor"
+                android:textSize="@dimen/list_2ndtext" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -121,7 +134,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/ctn_checkout"
+            android:id="@+id/btn_checkout"
             android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_alignParentBottom="false"

@@ -141,7 +141,7 @@ class CustomerListActivity : AppCompatActivity()
     override fun onItemClicked(item: CustomerModel, position: Int, v: View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailActivity::class.java)
-        intent.putExtra(EXTRA_CUSTOMER, item)
+        intent.putExtra(BUNDLE_EXTRA, item)
         startActivity(intent)*/
     }
 
@@ -173,6 +173,6 @@ class CustomerListActivity : AppCompatActivity()
         Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
     }
 /*    companion object {
-        val EXTRA_CUSTOMER: String = "CUSTOMER"
+        val BUNDLE_EXTRA: String = "CUSTOMER"
     }*/
 }

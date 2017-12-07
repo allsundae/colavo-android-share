@@ -17,20 +17,12 @@
         app:behavior_overlapTop="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/activity_margin">
 
-<!--            <ImageView
-                android:id="@+id/customer_image_detail"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_customer_holder_person" />-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/customer_image_detail"
                 android:layout_width="70dp"
@@ -66,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/customer_name_detail"
+                    android:layout_marginTop="1dp"
                     android:ellipsize="end"
                     android:fontFamily="sans-serif"
                     android:letterSpacing="-0.05"
@@ -86,17 +79,16 @@
             </LinearLayout>
         </LinearLayout>
 
-<!--        <LinearLayout
+<!--        <android.support.v7.widget.RecyclerView
+            android:id="@+id/customer_detail_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-            <include
-                layout="@layout/fragment_05"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>-->
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="?selectableItemBackground"
+            android:focusable="true"
+            android:clickable="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
     </android.support.v4.widget.NestedScrollView>
     <!--app:layout_anchor="@id/main.framelayout.title"-->

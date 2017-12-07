@@ -1,20 +1,11 @@
 package com.colavo.android.ui
 
-import android.app.Fragment
-import android.app.FragmentManager
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
-import android.support.transition.Fade
-import android.support.transition.TransitionSet
-import android.support.v4.app.BundleCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.InputType
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
@@ -36,12 +27,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 import com.flipboard.bottomsheet.BottomSheetLayout
-import kotlinx.android.synthetic.main.customer_detail_bottom_fragment.*
-import butterknife.ButterKnife
-import android.transition.TransitionInflater
-import com.colavo.android.R.string.logoTransitionName
 import com.colavo.android.ui.animations.DetailsTransition
-import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import kotlinx.android.synthetic.main.customer_item.*
 import kotlinx.android.synthetic.main.customer_item.view.*
 import java.io.ByteArrayOutputStream
@@ -63,7 +49,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     companion object {
         fun newInstance() = PlaceholderFragment04()
-        val EXTRA_CUSTOMER: String = "CUSTOMER"
+        val BUNDLE_EXTRA: String = "CUSTOMER"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -213,8 +199,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         val newFragment = CustomerDetailFragment()
 
-        val bundle = Bundle(2)
-        bundle.putSerializable(EXTRA_CUSTOMER, item)
+        val bundle = Bundle(3)
+        bundle.putSerializable(BUNDLE_EXTRA, item)
+        bundle.putString("SENDER","customer")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)
 

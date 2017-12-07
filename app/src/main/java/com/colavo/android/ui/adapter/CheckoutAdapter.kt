@@ -19,7 +19,7 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
                       , val items: MutableList<CheckoutModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClicked(item: CheckoutModel, position: Int)
+        fun onItemClicked(item: CheckoutModel, position: Int, v: View)
         fun onLongItemClicked(item: CheckoutModel)
     }
 
@@ -61,7 +61,7 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
             Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_name}")
             Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_image}")
 
-            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(checkoutModel, position) }
+            this.itemView.setOnClickListener { onItemClickListener.onItemClicked(checkoutModel, position, v) }
         }
 
     }

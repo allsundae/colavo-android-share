@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/backgroundWhite"
+    tools:ignore="missingPrefix"
     android:gravity="top|center">
 
     <include
@@ -12,41 +14,90 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
 
-    <TextView
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/stats_scrollview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chart"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
-        android:lineSpacingExtra="-10sp"
-        android:text="STATS. will be here"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_below="@+id/toolBar"
+        android:paddingBottom="@dimen/height_bottombar"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:text="Under Construction"
-        android:textColor="@color/colorSecondary"
-        android:textSize="16sp" />
+        <RelativeLayout
+            android:id="@+id/chart_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-    <!--    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
-        app:srcCompat="@drawable/ic_oval" />-->
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/chart"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true" />
+            <lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/chart_bar"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/barText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chart_bar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:lineSpacingExtra="-10sp"
+                android:text="STATS. will be here"
+                android:textColor="@color/bb_darkBackgroundColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:font="custom1" />
+            <TextView
+                android:id="@+id/barText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/barText1"
+                android:layout_centerHorizontal="true"
+                android:text="Under Construction"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+       <!-- <RelativeLayout
+            android:id="@+id/chart_pie_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/chart_pie"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chart_pie"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="46dp"
+                android:lineSpacingExtra="-10sp"
+                android:text="STATS. will be here"
+                android:textColor="@color/bb_darkBackgroundColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:font="custom1" />
+            <TextView
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editText"
+                android:layout_centerHorizontal="true"
+                android:text="Under Construction"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+        </RelativeLayout>-->
+    </ScrollView>
+
+
 
 </RelativeLayout>

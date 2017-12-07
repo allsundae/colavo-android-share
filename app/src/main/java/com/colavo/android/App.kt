@@ -25,6 +25,7 @@ import com.colavo.android.repositories.customer.CustomerRepository
 import com.colavo.android.repositories.customer.datasource.CustomerDataSourceImpl
 import com.colavo.android.utils.HandleUtils
 import com.colavo.android.utils.Logger
+import com.tsengvn.typekit.Typekit
 
 
 /**
@@ -42,6 +43,14 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Typekit.getInstance()
+                .addNormal(Typekit.createFromAsset(this,"NanumSquareR.ttf"))
+                .addBold(Typekit.createFromAsset(this,"NanumSquareEB.ttf"))
+                .addCustom1(Typekit.createFromAsset(this,"Poppins-Bold.ttf"))
+/*
+                .addNormal(Typekit.createFromAsset(this,"Poppins-Regular.ttf"))
+                .addBold(Typekit.createFromAsset(this,"Poppins-Bold.ttf"))
+*/
         createAppComponent()
     }
 

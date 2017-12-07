@@ -48,7 +48,7 @@
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/list_2ndtext"
+            android:textSize="@dimen/list_1sttext"
             android:transitionName="@string/logoTransitionName"
             tools:text="Customer name" />
 
@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/customer_name"
+            android:layout_marginTop="1dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:letterSpacing="-0.02"
