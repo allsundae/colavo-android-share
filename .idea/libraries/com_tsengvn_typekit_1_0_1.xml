@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.tsengvn:typekit-1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/de6c5cfdac9f5f10ac593bdaebf397002e51b165/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/de6c5cfdac9f5f10ac593bdaebf397002e51b165/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

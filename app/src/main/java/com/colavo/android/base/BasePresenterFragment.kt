@@ -27,4 +27,5 @@ abstract class BasePresenterFragment<in VIEW: BaseView, P : BasePresenter<VIEW>>
 
         presenter?.detachView()
     }
+
 }

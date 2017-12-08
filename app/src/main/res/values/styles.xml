@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:app="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
@@ -50,7 +50,9 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--ToolBar-->
-    <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+    <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar"
+        app:font="custom1"
+        >
         <item name="colorControlNormal">@color/toolBarIcon</item>
         <item name="android:textColorSecondary">@color/toolBarIcon</item>
         <item name="android:tint">@color/toolBarIcon</item>

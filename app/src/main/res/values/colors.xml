@@ -4,7 +4,7 @@
     <color name="colorPrimary">#9a86ee</color>
     <color name="colorPrimaryDark">#9f9f9f</color>
     <color name="colorAccent">#9a86ee</color>
-    <color name="primaryTextColor">#51536c</color>
+    <color name="primaryTextColor">#F051536c</color>
     <color name="secondaryTextColor">#929292</color>
     <color name="dividerColor">#60B6B6B6</color>
     <color name="dividerTextColor">#6D6D72</color>
@@ -12,11 +12,11 @@
     <color name="buttonSecondary">#a499eb</color>
     <color name="listTextSecondary">#8050667C</color>
     <color name="foreground_material_light">#000000</color>
-    <color name="colorIntroOval">#b8dc4c</color>
+    <color name="colorIntroOval">#c1dfcf</color>
     <color name="colorSecondary">#f49797</color>
     <color name="eventColor01">#E1EEF6</color>
     <color name="eventColor02">#e3ddff</color>
-    <color name="eventColor03">#D8E7FF</color>
+    <color name="eventColor03">#d4e9d9</color>
     <color name="eventColor04">#F0E8DE</color>
     <color name="buttonFlatPanelBG">#8e80e7</color>
 

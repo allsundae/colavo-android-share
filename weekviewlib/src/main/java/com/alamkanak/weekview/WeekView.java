@@ -1,6 +1,7 @@
 package com.alamkanak.weekview;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -19,6 +20,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -174,6 +176,11 @@ public class WeekView extends View {
     private EmptyViewLongPressListener mEmptyViewLongPressListener;
     private DateTimeInterpreter mDateTimeInterpreter;
     private ScrollListener mScrollListener;
+
+    // Custom Fonts
+    AssetManager mngr = this.getContext().getAssets();
+    Typeface font = Typeface.createFromAsset(mngr, "Poppins-SemiBold.ttf");
+    Typeface font2 = Typeface.createFromAsset(mngr, "Poppins-Light.ttf");
 
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
@@ -429,7 +436,8 @@ public class WeekView extends View {
         mHeaderTextPaint.setTextSize(mTextSize);
         mHeaderTextPaint.getTextBounds("00 PM", 0, "00 PM".length(), rect);
         mHeaderTextHeight = rect.height();
-        mHeaderTextPaint.setTypeface(Typeface.DEFAULT);
+ //       mHeaderTextPaint.setTypeface(Typeface.DEFAULT);
+        mHeaderTextPaint.setTypeface(font);
 
         //TODO Weekview Measure settings for header row 2nd line.
         mHeaderText2ndPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -438,7 +446,8 @@ public class WeekView extends View {
         mHeaderText2ndPaint.setTextSize(mTextSize + 24);
         mHeaderText2ndPaint.getTextBounds("00 PM", 0, "00 PM".length(), rect);
         mHeaderText2ndHeight = rect.height();
-        mHeaderText2ndPaint.setTypeface(Typeface.DEFAULT_BOLD);
+ //       mHeaderText2ndPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mHeaderText2ndPaint.setTypeface(font);
 
         //TODO Weekview show now line text
         mShowNowLineTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -447,7 +456,8 @@ public class WeekView extends View {
         mShowNowLineTextPaint.setTextSize(mTextSize+6);
         mShowNowLineTextPaint.getTextBounds("00:00", 0, "00:00".length(), rect);
         mShowNowLineTextHeight = rect.height();
-        mShowNowLineTextPaint.setTypeface(Typeface.DEFAULT);
+//        mShowNowLineTextPaint.setTypeface(Typeface.DEFAULT);
+        mShowNowLineTextPaint.setTypeface(font);
 
         // Prepare header background paint.
         mHeaderBackgroundPaint = new Paint();
@@ -488,23 +498,26 @@ public class WeekView extends View {
         mTodayHeaderTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTodayHeaderTextPaint.setTextAlign(Paint.Align.CENTER);
         mTodayHeaderTextPaint.setTextSize(mTextSize);
-        mTodayHeaderTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+      //  mTodayHeaderTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mTodayHeaderTextPaint.setTypeface(font);
         mTodayHeaderTextPaint.setColor(mTodayHeaderTextColor);
+
 
         //TODO Weekview Today header text color paint 2nd line.
         mTodayHeaderText2ndPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTodayHeaderText2ndPaint.setTextAlign(Paint.Align.CENTER);
         mTodayHeaderText2ndPaint.setTextSize(mTextSize+24);
-        mTodayHeaderText2ndPaint.setTypeface(Typeface.DEFAULT_BOLD);
+//        mTodayHeaderText2ndPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mTodayHeaderText2ndPaint.setTypeface(font);
         mTodayHeaderText2ndPaint.setColor(mTodayHeaderTextColor);
 
         // Prepare number of event header text color paint.
         mNumOfEventTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mNumOfEventTextPaint.setTextAlign(Paint.Align.CENTER);
         mNumOfEventTextPaint.setTextSize(mTextSize);
-        mNumOfEventTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+//        mNumOfEventTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mNumOfEventTextPaint.setColor(mTodayHeaderTextColor);
-
+        mNumOfEventTextPaint.setTypeface(font2);
 
         // Prepare event background color.
         mEventBackgroundPaint = new Paint();
@@ -1192,18 +1205,27 @@ public class WeekView extends View {
         if (rect.right - rect.left - mEventPadding * 2 < 0) return;
         if (rect.bottom - rect.top - mEventPadding * 2 < 0) return;
 
-        // Prepare the name of the event.
+        // Use Custom font
         SpannableStringBuilder bob = new SpannableStringBuilder();
+        SpannableStringBuilder bob2 = new SpannableStringBuilder();
+
+
+        // Prepare the name of the event.
         if (event.getName() != null) {
             bob.append(event.getName());
-            bob.setSpan(new StyleSpan(Typeface.BOLD), 0, bob.length(), 0); //BOLD
-            bob.setSpan(new AbsoluteSizeSpan(mEventTextSize), 0, bob.length(), 0); //BOLD
+            bob.setSpan(new StyleSpan(Typeface.BOLD), 0, bob.length(), 0);
+            bob.setSpan(new AbsoluteSizeSpan(mEventTextSize + 5 ), 0, bob.length(), 0);
+            bob.setSpan (new CustomTypefaceSpan("", font), 0, bob.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
             //bob.append(' ');
         }
 
         // Prepare the location of the event.
         if (event.getLocation() != null) {
-            bob.append(event.getLocation());
+            bob2.append(event.getLocation());
+            bob2.setSpan(new AbsoluteSizeSpan(mEventTextSize), 0, bob2.length(), 0);
+            bob2.setSpan (new CustomTypefaceSpan("", font2), 0, bob2.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+//            bob.append(event.getLocation());
+            bob.append(bob2);
         }
 
         int availableHeight = (int) (rect.bottom - originalTop - mEventPadding * 2);
@@ -1219,7 +1241,9 @@ public class WeekView extends View {
             int availableLineCount = availableHeight / lineHeight;
             do {
                 // Ellipsize text to fit into event rect.
-                textLayout = new StaticLayout(TextUtils.ellipsize(bob, mEventTextPaint, availableLineCount * availableWidth, TextUtils.TruncateAt.END), mEventTextPaint, (int) (rect.right - originalLeft - mEventPadding * 2), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+                textLayout = new StaticLayout(TextUtils.ellipsize(bob, mEventTextPaint, availableLineCount * availableWidth, TextUtils.TruncateAt.END)
+                        , mEventTextPaint, (int) (rect.right - originalLeft - mEventPadding * 2), Layout.Alignment.ALIGN_NORMAL
+                        , 0.8f, 2.0f, false);
 
                 // Reduce line count.
                 availableLineCount--;
@@ -2155,7 +2179,7 @@ public class WeekView extends View {
             mCurrentScrollDirection = Direction.NONE;
         }
 
-        return val;
+        return true; //val;
     }
 
     private void goToNearestOrigin(){
