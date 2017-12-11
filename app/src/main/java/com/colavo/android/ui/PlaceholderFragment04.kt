@@ -28,6 +28,7 @@ import javax.inject.Inject
 
 import com.flipboard.bottomsheet.BottomSheetLayout
 import com.colavo.android.ui.animations.DetailsTransition
+import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.customer_item.*
 import kotlinx.android.synthetic.main.customer_item.view.*
 import java.io.ByteArrayOutputStream
@@ -261,7 +262,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
     override fun showToast(event: String) {
-        showToast(event)
+        context.toast(event)
     }
 
     override fun showSnackbar(event: String) {

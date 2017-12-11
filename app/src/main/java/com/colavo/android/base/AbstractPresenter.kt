@@ -17,4 +17,5 @@ abstract class AbstractPresenter<VIEW : BaseView> : BasePresenter<VIEW> {
     override fun detachView() {
         view = null
     }
+
 }

@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_item.view.*
 import kotlinx.android.synthetic.main.fragment_02.*
 import kotlinx.android.synthetic.main.toolbar.*
+import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
@@ -103,9 +104,11 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
         return super.onOptionsItemSelected(item)
     }
     override fun onError(throwable: Throwable) {
+        showToast(throwable.toString())
     }
 
     override fun showToast(event: String) {
+        context.toast(event)
     }
 
     override fun showSnackbar(event: String) {

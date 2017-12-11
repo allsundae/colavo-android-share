@@ -45,7 +45,7 @@ class App : Application() {
 
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this,"NanumSquareR.ttf"))
-                .addBold(Typekit.createFromAsset(this,"NanumSquareEB.ttf"))
+                .addBold(Typekit.createFromAsset(this,"Poppins-SemiBold.ttf"))
                 .addCustom1(Typekit.createFromAsset(this,"Poppins-Bold.ttf"))
 /*
                 .addNormal(Typekit.createFromAsset(this,"Poppins-Regular.ttf"))

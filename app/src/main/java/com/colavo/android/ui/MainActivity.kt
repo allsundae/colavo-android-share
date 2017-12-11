@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.colavo.android.App
 import com.colavo.android.R
+import com.colavo.android.base.BaseActivity
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.ui.login.LoginActivity
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import com.tsengvn.typekit.TypekitContextWrapper
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(){
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth

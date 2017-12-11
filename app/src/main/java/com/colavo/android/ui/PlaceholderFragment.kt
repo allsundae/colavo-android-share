@@ -2,7 +2,6 @@ package com.colavo.android.ui
 
 
 import android.os.Bundle
-import android.view.View
 import com.colavo.android.R
 import com.colavo.android.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_01.*
@@ -10,6 +9,7 @@ import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.MonthLoader
 import com.alamkanak.weekview.WeekView
 import android.graphics.RectF
+import android.graphics.Typeface
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -24,20 +24,24 @@ import com.colavo.android.ui.salons.SalonListActivity
 import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.support.design.widget.FloatingActionButton
+import android.text.method.Touch.onTouchEvent
+import android.view.*
 import android.widget.TextView
 import com.colavo.android.R.id.fab
 import kotlinx.android.synthetic.main.popup_content.*
 import kotlinx.android.synthetic.main.popup_content.view.*
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
+import com.colavo.android.R.id.container
+import com.colavo.android.R.layout.fragment_01
 
 
 /**
  * Created by macbookpro on 2017. 9. 13..
  */
-class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+class PlaceholderFragment : BaseFragment()
+        , WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
     private val TYPE_DAY_VIEW = 1
     private val TYPE_THREE_DAY_VIEW = 2
     private val TYPE_WEEK_VIEW = 3
@@ -47,6 +51,7 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 //    private lateinit var popup: MaryPopup
 
     override fun getLayout() = R.layout.fragment_01
+
 
 
     companion object {
@@ -66,6 +71,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
             dialogFrag.setParentFab(fab)
             dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
         }
+
+
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -76,6 +83,23 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         toolBar.setTitle (salon.name)
         toolBar.inflateMenu(R.menu.salon_main)
 
+
+        weekView.setOnTouchListener(object : View.OnTouchListener {
+
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                // Interpret MotionEvent data
+                // Handle touch here
+
+                return false
+            }
+
+
+        })
+
+
+   /*     toolbar_title.setText (salon.name)
+        val myTypeface : Typeface = Typeface.createFromAsset(activity.assets, "Poppins-SemiBold.ttf")
+        toolbar_title.setTypeface(myTypeface)*/
         // Get a reference for the week view in the layout.
        // mWeekView = R.id.weekView as WeekView
 
@@ -121,20 +145,21 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         var endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        var event = WeekViewEvent(1, "James\n",getEventTitle(startTime), startTime, endTime)
+        var event = WeekViewEvent(1, "STRÅLA\n",getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 3)
-        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.HOUR_OF_DAY, 1)
+        startTime.set(Calendar.MINUTE, 30)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
+        startTime.set(Calendar.DATE, 1)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(2, "James\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event = WeekViewEvent(2, "Tony Stark\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -142,11 +167,12 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
+        startTime.set(Calendar.DATE, 2)
         endTime = startTime.clone() as Calendar
         endTime.set(Calendar.HOUR_OF_DAY, 6)
         endTime.set(Calendar.MINUTE, 0)
         event = WeekViewEvent(3, "John Mayer\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -195,10 +221,212 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
-        event = WeekViewEvent(7, "Amtonito\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(7, "Antonio\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
 
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 2)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 2)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(8, "Dr.Strange\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        events.add(event)
+
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 1)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 3)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(9, "Soonsiki\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 3)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(10, "가람\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 1)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(11, "리아\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 4)
+        startTime.set(Calendar.MINUTE, 30)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 2)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(12, "Hannah\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 4)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(13, "Vinter\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 1)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 5)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 1)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(14, "아라\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 2)
+        startTime.set(Calendar.MINUTE, 30)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 5)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(15, "마루\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 5)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 3)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(16, "BRUDSLÖJA\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 0)
+        startTime.set(Calendar.MINUTE, 45)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 1)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.add(Calendar.MINUTE, 0)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(16, "로하\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 3)
+        startTime.set(Calendar.MINUTE, 45)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 0)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 1)
+        endTime.add(Calendar.MINUTE, 15)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(17, "지우\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 8)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 0)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 1)
+        endTime.add(Calendar.MINUTE, 45)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(18, "LOHALS\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 10)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 0)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(19, "재인\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 8)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 0)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.add(Calendar.MINUTE, 45)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(20, "Vince\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
+
+        startTime = Calendar.getInstance()
+        startTime.set(Calendar.HOUR_OF_DAY, 7)
+        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MONTH, newMonth - 1)
+        startTime.set(Calendar.YEAR, newYear)
+        startTime.add(Calendar.DATE, 2)
+        endTime = startTime.clone() as Calendar
+        endTime.add(Calendar.HOUR_OF_DAY, 3)
+        endTime.add(Calendar.MINUTE, 45)
+        endTime.set(Calendar.MONTH, newMonth - 1)
+        event = WeekViewEvent(21, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
+        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        events.add(event)
 
   /*      //AllDay event
         startTime = Calendar.getInstance()
@@ -276,12 +504,13 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
 
     protected fun getEventTitle(time: Calendar): String {
  //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
-        return String.format("%d:%02d " +
+/*        return String.format("%d:%02d " +
                             "%s/%d"
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
                             , time.get(Calendar.MONTH) + 1
-                            , time.get(Calendar.DAY_OF_MONTH))
+                            , time.get(Calendar.DAY_OF_MONTH))*/
+        return "Cut, Perm, Coloring"
     }
 
     override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
@@ -354,6 +583,8 @@ class PlaceholderFragment : BaseFragment() , WeekView.EventClickListener, MonthL
     fun getWeekView(): WeekView? {
         return mWeekView
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater);
