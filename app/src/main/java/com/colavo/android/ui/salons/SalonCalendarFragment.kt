@@ -126,7 +126,7 @@ class SalonCalendarFragment : BaseFragment() {
     }
 
     override fun showToast(event: String) {
-        toast(event)
+        context.toast(event)
     }
 
     private fun openLoginActivity() {

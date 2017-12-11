@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.base.view.BasePresenterActivity
 import com.colavo.android.main.presenter.MainContract
 import com.colavo.android.ui.adapter.SectionsPagerModel
+import com.colavo.android.utils.toast
 import com.colavo.android.view.main.presenter.MainPresenter
 
 
@@ -27,7 +28,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
     }
 
     override fun showToast(event: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        toast(event)
     }
 
     override fun showSnackbar(event: String) {
