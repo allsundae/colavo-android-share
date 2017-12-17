@@ -1,10 +1,8 @@
 package com.colavo.android.interactors.checkout
 
 import com.colavo.android.entity.query.checkout.CheckoutQuery
-import com.colavo.android.entity.query.salons.SalonsQuery
 import com.colavo.android.interactors.BaseUseCase
 import com.colavo.android.repositories.checkout.CheckoutRepository
-import com.colavo.android.repositories.salons.SalonsRepository
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.observers.Subscribers

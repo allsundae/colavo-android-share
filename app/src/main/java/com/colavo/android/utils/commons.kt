@@ -43,3 +43,4 @@ fun Int.removeFlag(flag: Int) = (this or flag) - flag
 interface SimpleCallback<T> {
     fun callback(data: T)
 }
+

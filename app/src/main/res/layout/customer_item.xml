@@ -49,7 +49,6 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/list_1sttext"
-            android:transitionName="@string/logoTransitionName"
             tools:text="Customer name" />
 
         <TextView

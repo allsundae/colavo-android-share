@@ -18,8 +18,8 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.checkout.CheckoutPresenterImpl
 import com.colavo.android.ui.adapter.CheckoutAdapter
 import com.colavo.android.ui.animations.DetailsTransition
-import com.colavo.android.ui.checkout.CheckoutlistView
-import com.colavo.android.ui.customer.CustomerDetailFragment
+import com.colavo.android.ui.checkout.CheckoutListView
+import com.colavo.android.ui.customerdetail.CustomerDetailFragment
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
@@ -33,7 +33,7 @@ import javax.inject.Inject
 /**
  * Created by macbookpro on 2017. 9. 13..
  */
-class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
+class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         , CheckoutAdapter.OnItemClickListener{
 
     override fun onLongItemClicked(item: CheckoutModel) {
@@ -68,15 +68,12 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        // Toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar.setTitle (bottom_navi_2)
         toolBar.inflateMenu(menu_checkout)
 
-     //   val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-     //   (activity as AppCompatActivity).supportActionBar?.setTitle (salon.name)
         setHasOptionsMenu(true)
-
 
         checkoutAdapter = CheckoutAdapter(this, mutableListOf<CheckoutModel>())
         checkout_recyclerView.adapter = checkoutAdapter
@@ -84,7 +81,13 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutlistView
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
 
         //  (application as App).addCustomerComponent().inject(this)
-        checkout_recyclerView.layoutManager = LinearLayoutManager(this.context)
+        //checkout_recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        val layoutManager = LinearLayoutManager(this.context)
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        checkout_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
+
 
         checkoutPresenter.attachView(this)
         checkoutPresenter.initialize(salon.id)

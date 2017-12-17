@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
  /*   override fun onError(throwable: Throwable) = toast("${throwable.javaClass.name}: ${throwable.message}")*/
      override fun onError(throwable: Throwable) = toast("${throwable.message}")
 
-    override fun showToast(event: String) = context.toast(event)
+    override fun showToast(event: String) = toast(event)
 
     override fun showSnackbar(event: String) {}
 

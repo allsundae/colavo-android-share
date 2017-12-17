@@ -73,8 +73,9 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                             override fun callback(customerCallback: CustomerEntity){
                                                                 customer = customerCallback
                                                                 checkout.customer_name = customer!!.name
-                                                                checkout.customer_image = customer!!.image_urls[0].image_thumb_url
-                                                                Logger.log("(3) getCustomerbySalonCustomerKey : Callback : -> [var customer] : ${customer!!.name} -> [checkout] : ${checkout.customer_name} (${checkout.customer_image})")
+                                                                checkout.customer_image_thumb = customer!!.image_urls[0].image_thumb_url
+                                                                checkout.customer_image_full = customer!!.image_urls[0].image_full_url
+                                                                Logger.log("(3) getCustomerbySalonCustomerKey : Callback : -> [var customer] : ${customer!!.name} -> [checkout] : ${checkout.customer_name} (${checkout.customer_image_thumb})")
                                                                 //subscriber.onNext(checkout to ResponseType.ADDED)
                                                         /*start*/
                                                                 // 2. get Service menu
@@ -101,7 +102,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                                                     checkout.customer_menu = service.name
                                                                                     Logger.log("(5) added event ${checkout.customer_name} : ${service.name} : ${service.key}")
 
-                                                                                    subscriber.onNext(checkout to ResponseType.ADDED)
+
                                                                                 }
                                                                             }
 
@@ -112,6 +113,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                                                         })
 
                                                                 /*end*/
+                                                                subscriber.onNext(checkout to ResponseType.ADDED)
                                                             }
                                                         })
                                                     }

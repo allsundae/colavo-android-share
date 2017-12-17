@@ -9,6 +9,8 @@ import com.colavo.android.di.checkout.CheckoutComponent
 import com.colavo.android.di.checkout.CheckoutModule
 import com.colavo.android.di.customer.CustomerComponent
 import com.colavo.android.di.customer.CustomerModule
+import com.colavo.android.di.customerdetail.CustomerDetailComponent
+import com.colavo.android.di.customerdetail.CustomerDetailModule
 import com.colavo.android.di.event.EventComponent
 import com.colavo.android.di.event.EventModule
 import com.colavo.android.di.salons.SalonsComponent
@@ -28,9 +30,6 @@ import com.colavo.android.utils.Logger
 import com.tsengvn.typekit.Typekit
 
 
-/**
- * Created by RUS on 12.07.2016.
- */
 class App : Application() {
 
     lateinit var appComponent: AppComponent
@@ -39,6 +38,7 @@ class App : Application() {
     private var eventComponent: EventComponent? = null
     private var customerComponent: CustomerComponent? = null
     private var checkoutComponent: CheckoutComponent? = null
+    private var customerDetailComponent: CustomerDetailComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -93,6 +93,13 @@ class App : Application() {
             checkoutComponent = appComponent.addCheckoutComponent(CheckoutModule())
         }
         return checkoutComponent as CheckoutComponent
+    }
+
+    fun addCustomerDetailComponent(): CustomerDetailComponent {
+        if(customerDetailComponent == null) {
+            customerDetailComponent = appComponent.addCustomerDetailComponent(CustomerDetailModule())
+        }
+        return customerDetailComponent as CustomerDetailComponent
     }
 
     fun clearSessionComponent() {

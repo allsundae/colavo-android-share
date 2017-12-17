@@ -22,6 +22,7 @@ open abstract class BaseCheckout(
         open var tip: Double,
         open var customer_key: String,
         open var customer_name: String,
-        open var customer_image: String,
+        open var customer_image_thumb: String,
+        open var customer_image_full: String,
         open var customer_menu: String
 )

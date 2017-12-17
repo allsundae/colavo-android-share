@@ -22,7 +22,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     override fun initialize(query: CustomerQuery.GetCustomer): Observable<Pair<CustomerModel, ResponseType>>
             = Observable.create<Pair<CustomerEntity, ResponseType>>
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
-                     //   .orderByChild("key").equalTo(query.salonUid)
+                     //   .orderByChild("key").equalTo(query.customerUid)
                         .child(query.salonUid)
                         .orderByChild("name").limitToFirst(500)
                         .addChildEventListener(object : ChildEventListener {

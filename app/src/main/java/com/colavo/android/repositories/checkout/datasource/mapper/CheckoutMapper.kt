@@ -72,7 +72,8 @@ class CheckoutMapper {
                 checkoutModel.tip = checkoutEntity.tip
                 checkoutModel.customer_key = checkoutEntity.customer_key
                 checkoutModel.customer_name = checkoutEntity.customer_name
-                checkoutModel.customer_image = checkoutEntity.customer_image
+                checkoutModel.customer_image_full = checkoutEntity.customer_image_full
+                checkoutModel.customer_image_thumb = checkoutEntity.customer_image_thumb
                 checkoutModel.customer_menu = checkoutEntity.customer_menu
                 Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutEntity.customer_name} : ${checkoutModel.checkout_uid}")
 /*

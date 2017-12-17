@@ -17,7 +17,7 @@ import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.customer.CustomerPresenterImpl
 import com.colavo.android.ui.adapter.CustomerAdapter
-import com.colavo.android.ui.customer.CustomerDetailFragment
+import com.colavo.android.ui.customerdetail.CustomerDetailFragment
 import com.colavo.android.ui.customer.CustomerlistView
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
@@ -29,7 +29,6 @@ import javax.inject.Inject
 import com.flipboard.bottomsheet.BottomSheetLayout
 import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.utils.toast
-import kotlinx.android.synthetic.main.customer_item.*
 import kotlinx.android.synthetic.main.customer_item.view.*
 import java.io.ByteArrayOutputStream
 
@@ -79,25 +78,6 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
-        customers_recyclerView.adapter = customerAdapter
-
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-
-      //  (application as App).addCustomerComponent().inject(this)
-        customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
-
-        fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
-
-        customerPresenter.attachView(this)
-        customerPresenter.initialize(salon.id)
-
-
-    }
-
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
@@ -112,6 +92,25 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         toolBar?.setTitle ("${R.string.bottom_navi_4} ${customerAdapter.itemCount}" )
         Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+        customers_recyclerView.adapter = customerAdapter
+
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+
+        //  (application as App).addCustomerComponent().inject(this)
+        customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
+
+        customerPresenter.attachView(this)
+        customerPresenter.initialize(salon.id)
+
+
     }
 
 
@@ -214,7 +213,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         }
 
         val transaction = fragmentManager.beginTransaction()
-        transaction.addSharedElement(customer_name,"customer_name" )//logoTransitionName.toString()
+//        transaction.addSharedElement(customer_name,"customer_name" )//logoTransitionName.toString()
         transaction.replace(R.id.customer_list_holder, newFragment) //container
         transaction.addToBackStack(null)
         transaction.commit()

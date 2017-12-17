@@ -40,17 +40,18 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
             this.checkoutName.text = checkoutModel.customer_name
 
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
-            this.checkoutMemo.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "dd-MM-yyyy HH:mm:ss")
+           // this.checkoutMemo.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "dd-MM-yyyy HH:mm:ss")
+            this.checkoutMenu.text = checkoutModel.customer_menu //+ " ${checkoutModel.checkout_uid}"
+            this.checkoutMemo.text ="${checkoutModel.event_key}"
 
-            this.checkoutMenu.text = checkoutModel.customer_menu
            // this.checkoutImage.loadUrl(checkoutModel.image)
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()
 
-           if (checkoutModel.customer_image != "") {
+           if (checkoutModel.customer_image_thumb != "") {
                val transForm = CustomerAdapter.CircleTransform()
 
                 Picasso.with(context)
-                        .load(checkoutModel.customer_image) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(checkoutModel.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)
                         .centerCrop()
                         .placeholder(R.drawable.ic_customer_holder_person)
@@ -59,7 +60,7 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
             }
 
             Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_name}")
-            Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_image}")
+            Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_image_thumb}")
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(checkoutModel, position, v) }
         }

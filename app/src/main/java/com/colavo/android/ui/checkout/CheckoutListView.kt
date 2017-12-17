@@ -4,7 +4,7 @@ import com.colavo.android.base.BaseView
 import com.colavo.android.entity.checkout.CheckoutModel
 
 
-interface CheckoutlistView : BaseView {
+interface CheckoutListView : BaseView {
 
     fun setCheckoutlist(customerEntities: List<CheckoutModel>?)
 
