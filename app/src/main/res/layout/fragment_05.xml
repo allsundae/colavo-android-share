@@ -43,7 +43,8 @@
                     android:layout_centerVertical="true"
                     android:text="Salon name"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="26sp" />
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/button"
@@ -159,6 +160,7 @@
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="@dimen/list_1sttext"
+                        android:textStyle="bold"
                         tools:text="User name" />
 
                     <com.colavo.android.common.MyTextView
@@ -217,13 +219,14 @@
                 android:text="Hair shop setting"
                 android:textAllCaps="true"
                 android:textColor="@color/dividerTextColor"
-                android:textSize="@dimen/small_text_size" />
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/settings_hour_format_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_hour_format"
@@ -240,7 +243,7 @@
                 android:id="@+id/settings_vibrate_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_vibrate"
@@ -257,7 +260,7 @@
                 android:id="@+id/settings_sunday_first_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_sunday_first"
@@ -274,7 +277,7 @@
                 android:id="@+id/settings_sunday_first_holder2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_reminder_sound_label"
@@ -283,8 +286,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/settings_reminder_sound"
                     android:layout_toStartOf="@+id/settings_reminder_sound"
-                    android:paddingLeft="@dimen/medium_margin"
-                    android:paddingRight="@dimen/medium_margin"
                     android:text="Tip &amp; Point"
                     android:textSize="18sp" />
 
@@ -306,13 +307,14 @@
                 android:text="Hair shop management"
                 android:textAllCaps="true"
                 android:textColor="@color/dividerTextColor"
-                android:textSize="@dimen/small_text_size" />
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/settings_caldav_sync_holder2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_caldav_sync2"
@@ -329,8 +331,8 @@
                 android:id="@+id/settings_caldav_sync_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin"
+                android:clickable="true">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_caldav_sync"
@@ -360,14 +362,15 @@
                 android:text="Push notification setting"
                 android:textAllCaps="true"
                 android:textColor="@color/dividerTextColor"
-                android:textSize="@dimen/small_text_size" />
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/settings_week_numbers_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="@dimen/activity_margin">
+                android:layout_margin="@dimen/activity_margin"
+                android:clickable="true">
 
                 <com.colavo.android.common.MySwitchCompat
                     android:id="@+id/settings_week_numbers"
