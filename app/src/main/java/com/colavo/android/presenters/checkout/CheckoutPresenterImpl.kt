@@ -2,13 +2,11 @@ package com.colavo.android.presenters.checkout
 
 import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.checkout.PaidType
-import com.colavo.android.entity.query.checkout.CheckoutQuery
-import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.interactors.checkout.CreateCheckout
 import com.colavo.android.interactors.checkout.GetSalonCheckout
-import com.colavo.android.ui.checkout.CheckoutlistView
+import com.colavo.android.ui.checkout.CheckoutListView
 import com.colavo.android.utils.Logger
 import rx.Subscriber
 import javax.inject.Inject
@@ -17,10 +15,10 @@ import javax.inject.Inject
 class CheckoutPresenterImpl @Inject constructor(val getCheckout: GetSalonCheckout,
                                                 val createCheckout: CreateCheckout) : CheckoutPresenter {
 
-    var checkoutlistView: CheckoutlistView? = null
+    var checkoutlistView: CheckoutListView? = null
     lateinit var salonUid: String
 
-    override fun attachView(checkoutlistView: CheckoutlistView) {
+    override fun attachView(checkoutlistView: CheckoutListView) {
         this.checkoutlistView = checkoutlistView
     }
 

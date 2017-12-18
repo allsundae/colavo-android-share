@@ -26,6 +26,7 @@
     <string name="conversation_name">salon name</string>
     <string name="conversations_loading">Loading salon</string>
     <string name="customers_loading">Loading customer</string>
+    <string name="loading">Loading customer</string>
     <string name="wait">Wait</string>
     <string name="dash">&#160;—&#160;</string>
     <string name="bottom_navi_1">Calendar</string>
@@ -34,7 +35,7 @@
     <string name="bottom_navi_4">Customers</string>
     <string name="bottom_navi_5">Settings</string>
     <string name="title_select_salon">Select a salon</string>
-    <string name="title_activity_salon_main">SalonMainActivity</string>
+    <string name="title_activity_salon_main">Salon</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -53,7 +54,10 @@
     <string name="action_cancel">Cancel</string>
     <string name="checkout_Text">Checkout</string>
     <string name="btn_edit_profile">Edit profile</string>
+    <string name="customer">Customer</string>
 
-    소
+<!--    &lt;!&ndash; Shared element transition &ndash;&gt;
+    <string name="logoTransitionName">customer_name</string>
+    <string name="title_activity_salon_main">헤어샵</string>-->
 
 </resources>

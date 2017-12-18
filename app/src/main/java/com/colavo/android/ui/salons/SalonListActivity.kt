@@ -2,7 +2,6 @@ package com.colavo.android.ui.salons
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.Menu
@@ -16,8 +15,6 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
 import com.colavo.android.ui.adapter.SalonsAdapter
-import com.colavo.android.ui.customer.CustomerListActivity
-import com.colavo.android.ui.event.eventActivity
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.showSnackBar
@@ -26,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.toolbar.*
 
 
 class SalonListActivity : BaseActivity()
@@ -133,7 +129,7 @@ class SalonListActivity : BaseActivity()
     }
 
     override fun showToast(event: String) {
-        context.toast(event)
+        toast(event)
     }
 
     private fun openLoginActivity() {

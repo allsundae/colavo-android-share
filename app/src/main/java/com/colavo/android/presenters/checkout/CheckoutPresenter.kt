@@ -2,12 +2,12 @@ package com.colavo.android.presenters.checkout
 
 import com.colavo.android.entity.checkout.PaidType
 import com.colavo.android.presenters.BasePresenter
-import com.colavo.android.ui.checkout.CheckoutlistView
+import com.colavo.android.ui.checkout.CheckoutListView
 
 
 interface CheckoutPresenter : BasePresenter {
 
-    fun attachView(checkoutlistView: CheckoutlistView)
+    fun attachView(checkoutlistView: CheckoutListView)
 
     fun initialize(checkoutId: String)
 

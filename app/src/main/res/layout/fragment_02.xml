@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/checkout_list_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/checkout_list_holder"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/backgroundWhite">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/checkout_recyclerView"
         android:layout_width="match_parent"
@@ -11,10 +13,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="?selectableItemBackground"
-        android:focusable="true"
         android:clickable="true"
-        android:paddingTop="@dimen/toolbar_height"
+        android:focusable="true"
         android:paddingBottom="@dimen/height_bottombar"
+        android:paddingTop="@dimen/toolbar_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--android:background="?android:attr/selectableItemBackground"-->
 
@@ -24,6 +26,5 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:clickable="true"
-        android:focusable="true"
-        />
+        android:focusable="true" />
 </RelativeLayout>

@@ -18,10 +18,11 @@ class CheckoutModel(checkout_uid: String = "",
                     tip: Double = 0.0,
                     customer_key: String = "",
                     customer_name: String ="",
-                    customer_image: String="",
+                    customer_image_thumb: String="",
+                    customer_image_full: String="",
                     customer_menu: String=""
                     )
     : BaseCheckout(checkout_uid, salon_key, event_key, price, is_manual_price, reserve_fund
                     ,paid_fund, author_employee_key, paid_types, created_at, updated_at,  reserveFund
-                    ,paidFund, tip, customer_key, customer_name, customer_image, customer_menu), Serializable
+                    ,paidFund, tip, customer_key, customer_name, customer_image_thumb, customer_image_full, customer_menu), Serializable
 
