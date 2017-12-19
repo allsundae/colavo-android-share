@@ -96,6 +96,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/salon_status_layout"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="4dp"
                 android:clickable="true"
                 android:paddingLeft="@dimen/activity_margin"
                 android:text="Period, Till Sep 4, 2018 at 12:59 PM" />
@@ -106,6 +107,7 @@
                 android:layout_height="1px"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="4dp"
                 android:background="@color/dividerColor"
                 android:importantForAccessibility="no" />
 
@@ -160,13 +162,13 @@
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="@dimen/list_1sttext"
-                        android:textStyle="bold"
                         tools:text="User name" />
 
                     <com.colavo.android.common.MyTextView
                         android:id="@+id/settings_user_class"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/customer_name"
                         android:ellipsize="end"
@@ -226,13 +228,14 @@
                 android:id="@+id/settings_hour_format_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
                 android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_hour_format"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Working hours"
                     android:textSize="18sp" />
@@ -243,13 +246,13 @@
                 android:id="@+id/settings_vibrate_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_vibrate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Customer reservation"
                     android:textSize="18sp" />
@@ -260,13 +263,13 @@
                 android:id="@+id/settings_sunday_first_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_sunday_first"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Calculate service duration"
                     android:textSize="18sp" />
@@ -277,6 +280,7 @@
                 android:id="@+id/settings_sunday_first_holder2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
@@ -314,13 +318,13 @@
                 android:id="@+id/settings_caldav_sync_holder2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:layout_margin="@dimen/activity_margin">
 
                 <com.colavo.android.common.MyTextView
                     android:id="@+id/settings_caldav_sync2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Designer management"
                     android:textSize="18sp" />
@@ -338,7 +342,6 @@
                     android:id="@+id/settings_caldav_sync"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Service menu &amp; Discounts"
                     android:textSize="18sp" />
@@ -376,7 +379,6 @@
                     android:id="@+id/settings_week_numbers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Updated schedule"
                     android:textSize="18sp" />

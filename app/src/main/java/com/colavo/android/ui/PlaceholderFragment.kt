@@ -4,7 +4,6 @@ package com.colavo.android.ui
 import android.os.Bundle
 import com.colavo.android.R
 import com.colavo.android.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_01.*
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.MonthLoader
 import com.alamkanak.weekview.WeekView
@@ -18,23 +17,24 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.salons.SalonListActivity
 import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.view.ViewPager
 import android.text.method.Touch.onTouchEvent
 import android.view.*
 import android.widget.TextView
-import com.colavo.android.R.id.fab
 import kotlinx.android.synthetic.main.popup_content.*
-import kotlinx.android.synthetic.main.popup_content.view.*
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
-import com.colavo.android.R.id.container
+import android.widget.ArrayAdapter
+import com.colavo.android.R.id.*
 import com.colavo.android.R.layout.fragment_01
+import com.colavo.android.R.style.ToolbarTitleText
+import kotlinx.android.synthetic.main.fragment_01.*
 
 
 /**
@@ -63,14 +63,15 @@ class PlaceholderFragment : BaseFragment()
         setupDateTimeInterpreter(true)
         setHasOptionsMenu(true)
       //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
-        val fabButton =
-                (activity as AppCompatActivity).findViewById(R.id.fab) as FloatingActionButton?
-        fabButton?.setOnClickListener {
+        /*val fabButton =
+                (activity as AppCompatActivity).findViewById(R.id.fab) as FloatingActionButton?*/
+        fab_calendar?.setOnClickListener {
             view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
 /*            val dialogFrag : CreateFabFragment = CreateFabFragment()
             dialogFrag.setParentFab(fab)
             dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
         }
+
 
 
     }
@@ -80,20 +81,29 @@ class PlaceholderFragment : BaseFragment()
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        toolBar.setTitle (salon.name)
+        toolBar.setTitle ("")//salon.name
+      //  toolBar.setTitleTextAppearance(this.context,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)
+        spinner_designer.prompt = salon.name
+
+        val designer_list = ArrayList<String>()
+        designer_list.add(salon.name)
+        designer_list.add("Designer 2")
+
+        val designerAdapter = ArrayAdapter<String>(this.context, R.layout.spinner_designer, R.id.designer_name, designer_list)
+        designerAdapter.setDropDownViewResource(R.layout.spinner_popup)
+        spinner_designer.adapter = designerAdapter//setText(salon.name)
+
+        //(activity as AppCompatActivity).setPagingEnabled(false)
 
 
         weekView.setOnTouchListener(object : View.OnTouchListener {
-
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 // Interpret MotionEvent data
                 // Handle touch here
 
                 return false
             }
-
-
         })
 
 
@@ -601,7 +611,7 @@ class PlaceholderFragment : BaseFragment()
             }
             R.id.action_create_event ->{
                 val dialogFrag = CreateFabFragment.newInstance()
-                dialogFrag.setParentFab(fab)
+                dialogFrag.setParentFab(fab_calendar)
                 dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
                 return true
             }

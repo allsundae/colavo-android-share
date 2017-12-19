@@ -5,12 +5,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundWhite">
 
-    <include
+<!--    <include
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         layout="@layout/toolbar"
 
-        />
+        />-->
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:subtitleTextColor="@color/colorAccent"
+        android:theme="@style/MyToolbarStyle"
+        tools:ignore="missingPrefix"
+        android:textStyle="bold"
+         >
+
+            <Spinner
+                android:id="@+id/spinner_designer"
+                android:textStyle="bold"
+                app:font="custom1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+<!--                <TextView
+                    android:id="@+id/spinner_designer_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />-->
+            </Spinner>
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
@@ -22,7 +56,7 @@
         android:focusable="true"
         android:clickable="true"
 
-        app:noOfVisibleDays="3"
+        app:noOfVisibleDays="5"
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerTodayTabColor="@color/colorTodayTab"
         app:headerColumnBackground="#ffffffff"
@@ -56,7 +90,7 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fab"
+        android:id="@+id/fab_calendar"
 
         android:layout_alignBottom="@+id/weekView"
         android:layout_alignParentEnd="true"

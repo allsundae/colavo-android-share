@@ -65,11 +65,26 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
         // Listener for bottomBar
         bottomBar.setOnTabSelectListener {  tabId ->
             when (tabId){
-                R.id.action_calendar -> container.setCurrentItem(0)
-                R.id.action_checkouts -> container.setCurrentItem(1)
-                R.id.action_stats -> container.setCurrentItem(2)
-                R.id.action_customers -> container.setCurrentItem(3)
-                R.id.action_settings -> container.setCurrentItem(4)
+                R.id.action_calendar -> {
+                    container.setCurrentItem(0)
+                    container.setPagingEnabled(false)
+                }
+                R.id.action_checkouts -> {
+                    container.setCurrentItem(1)
+                    container.setPagingEnabled(true)
+                }
+                R.id.action_stats -> {
+                    container.setCurrentItem(2)
+                    container.setPagingEnabled(true)
+                }
+                R.id.action_customers -> {
+                    container.setCurrentItem(3)
+                    container.setPagingEnabled(true)
+                }
+                R.id.action_settings -> {
+                    container.setCurrentItem(4)
+                    container.setPagingEnabled(true)
+                }
             }
         }
 

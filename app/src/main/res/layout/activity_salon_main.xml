@@ -14,7 +14,7 @@
         layout="@layout/toolbar"
         android:layout_marginBottom="20dp"/>-->
 
-    <android.support.v4.view.ViewPager
+    <com.colavo.android.ui.CustomViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

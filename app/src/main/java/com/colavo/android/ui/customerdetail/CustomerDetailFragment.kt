@@ -2,6 +2,7 @@ package com.colavo.android.ui.customerdetail
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.app.AppCompatActivity
 import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerModel
@@ -9,6 +10,7 @@ import android.view.animation.AlphaAnimation
 import com.colavo.android.ui.PlaceholderFragment04
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
@@ -36,6 +38,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     lateinit var customerdetailPresenter: CustomerDetailPresenterImpl
     lateinit var customerdetailAdapter: CustomerDetailAdapter
 
+    var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+
     override fun getLayout() = R.layout.customer_detail_fragment
 
     fun getCustomerDetailName():String {
@@ -58,8 +62,23 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         super.onCreate(savedInstanceState)
         (context.applicationContext as App).addCustomerDetailComponent().inject(this)
         setHasOptionsMenu(true)
+     //   initInstancesDrawer()
     }
 
+    private fun initInstancesDrawer() {
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar.setTitle ("") //R.string.bottom_navi_4
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        toolBar.inflateMenu(R.menu.menu_customer_detail)
+
+
+        toolBar.setNavigationOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                (activity as AppCompatActivity).onBackPressed()
+            }
+        })
+    }
 /*    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.customer_detail_fragment, container, false)
 
@@ -183,11 +202,12 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
 
         // Toolbar
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+       (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar.setTitle ("") //R.string.bottom_navi_4
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
         toolBar.inflateMenu(R.menu.menu_customer_detail)
+
 
    //     fragmentManager.addOnBackStackChangedListener { this }
         toolBar.setNavigationOnClickListener(object : View.OnClickListener {
