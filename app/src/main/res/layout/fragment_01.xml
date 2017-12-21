@@ -31,7 +31,7 @@
                 android:id="@+id/spinner_designer"
                 android:textStyle="bold"
                 app:font="custom1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 <!--                <TextView
                     android:id="@+id/spinner_designer_text"
@@ -46,13 +46,13 @@
 
 
 
-    <com.alamkanak.weekview.WeekView
+    <com.colavo.android.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
-        android:background="?selectableItemBackground"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:focusable="true"
         android:clickable="true"
 

@@ -36,10 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".ui.salons.SalonListActivity"
             />
-        <activity
-            android:name=".ui.customer.CustomerListActivity"
-            android:label="@string/bottom_navi_4"
-            />
+
         <activity
             android:name=".ui.event.eventActivity"
             android:label="@string/bottom_navi_4"

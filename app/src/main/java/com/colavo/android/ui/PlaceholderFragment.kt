@@ -4,16 +4,16 @@ package com.colavo.android.ui
 import android.os.Bundle
 import com.colavo.android.R
 import com.colavo.android.base.BaseFragment
-import com.alamkanak.weekview.WeekViewEvent
-import com.alamkanak.weekview.MonthLoader
-import com.alamkanak.weekview.WeekView
+import com.colavo.android.weekview.WeekViewEvent
+import com.colavo.android.weekview.MonthLoader
+import com.colavo.android.weekview.WeekView
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
-import com.alamkanak.weekview.DateTimeInterpreter
+import com.colavo.android.weekview.DateTimeInterpreter
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.LinearLayout
@@ -51,8 +51,6 @@ class PlaceholderFragment : BaseFragment()
 //    private lateinit var popup: MaryPopup
 
     override fun getLayout() = R.layout.fragment_01
-
-
 
     companion object {
         fun newInstance() = PlaceholderFragment()
@@ -94,44 +92,19 @@ class PlaceholderFragment : BaseFragment()
         designerAdapter.setDropDownViewResource(R.layout.spinner_popup)
         spinner_designer.adapter = designerAdapter//setText(salon.name)
 
-        //(activity as AppCompatActivity).setPagingEnabled(false)
-
-
-        weekView.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                // Interpret MotionEvent data
-                // Handle touch here
-
-                return false
-            }
-        })
-
-
-   /*     toolbar_title.setText (salon.name)
-        val myTypeface : Typeface = Typeface.createFromAsset(activity.assets, "Poppins-SemiBold.ttf")
-        toolbar_title.setTypeface(myTypeface)*/
-        // Get a reference for the week view in the layout.
-       // mWeekView = R.id.weekView as WeekView
-
-
         // Show a toast message about the touched event.
         weekView.setOnEventClickListener(this)
-
         // The week view has infinite scrolling horizontally. We have to provide the events of a
         // month every time the month changes on the week view.
         weekView.setMonthChangeListener(this)
 
         // Set long press listener for events.
         weekView.eventLongPressListener = this
-
         // Set long press listener for empty view
         weekView.emptyViewLongPressListener = this
-
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
-
-
 /*
         popup = MaryPopup.with(this.activity)
                 .cancellable(true)
@@ -140,8 +113,6 @@ class PlaceholderFragment : BaseFragment()
                 .backgroundColor(Color.parseColor("#EFF4F5"));
 */
     }
-
-
 
     override fun onMonthChange(newYear: Int, newMonth: Int): List<WeekViewEvent> {
         // Populate the week view with some events.
@@ -199,7 +170,7 @@ class PlaceholderFragment : BaseFragment()
 
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 5)
-        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MINUTE, 15)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         startTime.add(Calendar.DATE, 1)
@@ -437,46 +408,6 @@ class PlaceholderFragment : BaseFragment()
         event = WeekViewEvent(21, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
         events.add(event)
-
-  /*      //AllDay event
-        startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 0)
-        startTime.set(Calendar.MINUTE, 0)
-        startTime.set(Calendar.MONTH, newMonth - 1)
-        startTime.set(Calendar.YEAR, newYear)
-        endTime = startTime.clone() as Calendar
-        endTime.add(Calendar.HOUR_OF_DAY, 23)
-        event = WeekViewEvent(7, getEventTitle(startTime), null, startTime, endTime, true)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
-        events.add(event)
-
-        startTime = Calendar.getInstance()
-        startTime.set(Calendar.DAY_OF_MONTH, 8)
-        startTime.set(Calendar.HOUR_OF_DAY, 2)
-        startTime.set(Calendar.MINUTE, 0)
-        startTime.set(Calendar.MONTH, newMonth - 1)
-        startTime.set(Calendar.YEAR, newYear)
-        endTime = startTime.clone() as Calendar
-        endTime.set(Calendar.DAY_OF_MONTH, 10)
-        endTime.set(Calendar.HOUR_OF_DAY, 23)
-        event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
-        events.add(event)
-
-        // All day event until 00:00 next day
-        startTime = Calendar.getInstance()
-        startTime.set(Calendar.DAY_OF_MONTH, 10)
-        startTime.set(Calendar.HOUR_OF_DAY, 0)
-        startTime.set(Calendar.MINUTE, 0)
-        startTime.set(Calendar.SECOND, 0)
-        startTime.set(Calendar.MILLISECOND, 0)
-        startTime.set(Calendar.MONTH, newMonth - 1)
-        startTime.set(Calendar.YEAR, newYear)
-        endTime = startTime.clone() as Calendar
-        endTime.set(Calendar.DAY_OF_MONTH, 11)
-        event = WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime, true)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
-        events.add(event)*/
 
         return events
     }

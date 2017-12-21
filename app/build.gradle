@@ -56,7 +56,7 @@ dependencies {
     //compile 'com.meetic.dragueur:dragueur:1.0.3'
     compile 'com.github.andreilisun:swipedismissdialog:0.1'
     // Test
-    compile project(':weekviewlib')
+    //compile project(':weekviewlib')
 
     compile "com.android.support:appcompat-v7:$buildToolsVersion"
     compile "com.android.support:recyclerview-v7:$buildToolsVersion"

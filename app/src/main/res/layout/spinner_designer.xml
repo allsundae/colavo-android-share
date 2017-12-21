@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:clickable="false"
     android:focusable="false"
-    android:background="?selectableItemBackground"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
     android:layout_marginBottom="@dimen/list_vertical_padding"
     android:layout_marginTop="@dimen/list_vertical_padding"
     tools:padding="@dimen/activity_margin">

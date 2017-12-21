@@ -2,10 +2,10 @@
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/designer_name"
     style="@style/MySpinner"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/activity_margin"
     android:clickable="false"
     android:focusable="false"
-    android:background="?selectableItemBackground"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
     />

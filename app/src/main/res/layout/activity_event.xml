@@ -7,7 +7,7 @@
     tools:context="com.colavo.android.ui.event.eventActivity">
 
 <!--
-    <com.alamkanak.weekview.WeekView
+    <com.colavo.android.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
