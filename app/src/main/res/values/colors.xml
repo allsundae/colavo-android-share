@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundWhite">#fafafa</color>
+    <color name="backgroundWhite">#fefefe</color>
     <color name="colorPrimary">#9a86ee</color>
     <color name="colorPrimaryDark">#9f9f9f</color>
     <color name="colorAccent">#9a86ee</color>
@@ -28,5 +28,6 @@
     <color name="toolBarIcon">#C5D2DC</color>
 
     <color name="checkoutMemoTextColor">#D9CCC2</color>
+    <color name="buttonPrimary">#45d7e6</color>
 
 </resources>

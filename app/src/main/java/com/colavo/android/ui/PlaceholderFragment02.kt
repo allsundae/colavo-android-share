@@ -64,6 +64,8 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (context.applicationContext as App).addCheckoutComponent().inject(this)
+
+
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -86,11 +88,17 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
+        layoutManager.scrollToPosition(0)
         checkout_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
 
+     //   val list = rootView.findViewById(R.id.list1) as RecyclerViewEmptySupport
+     //   checkout_recyclerView.setLayoutManager(LinearLayoutManager(context))
+        checkout_recyclerView.setEmptyView(empty_checkout)
 
         checkoutPresenter.attachView(this)
         checkoutPresenter.initialize(salon.id)
+
+
     }
 
 

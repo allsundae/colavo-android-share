@@ -104,6 +104,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         //  (application as App).addCustomerComponent().inject(this)
         customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
+        customers_recyclerView.setEmptyView(empty_customer)
 
         fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
 

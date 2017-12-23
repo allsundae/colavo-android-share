@@ -20,6 +20,7 @@ class MainActivity : BaseActivity(){
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
 
@@ -30,6 +31,15 @@ class MainActivity : BaseActivity(){
         initialize()
     }
 
+ /*   override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("savedId", savedId)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedId = savedInstanceState.getString("savedId")
+    }*/
     private fun initialize() {
         if(firebaseAuth.currentUser != null)
             openSalonlistActivity(firebaseAuth.currentUser!!.uid)

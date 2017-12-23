@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/checkout_list_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundWhite">
 
-    <android.support.v7.widget.RecyclerView
+    <com.colavo.android.utils.RecyclerViewEmptySupport
         android:id="@+id/checkout_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,53 @@
         android:paddingTop="@dimen/toolbar_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--android:background="?android:attr/selectableItemBackground"-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/empty_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundWhite"
+            >
 
+            <TextView
+                android:id="@+id/empty_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:gravity="center"
+                android:text="@string/no_data_title"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                tools:text="@string/no_data_title" />
+
+            <TextView
+                android:id="@+id/empty_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_data_description"
+                app:font="Custom1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
+                tools:text="@string/no_data_description"
+                tools:ignore="MissingPrefix" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="132dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_empty" />
+        </android.support.constraint.ConstraintLayout>
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
@@ -27,4 +74,6 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true" />
+
+
 </RelativeLayout>

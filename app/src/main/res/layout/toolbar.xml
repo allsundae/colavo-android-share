@@ -10,9 +10,10 @@
     android:elevation="0dp"
     android:minHeight="?attr/actionBarSize"
     android:subtitleTextColor="@color/colorAccent"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:theme="@style/MyToolbarStyle"
     tools:ignore="missingPrefix"
-    app:font="custom1" android:focusable="true">
+    app:font="Custom1" android:focusable="true">
 
   <!--  <RelativeLayout
         android:id="@+id/toobar_title"
@@ -68,5 +69,3 @@
     </RelativeLayout>-->
 
 </android.support.v7.widget.Toolbar>
-
-    <!--android:background="@color/backgroundWhite"-->

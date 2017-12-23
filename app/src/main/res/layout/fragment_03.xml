@@ -8,12 +8,53 @@
     tools:ignore="missingPrefix"
     android:gravity="top|center">
 
-    <include
-        android:id="@+id/toolBar"
-        layout="@layout/toolbar"
+      <android.support.constraint.ConstraintLayout
+        android:id="@+id/empty_stat"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        app:font="custom1" />
+        android:layout_height="match_parent"
+        android:background="@color/backgroundWhite"
+        >
+
+        <TextView
+            android:id="@+id/empty_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:text="@string/no_data_title"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            tools:text="@string/no_data_title" />
+
+        <TextView
+            android:id="@+id/empty_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_data_description"
+            app:font="Custom1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
+            tools:text="@string/no_data_description"
+            tools:ignore="MissingPrefix" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="132dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_empty" />
+    </android.support.constraint.ConstraintLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/stats_scrollview"
@@ -25,41 +66,6 @@
         android:clickable="true"
         android:layout_alignParentStart="true">
 
-        <RelativeLayout
-            android:id="@+id/chart_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <lecho.lib.hellocharts.view.LineChartView
-                android:id="@+id/chart_bar"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                android:id="@+id/barText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/chart_bar"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:lineSpacingExtra="-10sp"
-                android:text="STATS. will be here"
-                android:textColor="@color/bb_darkBackgroundColor"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:font="custom1" />
-            <TextView
-                android:id="@+id/barText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/barText1"
-                android:layout_centerHorizontal="true"
-                android:text="Under Construction"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp" />
-        </RelativeLayout>
 
        <!-- <RelativeLayout
             android:id="@+id/chart_pie_layout"
@@ -98,6 +104,12 @@
 
         </RelativeLayout>-->
     </ScrollView>
+    <include
+        android:id="@+id/toolBar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        app:font="Custom1" />
 
 
 

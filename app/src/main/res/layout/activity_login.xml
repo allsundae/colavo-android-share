@@ -36,91 +36,85 @@
                 android:id="@+id/imageOval"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
-                android:layout_marginTop="147dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="176dp"
                 android:layout_weight="0.79"
                 android:scaleType="fitXY"
                 app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:srcCompat="@drawable/ic_intro_oval"
-                android:layout_marginRight="95dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginEnd="95dp" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:srcCompat="@drawable/ic_intro_oval" />
+
+            <ImageView
+                android:id="@+id/imageDryer"
+                android:layout_width="260dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="84dp"
+                android:layout_weight="0.79"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:srcCompat="@drawable/ic_intro_dryer" />
 
             <ImageView
                 android:id="@+id/imageComb"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginEnd="148dp"
+                android:layout_marginTop="68dp"
                 android:layout_weight="0.79"
                 android:adjustViewBounds="false"
                 android:scaleType="fitXY"
                 app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="@+id/imageDryer"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:srcCompat="@drawable/ic_intro_comb"
-                android:layout_marginLeft="68dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginStart="68dp" />
-
-            <ImageView
-                android:id="@+id/imageDryer"
-                android:layout_width="300dp"
-                android:layout_height="340dp"
-                android:layout_weight="0.79"
-                android:scaleType="fitXY"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:srcCompat="@drawable/ic_intro_dryer"
-                android:layout_marginTop="70dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:srcCompat="@drawable/ic_intro_comb" />
 
             <ImageView
                 android:id="@+id/ColavoTitle"
-                android:layout_width="220dp"
-                android:layout_height="36dp"
+                android:layout_width="177dp"
+                android:layout_height="46dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="80dp"
-                android:src="@drawable/ic_logocolavo"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/ic_logocolavo"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Hair designer X Customer"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Hair salon"
                 android:textAlignment="center"
                 android:textColor="@color/listTextSecondary"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/ColavoTitle"
-                android:layout_marginLeft="8dp"
+                android:textSize="14sp"
+                app:font="Custom1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                app:layout_constraintTop_toBottomOf="@+id/ColavoTitle"
+                tools:ignore="MissingPrefix" />
 
             <LinearLayout
                 android:id="@+id/inputLayout"
                 android:layout_width="370dp"
                 android:layout_height="120dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                app:layout_constraintBottom_toTopOf="@+id/signinButton"
-                app:layout_constraintHorizontal_bias="0.511"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_text"
+                app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp">
+                app:layout_constraintRight_toRightOf="parent">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -134,7 +128,8 @@
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
                         android:textColor="@android:color/black"
-                        android:textColorHint="@color/listTextSecondary" />
+                        android:textColorHint="@color/listTextSecondary"
+                        android:textSize="@dimen/list_1sttext" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -144,13 +139,14 @@
 
                     <EditText
                         android:id="@+id/password"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="31dp"
                         android:layout_marginBottom="10dp"
                         android:hint="@string/prompt_password"
                         android:inputType="textPassword"
                         android:textColor="@android:color/black"
-                        android:textColorHint="@color/listTextSecondary" />
+                        android:textColorHint="@color/listTextSecondary"
+                        android:textSize="@dimen/list_1sttext" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -173,9 +169,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_gravity="right"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:gravity="center">
 
                     <ProgressBar
@@ -190,9 +186,10 @@
                         android:id="@+id/signInButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/buttonSecondary"
+                        android:background="@drawable/ic_rounded"
+                        android:backgroundTint="@color/buttonPrimary"
                         android:text="@string/action_sign_in"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -200,7 +197,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="0.5"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center">
@@ -217,7 +214,8 @@
                         android:id="@+id/registerButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/colorAccent"
+                        android:background="@drawable/ic_rounded"
+                        android:backgroundTint="@color/colorAccent"
                         android:text="@string/action_register_and_sign_in"
                         android:textColor="@color/backgroundWhite"
                         android:textStyle="bold" />
@@ -234,6 +232,18 @@
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteY="45dp"
                 tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/guideline_text"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/tnc"
+                app:layout_constraintBottom_toTopOf="@+id/signinButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.548"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>

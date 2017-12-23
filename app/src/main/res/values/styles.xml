@@ -91,4 +91,9 @@
     </style>
 
     <style name="flatButton"></style>
+
+    <style name="mydialog_animation">
+        <item name="android:windowEnterAnimation">@anim/mydialog_fi</item>
+        <item name="android:windowExitAnimation">@anim/mydialog_fo</item>
+    </style>
 </resources>
