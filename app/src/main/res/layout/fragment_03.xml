@@ -8,7 +8,7 @@
     tools:ignore="missingPrefix"
     android:gravity="top|center">
 
-      <android.support.constraint.ConstraintLayout
+<!--      <android.support.constraint.ConstraintLayout
         android:id="@+id/empty_stat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,7 +67,7 @@
         android:layout_alignParentStart="true">
 
 
-       <!-- <RelativeLayout
+       &lt;!&ndash; <RelativeLayout
             android:id="@+id/chart_pie_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:font="custom1" />
+                app:font="Custom1" />
             <TextView
                 android:id="@+id/editText2"
                 android:layout_width="wrap_content"
@@ -102,10 +102,144 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
-        </RelativeLayout>-->
-    </ScrollView>
+        </RelativeLayout>&ndash;&gt;
+    </ScrollView>-->
+    <com.schibsted.spain.parallaxlayerlayout.ParallaxLayerLayout
+        android:id="@+id/parallax"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:parallaxOffsetBase="20dp"
+        app:parallaxOffsetIncrement="20dp">
+
+    <RelativeLayout
+        android:id="@+id/re_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/meteor_xml_background">
+
+        <ImageView
+            android:id="@+id/img_background_star"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop" />
+
+        <com.colavo.android.meteor.MeteorView
+            android:id="@+id/img_meteor0"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_margin="50dp" />
+
+        <com.colavo.android.meteor.MeteorView
+            android:id="@+id/img_meteor1"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="100dp" />
+
+        <com.colavo.android.meteor.MeteorView
+            android:id="@+id/img_meteor2"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="200dp" />
+
+        <com.colavo.android.meteor.MeteorView
+            android:id="@+id/img_meteor3"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="300dp"/>
+
+        <ImageView
+            android:id="@+id/img_background_tree"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginBottom="@dimen/height_bottombar"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop" />
+
+
+        <ImageView
+            android:id="@+id/img_background_moon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="100dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop" />
+
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="@dimen/height_bottombar"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/meteor_icon_tent_light" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/height_bottombar"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/meteor_icon_fire_halo"
+            android:contentDescription="TODO"/>
+
+        <ImageView
+            android:id="@+id/img_background_fire"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/height_bottombar"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/meteor_fram_fire"
+            android:contentDescription="TODO"/>
+
+        <TextView
+            android:id="@+id/empty_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/img_background_tree"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="31dp"
+            android:gravity="center"
+            android:text="@string/no_data_title"
+            android:textColor="@color/backgroundWhite"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/no_data_title" />
+
+        <TextView
+            android:id="@+id/empty_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/img_background_tree"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/no_data_description"
+            android:textColor="@color/buttonPrimary"
+            app:font="Custom1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
+            tools:ignore="MissingPrefix"
+            tools:text="@string/no_data_description" />
+    </RelativeLayout>
+
+    </com.schibsted.spain.parallaxlayerlayout.ParallaxLayerLayout>
+
     <include
-        android:id="@+id/toolBar"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"

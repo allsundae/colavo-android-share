@@ -13,7 +13,8 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:theme="@style/MyToolbarStyle"
     tools:ignore="missingPrefix"
-    app:font="Custom1" android:focusable="true">
+    android:textStyle="bold"
+    android:focusable="true">
 
   <!--  <RelativeLayout
         android:id="@+id/toobar_title"

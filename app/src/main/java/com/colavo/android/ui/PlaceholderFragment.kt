@@ -61,13 +61,7 @@ class PlaceholderFragment : BaseFragment()
      /*   val fabButton =
                 (activity as AppCompatActivity).findViewById(R.id.fab) as FloatingActionButton?
      */
-        fab_calendar?.setOnClickListener {
-            //view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
-            Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
-/*            val dialogFrag : CreateFabFragment = CreateFabFragment()
-            dialogFrag.setParentFab(fab)
-            dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
-        }
+
 
     }
 
@@ -102,6 +96,14 @@ class PlaceholderFragment : BaseFragment()
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
+
+        fab_calendar.setOnClickListener {
+            //view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
+/*            val dialogFrag : CreateFabFragment = CreateFabFragment()
+            dialogFrag.setParentFab(fab)
+            dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
+        }
 /*
         popup = MaryPopup.with(this.activity)
                 .cancellable(true)
@@ -495,16 +497,16 @@ class PlaceholderFragment : BaseFragment()
         }
 */
         val window : Window  = activity.getWindow()
-		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+/*		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-		window.setStatusBarColor(resources.getColor(R.color.backgroundWhite))
+		window.setStatusBarColor(resources.getColor(R.color.backgroundWhite))*/
 
       //  calendar_fragment.setBackgroundColor(Color.BLACK)
         window.setBackgroundDrawableResource(R.drawable.color_gradient)
         calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
         scaleAnim(calendar_fragment, 1.0f, 0.95f, false)
 
-        val dialog = LayoutInflater.from(this.context).inflate(R.layout.popup_event_detail, null)
+       val dialog = LayoutInflater.from(this.context).inflate(R.layout.popup_event_detail, null)
      /*   val anim_in = AnimationUtils.loadAnimation(this.context, R.anim.mydialog_translate)
         anim_in.duration = 300
         dialog.startAnimation(anim_in)*/
@@ -529,7 +531,7 @@ class PlaceholderFragment : BaseFragment()
        SwipeDismissDialog.Builder(this.context)
                // .setLayoutResId(R.layout.popup_event_detail)
                 .setView(dialog)
-                .setFlingVelocity(0.06f)
+                .setFlingVelocity(0.05f)
                 .setOnCancelListener(object : OnCancelListener {
                     override fun onCancel(view: View) {
    //                     Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
@@ -567,7 +569,7 @@ class PlaceholderFragment : BaseFragment()
     }
 
     fun scaleAnim (objectTo :View, fromScale:Float, toScale:Float, zoomIn:Boolean){
-       val scaleAnim : ScaleAnimation  = ScaleAnimation(
+       val scaleAnim  = ScaleAnimation(
                 fromScale, toScale,
                 fromScale, toScale,
                 Animation.RELATIVE_TO_SELF, 0.5f,
@@ -575,11 +577,12 @@ class PlaceholderFragment : BaseFragment()
 
         scaleAnim.setRepeatCount(0)
         if (zoomIn) {
-            scaleAnim.setDuration(1000)
-            scaleAnim.setInterpolator(FastOutSlowInInterpolator())
+            scaleAnim.setDuration(500)
+            scaleAnim.setInterpolator(OvershootInterpolator())
         }
         else {
-            scaleAnim.setDuration(500)
+            scaleAnim.startOffset = 300
+            scaleAnim.setDuration(800)
             scaleAnim.setInterpolator(OvershootInterpolator())
         }
 

@@ -51,7 +51,7 @@
 
     <!--ToolBar-->
     <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar"
-        app:font="custom1">
+        app:font="Custom1">
         <item name="colorControlNormal">@color/toolBarIcon</item>
         <item name="android:textColorSecondary">@color/toolBarIcon</item>
         <item name="android:tint">@color/toolBarIcon</item>
@@ -65,6 +65,7 @@
     </style>
     <style name="MySpinner" >
         <item name="android:background">@color/backgroundWhite</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <!-- for BottomBar -->
     <style name="BottomBarText">

@@ -3,6 +3,10 @@
         <attr name="tabLayoutId" format="reference"></attr>
     </declare-styleable>
 
+    <declare-styleable name="MeteorView">
+        <attr name="corner" format="integer" />
+    </declare-styleable>
+
     <declare-styleable name="WeekView">
         <attr name="firstDayOfWeek" format="enum">
             <enum name="sunday" value="1"/>

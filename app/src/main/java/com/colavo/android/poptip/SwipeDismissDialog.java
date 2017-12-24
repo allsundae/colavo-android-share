@@ -194,14 +194,14 @@ public class SwipeDismissDialog extends FrameLayout {
             float normalizedVelocityX = Math.abs(velocityX) / maxVelocity;
             float normalizedVelocityY = Math.abs(velocityY) / maxVelocity;
             if (normalizedVelocityX > params.flingVelocity) {
-                com.colavo.android.poptip.SwipeDismissDirection direction = (e2.getRawX() > e1.getRawX())
-                        ? com.colavo.android.poptip.SwipeDismissDirection.RIGHT
-                        : com.colavo.android.poptip.SwipeDismissDirection.LEFT;
+                SwipeDismissDirection direction = (e2.getRawX() > e1.getRawX())
+                        ? SwipeDismissDirection.RIGHT
+                        : SwipeDismissDirection.LEFT;
                 dismiss(direction);
                 return true;
             } else if (normalizedVelocityY > params.flingVelocity) {
-                com.colavo.android.poptip.SwipeDismissDirection direction = (e2.getRawY() > e1.getRawY())
-                        ? com.colavo.android.poptip.SwipeDismissDirection.BOTTOM
+                SwipeDismissDirection direction = (e2.getRawY() > e1.getRawY())
+                        ? SwipeDismissDirection.BOTTOM
                         : SwipeDismissDirection.TOP;
                 dismiss(direction);
                 return true;

@@ -70,13 +70,12 @@
         android:layout_marginTop="8dp"
         android:gravity="top"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/pop_title_container"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical">
@@ -136,8 +135,8 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
                 app:font="Custom1"
-                tools:text="Time"
-                tools:ignore="MissingPrefix" />
+                tools:ignore="MissingPrefix"
+                tools:text="Time" />
 
         </LinearLayout>
 
@@ -165,8 +164,8 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
                 app:font="Custom1"
-                tools:text="Menu"
-                tools:ignore="MissingPrefix" />
+                tools:ignore="MissingPrefix"
+                tools:text="Menu" />
 
         </LinearLayout>
 
@@ -194,8 +193,8 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
                 app:font="Custom1"
-                tools:text="Memo"
-                tools:ignore="MissingPrefix" />
+                tools:ignore="MissingPrefix"
+                tools:text="Memo" />
 
         </LinearLayout>
 

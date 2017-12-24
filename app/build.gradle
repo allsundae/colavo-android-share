@@ -90,6 +90,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.tsengvn:typekit:1.0.1'
+    compile 'com.schibsted.spain:parallax-layer-layout:1.1.1'
 }
 
 repositories {
