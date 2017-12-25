@@ -1,8 +1,10 @@
 package com.colavo.android.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.AnimationDrawable
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -27,6 +29,8 @@ import android.widget.TextView
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.colavo.android.meteor.MeteorView
+import com.colavo.android.ui.checkout.ColavoAnimatedTranslationUpdater
+import com.schibsted.spain.parallaxlayerlayout.AnimatedTranslationUpdater
 import com.schibsted.spain.parallaxlayerlayout.SensorTranslationUpdater
 import kotlinx.android.synthetic.main.fragment_03.*
 
@@ -46,6 +50,7 @@ class PlaceholderFragment03 : BaseFragment() {
     private var hasCenterText2 = false
     private var isExploded = false
     private var hasLabelForSelected = false
+
 /*    override fun getLayout(position: Int) = when (position) {
         1 -> R.layout.fragment_01
         2 -> R.layout.fragment_02
@@ -79,13 +84,18 @@ class PlaceholderFragment03 : BaseFragment() {
         fun newInstance() = PlaceholderFragment03()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar?.setTitle (R.string.bottom_navi_3)
         toolBar?.inflateMenu(menu_stat)
 
-        val values = ArrayList<PointValue>()
+  /*      val values = ArrayList<PointValue>()
         values.add(PointValue(0f, 2f))
         values.add(PointValue(1f, 4f))
         values.add(PointValue(2f, 3f))
@@ -97,12 +107,15 @@ class PlaceholderFragment03 : BaseFragment() {
         lines.add(line)
 
         val data = LineChartData()
-        data.lines = lines
+        data.lines = lines*/
 
+        val sensorTranslationUpdater = SensorTranslationUpdater(this.context)
+        //  parallax.setTranslationUpdater(sensorTranslationUpdater)
+        //   parallax.setTranslationUpdater(sensorTranslationUpdater)
+         parallax.setTranslationUpdater(ColavoAnimatedTranslationUpdater(0.1f))
+       // parallax.setTranslationUpdater(sensorTranslationUpdater)
 
         initView()
-        val sensorTranslationUpdater = SensorTranslationUpdater(this.context)
-        parallax.setTranslationUpdater(sensorTranslationUpdater)
     }
 
     private fun initView() {
@@ -123,6 +136,17 @@ class PlaceholderFragment03 : BaseFragment() {
         Picasso.with(this.context).load(R.drawable.meteor_icon_meteor).into(img_meteor2)
         Picasso.with(this.context).load(R.drawable.meteor_icon_meteor).into(img_meteor3)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sensorTranslationUpdater = SensorTranslationUpdater(activity)
+        sensorTranslationUpdater.registerSensorManager()
+    }
+    override fun onPause() {
+        super.onPause()
+        val sensorTranslationUpdater = SensorTranslationUpdater(activity)
+        sensorTranslationUpdater.unregisterSensorManager()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
