@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import com.colavo.android.R
 import android.widget.RelativeLayout
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment
-
+import kotlinx.android.synthetic.main.fragment_create.view.*
 
 
 /**
@@ -17,9 +17,9 @@ class CreateFabFragment : AAH_FabulousFragment() {
     var button_close: Button? = null
     override fun setupDialog(dialog: Dialog, style: Int) {
         val contentView = View.inflate(context, R.layout.fragment_create, null)
-        val rl_content = contentView.findViewById(R.id.rl_content) as RelativeLayout
-        val ll_buttons = contentView.findViewById(R.id.ll_buttons) as LinearLayout
-        contentView.findViewById(R.id.button_close).setOnClickListener { closeFilter("closed") }
+        val rl_content = contentView.rl_content as RelativeLayout
+        val ll_buttons = contentView.ll_buttons as LinearLayout
+        contentView.button_close.setOnClickListener { closeFilter("closed") }
 
         //params to set
         setAnimationDuration(500) //optional; default 500ms
