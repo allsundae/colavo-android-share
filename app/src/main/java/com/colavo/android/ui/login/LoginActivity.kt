@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 import android.text.Html
 import android.databinding.adapters.TextViewBindingAdapter.setText
+import com.colavo.android.base.BaseActivity
 
 
-
-class LoginActivity : AppCompatActivity(), LoginView {
+class LoginActivity : BaseActivity(), LoginView {
 
     @Inject
     lateinit var loginPresenter: LoginPresenterImpl

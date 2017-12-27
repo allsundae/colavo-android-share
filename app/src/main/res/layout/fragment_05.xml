@@ -83,7 +83,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="6dp"
                     android:layout_toEndOf="@+id/imageView"
-                    app:font="Custom1"
+                    app:fontName="Custom1"
                     android:clickable="true"
                     android:paddingLeft="@dimen/medium_margin"
                     android:text="Normal" />

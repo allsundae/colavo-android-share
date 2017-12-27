@@ -8,6 +8,7 @@
     android:layout_marginBottom="6dp"
     android:gravity="top"
     android:orientation="horizontal"
+    android:background="?selectableItemBackgroundBorderless"
     android:paddingBottom="@dimen/list_vertical_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"

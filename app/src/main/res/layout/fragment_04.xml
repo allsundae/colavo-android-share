@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_data_description"
-            app:font="Custom1"
+            app:fontName="Custom1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
         android:focusable="true"
         />
 
-    <android.support.design.widget.FloatingActionButton
+  <!--  <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,6 +92,6 @@
         android:tint="@color/backgroundWhite"
         app:backgroundTint="@color/colorAccent"
         app:pressedTranslationZ="32dp"
-        app:rippleColor="@color/colorSecondary" />
+        app:rippleColor="@color/colorSecondary" />-->
 
 </RelativeLayout>

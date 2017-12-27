@@ -56,7 +56,7 @@ class PlaceholderFragment : BaseFragment()
         setupDateTimeInterpreter(true)
         setHasOptionsMenu(true)
       //  (activity as AppCompatActivity).supportActionBar?.title = salon.name
-        //val dialog = LayoutInflater.from(this.context).inflate(R.layout.popup_event_detail, null)
+        //val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
 //        val fabButton = fab_calendar as FloatingActionButton
      /*   val fabButton =
                 (activity as AppCompatActivity).findViewById(R.id.fab) as FloatingActionButton?
@@ -65,13 +65,13 @@ class PlaceholderFragment : BaseFragment()
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view!!, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
         toolBar.setTitle ("")//salon.name
-      //  toolBar.setTitleTextAppearance(this.context,ToolbarTitleText)
+      //  toolBar.setTitleTextAppearance(this.context!!,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)
         spinner_designer.prompt = salon.name
 
@@ -79,7 +79,7 @@ class PlaceholderFragment : BaseFragment()
         designer_list.add(salon.name)
         designer_list.add("Name")
 
-        val designerAdapter = ArrayAdapter<String>(this.context, R.layout.spinner_designer, R.id.designer_name, designer_list)
+        val designerAdapter = ArrayAdapter<String>(this.context!!, R.layout.spinner_designer, R.id.designer_name, designer_list)
         designerAdapter.setDropDownViewResource(R.layout.spinner_popup)
         spinner_designer.adapter = designerAdapter//setText(salon.name)
 
@@ -97,13 +97,13 @@ class PlaceholderFragment : BaseFragment()
         // the week view. This is optional.
         setupDateTimeInterpreter(true)
 
-        fab_calendar.setOnClickListener {
+/*        fab_calendar.setOnClickListener {
             //view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
             Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
-/*            val dialogFrag : CreateFabFragment = CreateFabFragment()
+*//*            val dialogFrag : CreateFabFragment = CreateFabFragment()
             dialogFrag.setParentFab(fab)
-            dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*/
-        }
+            dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag())*//*
+        }*/
 /*
         popup = MaryPopup.with(this.activity)
                 .cancellable(true)
@@ -126,7 +126,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         var event = WeekViewEvent(1, "STRÅLA\n",getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -136,10 +136,10 @@ class PlaceholderFragment : BaseFragment()
         startTime.set(Calendar.YEAR, newYear)
         startTime.set(Calendar.DATE, 1)
         endTime = startTime.clone() as Calendar
-        endTime.add(Calendar.HOUR, 2)
+        endTime.add(Calendar.HOUR, 1)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(2, "Tony Stark\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -152,7 +152,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.set(Calendar.HOUR_OF_DAY, 6)
         endTime.set(Calendar.MINUTE, 0)
         event = WeekViewEvent(3, "John Mayer\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -164,7 +164,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(4, "Frank Ocean\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -177,7 +177,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(5, "Kanye\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
 
@@ -190,7 +190,7 @@ class PlaceholderFragment : BaseFragment()
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         event = WeekViewEvent(6, "Depp\n",getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -202,7 +202,7 @@ class PlaceholderFragment : BaseFragment()
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         event = WeekViewEvent(7, "Antonio\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
 
@@ -216,7 +216,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(8, "Dr.Strange\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
 
@@ -230,7 +230,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(9, "Soonsiki\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -243,9 +243,9 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(10, "가람\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor03)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
         events.add(event)
-
+/*
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 3)
         startTime.set(Calendar.MINUTE, 0)
@@ -256,7 +256,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(11, "리아\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -269,7 +269,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(12, "Hannah\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
 
@@ -283,7 +283,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(13, "Vinter\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -296,7 +296,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 1)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(14, "아라\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -309,7 +309,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(15, "마루\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -322,7 +322,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(16, "BRUDSLÖJA\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -336,7 +336,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.MINUTE, 0)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(16, "로하\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -350,7 +350,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.MINUTE, 15)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(17, "지우\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor02)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -364,7 +364,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(18, "LOHALS\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor04)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -377,7 +377,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(19, "재인\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -391,7 +391,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(20, "Vince\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
@@ -405,9 +405,9 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(21, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
-        event.color = ContextCompat.getColor(this.context,R.color.eventColor01)
+        event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
-
+*/
         return events
     }
     /**
@@ -496,7 +496,7 @@ class PlaceholderFragment : BaseFragment()
             setVisibility(View.VISIBLE)
         }
 */
-        val window : Window  = activity.getWindow()
+        val window : Window  = activity!!.getWindow()
 /*		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 		window.setStatusBarColor(resources.getColor(R.color.backgroundWhite))*/
@@ -504,10 +504,10 @@ class PlaceholderFragment : BaseFragment()
       //  calendar_fragment.setBackgroundColor(Color.BLACK)
         window.setBackgroundDrawableResource(R.drawable.color_gradient)
         calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
-        scaleAnim(calendar_fragment, 1.0f, 0.95f, false)
+        scaleAnim(calendar_fragment, 1.0f, 0.97f, false)
 
-       val dialog = LayoutInflater.from(this.context).inflate(R.layout.popup_event_detail, null)
-     /*   val anim_in = AnimationUtils.loadAnimation(this.context, R.anim.mydialog_translate)
+       val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
+     /*   val anim_in = AnimationUtils.loadAnimation(this.context!!, R.anim.mydialog_translate)
         anim_in.duration = 300
         dialog.startAnimation(anim_in)*/
         val colorFilter = PorterDuffColorFilter(event.color, PorterDuff.Mode.MULTIPLY)
@@ -528,14 +528,14 @@ class PlaceholderFragment : BaseFragment()
 
         //Show Tooltip Window
 
-       SwipeDismissDialog.Builder(this.context)
+       SwipeDismissDialog.Builder(this.context!!)
                // .setLayoutResId(R.layout.popup_event_detail)
                 .setView(dialog)
-                .setFlingVelocity(0.05f)
+                .setFlingVelocity(0.02f)
                 .setOnCancelListener(object : OnCancelListener {
                     override fun onCancel(view: View) {
    //                     Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
-                        scaleAnim(calendar_fragment, 0.95f, 1f, true)
+                        scaleAnim(calendar_fragment, 0.97f, 1f, true)
                         calendar_fragment.setBackgroundColor(resources.getColor(R.color.backgroundWhite))
                         calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
                     }
@@ -573,7 +573,7 @@ class PlaceholderFragment : BaseFragment()
                 fromScale, toScale,
                 fromScale, toScale,
                 Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF , 1f)
+                Animation.RELATIVE_TO_SELF , 1.0f)
 
         scaleAnim.setRepeatCount(0)
         if (zoomIn) {
@@ -582,7 +582,7 @@ class PlaceholderFragment : BaseFragment()
         }
         else {
             scaleAnim.startOffset = 300
-            scaleAnim.setDuration(800)
+            scaleAnim.setDuration(600)
             scaleAnim.setInterpolator(OvershootInterpolator())
         }
 
@@ -654,9 +654,9 @@ class PlaceholderFragment : BaseFragment()
                 return true
             }
             R.id.action_create_event ->{
-                val dialogFrag = CreateFabFragment.newInstance()
-                dialogFrag.setParentFab(fab_calendar)
-                dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
+ //               val dialogFrag = CreateFabFragment.newInstance()
+//                dialogFrag.setParentFab(fab_calendar)
+//                dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
                 return true
             }
             R.id.action_day_view -> {

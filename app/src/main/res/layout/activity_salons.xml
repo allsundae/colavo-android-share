@@ -41,7 +41,7 @@
             android:text="@string/needs_another_hairshop"
             android:textColor="@color/backgroundWhite"
             android:layout_alignParentTop="true"
-            app:font="Custom1"
+            app:fontName="Custom1"
             android:layout_centerHorizontal="true"
             tools:ignore="MissingPrefix" />
 

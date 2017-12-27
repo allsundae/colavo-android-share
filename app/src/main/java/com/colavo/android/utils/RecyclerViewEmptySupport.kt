@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView.AdapterDataObserver
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
+import android.support.v7.widget.LinearSmoothScroller
+
+
 
 
 /**
@@ -53,4 +56,7 @@ class RecyclerViewEmptySupport : RecyclerView {
         this.emptyView = emptyView
         checkIfEmpty()
     }
+
+
+
 }

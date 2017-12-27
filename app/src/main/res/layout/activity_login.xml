@@ -36,8 +36,8 @@
                 android:id="@+id/imageOval"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="176dp"
+                android:layout_marginRight="116dp"
+                android:layout_marginTop="136dp"
                 android:layout_weight="0.79"
                 android:scaleType="fitXY"
                 app:layout_constraintDimensionRatio="w,1:1"
@@ -47,8 +47,8 @@
 
             <ImageView
                 android:id="@+id/imageDryer"
-                android:layout_width="260dp"
-                android:layout_height="300dp"
+                android:layout_width="230dp"
+                android:layout_height="260dp"
                 android:layout_marginTop="84dp"
                 android:layout_weight="0.79"
                 android:scaleType="fitXY"
@@ -60,8 +60,8 @@
                 android:id="@+id/imageComb"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:layout_marginEnd="148dp"
-                android:layout_marginTop="68dp"
+                android:layout_marginEnd="96dp"
+                android:layout_marginTop="44dp"
                 android:layout_weight="0.79"
                 android:adjustViewBounds="false"
                 android:scaleType="fitXY"
@@ -93,7 +93,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/listTextSecondary"
                 android:textSize="14sp"
-                app:font="Custom1"
+                app:fontName="Custom1"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -102,19 +102,16 @@
 
             <LinearLayout
                 android:id="@+id/inputLayout"
-                android:layout_width="370dp"
-                android:layout_height="120dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_text"
-                app:layout_constraintHorizontal_bias="0.48"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -140,7 +137,7 @@
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
-                        android:layout_height="31dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:hint="@string/prompt_password"
                         android:inputType="textPassword"
@@ -150,20 +147,41 @@
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline"
+                app:layout_constraintGuide_begin="20dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteY="45dp"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/guideline_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:text="@string/tnc"
+                app:layout_constraintBottom_toTopOf="@+id/signinButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <LinearLayout
                 android:id="@+id/signinButton"
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="27dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin_32"
-                android:layout_marginRight="@dimen/activity_horizontal_margin_32"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_32"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_32"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_32"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_32">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -171,7 +189,6 @@
                     android:layout_gravity="right"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:gravity="center">
 
                     <ProgressBar
@@ -223,27 +240,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline"
-                app:layout_constraintGuide_begin="20dp"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteY="45dp"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <TextView
-                android:id="@+id/guideline_text"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/tnc"
-                app:layout_constraintBottom_toTopOf="@+id/signinButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.548"
-                app:layout_constraintStart_toStartOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>

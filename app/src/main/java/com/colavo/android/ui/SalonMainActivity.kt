@@ -113,7 +113,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
     }
 
     override fun updatePager() { //WTF
-        val pagerAdapter : PagerAdapter = container.getAdapter()
+        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
         if (pagerAdapter != null) pagerAdapter.notifyDataSetChanged()
 
         //mSectionsPagerAdapter?.notifyDataSetChanged()

@@ -115,13 +115,22 @@
 
                 </LinearLayout>
             </LinearLayout>
-                <android.support.v7.widget.RecyclerView
+                <com.colavo.android.utils.RecyclerViewEmptySupport
                     android:id="@+id/customer_detail_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:focusable="true"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <include
+                android:id="@+id/customer_detail_empty"
+                layout="@layout/base_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                />
 
         </LinearLayout>
 

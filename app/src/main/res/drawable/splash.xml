@@ -15,7 +15,7 @@
         android:height="18dp" />
     <item
         android:drawable="@drawable/ic_copyright"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|bottom"
         android:top="610dp"
         android:width="301dp"
         android:height="16dp" />

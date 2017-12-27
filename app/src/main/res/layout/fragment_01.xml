@@ -32,7 +32,7 @@
             <Spinner
                 android:id="@+id/spinner_designer"
                 android:textStyle="bold"
-                app:font="custom1"
+                app:fontName="custom1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 <!--                <TextView
@@ -84,7 +84,7 @@
 
 
         />
-    <android.support.design.widget.FloatingActionButton
+   <!-- <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab_calendar"
@@ -99,7 +99,7 @@
         app:pressedTranslationZ="32dp"
         app:rippleColor="@color/colorSecondary"
         android:tint="@color/backgroundWhite"
-        />
+        />-->
 
 
 

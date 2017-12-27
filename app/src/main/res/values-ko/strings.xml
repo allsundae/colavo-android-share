@@ -55,8 +55,8 @@
     <string name="checkout_Text">결재</string>
     <string name="btn_edit_profile">프로필 편집</string>
     <string name="customer">고객</string>
-    <string name="no_data_title">데이터가 없어요</string>
-    <string name="no_data_description">데이터를 추가해 보세요</string>
+    <string name="no_data_title">기록이 없습니다</string>
+    <string name="no_data_description">완료했거나 진행중인 시술정보를 제공합니다.\n중요한 시술에 대해서는 메모와 사진으로 기록해 보세요.\n결제입력은 정확한 계산과 매출관리에 도움이 됩니다</string>
     <string name="modify">수정</string>
     <string name="modified_date">최근 수정 일자</string>
     <string name="tnc"><![CDATA[

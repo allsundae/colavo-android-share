@@ -57,7 +57,7 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/listTextSecondary"
             android:textSize="11sp"
-            app:font="Custom1"
+            app:fontName="Custom1"
             app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="MissingPrefix"
             tools:layout_editor_absoluteY="370dp" />
@@ -89,7 +89,7 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="11sp"
-                app:font="Custom1"
+                app:fontName="Custom1"
                 tools:ignore="MissingPrefix"
                 tools:text="Status" />
 
@@ -134,7 +134,7 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
-                app:font="Custom1"
+                app:fontName="Custom1"
                 tools:ignore="MissingPrefix"
                 tools:text="Time" />
 
@@ -163,7 +163,7 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
-                app:font="Custom1"
+                app:fontName="Custom1"
                 tools:ignore="MissingPrefix"
                 tools:text="Menu" />
 
@@ -192,7 +192,7 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
-                app:font="Custom1"
+                app:fontName="Custom1"
                 tools:ignore="MissingPrefix"
                 tools:text="Memo" />
 

@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_data_description"
-            app:font="Custom1"
+            app:fontName="Custom1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,7 @@
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:font="Custom1" />
+                app:fontName="Custom1" />
             <TextView
                 android:id="@+id/editText2"
                 android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:parallaxOffsetBase="10dp"
-        app:parallaxOffsetIncrement="5dp">
+        app:parallaxOffsetIncrement="20dp">
 
 
 <!--        <ImageView
@@ -250,7 +250,7 @@
             android:gravity="center"
             android:text="@string/no_data_description"
             android:textColor="@color/buttonPrimary"
-            app:font="Custom1"
+            app:fontName="Custom1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -343,38 +343,40 @@
             android:contentDescription="TODO"
             android:src="@drawable/meteor_fram_fire" />
 
-            <TextView
-                android:id="@+id/empty_view_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/img_background_tree"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="31dp"
-                android:gravity="center"
-                android:text="@string/no_data_title"
-                android:textColor="@color/backgroundWhite"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="@string/no_data_title" />
+        <TextView
+            android:id="@+id/empty_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/img_background_tree"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="31dp"
+            android:gravity="center"
+            android:text="@string/no_data_title"
+            android:textColor="@color/backgroundWhite"
+            android:textSize="@dimen/list_1sttext"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/no_data_title" />
 
-            <TextView
-                android:id="@+id/empty_view_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/empty_view_title"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="@string/no_data_description"
-                android:textColor="@color/buttonPrimary"
-                app:font="Custom1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
-                tools:ignore="MissingPrefix"
-                tools:text="@string/no_data_description" />
+        <TextView
+            android:id="@+id/empty_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_view_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="@string/no_data_description"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/list_2ndtext"
+            app:fontName="Custom1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
+            tools:ignore="MissingPrefix"
+            tools:text="@string/no_data_description" />
 
     </com.schibsted.spain.parallaxlayerlayout.ParallaxLayerLayout>
 
@@ -382,7 +384,7 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        app:font="Custom1" />
+        app:fontName="Custom1" />
 
 
 

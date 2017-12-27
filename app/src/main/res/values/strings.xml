@@ -54,7 +54,7 @@
     <string name="checkout_Text">Checkout</string>
     <string name="btn_edit_profile">Edit profile</string>
     <string name="customer">Customer</string>
-    <string name="no_data_title">No data</string>
+    <string name="no_data_title">No data ;(</string>
     <string name="no_data_description">Please add some data here</string>
     <string name="modify">Modify</string>
     <string name="modified_date">modified date</string>

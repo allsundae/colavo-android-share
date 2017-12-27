@@ -50,6 +50,7 @@ class SalonListActivity : BaseActivity()
             getSupportActionBar()?.setElevation(0F);
         }
 
+
         (application as App).addSalonsComponent().inject(this)
         salonsAdapter = SalonsAdapter(this, mutableListOf<SalonModel>())
         salons_recyclerView.adapter = salonsAdapter
@@ -96,10 +97,12 @@ class SalonListActivity : BaseActivity()
 
     override fun showProgress() {
         progressDialog.show()
+        //salons_recyclerView.showShimmerAdapter()
     }
 
     override fun hideProgress() {
         progressDialog.hide()
+        //salons_recyclerView.hideShimmerAdapter()
     }
 
     override fun onItemClicked(item: SalonModel) {

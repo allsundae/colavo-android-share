@@ -89,7 +89,7 @@ class PlaceholderFragment03 : BaseFragment() {
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar?.setTitle (R.string.bottom_navi_3)
@@ -109,11 +109,9 @@ class PlaceholderFragment03 : BaseFragment() {
         val data = LineChartData()
         data.lines = lines*/
 
-        val sensorTranslationUpdater = SensorTranslationUpdater(this.context)
-        //  parallax.setTranslationUpdater(sensorTranslationUpdater)
-        //   parallax.setTranslationUpdater(sensorTranslationUpdater)
-         parallax.setTranslationUpdater(ColavoAnimatedTranslationUpdater(0.1f))
-       // parallax.setTranslationUpdater(sensorTranslationUpdater)
+        val sensorTranslationUpdater = SensorTranslationUpdater((activity as AppCompatActivity).applicationContext)
+        parallax.setTranslationUpdater(sensorTranslationUpdater)
+         //parallax.setTranslationUpdater(ColavoAnimatedTranslationUpdater(0.1f))
 
         initView()
     }
