@@ -219,7 +219,7 @@ class PlaceholderFragment : BaseFragment()
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
-
+/*
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 1)
         startTime.set(Calendar.MINUTE, 0)
@@ -245,7 +245,7 @@ class PlaceholderFragment : BaseFragment()
         event = WeekViewEvent(10, "가람\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
         events.add(event)
-/*
+
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 3)
         startTime.set(Calendar.MINUTE, 0)
@@ -503,7 +503,7 @@ class PlaceholderFragment : BaseFragment()
 
       //  calendar_fragment.setBackgroundColor(Color.BLACK)
         window.setBackgroundDrawableResource(R.drawable.color_gradient)
-        calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
+   //     calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
         scaleAnim(calendar_fragment, 1.0f, 0.97f, false)
 
        val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)

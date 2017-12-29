@@ -71,7 +71,7 @@
         app:eventTextSize="10dp"
         app:eventMarginVertical="2dp"
         app:hourSeparatorColor="#DDE0E2"
-        app:overlappingEventGap="2dp"
+        app:overlappingEventGap="200dp"
 
         app:showNowLine="true"
         app:nowLineColor="#FE7C92"
@@ -80,7 +80,7 @@
         app:textSize="11sp"
         app:hourHeight="80dp"
 
-        app:columnGap="2dp"
+        app:columnGap="0dp"
 
 
         />
