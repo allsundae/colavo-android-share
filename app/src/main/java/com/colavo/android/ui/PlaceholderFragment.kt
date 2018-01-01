@@ -26,7 +26,6 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.*
 import android.view.animation.*
-import android.view.animation.Interpolator
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.fragment_01.*
 import kotlinx.android.synthetic.main.popup_event_detail.view.*
@@ -149,25 +148,25 @@ class PlaceholderFragment : BaseFragment()
         events.add(event)
 
         startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 4)
+        startTime.set(Calendar.HOUR_OF_DAY, 5)
         startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         startTime.set(Calendar.DATE, 2)
         endTime = startTime.clone() as Calendar
-        endTime.set(Calendar.HOUR_OF_DAY, 6)
+        endTime.set(Calendar.HOUR_OF_DAY, 2)
         endTime.set(Calendar.MINUTE, 0)
         event = WeekViewEvent(3, "John Mayer\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
         events.add(event)
 
         startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 5)
-        startTime.set(Calendar.MINUTE, 30)
+        startTime.set(Calendar.HOUR_OF_DAY, 0)
+        startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         endTime = startTime.clone() as Calendar
-        endTime.add(Calendar.HOUR_OF_DAY, 2)
+        endTime.add(Calendar.HOUR_OF_DAY, 1)
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(4, "Frank Ocean\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor03)
@@ -211,7 +210,7 @@ class PlaceholderFragment : BaseFragment()
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
-/*
+
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 2)
         startTime.set(Calendar.MINUTE, 0)
@@ -341,7 +340,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.add(Calendar.MINUTE, 0)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(16, "로하\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(17, "로하\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
 
@@ -355,7 +354,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 1)
         endTime.add(Calendar.MINUTE, 15)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(17, "지우\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(18, "지우\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
 
@@ -369,7 +368,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 1)
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(18, "LOHALS\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(19, "LOHALS\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
@@ -382,12 +381,12 @@ class PlaceholderFragment : BaseFragment()
         endTime = startTime.clone() as Calendar
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(19, "재인\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(20, "재인\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
         startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, 8)
+        startTime.set(Calendar.HOUR_OF_DAY, 14)
         startTime.set(Calendar.MINUTE, 0)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
@@ -396,7 +395,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 2)
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(20, "Vince\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(21, "Vince\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
@@ -410,10 +409,10 @@ class PlaceholderFragment : BaseFragment()
         endTime.add(Calendar.HOUR_OF_DAY, 3)
         endTime.add(Calendar.MINUTE, 45)
         endTime.set(Calendar.MONTH, newMonth - 1)
-        event = WeekViewEvent(21, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
+        event = WeekViewEvent(22, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
-*/
+
         return events
     }
     /**
@@ -475,7 +474,7 @@ class PlaceholderFragment : BaseFragment()
 
     protected fun getEventDurationTime(startTime: Calendar, endTime:Calendar): String {
         val durMillis = endTime.timeInMillis - startTime.timeInMillis
-        val sdf = SimpleDateFormat("h:mm", Locale.getDefault())
+        var sdf = SimpleDateFormat("h:mm", Locale.getDefault())
         return sdf.format(Date(durMillis*1000))
         /*        return String.format("%02d:%02d:%02d",
                         TimeUnit.MILLISECONDS.toHours(durMillis),
@@ -502,6 +501,9 @@ class PlaceholderFragment : BaseFragment()
         }
 */
         val window : Window  = activity!!.window
+        val displaymetrics : DisplayMetrics = DisplayMetrics()
+        window.windowManager.defaultDisplay.getMetrics(displaymetrics)
+
         window.setBackgroundDrawableResource(R.drawable.color_gradient)
 
 /*        val animation : ValueAnimator = ValueAnimator.ofArgb(event.color, Color.BLACK)
@@ -519,26 +521,8 @@ class PlaceholderFragment : BaseFragment()
         scaleAnim(calendar_fragment, 1.0f, 0.97f, false)
         val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
 
-
-        val displaymetrics : DisplayMetrics = DisplayMetrics()
-        window.windowManager.defaultDisplay.getMetrics(displaymetrics)
         val width : Int = displaymetrics.widthPixels
         val height : Int = displaymetrics.heightPixels
-        var boolX : Int = 1
-        var boolY : Int = 1
-/*
-        val afterWidth : Int = ( width -  dialog.width )/2
-        val afterHeight : Int = ( height -  dialog.height )/2
-
-        if (translateRect.top < afterHeight) boolY = -1
-        if (translateRect.left < afterHeight) boolX = -1
-
-        val percentageX : Float = ((translateRect.left*100) / afterWidth * boolX).toFloat()
-        val percentageY : Float = ((translateRect.top*100) / afterHeight * boolY).toFloat()*/
-
-
-       //val anim_in = AnimationUtils.loadAnimation(this.context!!, R.anim.mydialog_translate)
- //       val translateAnimation   = TranslateAnimation(percentageX, 0f, percentageY,0f)
 
         val x1 = translateRect.left
         val y1 = translateRect.top
@@ -546,8 +530,8 @@ class PlaceholderFragment : BaseFragment()
         val w1 = eventRect.width()
         val h1 = eventRect.height()
         dialog.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val w2 = dialog.measuredWidth//dialog.measuredWidth
-        val h2 = dialog.measuredHeight//height
+        val w2 = dialog.measuredWidth
+        val h2 = dialog.measuredHeight
 
         val centeredX : Int = ( width -  w2 )/2
         val centeredY : Int = ( height -  h2 )/2
@@ -562,14 +546,21 @@ class PlaceholderFragment : BaseFragment()
         Logger.log("onEventClick: x1: ${x1}, y1 : ${y1} \t w1: ${w1}, h1 : ${h1}")
         Logger.log("onEventClick: x2: ${x2}, y2 : ${y2} \t w2: ${w2}, h2 : ${h2}")
 
-/*
-       val translateAnimation   = TranslateAnimation(Animation.ABSOLUTE, x1.toFloat(), Animation.ABSOLUTE, centeredX.toFloat(),
-                Animation.ABSOLUTE, y1.toFloat() ,Animation.ABSOLUTE, centeredY.toFloat())
-        val alphaAnimation = AlphaAnimation(0.0f, 1.0f)
-        val scaleAnimation = ScaleAnimation(w1,w2.toFloat(),h1,h2.toFloat(),0.5f,0.5f)
+// 1 Scale
+        val scaleAnimatorW = ValueAnimator.ofFloat(normalizedW, 1.0.toFloat())
+        val scaleAnimatorH= ValueAnimator.ofFloat(normalizedH, 1.0.toFloat())
 
-*/
-// 1
+        scaleAnimatorW.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.scaleX = value
+            dialog.pivotX = 0.5f
+        }
+        scaleAnimatorH.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.scaleY = value
+            dialog.pivotY = 0.5f
+        }
+// 2 Position
         val positionAnimatorX = ValueAnimator.ofFloat(x1.toFloat(), centeredX.toFloat())
         val positionAnimatorY = ValueAnimator.ofFloat(y1.toFloat(), centeredY.toFloat())
 
@@ -581,49 +572,22 @@ class PlaceholderFragment : BaseFragment()
             val value = it.animatedValue as Float
             dialog.translationY = value
         }
-// 2
-        val scaleAnimatorW = ValueAnimator.ofFloat(normalizedW, 1.0.toFloat())
-        val scaleAnimatorH= ValueAnimator.ofFloat(normalizedH, 1.0.toFloat())
-
-        scaleAnimatorW.addUpdateListener {
-            val value = it.animatedValue as Float
-            dialog.scaleX = value
-        }
-        scaleAnimatorH.addUpdateListener {
-            val value = it.animatedValue as Float
-            dialog.scaleY = value
-        }
-
-// 3
+// 3 Alpha
         val alphaAnimator = ObjectAnimator.ofFloat(dialog, "alpha", 0f, 1f)
 
-// 4
+// 4 All together 1+2+3
         val animatorSet = AnimatorSet()
-//        animatorSet.play(positionAnimatorX).with(positionAnimatorY).with(alphaAnimator).with(scaleAnimatorW).with(scaleAnimatorH)
         animatorSet.playTogether(positionAnimatorX, positionAnimatorY
-        ,alphaAnimator, scaleAnimatorW, scaleAnimatorH)
-        animatorSet.interpolator = OvershootInterpolator()
-        animatorSet.duration = 1600
+                                 ,alphaAnimator, scaleAnimatorW, scaleAnimatorH)
+        animatorSet.interpolator = OvershootInterpolator(1.0f)
+        animatorSet.duration = 500
         animatorSet.start()
-        //animatorSet.fillBefore
-        //animatorSet.setFillAfter(true)
-        //dialog.startAnimation()
 
-/*        dialog.animate()
-          .x((centeredX).toFloat())
-          .y((centeredY).toFloat())*/
-
-           //     .scaleX( w2 / w1)
-           //     .scaleY(w2 / w1)
-          //      .translationX(centeredX - x1 - w1 * (1 - (w2 / w1)) / 2)
-          //      .translationY(centeredY - y1 - h1 * (1 - (h2 / h1)) / 2)
-       // anim_in.duration = 300
-        //dialog.startAnimation(anim_in)*/
-
+// 5 Fill data on Dialog poptip
         fillDialogData(event, dialog)
-        //Show Tooltip Window
+
+// 6 Show Tooltip Window
        SwipeDismissDialog.Builder(this.context!!)
-               // .setLayoutResId(R.layout.popup_event_detail)
                 .setView(dialog)
                 .setFlingVelocity(0.02f)
                 .setOnCancelListener(object : OnCancelListener {
@@ -631,15 +595,19 @@ class PlaceholderFragment : BaseFragment()
    //                     Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
                         scaleAnim(calendar_fragment, 0.97f, 1f, true)
                         calendar_fragment.setBackgroundColor(resources.getColor(R.color.backgroundWhite))
-                        calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
+                        calendar_fragment.pivotX = 0.5f
+                        calendar_fragment.pivotY = 1.0f
+                        //calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
                     }
                 })
                 .setOnSwipeDismissListener(object : OnSwipeDismissListener {
                     override fun onSwipeDismiss(view: View, direction: SwipeDismissDirection) {
     //                    Toast.makeText(context, "Swipe dismissed to: " + direction, Toast.LENGTH_SHORT).show()
-                        scaleAnim(calendar_fragment, 0.95f, 1f, true)
+                        scaleAnim(calendar_fragment, 0.97f, 1f, true)
                         calendar_fragment.setBackgroundColor(resources.getColor(R.color.backgroundWhite))
-                        calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
+                        calendar_fragment.pivotX = 0.5f
+                        calendar_fragment.pivotY = 1.0f
+                        //calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
                     }
                 })
                 .build()
@@ -681,16 +649,18 @@ class PlaceholderFragment : BaseFragment()
     }
 
     fun scaleAnim (objectTo :View, fromScale:Float, toScale:Float, zoomIn:Boolean){
-       val scaleAnim  = ScaleAnimation(
+        val scaleAnim  = ScaleAnimation(
                 fromScale, toScale,
                 fromScale, toScale,
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF , 1.0f)
+        var alphaAnim = AlphaAnimation(0.8f, 1.0f)
 
         scaleAnim.repeatCount = 0
         if (zoomIn) {
             scaleAnim.duration = 500
             scaleAnim.interpolator = OvershootInterpolator()
+            alphaAnim = AlphaAnimation(1.0f, 0.8f)
         }
         else {
             //scaleAnim.startOffset = 300
@@ -702,7 +672,45 @@ class PlaceholderFragment : BaseFragment()
         scaleAnim.fillBefore = true
         scaleAnim.isFillEnabled = true
 
-        objectTo.startAnimation(scaleAnim)
+      objectTo.startAnimation(scaleAnim)
+/*
+        objectTo.pivotX = 1.0f
+        objectTo.pivotY = 1.0f
+
+        var alphaAnimator = ObjectAnimator.ofFloat(objectTo, "alpha", 1f, 0.7f)
+
+        if (zoomIn == true){
+            alphaAnimator = ObjectAnimator.ofFloat(objectTo, "alpha", 0.7f, 1f)
+        }
+        alphaAnimator.interpolator = FastOutSlowInInterpolator()
+        alphaAnimator.duration = 1000
+
+        val scaleAnimatorW = ValueAnimator.ofFloat(fromScale, toScale)
+        val scaleAnimatorH= ValueAnimator.ofFloat(fromScale, toScale)
+
+        scaleAnimatorW.addUpdateListener {
+            val value = it.animatedValue as Float
+
+            objectTo.scaleX = value
+        }
+        scaleAnimatorH.addUpdateListener {
+            val value = it.animatedValue as Float
+
+            objectTo.scaleY = value
+        }
+
+        scaleAnimatorW.interpolator = OvershootInterpolator (4.0f)
+        scaleAnimatorH.interpolator = OvershootInterpolator (4.0f)
+        scaleAnimatorW.duration = 500
+        scaleAnimatorH.duration = 500
+
+// 4 All together 1+2+3
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(
+                alphaAnimator, scaleAnimatorW, scaleAnimatorH)
+        //animatorSet.interpolator = AccelerateDecelerateInterpolator()
+        //animatorSet.duration = 500
+        animatorSet.start()*/
     }
 
     class CameraAnim : Animation() {
