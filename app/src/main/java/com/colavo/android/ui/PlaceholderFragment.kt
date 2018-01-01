@@ -1,6 +1,10 @@
 package com.colavo.android.ui
 
 
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.graphics.*
 import android.os.Bundle
 import com.colavo.android.R
@@ -18,6 +22,7 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.poptip.SwipeDismissDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.*
 import android.view.animation.*
@@ -28,6 +33,7 @@ import kotlinx.android.synthetic.main.popup_event_detail.view.*
 import com.colavo.android.poptip.OnCancelListener
 import com.colavo.android.poptip.OnSwipeDismissListener
 import com.colavo.android.poptip.SwipeDismissDirection
+import com.colavo.android.utils.Logger
 import kotlinx.android.synthetic.main.popup_event_detail.*
 import java.util.concurrent.TimeUnit
 
@@ -66,11 +72,11 @@ class PlaceholderFragment : BaseFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view!!, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        toolBar.setTitle ("")//salon.name
+        toolBar.title = ""//salon.name
       //  toolBar.setTitleTextAppearance(this.context!!,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)
         spinner_designer.prompt = salon.name
@@ -87,7 +93,7 @@ class PlaceholderFragment : BaseFragment()
         weekView.setOnEventClickListener(this)
         // The week view has infinite scrolling horizontally. We have to provide the events of a
         // month every time the month changes on the week view.
-        weekView.setMonthChangeListener(this)
+        weekView.monthChangeListener = this
 
         // Set long press listener for events.
         weekView.eventLongPressListener = this
@@ -95,7 +101,7 @@ class PlaceholderFragment : BaseFragment()
         weekView.emptyViewLongPressListener = this
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(true)
+   //     setupDateTimeInterpreter(true)
 
 /*        fab_calendar.setOnClickListener {
             //view ->  Toast.makeText(context, "Clicked FAB" , Toast.LENGTH_LONG).show()
@@ -205,7 +211,7 @@ class PlaceholderFragment : BaseFragment()
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
         events.add(event)
 
-
+/*
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 2)
         startTime.set(Calendar.MINUTE, 0)
@@ -219,7 +225,7 @@ class PlaceholderFragment : BaseFragment()
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor04)
         events.add(event)
 
-/*
+
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 1)
         startTime.set(Calendar.MINUTE, 0)
@@ -444,13 +450,13 @@ class PlaceholderFragment : BaseFragment()
 
     protected fun getEventTitle(time: Calendar): String {
  //       return String.format("Event of %02d:%02d \n%s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH))
-/*        return String.format("%d:%02d " +
+       return String.format("%d:%02d " +
                             "%s/%d"
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
                             , time.get(Calendar.MONTH) + 1
-                            , time.get(Calendar.DAY_OF_MONTH))*/
-        return "Cut, Perm, Coloring"
+                            , time.get(Calendar.DAY_OF_MONTH))
+//        return "Cut, Perm, Coloring"
     }
 
     protected fun getEventTime(time: Calendar): String {
@@ -461,14 +467,14 @@ class PlaceholderFragment : BaseFragment()
                             , time.get(Calendar.HOUR_OF_DAY)
                             , time.get(Calendar.MINUTE)
                             )*/
-        val nowMsec = time.getTimeInMillis()
+        val nowMsec = time.timeInMillis
         val date = Date(nowMsec)
         val sdf = SimpleDateFormat("EEE, MMM d, h:mm a", Locale.getDefault())
         return sdf.format(date)
     }
 
     protected fun getEventDurationTime(startTime: Calendar, endTime:Calendar): String {
-        val durMillis = endTime.getTimeInMillis() - startTime.getTimeInMillis()
+        val durMillis = endTime.timeInMillis - startTime.timeInMillis
         val sdf = SimpleDateFormat("h:mm", Locale.getDefault())
         return sdf.format(Date(durMillis*1000))
         /*        return String.format("%02d:%02d:%02d",
@@ -479,11 +485,10 @@ class PlaceholderFragment : BaseFragment()
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(durMillis)))*/
     }
 
-    override fun onEventClick(event: WeekViewEvent, eventRect: RectF) {
+    override fun onEventClick(event: WeekViewEvent, eventRect: RectF, translateRect: Rect) {
   //      Toast.makeText(context, "Clicked ${event.name}" , Toast.LENGTH_LONG).show()
         // Gets the layout params that will allow you to resize the layout
 /*
-
         val relativeParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT)
@@ -496,38 +501,127 @@ class PlaceholderFragment : BaseFragment()
             setVisibility(View.VISIBLE)
         }
 */
-        val window : Window  = activity!!.getWindow()
-/*		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-		window.setStatusBarColor(resources.getColor(R.color.backgroundWhite))*/
-
-      //  calendar_fragment.setBackgroundColor(Color.BLACK)
+        val window : Window  = activity!!.window
         window.setBackgroundDrawableResource(R.drawable.color_gradient)
+
+/*        val animation : ValueAnimator = ValueAnimator.ofArgb(event.color, Color.BLACK)
+        animation.addUpdateListener(ValueAnimator.AnimatorUpdateListener() {
+            fun onAnimationUpdate (animaton: ValueAnimator){
+                val value: Int = animation.getAnimatedValue() as Int
+                event.setColor(value)
+            }
+         })
+        animation.setInterpolator(LinearInterpolator())
+        animation.setDuration(1000)
+        animation.start()*/
+
    //     calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
         scaleAnim(calendar_fragment, 1.0f, 0.97f, false)
+        val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
 
-       val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
-     /*   val anim_in = AnimationUtils.loadAnimation(this.context!!, R.anim.mydialog_translate)
-        anim_in.duration = 300
-        dialog.startAnimation(anim_in)*/
-        val colorFilter = PorterDuffColorFilter(event.color, PorterDuff.Mode.MULTIPLY)
-        val colorFilter2 = PorterDuffColorFilter(event.color, PorterDuff.Mode.SCREEN)
 
-        dialog.pop_customer_name.text = event.name
-        dialog.pop_customer_status.text = "Past"
-        dialog.pop_time.text = getEventTime(event.startTime) + " (${getEventDurationTime(event.startTime, event.endTime)})"
-        dialog.pop_menu.text = event.location
-        dialog.pop_memo.text = event.color.toString()
-        dialog.pop_modifiedDate.text = getEventTime(event.startTime)
+        val displaymetrics : DisplayMetrics = DisplayMetrics()
+        window.windowManager.defaultDisplay.getMetrics(displaymetrics)
+        val width : Int = displaymetrics.widthPixels
+        val height : Int = displaymetrics.heightPixels
+        var boolX : Int = 1
+        var boolY : Int = 1
+/*
+        val afterWidth : Int = ( width -  dialog.width )/2
+        val afterHeight : Int = ( height -  dialog.height )/2
 
-        dialog.getBackground().setColorFilter(colorFilter)
-        dialog.pop_customer_image.setColorFilter(colorFilter)
-        dialog.pop_ic_time.setColorFilter(colorFilter2)
-        dialog.pop_ic_memo.setColorFilter(colorFilter2)
-        dialog.pop_ic_menu.setColorFilter(colorFilter2)
+        if (translateRect.top < afterHeight) boolY = -1
+        if (translateRect.left < afterHeight) boolX = -1
 
+        val percentageX : Float = ((translateRect.left*100) / afterWidth * boolX).toFloat()
+        val percentageY : Float = ((translateRect.top*100) / afterHeight * boolY).toFloat()*/
+
+
+       //val anim_in = AnimationUtils.loadAnimation(this.context!!, R.anim.mydialog_translate)
+ //       val translateAnimation   = TranslateAnimation(percentageX, 0f, percentageY,0f)
+
+        val x1 = translateRect.left
+        val y1 = translateRect.top
+
+        val w1 = eventRect.width()
+        val h1 = eventRect.height()
+        dialog.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val w2 = dialog.measuredWidth//dialog.measuredWidth
+        val h2 = dialog.measuredHeight//height
+
+        val centeredX : Int = ( width -  w2 )/2
+        val centeredY : Int = ( height -  h2 )/2
+
+        val normalizedW = w1/w2
+        val normalizedH = h1/h2
+
+        val x2 = centeredX //afterWidth
+        val y2 = centeredY // afterHeight
+
+        Logger.log("onEventClick: width: ${width}, height : ${height} \t w1: ${w1}, h1 : ${h1}")
+        Logger.log("onEventClick: x1: ${x1}, y1 : ${y1} \t w1: ${w1}, h1 : ${h1}")
+        Logger.log("onEventClick: x2: ${x2}, y2 : ${y2} \t w2: ${w2}, h2 : ${h2}")
+
+/*
+       val translateAnimation   = TranslateAnimation(Animation.ABSOLUTE, x1.toFloat(), Animation.ABSOLUTE, centeredX.toFloat(),
+                Animation.ABSOLUTE, y1.toFloat() ,Animation.ABSOLUTE, centeredY.toFloat())
+        val alphaAnimation = AlphaAnimation(0.0f, 1.0f)
+        val scaleAnimation = ScaleAnimation(w1,w2.toFloat(),h1,h2.toFloat(),0.5f,0.5f)
+
+*/
+// 1
+        val positionAnimatorX = ValueAnimator.ofFloat(x1.toFloat(), centeredX.toFloat())
+        val positionAnimatorY = ValueAnimator.ofFloat(y1.toFloat(), centeredY.toFloat())
+
+        positionAnimatorX.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.translationX = value
+        }
+        positionAnimatorY.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.translationY = value
+        }
+// 2
+        val scaleAnimatorW = ValueAnimator.ofFloat(normalizedW, 1.0.toFloat())
+        val scaleAnimatorH= ValueAnimator.ofFloat(normalizedH, 1.0.toFloat())
+
+        scaleAnimatorW.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.scaleX = value
+        }
+        scaleAnimatorH.addUpdateListener {
+            val value = it.animatedValue as Float
+            dialog.scaleY = value
+        }
+
+// 3
+        val alphaAnimator = ObjectAnimator.ofFloat(dialog, "alpha", 0f, 1f)
+
+// 4
+        val animatorSet = AnimatorSet()
+//        animatorSet.play(positionAnimatorX).with(positionAnimatorY).with(alphaAnimator).with(scaleAnimatorW).with(scaleAnimatorH)
+        animatorSet.playTogether(positionAnimatorX, positionAnimatorY
+        ,alphaAnimator, scaleAnimatorW, scaleAnimatorH)
+        animatorSet.interpolator = OvershootInterpolator()
+        animatorSet.duration = 1600
+        animatorSet.start()
+        //animatorSet.fillBefore
+        //animatorSet.setFillAfter(true)
+        //dialog.startAnimation()
+
+/*        dialog.animate()
+          .x((centeredX).toFloat())
+          .y((centeredY).toFloat())*/
+
+           //     .scaleX( w2 / w1)
+           //     .scaleY(w2 / w1)
+          //      .translationX(centeredX - x1 - w1 * (1 - (w2 / w1)) / 2)
+          //      .translationY(centeredY - y1 - h1 * (1 - (h2 / h1)) / 2)
+       // anim_in.duration = 300
+        //dialog.startAnimation(anim_in)*/
+
+        fillDialogData(event, dialog)
         //Show Tooltip Window
-
        SwipeDismissDialog.Builder(this.context!!)
                // .setLayoutResId(R.layout.popup_event_detail)
                 .setView(dialog)
@@ -568,6 +662,24 @@ class PlaceholderFragment : BaseFragment()
 */
     }
 
+    private fun fillDialogData(event: WeekViewEvent, dialog: View) {
+        val colorFilter = PorterDuffColorFilter(event.color, PorterDuff.Mode.MULTIPLY)
+        val colorFilter2 = PorterDuffColorFilter(event.color, PorterDuff.Mode.SCREEN)
+
+        dialog.pop_customer_name.text = event.name
+        dialog.pop_customer_status.text = "Past"
+        dialog.pop_time.text = getEventTime(event.startTime) + " (${getEventDurationTime(event.startTime, event.endTime)})"
+        dialog.pop_menu.text = event.location
+        dialog.pop_memo.text = event.color.toString()
+        dialog.pop_modifiedDate.text = getEventTime(event.startTime)
+
+        dialog.background.colorFilter = colorFilter
+        dialog.pop_customer_image.colorFilter = colorFilter
+        dialog.pop_ic_time.colorFilter = colorFilter2
+        dialog.pop_ic_memo.colorFilter = colorFilter2
+        dialog.pop_ic_menu.colorFilter = colorFilter2
+    }
+
     fun scaleAnim (objectTo :View, fromScale:Float, toScale:Float, zoomIn:Boolean){
        val scaleAnim  = ScaleAnimation(
                 fromScale, toScale,
@@ -575,20 +687,20 @@ class PlaceholderFragment : BaseFragment()
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF , 1.0f)
 
-        scaleAnim.setRepeatCount(0)
+        scaleAnim.repeatCount = 0
         if (zoomIn) {
-            scaleAnim.setDuration(500)
-            scaleAnim.setInterpolator(OvershootInterpolator())
+            scaleAnim.duration = 500
+            scaleAnim.interpolator = OvershootInterpolator()
         }
         else {
-            scaleAnim.startOffset = 300
-            scaleAnim.setDuration(600)
-            scaleAnim.setInterpolator(OvershootInterpolator())
+            //scaleAnim.startOffset = 300
+            scaleAnim.duration = 600
+            scaleAnim.interpolator = OvershootInterpolator()
         }
 
-        scaleAnim.setFillAfter(true)
-        scaleAnim.setFillBefore(true)
-        scaleAnim.setFillEnabled(true)
+        scaleAnim.fillAfter = true
+        scaleAnim.fillBefore = true
+        scaleAnim.isFillEnabled = true
 
         objectTo.startAnimation(scaleAnim)
     }
@@ -597,14 +709,15 @@ class PlaceholderFragment : BaseFragment()
         var cx: Float = 0.toFloat()
         var cy:Float = 0.toFloat()
 
-        public override fun initialize (width: Int, height: Int, parentWidth: Int, parentHeight: Int ){
+        override fun initialize (width: Int, height: Int, parentWidth: Int, parentHeight: Int ){
             super.initialize(width, height, parentWidth, parentHeight)
             cx = (width/2).toFloat()
             cy = (height/2).toFloat()
-            setDuration(3000)
-            this.setInterpolator(OvershootInterpolator())
+            duration = 3000
+            this.interpolator = OvershootInterpolator()
         }
-        protected override fun applyTransformation (interpolatedTime: Float, t: Transformation)
+
+        override fun applyTransformation (interpolatedTime: Float, t: Transformation)
         {
             val cam = Camera()
             val iTime = 2 * interpolatedTime
@@ -641,8 +754,8 @@ class PlaceholderFragment : BaseFragment()
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.salon_main, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.salon_main, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -663,12 +776,12 @@ class PlaceholderFragment : BaseFragment()
                 if (mWeekViewType != TYPE_DAY_VIEW) {
                     item.isChecked = !item.isChecked
                     mWeekViewType = TYPE_DAY_VIEW
-                    weekView.setNumberOfVisibleDays(1)
+                    weekView.numberOfVisibleDays = 1
 
                     // Lets change some dimensions to best fit the view.
-                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
-                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
-                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
                 }
                 return true
             }
@@ -676,12 +789,12 @@ class PlaceholderFragment : BaseFragment()
                 if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
                     item.isChecked = !item.isChecked
                     mWeekViewType = TYPE_THREE_DAY_VIEW
-                    weekView.setNumberOfVisibleDays(3)
+                    weekView.numberOfVisibleDays = 3
 
                     // Lets change some dimensions to best fit the view.
-                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt())
-                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
-                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt())
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
                 }
                 return true
             }
@@ -689,12 +802,12 @@ class PlaceholderFragment : BaseFragment()
                 if (mWeekViewType != TYPE_WEEK_VIEW) {
                     item.isChecked = !item.isChecked
                     mWeekViewType = TYPE_WEEK_VIEW
-                    weekView.setNumberOfVisibleDays(7)
+                    weekView.numberOfVisibleDays = 7
 
                     // Lets change some dimensions to best fit the view.
-                    weekView.setColumnGap(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics).toInt())
-                    weekView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
-                    weekView.setEventTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt())
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt()
                 }
                 return true
             }

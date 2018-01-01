@@ -34,6 +34,7 @@
         app:bb_inActiveTabColor="@color/bottomBarInactiveColor"
         app:bb_inActiveTabAlpha="0.6"
         app:bb_longPressHintsEnabled="true"
+        app:bb_badgeBackgroundColor="@color/colorAccent"
         app:bb_showShadow="true"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_titleTextAppearance="@style/BottomBarText" />

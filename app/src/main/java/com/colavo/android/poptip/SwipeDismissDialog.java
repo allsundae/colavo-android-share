@@ -1,5 +1,6 @@
 package com.colavo.android.poptip;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
@@ -49,9 +52,9 @@ public class SwipeDismissDialog extends FrameLayout {
         LayoutParams layoutParams = (LayoutParams) dialog.getLayoutParams();
         if (layoutParams == null) {
             layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+                    ViewGroup.LayoutParams.WRAP_CONTENT);//, Gravity.CENTER
         } else {
-            layoutParams.gravity = Gravity.CENTER;
+            //layoutParams.gravity = Gravity.CENTER;
         }
         dialog.setOnTouchListener(touchListener);
         addView(dialog, layoutParams);

@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_salons.*
 import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
+import com.simmorsal.recolor_project.ReColor
 
 
 class SalonListActivity : BaseActivity()
@@ -49,7 +50,7 @@ class SalonListActivity : BaseActivity()
         {
             getSupportActionBar()?.setElevation(0F);
         }
-
+        ReColor(this).setNavigationBarColor(null, "8E80E7", 500)
 
         (application as App).addSalonsComponent().inject(this)
         salonsAdapter = SalonsAdapter(this, mutableListOf<SalonModel>())

@@ -1,5 +1,8 @@
 package com.colavo.android.weekview;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -8,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -37,6 +41,7 @@ import android.view.ScaleGestureDetector;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.OverScroller;
 
@@ -147,7 +152,7 @@ public class WeekView extends View {
     private int mTodayBackgroundColor = Color.rgb(239, 247, 254);
     private int mHourSeparatorHeight = 2;
     private int mTodayHeaderTextColor = Color.rgb(39, 137, 228);
-    private int mPressedColor = Color.argb(30,0,0,0);
+    private int mPressedColor = Color.argb(90,0,0,0);
     private int mEventTextSize = 12;
     private int mEventTextColor = Color.BLACK;
     private int mEventPadding = 8;
@@ -298,11 +303,43 @@ public class WeekView extends View {
             if (mEventRects != null && mEventClickListener != null) {
                 List<EventRect> reversedEventRects = mEventRects;
                 Collections.reverse(reversedEventRects);
-                for (EventRect event : reversedEventRects) {
+                for (final EventRect event : reversedEventRects) {
                     if (event.rectF != null && e.getX() > event.rectF.left && e.getX() < event.rectF.right && e.getY() > event.rectF.top && e.getY() < event.rectF.bottom) {
-                        mEventClickListener.onEventClick(event.originalEvent, event.rectF);
+
+                        Rect translatedRect = new Rect();
+                        translatedRect.left = (int) event.rectF.left + WeekView.super.getLeft() - WeekView.super.computeHorizontalScrollOffset();// e.getRawX();//event.rectF.left + WeekView.super.getLeft(); //
+                        translatedRect.top = (int) event.rectF.top + WeekView.super.getTop() - WeekView.super.computeVerticalScrollOffset();//e.getRawY();//event.rectF.top + WeekView.super.getTop();//
+/*
+//For coordinates location relative to the parent
+                        anyView.getLocalVisibleRect(translated);
+//For coordinates location relative to the screen/display
+                        getLocationOnScreen
+                        final  int[] globalPos = new  int[2];
+                        getLocationOnScreen(globalPos);
+                        int  x = globalPos[0];
+                        int  y = globalPos[1];
+*/
+
+
+                        mEventClickListener.onEventClick(event.originalEvent, event.rectF, translatedRect);
+
+                       /* ValueAnimator animation= ValueAnimator.ofArgb(event.event.getColor(),mPressedColor, event.event.getColor());
+                        animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                int value = (int) animation.getAnimatedValue()
+                                //Clear the canvas
+                                event.event.setColor(value)
+                                //Need to manually call invalidate to redraw the view
+                                WeekView.super.getRootView().invalidate();
+                            }
+                        });
+                        animation.setInterpolator(new LinearInterpolator());
+                        animation.setDuration(1000);
+                        animation.start();*/
+
                         //event.event.setColor(mPressedColor);
-                        event.centerX = event.centerX+100;
+                        //event.centerX = event.left+100;
                         playSoundEffect(SoundEffectConstants.CLICK);
                         ViewCompat.postInvalidateOnAnimation(WeekView.this);
                         return super.onSingleTapConfirmed(e);
@@ -321,6 +358,11 @@ public class WeekView extends View {
 
             return super.onSingleTapConfirmed(e);
         }
+
+        public void doAnimate(){
+
+        }
+
 
         @Override
         public void onLongPress(MotionEvent e) {
@@ -2370,7 +2412,7 @@ public class WeekView extends View {
          * @param event: event clicked.
          * @param eventRect: view containing the clicked event.
          */
-        void onEventClick(WeekViewEvent event, RectF eventRect);
+        void onEventClick(WeekViewEvent event, RectF eventRect, Rect translatedRect);
     }
 
     public interface EventLongPressListener {

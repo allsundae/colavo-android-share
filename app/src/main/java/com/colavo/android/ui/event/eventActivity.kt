@@ -1,5 +1,6 @@
 package com.colavo.android.ui.event
 
+import android.graphics.Rect
 import android.graphics.RectF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -27,7 +28,7 @@ import java.util.*
 class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener, WeekView.EventClickListener
                 , MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener{
 
-    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?) {
+    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?, translatedRect: Rect?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
