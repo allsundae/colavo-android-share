@@ -78,8 +78,9 @@ class PlaceholderFragment : BaseFragment()
         toolBar.title = ""//salon.name
       //  toolBar.setTitleTextAppearance(this.context!!,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)
-        spinner_designer.prompt = salon.name
 
+        // Show Dropdown spinner on Tool bar
+        spinner_designer.prompt = salon.name
         val designer_list = ArrayList<String>()
         designer_list.add(salon.name)
         designer_list.add("Name")
@@ -93,7 +94,6 @@ class PlaceholderFragment : BaseFragment()
         // The week view has infinite scrolling horizontally. We have to provide the events of a
         // month every time the month changes on the week view.
         weekView.monthChangeListener = this
-
         // Set long press listener for events.
         weekView.eventLongPressListener = this
         // Set long press listener for empty view
@@ -124,7 +124,7 @@ class PlaceholderFragment : BaseFragment()
 
         var startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 1)
-        startTime.set(Calendar.MINUTE, 0)
+        startTime.set(Calendar.MINUTE, 15)
         startTime.set(Calendar.MONTH, newMonth - 1)
         startTime.set(Calendar.YEAR, newYear)
         var endTime = startTime.clone() as Calendar
@@ -518,7 +518,7 @@ class PlaceholderFragment : BaseFragment()
         animation.start()*/
 
    //     calendar_fragment.setBackgroundResource(R.drawable.ic_rounded)
-        scaleAnim(calendar_fragment, 1.0f, 0.97f, false)
+        scaleAnim(calendar_fragment, 1.0f, 0.99f, false)
         val dialog = LayoutInflater.from(this.context!!).inflate(R.layout.popup_event_detail, null)
 
         val width : Int = displaymetrics.widthPixels
@@ -579,7 +579,7 @@ class PlaceholderFragment : BaseFragment()
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(positionAnimatorX, positionAnimatorY
                                  ,alphaAnimator, scaleAnimatorW, scaleAnimatorH)
-        animatorSet.interpolator = OvershootInterpolator(1.0f)
+        animatorSet.interpolator = OvershootInterpolator(0.8f)
         animatorSet.duration = 500
         animatorSet.start()
 
@@ -593,20 +593,16 @@ class PlaceholderFragment : BaseFragment()
                 .setOnCancelListener(object : OnCancelListener {
                     override fun onCancel(view: View) {
    //                     Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
-                        scaleAnim(calendar_fragment, 0.97f, 1f, true)
+                        scaleAnim(calendar_fragment, 0.99f, 1f, true)
                         calendar_fragment.setBackgroundColor(resources.getColor(R.color.backgroundWhite))
-                        calendar_fragment.pivotX = 0.5f
-                        calendar_fragment.pivotY = 1.0f
                         //calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
                     }
                 })
                 .setOnSwipeDismissListener(object : OnSwipeDismissListener {
                     override fun onSwipeDismiss(view: View, direction: SwipeDismissDirection) {
     //                    Toast.makeText(context, "Swipe dismissed to: " + direction, Toast.LENGTH_SHORT).show()
-                        scaleAnim(calendar_fragment, 0.97f, 1f, true)
+                        scaleAnim(calendar_fragment, 0.99f, 1f, true)
                         calendar_fragment.setBackgroundColor(resources.getColor(R.color.backgroundWhite))
-                        calendar_fragment.pivotX = 0.5f
-                        calendar_fragment.pivotY = 1.0f
                         //calendar_fragment.setBackgroundResource(R.drawable.ic_nonerounded)
                     }
                 })
@@ -649,7 +645,7 @@ class PlaceholderFragment : BaseFragment()
     }
 
     fun scaleAnim (objectTo :View, fromScale:Float, toScale:Float, zoomIn:Boolean){
-        val scaleAnim  = ScaleAnimation(
+   /*     val scaleAnim  = ScaleAnimation(
                 fromScale, toScale,
                 fromScale, toScale,
                 Animation.RELATIVE_TO_SELF, 0.5f,
@@ -672,10 +668,9 @@ class PlaceholderFragment : BaseFragment()
         scaleAnim.fillBefore = true
         scaleAnim.isFillEnabled = true
 
-      objectTo.startAnimation(scaleAnim)
-/*
-        objectTo.pivotX = 1.0f
-        objectTo.pivotY = 1.0f
+      objectTo.startAnimation(scaleAnim)*/
+
+
 
         var alphaAnimator = ObjectAnimator.ofFloat(objectTo, "alpha", 1f, 0.7f)
 
@@ -690,13 +685,13 @@ class PlaceholderFragment : BaseFragment()
 
         scaleAnimatorW.addUpdateListener {
             val value = it.animatedValue as Float
-
             objectTo.scaleX = value
+            objectTo.pivotX = objectTo.width / 2f
         }
         scaleAnimatorH.addUpdateListener {
             val value = it.animatedValue as Float
-
             objectTo.scaleY = value
+            objectTo.pivotY = objectTo.height.toFloat()
         }
 
         scaleAnimatorW.interpolator = OvershootInterpolator (4.0f)
@@ -710,7 +705,7 @@ class PlaceholderFragment : BaseFragment()
                 alphaAnimator, scaleAnimatorW, scaleAnimatorH)
         //animatorSet.interpolator = AccelerateDecelerateInterpolator()
         //animatorSet.duration = 500
-        animatorSet.start()*/
+        animatorSet.start()
     }
 
     class CameraAnim : Animation() {

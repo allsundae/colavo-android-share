@@ -140,6 +140,7 @@ public class WeekView extends View {
     private int mHeaderRowPadding = 10;
     private int mTimelineMarginTop = 30;
     private int mHeaderRowBackgroundColor = Color.WHITE;
+    private int mHeaderNumofEventColor = Color.parseColor("#EDEDF0"); //TODO Weekview
     private int mHeaderTodayTabColor = Color.RED; //TODO Weekview
     private int mDayBackgroundColor = Color.rgb(245, 245, 245);
     private int mPastBackgroundColor = Color.rgb(227, 227, 227);
@@ -194,8 +195,6 @@ public class WeekView extends View {
     Typeface font2 = Typeface.createFromAsset(mngr, "Poppins-Light.ttf");
 
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
-
-
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -309,37 +308,10 @@ public class WeekView extends View {
                         Rect translatedRect = new Rect();
                         translatedRect.left = (int) event.rectF.left + WeekView.super.getLeft() - WeekView.super.computeHorizontalScrollOffset();// e.getRawX();//event.rectF.left + WeekView.super.getLeft(); //
                         translatedRect.top = (int) event.rectF.top + WeekView.super.getTop() - WeekView.super.computeVerticalScrollOffset();//e.getRawY();//event.rectF.top + WeekView.super.getTop();//
-/*
-//For coordinates location relative to the parent
-                        anyView.getLocalVisibleRect(translated);
-//For coordinates location relative to the screen/display
-                        getLocationOnScreen
-                        final  int[] globalPos = new  int[2];
-                        getLocationOnScreen(globalPos);
-                        int  x = globalPos[0];
-                        int  y = globalPos[1];
-*/
-
 
                         mEventClickListener.onEventClick(event.originalEvent, event.rectF, translatedRect);
 
-                       /* ValueAnimator animation= ValueAnimator.ofArgb(event.event.getColor(),mPressedColor, event.event.getColor());
-                        animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator animation) {
-                                int value = (int) animation.getAnimatedValue()
-                                //Clear the canvas
-                                event.event.setColor(value)
-                                //Need to manually call invalidate to redraw the view
-                                WeekView.super.getRootView().invalidate();
-                            }
-                        });
-                        animation.setInterpolator(new LinearInterpolator());
-                        animation.setDuration(1000);
-                        animation.start();*/
-
-                        //event.event.setColor(mPressedColor);
-                        //event.centerX = event.left+100;
+                        event.event.setColor(mPressedColor);
                         playSoundEffect(SoundEffectConstants.CLICK);
                         ViewCompat.postInvalidateOnAnimation(WeekView.this);
                         return super.onSingleTapConfirmed(e);
@@ -356,10 +328,11 @@ public class WeekView extends View {
                 }
             }
 
+
             return super.onSingleTapConfirmed(e);
         }
 
-        public void doAnimate(){
+        public void onBack(){
 
         }
 
@@ -702,6 +675,7 @@ public class WeekView extends View {
         // Calculate the available width for each day.
         //mNumberOfVisibleDays = 7; //TODO Scroll
         mHeaderColumnWidth = mTimeTextWidth + mHeaderColumnPadding *2;
+  //      mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
         mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
         mWidthPerDay = mWidthPerDay/mNumberOfVisibleDays;
 
@@ -1190,6 +1164,9 @@ public class WeekView extends View {
      * @param canvas The canvas to draw upon.
      */
     private void drawNumofEvents(Calendar date, float startFromPixel, Canvas canvas) {
+        Calendar today = today();
+        boolean IsToday = isSameDay(date, today);
+
         if (mEventRects != null && mEventRects.size() > 0) {
             for (int i = 0; i < mEventRects.size(); i++) {
                 if (isSameDay(mEventRects.get(i).event.getStartTime(), date) /*&& mEventRects.get(i).event.isAllDay()*/){
@@ -1227,12 +1204,15 @@ public class WeekView extends View {
                             bottom > 0
                             ) {
                         //mEventRects.get(i).rectF = new RectF(left, top, right, bottom);
-                        mEventBackgroundPaint.setColor(mEventRects.get(i).event.getColor() == 0 ? mDefaultEventColor : mEventRects.get(i).event.getColor());
+
+                        //mEventBackgroundPaint.setColor(mEventRects.get(i).event.getColor() == 0 ? mDefaultEventColor : mEventRects.get(i).event.getColor());
+                        mEventBackgroundPaint.setColor(IsToday ? mHeaderTodayTabColor : mHeaderNumofEventColor); // mDefaultEventColor : mEventRects.get(i).event.getColor()
                         //canvas.drawRoundRect(mEventRects.get(i).rectF, mEventCornerRadius, mEventCornerRadius, mEventBackgroundPaint);
                         //drawEventTitle(mEventRects.get(i).event, mEventRects.get(i).rectF, canvas, top, left);
 
                         //TODO Weekview
                         //mEventTextPaint.setTextAlign(Paint.Align.CENTER);
+                        mNumOfEventTextPaint.setColor(IsToday? Color.parseColor("#FFFFFF") : mTodayHeaderTextColor);
                         canvas.drawCircle(mEventRects.get(i).centerX, mEventRects.get(i).centerY, 30, mEventBackgroundPaint );
                         canvas.drawText(Integer.toString(numberOfDayEvents), mEventRects.get(i).centerX , mEventRects.get(i).centerY + 14, mNumOfEventTextPaint);
                     }

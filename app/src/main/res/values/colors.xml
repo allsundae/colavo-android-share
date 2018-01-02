@@ -22,6 +22,7 @@
 
     <color name="colorTodayTab">#FF718A</color>
     <color name="colorCalendarBackground">#F9F9F9</color>
+    <color name="colorCalendarPastBackground">#dedede</color>
     <color name="bottomBarInactiveColor">#A0B4C2</color>
 
     <color name="customerPlaceholderColor">#7BDDE5</color>

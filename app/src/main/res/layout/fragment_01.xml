@@ -56,6 +56,7 @@
 
         app:columnGap="0dp"
         app:dayBackgroundColor="@color/colorCalendarBackground"
+        app:pastBackgroundColor="@color/colorCalendarPastBackground"
         app:eventCornerRadius="8dp"
         app:eventMarginVertical="2dp"
         app:eventPadding="6dp"
@@ -63,13 +64,14 @@
         app:eventTextSize="10dp"
         app:headerColumnBackground="#ffffffff"
 
+
         app:headerColumnPadding="16dp"
         app:headerColumnTextColor="#4f000000"
 
         app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerRowPadding="25dp"
         app:headerTodayTabColor="@color/colorTodayTab"
-        app:hourHeight="80dp"
+        app:hourHeight="90dp"
         app:hourSeparatorColor="#DDE0E2"
         app:noOfVisibleDays="5"
         app:nowLineColor="#FE7C92"
