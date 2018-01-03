@@ -10,6 +10,7 @@ import com.colavo.android.entity.event.EventModel
 import com.colavo.android.entity.session.User
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.SimpleCallback
+import java.util.*
 
 
 class CheckoutMapper {
@@ -20,7 +21,7 @@ class CheckoutMapper {
             val checkoutModel = CheckoutModel()
             checkoutModel.checkout_uid = baseCheckout.checkout_uid
             checkoutModel.salon_key = baseCheckout.salon_key
-            checkoutModel.event_key = baseCheckout.event_key
+      /*      checkoutModel.event_key = baseCheckout.event_key
             checkoutModel.price = baseCheckout.price
             checkoutModel.is_manual_price = baseCheckout.is_manual_price
             checkoutModel.reserve_fund = baseCheckout.reserve_fund
@@ -31,7 +32,7 @@ class CheckoutMapper {
             checkoutModel.updated_at = baseCheckout.updated_at
             checkoutModel.reserveFund = baseCheckout.reserveFund
             checkoutModel.paidFund = baseCheckout.paidFund
-            checkoutModel.tip = baseCheckout.tip
+            checkoutModel.tip = baseCheckout.tip*/
 
             //checkoutModel.user_name = baseCheckout.
 /*                    getCustomerKeybySalonEventKey(baseCheckout.salon_key, baseCheckout.event_key,
@@ -54,28 +55,37 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity ): CheckoutModel { //,  customerEntity: CustomerEntity
+            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity ): CheckoutModel { //,  customerEntity: CustomerEntity
                 val checkoutModel = CheckoutModel()
-                checkoutModel.checkout_uid = checkoutEntity.checkout_uid
-                checkoutModel.salon_key = checkoutEntity.salon_key
-                checkoutModel.event_key = checkoutEntity.event_key
-                checkoutModel.price = checkoutEntity.price
-                checkoutModel.is_manual_price = checkoutEntity.is_manual_price
-                checkoutModel.reserve_fund = checkoutEntity.reserve_fund
-                checkoutModel.paid_fund = checkoutEntity.paid_fund
-                checkoutModel.author_employee_key = checkoutEntity.author_employee_key
-                checkoutModel.paid_types = checkoutEntity.paid_types
+                checkoutModel.checkout_key = checkoutEntity.checkout_key
                 checkoutModel.created_at = checkoutEntity.created_at
                 checkoutModel.updated_at = checkoutEntity.updated_at
-                checkoutModel.reserveFund = checkoutEntity.reserveFund
-                checkoutModel.paidFund = checkoutEntity.paidFund
-                checkoutModel.tip = checkoutEntity.tip
+                checkoutModel.begin_at = checkoutEntity.begin_at
+                checkoutModel.end_at = checkoutEntity.end_at
+                checkoutModel.employee_only_event_title = checkoutEntity.employee_only_event_title
+                checkoutModel.booked_by_customer = checkoutEntity.booked_by_customer
+                checkoutModel.salon_key = checkoutEntity.salon_key
+                checkoutModel.employee_key = checkoutEntity.employee_key
                 checkoutModel.customer_key = checkoutEntity.customer_key
-                checkoutModel.customer_name = checkoutEntity.customer_name
-                checkoutModel.customer_image_full = checkoutEntity.customer_image_full
-                checkoutModel.customer_image_thumb = checkoutEntity.customer_image_thumb
-                checkoutModel.customer_menu = checkoutEntity.customer_menu
-                Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutEntity.customer_name} : ${checkoutModel.checkout_uid}")
+                checkoutModel.memo_key = checkoutEntity.memo_key
+                checkoutModel.checkout_key = checkoutEntity.checkout_key
+                checkoutModel.cancel_reason = checkoutEntity.cancel_reason
+                checkoutModel.services = HashMap(checkoutEntity.services)
+                checkoutModel.discounts = HashMap(checkoutEntity.discounts)
+                checkoutModel.logs = HashMap(checkoutEntity.logs)
+                checkoutModel.customer_name = customerEntity.name
+                checkoutModel.service_menus = "Cut, Perm"
+                checkoutModel.customer_image_full = customerEntity.image_urls[0].image_full_url
+                checkoutModel.customer_image_thumb = customerEntity.image_urls[0].image_thumb_url
+
+                val numOfItems = checkoutModel.services.size
+                Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")
+
+ /*               for (x in 1..numOfItems) {
+                    checkoutModel.service_menus = checkoutEntity.services.name
+                }
+ */
+                Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutModel.customer_name} : ${checkoutModel.checkout_uid}")
 /*
 
                if (customerEntity != null){

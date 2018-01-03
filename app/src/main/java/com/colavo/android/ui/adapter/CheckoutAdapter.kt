@@ -41,8 +41,8 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
            // this.checkoutMemo.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "dd-MM-yyyy HH:mm:ss")
-            this.checkoutMenu.text = checkoutModel.customer_menu //+ " ${checkoutModel.checkout_uid}"
-            this.checkoutMemo.text ="${checkoutModel.event_key}"
+            this.checkoutMenu.text = checkoutModel.service_menus //+ " ${checkoutModel.checkout_uid}"
+            this.checkoutMemo.text ="${checkoutModel.checkout_uid}"
 
            // this.checkoutImage.loadUrl(checkoutModel.image)
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()

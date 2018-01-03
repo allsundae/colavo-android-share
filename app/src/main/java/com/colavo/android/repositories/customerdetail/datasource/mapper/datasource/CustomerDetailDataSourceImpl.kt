@@ -103,7 +103,7 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
 
     private fun getCustomerbySalonKey(salon_key: String?) : Observable<CustomerEntity>  {
         Logger.log("getCustomerbySalonKey: ${salon_key}")
-        return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonId(salon_key ?: "")
+        return retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(salon_key ?: "")
     }
 
 

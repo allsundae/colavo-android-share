@@ -2,7 +2,6 @@ package com.colavo.android.repositories.customer.datasource
 
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
-import com.colavo.android.entity.customer.ImageUrl
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.customer.CustomerQuery
 import com.colavo.android.entity.response.FirebaseResponse
@@ -109,7 +108,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
 
     private fun getCustomerbySalonKey(uid: String?)
-            : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerBySalonId(uid ?: "")
+            : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(uid ?: "")
 
 /*    private fun getNumberofCustomer : Int (){
 
