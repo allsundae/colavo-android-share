@@ -24,7 +24,6 @@ class SalonMapper {
 //todo
 
             if (user != null) {
-                if (user.name != null)
                     salonModel.owner = user.name //todo address lastEventUser
             }
             return salonModel
@@ -39,7 +38,7 @@ class SalonMapper {
                 salonModel.owner_uid = salonEntity.owner_uid
 
                 if (user != null) {
-                    if (user.name != null)
+                    if (true)
                         salonModel.owner = user.name //todo address lastEventUser
                 }
                 return salonModel

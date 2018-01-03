@@ -8,8 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.base.BaseActivity
+import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.ui.login.LoginActivity
+import com.colavo.android.utils.Logger
 import javax.inject.Inject
 import com.tsengvn.typekit.TypekitContextWrapper
 
@@ -20,14 +22,50 @@ class MainActivity : BaseActivity(){
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
-
-        super.onCreate(savedInstanceState)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Logger.log("onRestoreInstanceState : START ")
 
         (application as App).appComponent.inject(this)
 
+        val bundle  = savedInstanceState?.getParcelable(SalonMainActivity.BUNDLE_KEY) as Bundle
+
+        if(firebaseAuth.currentUser != null) {
+                val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
+                Logger.log("onRestoreInstanceState : ${salonModel.name} ")
+                val intent = Intent(this, SalonMainActivity::class.java)
+                intent.putExtra(SalonListActivity.EXTRA_CONVERSATION, salonModel)
+                startActivity(intent)
+                finish()
+        }
+        else openLoginActivity()
+
+        finish()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+        (application as App).appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+        Logger.log("MainActivity : onCreate")
+
+        if (savedInstanceState != null){
+            val bundle  = savedInstanceState.getParcelable(SalonMainActivity.BUNDLE_KEY) as Bundle
+            Logger.log("MainActivity : onCreate : ${bundle.toString()} ")
+
+            if(firebaseAuth.currentUser != null) {
+                    val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
+                    Logger.log("MainActivity : onCreate : ${salonModel.name} ")
+                    val intent = Intent(this, SalonMainActivity::class.java)
+                    intent.putExtra(SalonListActivity.EXTRA_CONVERSATION, salonModel)
+                    startActivity(intent)
+                    finish()
+            }
+            else openLoginActivity()
+            finish()
+
+        }
+        else
         initialize()
     }
 

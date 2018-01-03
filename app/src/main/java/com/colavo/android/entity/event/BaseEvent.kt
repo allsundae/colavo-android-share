@@ -3,7 +3,7 @@ package com.colavo.android.entity.event
 import java.io.Serializable
 
 
-open abstract class BaseEvent(
+abstract class BaseEvent(
         var id: String,
         open var created_at: Double,
         open var updated_at: Double,

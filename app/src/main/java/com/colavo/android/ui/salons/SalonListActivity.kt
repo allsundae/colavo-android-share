@@ -14,6 +14,8 @@ import com.colavo.android.base.BaseActivity
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
+import com.colavo.android.ui.SalonMainActivity.Companion.BUNDLE_KEY
+import com.colavo.android.ui.SalonMainActivity.Companion.SAVED_SALON_STATE
 import com.colavo.android.ui.adapter.SalonsAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
@@ -41,9 +43,38 @@ class SalonListActivity : BaseActivity()
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Logger.log("onRestoreInstanceState : START ")
+
+        if (savedInstanceState != null){
+            val bundle  = savedInstanceState.getParcelable(SalonMainActivity.BUNDLE_KEY) as Bundle
+
+                val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
+                Logger.log("onRestoreInstanceState : ${salonModel.name} ")
+                val intent = Intent(this, SalonMainActivity::class.java)
+                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                startActivity(intent)
+                finish()
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salons)
+
+        if (savedInstanceState != null){
+            val bundle  = savedInstanceState.getParcelable(SalonMainActivity.BUNDLE_KEY) as Bundle
+
+                val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
+                Logger.log("onCreate : ${salonModel.name} ")
+                val intent = Intent(this, SalonMainActivity::class.java)
+                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                startActivity(intent)
+                finish()
+        }
+
 
 //        setSupportActionBar(toolBar)
         if(getSupportActionBar() != null)
@@ -121,6 +152,7 @@ class SalonListActivity : BaseActivity()
         //val intent = Intent(this, CustomerListActivity::class.java)
         intent.putExtra(EXTRA_CONVERSATION, salonModel)
         startActivity(intent)
+        finish()
     }
 
     override fun onError(throwable: Throwable) {

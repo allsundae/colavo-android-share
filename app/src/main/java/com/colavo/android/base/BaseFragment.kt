@@ -25,11 +25,11 @@ abstract class BaseFragment : Fragment()  {
     abstract fun getLayout(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater!!.inflate(getLayout(), container, false)
+            = inflater.inflate(getLayout(), container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view?.let {
+        view.let {
             ButterKnife.bind(this@BaseFragment, it)
         }
     }

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
 import com.colavo.android.R
@@ -32,6 +33,7 @@ import kotlinx.android.synthetic.main.popup_event_detail.view.*
 import com.colavo.android.poptip.OnCancelListener
 import com.colavo.android.poptip.OnSwipeDismissListener
 import com.colavo.android.poptip.SwipeDismissDirection
+import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
 import kotlinx.android.synthetic.main.popup_event_detail.*
 import java.util.concurrent.TimeUnit
@@ -816,7 +818,7 @@ class PlaceholderFragment : BaseFragment()
             }
 
             R.id.action_sign_out -> {
-
+                openLoginActivity()
                 return true
             }
 
@@ -825,7 +827,11 @@ class PlaceholderFragment : BaseFragment()
         return super.onOptionsItemSelected(item)
     }
 
-
+    private fun openLoginActivity() {
+        val intent = Intent(this.context, LoginActivity::class.java)
+        intent.putExtra(SalonListActivity.EXTRA_SIGN_OUT, true)
+        startActivity(intent)
+    }
 
 
 

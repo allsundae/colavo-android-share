@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.colavo.android.R
 import kotlinx.android.synthetic.main.activity_salon_main.*
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.View
 import com.colavo.android.entity.salon.SalonModel
@@ -23,6 +24,7 @@ import com.colavo.android.utils.toast
 import com.colavo.android.view.main.presenter.MainPresenter
 import com.simmorsal.recolor_project.ReColor
 import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+import com.colavo.android.utils.Logger
 import com.colavo.android.weekview.WeekView
 import com.roughike.bottombar.BottomBarTab
 import kotlinx.android.synthetic.main.activity_salon_main.view.*
@@ -159,17 +161,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
         window.decorView.systemUiVisibility = vis
     }
 
-
-/*    private fun loadCustomerFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.layout.fragment_04, PlaceholderFragment04(), PlaceholderFragment04::class.simpleName)
-                    .commit()
-        }
-    }*/
-
-    private fun openLoginActivity() {
+    public fun openLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.putExtra(SalonListActivity.EXTRA_SIGN_OUT, true)
         startActivity(intent)
@@ -187,6 +179,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
     override fun onDestroy() {
         super.onDestroy()
         container.removeOnPageChangeListener(this)
+
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -211,6 +204,24 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
 
     }
 
+    override fun onSaveInstanceState(saveBundle: Bundle?) {
+        val bundle = Bundle()
+        val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        bundle.putSerializable(SAVED_SALON_STATE, salonModel)
+/*
+        bundle.putExtra("데이터키값", salon)
+        //저장할 데이터를 번들객체에 저장해서, 다시 복구시 넘어갈 번들안에 계층적으로 저장했다가..
+        //복구시에 번들 안에서 다시 이 저장된 번들객체를 추출해서 처리하게 됩니다.
+*/
+        saveBundle?.putParcelable(BUNDLE_KEY, bundle)
 
+        Logger.log("onSaveInstanceState : ${salonModel.name} ")
+        super.onSaveInstanceState(saveBundle)
+    }
+
+    companion object {
+        val SAVED_SALON_STATE: String = "SALON_STATE"
+        val BUNDLE_KEY: String = "BUNDLE_KEY"
+    }
 
 }

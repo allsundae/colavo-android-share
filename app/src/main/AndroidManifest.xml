@@ -33,6 +33,7 @@
             android:name=".ui.SalonMainActivity"
             android:label="@string/title_activity_salon_main"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
             android:parentActivityName=".ui.salons.SalonListActivity"
             />
 

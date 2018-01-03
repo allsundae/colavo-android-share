@@ -37,8 +37,8 @@ class CustomerMapper {
                 customerModel.phone = customerEntity.phone
                 customerModel.national_phone = customerEntity.national_phone
                 customerModel.name = customerEntity.name
-                customerModel.image_urls[0]?.image_full_url = customerEntity.image_urls[0]?.image_full_url// customerEntity.image_urls!!.image_full_url
-                customerModel.image_urls[0]?.image_thumb_url = customerEntity.image_urls[0]?.image_thumb_url
+                customerModel.image_urls[0].image_full_url = customerEntity.image_urls[0].image_full_url// customerEntity.image_urls!!.image_full_url
+                customerModel.image_urls[0].image_thumb_url = customerEntity.image_urls[0].image_thumb_url
                 customerModel.recent_appointment_begin_at = customerEntity.recent_appointment_begin_at
                 customerModel.recent_appointment_end_at = customerEntity.recent_appointment_end_at
                 customerModel.is_removed = customerEntity.is_removed

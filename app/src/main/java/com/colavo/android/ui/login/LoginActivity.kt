@@ -35,7 +35,7 @@ class LoginActivity : BaseActivity(), LoginView {
         if(intent.extras?.getBoolean(SalonListActivity.EXTRA_SIGN_OUT) ?: false) loginPresenter.signOut()
 
         val string = resources.getString(R.string.tnc)
-        guideline_text.setText(Html.fromHtml(string))
+        guideline_text.text = Html.fromHtml(string)
 
     }
 

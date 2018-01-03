@@ -311,7 +311,8 @@ public class WeekView extends View {
 
                         mEventClickListener.onEventClick(event.originalEvent, event.rectF, translatedRect);
 
-                        event.event.setColor(mPressedColor);
+                        //event.event.setColor(mPressedColor);
+
                         playSoundEffect(SoundEffectConstants.CLICK);
                         ViewCompat.postInvalidateOnAnimation(WeekView.this);
                         return super.onSingleTapConfirmed(e);

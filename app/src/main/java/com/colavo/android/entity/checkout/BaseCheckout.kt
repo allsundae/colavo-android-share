@@ -5,7 +5,7 @@ import java.net.URL
 import java.sql.Timestamp
 
 
-open abstract class BaseCheckout(
+abstract class BaseCheckout(
         var checkout_uid: String,
         open var salon_key: String,                 //required,,,,
         open var event_key: String,                //required
