@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundWhite">#fafafa</color>
+    <color name="backgroundWhite">#fefefe</color>
     <color name="colorPrimary">#9a86ee</color>
     <color name="colorPrimaryDark">#9f9f9f</color>
     <color name="colorAccent">#9a86ee</color>
@@ -21,12 +21,14 @@
     <color name="buttonFlatPanelBG">#8e80e7</color>
 
     <color name="colorTodayTab">#FF718A</color>
-    <color name="colorCalendarBackground">#F8F8F8</color>
+    <color name="colorCalendarBackground">#F9F9F9</color>
+    <color name="colorCalendarPastBackground">#dedede</color>
     <color name="bottomBarInactiveColor">#A0B4C2</color>
 
     <color name="customerPlaceholderColor">#7BDDE5</color>
     <color name="toolBarIcon">#C5D2DC</color>
 
     <color name="checkoutMemoTextColor">#D9CCC2</color>
+    <color name="buttonPrimary">#45d7e6</color>
 
 </resources>

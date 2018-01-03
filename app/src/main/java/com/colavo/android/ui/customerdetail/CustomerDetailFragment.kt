@@ -2,6 +2,7 @@ package com.colavo.android.ui.customerdetail
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.app.AppCompatActivity
 import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerModel
@@ -9,6 +10,7 @@ import android.view.animation.AlphaAnimation
 import com.colavo.android.ui.PlaceholderFragment04
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
@@ -36,6 +38,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     lateinit var customerdetailPresenter: CustomerDetailPresenterImpl
     lateinit var customerdetailAdapter: CustomerDetailAdapter
 
+    var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+
     override fun getLayout() = R.layout.customer_detail_fragment
 
     fun getCustomerDetailName():String {
@@ -47,7 +51,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     private val progressDialog: MaterialDialog by lazy {
-        MaterialDialog.Builder(this.context)
+        MaterialDialog.Builder(this.context!!)
                 .title(R.string.conversations_loading)
                 .content(R.string.wait)
                 .progress(true, 0)
@@ -56,19 +60,34 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (context.applicationContext as App).addCustomerDetailComponent().inject(this)
+        (context!!.applicationContext as App).addCustomerDetailComponent().inject(this)
         setHasOptionsMenu(true)
+     //   initInstancesDrawer()
     }
 
+    private fun initInstancesDrawer() {
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar.setTitle ("") //R.string.bottom_navi_4
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        toolBar.inflateMenu(R.menu.menu_customer_detail)
+
+
+        toolBar.setNavigationOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                (activity as AppCompatActivity).onBackPressed()
+            }
+        })
+    }
 /*    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.customer_detail_fragment, container, false)
 
     }*/
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bundle:Bundle = arguments
+        val bundle:Bundle = arguments!!
         val sender : String = bundle.getString("SENDER")
    //     val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
 
@@ -92,6 +111,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
             customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CustomerDetailModel>(), event)
             customer_detail_recyclerView.adapter = customerdetailAdapter
+            customer_detail_recyclerView.setEmptyView(customer_detail_empty)
 
             customerdetailPresenter.attachView(this)
             customerdetailPresenter.initialize(event.customer_key)
@@ -135,6 +155,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
             customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CustomerDetailModel>(), event) //mutableListOf(event))
             customer_detail_recyclerView.adapter = customerdetailAdapter
+            customer_detail_recyclerView.setEmptyView(customer_detail_empty)
 
             customerdetailPresenter.attachView(this)
             customerdetailPresenter.initialize(event.customer_key)
@@ -183,11 +204,12 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
 
         // Toolbar
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+       (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar.setTitle ("") //R.string.bottom_navi_4
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
         toolBar.inflateMenu(R.menu.menu_customer_detail)
+
 
    //     fragmentManager.addOnBackStackChangedListener { this }
         toolBar.setNavigationOnClickListener(object : View.OnClickListener {
@@ -259,7 +281,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun showToast(event: String) {
-        context.toast(event)
+        context!!.toast(event)
     }
 
     override fun showSnackbar(event: String) {

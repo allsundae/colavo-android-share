@@ -1,13 +1,17 @@
 package com.colavo.android.ui
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.view.MenuItem
 import com.colavo.android.R
 import kotlinx.android.synthetic.main.activity_salon_main.*
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.View
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.adapter.SectionsPagerAdapter
 import com.colavo.android.ui.login.LoginActivity
@@ -18,6 +22,13 @@ import com.colavo.android.main.presenter.MainContract
 import com.colavo.android.ui.adapter.SectionsPagerModel
 import com.colavo.android.utils.toast
 import com.colavo.android.view.main.presenter.MainPresenter
+import com.simmorsal.recolor_project.ReColor
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+import com.colavo.android.utils.Logger
+import com.colavo.android.weekview.WeekView
+import com.roughike.bottombar.BottomBarTab
+import kotlinx.android.synthetic.main.activity_salon_main.view.*
+import kotlinx.android.synthetic.main.fragment_01.*
 
 
 class SalonMainActivity : BasePresenterActivity<MainContract.View
@@ -61,15 +72,48 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
 
         // prevBottomNavigation = bottomBar.getItem(0)
         container.setOffscreenPageLimit(5)
+        // for status bar color change
+        val decor = window.decorView
+        val tab1 : BottomBarTab = bottomBar.getTabAtPosition(0)
+        tab1.setBarColorWhenSelected(Color.WHITE)
+        val tab2 : BottomBarTab = bottomBar.getTabAtPosition(1)
+        tab2.setBarColorWhenSelected(Color.WHITE)
+        val tab3 : BottomBarTab = bottomBar.getTabAtPosition(2)
+        tab3.setBarColorWhenSelected(Color.parseColor("#0B0F28"))
+        tab3.setActiveColor(Color.WHITE)
+        val tab4 : BottomBarTab = bottomBar.getTabAtPosition(3)
+        tab4.setBarColorWhenSelected(Color.WHITE)
+        val tab5 : BottomBarTab = bottomBar.getTabAtPosition(4)
+        tab5.setBarColorWhenSelected(Color.WHITE)
 
         // Listener for bottomBar
         bottomBar.setOnTabSelectListener {  tabId ->
             when (tabId){
-                R.id.action_calendar -> container.setCurrentItem(0)
-                R.id.action_checkouts -> container.setCurrentItem(1)
-                R.id.action_stats -> container.setCurrentItem(2)
-                R.id.action_customers -> container.setCurrentItem(3)
-                R.id.action_settings -> container.setCurrentItem(4)
+                R.id.action_calendar -> {
+                    container.setCurrentItem(0)
+                    container.setPagingEnabled(false)
+                    setLightUI(true)
+                }
+                R.id.action_checkouts -> {
+                    container.setCurrentItem(1)
+                    container.setPagingEnabled(true)
+                    setLightUI(true)
+                }
+                R.id.action_stats -> {
+                    container.setCurrentItem(2)
+                    container.setPagingEnabled(true)
+                    setLightUI(false)
+                }
+                R.id.action_customers -> {
+                    container.setCurrentItem(3)
+                    container.setPagingEnabled(true)
+                    setLightUI(true)
+                }
+                R.id.action_settings -> {
+                    container.setCurrentItem(4)
+                    container.setPagingEnabled(true)
+                    setLightUI(true)
+                }
             }
         }
 
@@ -81,16 +125,43 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
 
     }
 
-/*    private fun loadCustomerFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.layout.fragment_04, PlaceholderFragment04(), PlaceholderFragment04::class.simpleName)
-                    .commit()
+    private fun setLightUI(light: Boolean) {
+        if (light == true) {
+            ReColor(this).setStatusBarColor(null, "FEFEFE", 500)
+            ReColor(this).setNavigationBarColor(null, "FEFEFE", 500)
+            bottomBar.setBackgroundColor(Color.parseColor("#FEFEFE"))
         }
-    }*/
+        else
+        {
+            ReColor(this).setStatusBarColor(null, "#0B0F28", 500)
+            ReColor(this).setNavigationBarColor(null, "#0B0F28", 500)
+            bottomBar.setBackgroundColor(Color.parseColor("#0B0F28"))
+            //bottomBar.setBackgroundColor(Color.parseColor("#0C102B"))
+        }
+        setLightStatusBar(light)
+        setLightNavigationBar(light)
 
-    private fun openLoginActivity() {
+    }
+
+    fun setLightStatusBar(lightStatusBar: Boolean) {
+        setLightBar(lightStatusBar, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+    }
+
+    fun setLightNavigationBar(lightNavigationBar: Boolean) {
+        setLightBar(lightNavigationBar, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+    }
+
+    private fun setLightBar(light: Boolean, systemUiFlag: Int) {
+        var vis = window.decorView.systemUiVisibility
+        if (light) {
+            vis = vis or systemUiFlag
+        } else {
+            vis = vis and systemUiFlag.inv()
+        }
+        window.decorView.systemUiVisibility = vis
+    }
+
+    public fun openLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.putExtra(SalonListActivity.EXTRA_SIGN_OUT, true)
         startActivity(intent)
@@ -98,15 +169,17 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
     }
 
     override fun updatePager() { //WTF
-        val pagerAdapter : PagerAdapter = container.getAdapter()
+        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
         if (pagerAdapter != null) pagerAdapter.notifyDataSetChanged()
-
+        val nearby = bottomBar.getTabWithId(R.id.action_stats)
+        nearby.setBadgeCount(5)
         //mSectionsPagerAdapter?.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         container.removeOnPageChangeListener(this)
+
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -131,6 +204,24 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
 
     }
 
+    override fun onSaveInstanceState(saveBundle: Bundle?) {
+        val bundle = Bundle()
+        val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        bundle.putSerializable(SAVED_SALON_STATE, salonModel)
+/*
+        bundle.putExtra("데이터키값", salon)
+        //저장할 데이터를 번들객체에 저장해서, 다시 복구시 넘어갈 번들안에 계층적으로 저장했다가..
+        //복구시에 번들 안에서 다시 이 저장된 번들객체를 추출해서 처리하게 됩니다.
+*/
+        saveBundle?.putParcelable(BUNDLE_KEY, bundle)
 
+        Logger.log("onSaveInstanceState : ${salonModel.name} ")
+        super.onSaveInstanceState(saveBundle)
+    }
+
+    companion object {
+        val SAVED_SALON_STATE: String = "SALON_STATE"
+        val BUNDLE_KEY: String = "BUNDLE_KEY"
+    }
 
 }

@@ -3,7 +3,7 @@ package com.colavo.android.entity.customerdetail
 import java.io.Serializable
 
 
-open abstract class BaseCustomerDetail(
+abstract class BaseCustomerDetail(
         var id: String,
         open var created_at: Double,
         open var updated_at: Double,

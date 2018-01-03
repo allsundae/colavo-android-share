@@ -3,34 +3,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/customer_list_holder"
     android:background="@color/backgroundWhite"
     android:gravity="top|center_horizontal">
 
-    <android.support.v7.widget.RecyclerView
+    <com.colavo.android.utils.RecyclerViewEmptySupport
         android:id="@+id/customers_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="?selectableItemBackground"
+        android:background="@color/backgroundWhite"
         android:focusable="true"
         android:clickable="true"
         android:paddingTop="@dimen/toolbar_height"
         android:paddingBottom="@dimen/height_bottombar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--android:background="?android:attr/selectableItemBackground"-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/empty_customer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundWhite"
+        >
+
+        <TextView
+            android:id="@+id/empty_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:text="@string/no_data_title"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            tools:text="@string/no_data_title" />
+
+        <TextView
+            android:id="@+id/empty_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_data_description"
+            app:fontName="Custom1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
+            tools:text="@string/no_data_description"
+            tools:ignore="MissingPrefix" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="132dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_empty" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
         />
 
-    <android.support.design.widget.FloatingActionButton
+  <!--  <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +92,6 @@
         android:tint="@color/backgroundWhite"
         app:backgroundTint="@color/colorAccent"
         app:pressedTranslationZ="32dp"
-        app:rippleColor="@color/colorSecondary" />
+        app:rippleColor="@color/colorSecondary" />-->
 
 </RelativeLayout>

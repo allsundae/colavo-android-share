@@ -6,15 +6,14 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_name">Name</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="action_register_and_sign_in">Register &amp; Sign in</string>
+    <string name="action_register_and_sign_in">Sign up</string>
     <string name="action_sign_out">Sign out</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
     <string name="title_activity_conversations">ConversationsActivity</string>
     <string name="create_conversation">Create a salon</string>
     <string name="create_customer">Create a customer</string>
@@ -55,9 +54,15 @@
     <string name="checkout_Text">Checkout</string>
     <string name="btn_edit_profile">Edit profile</string>
     <string name="customer">Customer</string>
-
-<!--    &lt;!&ndash; Shared element transition &ndash;&gt;
-    <string name="logoTransitionName">customer_name</string>
-    <string name="title_activity_salon_main">헤어샵</string>-->
+    <string name="no_data_title">No data ;(</string>
+    <string name="no_data_description">Please add some data here</string>
+    <string name="modify">Modify</string>
+    <string name="modified_date">modified date</string>
+    <string name="tnc"><![CDATA[
+    By using Colavo, you agree to Colavo\'s <a href="http://www.colavo.kr">Terms of Usage</a> and <a href="http://www.colavo.kr">Privacy</a>
+    ]]></string>
+    <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
+        <string name="logoTransitionName">customer_name</string>
+        <string name="title_activity_salon_main">헤어샵</string>-->
 
 </resources>

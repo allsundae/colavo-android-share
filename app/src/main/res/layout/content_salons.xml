@@ -8,11 +8,16 @@
     tools:context="com.colavo.android.ui.salons.SalonListActivity"
     tools:showIn="@layout/activity_salons">
 
-    <android.support.v7.widget.RecyclerView
+    <com.colavo.android.utils.RecyclerViewEmptySupport
         android:id="@+id/salons_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundWhite"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+<!--
+    app:shimmer_demo_layout="@layout/base_item_shimmer"
+    app:shimmer_demo_shimmer_color="#73ffffff"
+-->
 
 </RelativeLayout>

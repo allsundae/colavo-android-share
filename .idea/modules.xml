@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/colavo_android.iml" filepath="$PROJECT_DIR$/colavo_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weekviewlib/weekviewlib.iml" filepath="$PROJECT_DIR$/weekviewlib/weekviewlib.iml" />
     </modules>
   </component>
 </project>

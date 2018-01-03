@@ -21,6 +21,7 @@ import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.ui.checkout.CheckoutListView
 import com.colavo.android.ui.customerdetail.CustomerDetailFragment
 import com.colavo.android.ui.salons.SalonListActivity
+import com.colavo.android.utils.LinearLayoutManagerWithSmoothScroller
 import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_item.view.*
@@ -29,6 +30,10 @@ import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
+import android.support.v7.widget.LinearSmoothScroller
+import android.support.v7.widget.RecyclerView
+
+
 
 /**
  * Created by macbookpro on 2017. 9. 13..
@@ -52,7 +57,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     }
 
     private val progressDialog: MaterialDialog by lazy {
-        MaterialDialog.Builder(this.context)
+        MaterialDialog.Builder(this.context!!)
                 .title(R.string.customers_loading)
                 .content(R.string.wait)
                 .progress(true, 0)
@@ -63,10 +68,12 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (context.applicationContext as App).addCheckoutComponent().inject(this)
+        (context!!.applicationContext as App).addCheckoutComponent().inject(this)
+
+
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
@@ -82,15 +89,32 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
         //  (application as App).addCustomerComponent().inject(this)
         //checkout_recyclerView.layoutManager = LinearLayoutManager(this.context)
+/*        val smoothScroller = object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference(): Int {
+                return LinearSmoothScroller.SNAP_TO_START
+            }
+        }*/
 
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
+      //  layoutManager.scrollToPosition(1)
+/*        smoothScroller.setTargetPosition(1)
+        layoutManager.startSmoothScroll(smoothScroller)*/
+        //layoutManager.smoothScrollToPosition(1)
+        layoutManager.scrollToPosition(1)
         checkout_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
 
 
+
+     //   val list = rootView.findViewById(R.id.list1) as RecyclerViewEmptySupport
+     //   checkout_recyclerView.setLayoutManager(LinearLayoutManager(context))
+        checkout_recyclerView.setEmptyView(empty_checkout)
+
         checkoutPresenter.attachView(this)
         checkoutPresenter.initialize(salon.id)
+
+
     }
 
 
@@ -111,7 +135,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     }
 
     override fun showToast(event: String) {
-        context.toast(event)
+        context!!.toast(event)
     }
 
     override fun showSnackbar(event: String) {
@@ -181,7 +205,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
             newFragment.setSharedElementReturnTransition(DetailsTransition())
         }
 
-        val transaction = fragmentManager.beginTransaction()
+        val transaction = fragmentManager!!.beginTransaction()
     //    transaction.addSharedElement(checkout_customer_name,"customer_name" )//logoTransitionName.toString()
         transaction.replace(R.id.checkout_list_holder, newFragment) //container
         transaction.addToBackStack(null)

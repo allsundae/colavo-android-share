@@ -13,13 +13,11 @@
         android:top="270dp"
         android:width="110dp"
         android:height="18dp" />
-    <!--
+    <item
+        android:drawable="@drawable/ic_copyright"
+        android:gravity="center_horizontal|top"
+        android:top="610dp"
+        android:width="301dp"
+        android:height="16dp" />
 
-
-        <item>
-            <bitmap
-                android:gravity="center"
-                android:src="@mipmap/ic_launcher"/>
-        </item>
-        -->
 </layer-list>

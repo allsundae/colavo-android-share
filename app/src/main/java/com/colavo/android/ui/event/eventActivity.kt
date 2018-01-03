@@ -1,10 +1,11 @@
 package com.colavo.android.ui.event
 
+import android.graphics.Rect
 import android.graphics.RectF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.alamkanak.weekview.MonthLoader
+import com.colavo.android.weekview.MonthLoader
 import com.colavo.android.App
 import com.colavo.android.R
 import com.colavo.android.entity.event.EventModel
@@ -16,8 +17,8 @@ import com.colavo.android.utils.showSnackBar
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_event.*
 import javax.inject.Inject
-import com.alamkanak.weekview.WeekView
-import com.alamkanak.weekview.WeekViewEvent
+import com.colavo.android.weekview.WeekView
+import com.colavo.android.weekview.WeekViewEvent
 import com.colavo.android.utils.Logger
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
@@ -27,7 +28,7 @@ import java.util.*
 class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener, WeekView.EventClickListener
                 , MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener{
 
-    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?) {
+    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?, translatedRect: Rect?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

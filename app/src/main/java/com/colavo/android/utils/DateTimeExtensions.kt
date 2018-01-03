@@ -19,7 +19,7 @@ fun DateTime.toChatTime(): String {
         return "Today"
     else if(this.isYesterday())
         return "Yesterday"
-    else return this.toString("dd MMM", Locale.ENGLISH)
+    else return this.toString("dd MMM", Locale.getDefault())
 }
 
 fun ConvertTimestampToDateandTime (timestamp: Long, pattern: String) : String {

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_event"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@layout/rounded"
+    android:elevation="24dp"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:theme="@style/AppTheme.NoActionBar">
+
+
+    <RelativeLayout
+        android:id="@+id/pop_button_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/modifyButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="@string/modify"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="41dp" />
+
+        <TextView
+            android:id="@+id/pop_modifiedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="@string/modified_date"
+            android:textAlignment="viewStart"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/listTextSecondary"
+            android:textSize="11sp"
+            app:fontName="Custom1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:ignore="MissingPrefix"
+            tools:layout_editor_absoluteY="370dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/pop_title_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/pop_customer_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="11sp"
+                app:fontName="Custom1"
+                tools:ignore="MissingPrefix"
+                tools:text="Status" />
+
+            <TextView
+                android:id="@+id/pop_customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/pop_customer_status"
+                android:ellipsize="end"
+                android:letterSpacing="-0.05"
+                android:maxLines="1"
+                android:text="Owner name"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/pop_ic_time"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="@dimen/list_inside_margin_hor"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/pop_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageView2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="14sp"
+                app:fontName="Custom1"
+                tools:ignore="MissingPrefix"
+                tools:text="Time" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/pop_ic_menu"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="@dimen/list_inside_margin_hor"
+                app:srcCompat="@drawable/ic_gear" />
+
+            <TextView
+                android:id="@+id/pop_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/pop_ic_menu"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="14sp"
+                app:fontName="Custom1"
+                tools:ignore="MissingPrefix"
+                tools:text="Menu" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/pop_ic_memo"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="@dimen/list_inside_margin_hor"
+                app:srcCompat="@drawable/ic_chart" />
+
+            <TextView
+                android:id="@+id/pop_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/pop_ic_memo"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="14sp"
+                app:fontName="Custom1"
+                tools:ignore="MissingPrefix"
+                tools:text="Memo" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pop_customer_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:foregroundGravity="right"
+        android:src="@drawable/ic_customer_holder_person_smaller"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="0dp"
+        app:civ_fill_color="@color/listTextSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

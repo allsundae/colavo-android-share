@@ -140,7 +140,7 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        customer.image_urls[0]!!.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        customer.image_urls[0].image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
                         Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls[0].image_thumb_url})")
                         finishedCallback.callback(customer)
                         //subscriber.onNext(customer to ResponseType.ADDED)

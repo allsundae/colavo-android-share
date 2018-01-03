@@ -49,7 +49,7 @@ class PlaceholderFragment05 : BaseFragment() {
         fun newInstance() = PlaceholderFragment05()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
         toolBar?.setTitle (bottom_navi_5)

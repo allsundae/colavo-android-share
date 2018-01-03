@@ -44,13 +44,13 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                     //    val urls:ImageUrl = dataSnapshot.child("image_url").child("thumb").getValue(ImageUrl::class.java)
 
                                         if ( dataSnapshot.child("image_url").child("thumb").value != null) {
-                                            customer.image_urls[0]!!.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                                            customer.image_urls[0].image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
                                             Logger.log("Image Thumb Url : ${dataSnapshot.child("image_url").child("thumb").value.toString()}")
                                             Logger.log("Image Thumb Url : ${customer.image_urls[0].image_thumb_url}")
                                         }
 
                                         if ( dataSnapshot.child("image_url").child("full").value != null) {
-                                            customer.image_urls[0]!!.image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
+                                            customer.image_urls[0].image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
                                         }
 
 

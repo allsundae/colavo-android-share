@@ -15,7 +15,7 @@
         android:visibility="invisible"
         tools:ignore="MissingPrefix"
         tools:visibility="visible">
-    <include layout="@layout/popup_content"
+    <include layout="@layout/popup_event_detail"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />

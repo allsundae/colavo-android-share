@@ -3,6 +3,8 @@ package com.colavo.android.utils
 import android.graphics.Color
 import java.util.*
 
+
+
 /**
  * Created by macbookpro on 2017. 10. 25..
  */
@@ -43,4 +45,5 @@ fun Int.removeFlag(flag: Int) = (this or flag) - flag
 interface SimpleCallback<T> {
     fun callback(data: T)
 }
+
 

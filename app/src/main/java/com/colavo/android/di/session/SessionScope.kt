@@ -1,6 +1,6 @@
 package com.colavo.android.di.session
 
-import kotlin.reflect.jvm.internal.impl.javax.inject.Scope
+import javax.inject.Scope
 
 /**
  * Created by RUS on 03.08.2016.

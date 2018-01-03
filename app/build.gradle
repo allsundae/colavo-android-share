@@ -1,19 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
-
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.colavo.android"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
+        versionName '0.2'
+    //    multiDexEnabled true
+    }
+    if (project.hasProperty('devBuild')) {
+        splits.abi.enable = false
+        splits.density.enable = false
     }
     buildTypes {
         release {
@@ -24,7 +27,11 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-
+    dataBinding {
+        enabled = true
+    }
+    productFlavors {
+    }
 }
 
 kapt {
@@ -33,37 +40,49 @@ kapt {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:multidex:1.0.0'
+//    compile 'com.android.support:multidex:1.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.5@aar') {
-        transitive = true
-    }
+    compile 'com.afollestad.material-dialogs:core:0.9.6.0'
+
     // Android week view
+
     // Google Firebase
+
     // retrofit2
+
     // joda-time
+
     // Roughike bottom bar
+
     // Dagger
+
     // butterKnife
     compile "com.jakewharton:butterknife:$butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
-    // Weekview
-    //    compile 'com.github.alamkanak:android-week-view:1.2.6'
-    // Popup view
-    compile 'com.google.dagger:dagger:2.4'
-    //compile 'com.meetic.marypopup:marypopup:1.0.0'
-    //compile 'com.meetic.dragueur:dragueur:1.0.3'
-    compile 'com.github.andreilisun:swipedismissdialog:0.1'
-    // Test
-    compile project(':weekviewlib')
+    kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
+    // Weekview
+
+    //    compile 'com.github.alamkanak:android-week-view:1.2.6'
+
+    // Popup view
+    compile 'com.google.dagger:dagger:2.11'
+    kapt "com.google.dagger:dagger-compiler:2.11"
+    provided 'javax.annotation:jsr250-api:1.0'
+    //compile 'com.meetic.marypopup:marypopup:1.0.0'
+
+    //compile 'com.meetic.dragueur:dragueur:1.0.3'
+
+    //compile 'com.github.andreilisun:swipedismissdialog:0.1'
+
+    // Test
+
+    //compile project(':weekviewlib')
     compile "com.android.support:appcompat-v7:$buildToolsVersion"
     compile "com.android.support:recyclerview-v7:$buildToolsVersion"
     compile "com.android.support:design:$buildToolsVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:transition:$buildToolsVersion"
-
     compile 'com.google.firebase:firebase-core:9.0.2'
     compile 'com.google.firebase:firebase-auth:9.0.2'
     compile 'com.google.firebase:firebase-database:9.0.2'
@@ -77,17 +96,20 @@ dependencies {
     compile 'joda-time:joda-time:2.9.4'
     compile 'com.roughike:bottom-bar:2.3.1'
     kapt 'com.google.dagger:dagger-compiler:2.4'
+
     //    compile 'com.github.douglasjunior:android-simple-tooltip:0.2.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-    //    annotationProcessor 'com.google.dagger:dagger-android-processor:2.4'
+
+    //    kapt 'com.google.dagger:dagger-android-processor:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.allattentionhere:fabulousfilter:0.0.4'
     compile 'com.flipboard:bottomsheet-core:1.5.3'
     compile 'com.flipboard:bottomsheet-commons:1.5.3'
-
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    compile 'com.tsengvn:typekit:1.0.1'
+    compile 'com.github.katoro:typekit:1.0.1'
+    compile 'com.schibsted.spain:parallax-layer-layout:1.1.1'
+    implementation 'com.simmorsal.recolor:recolor:1.1.0'
 }
 
 repositories {

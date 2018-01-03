@@ -28,8 +28,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="android:listSelector">?attr/selectableItemBackground</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
+        <!--<item name="android:listSelector">?attr/selectableItemBackground</item>-->
+        <!--<item name="android:background">?attr/selectableItemBackground</item>-->
     </style>
 
     <style name="AppTheme.ActionBar">
@@ -51,17 +51,22 @@
 
     <!--ToolBar-->
     <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar"
-        app:font="custom1"
-        >
+        app:fontName="Custom1">
         <item name="colorControlNormal">@color/toolBarIcon</item>
         <item name="android:textColorSecondary">@color/toolBarIcon</item>
         <item name="android:tint">@color/toolBarIcon</item>
         <item name="actionMenuTextColor">@color/toolBarIcon</item>
         <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
-
     </style>
-
-
+    <style name="ToolbarTitleText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:typeface">normal</item>
+        <item name="android:textSize">@dimen/list_1sttext</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="MySpinner" >
+        <item name="android:background">@color/backgroundWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <!-- for BottomBar -->
     <style name="BottomBarText">
         <item name="android:textSize">11sp</item>
@@ -87,4 +92,9 @@
     </style>
 
     <style name="flatButton"></style>
+
+    <style name="mydialog_animation">
+       <!-- <item name="android:windowEnterAnimation">@anim/mydialog_fi</item>-->
+        <item name="android:windowExitAnimation">@anim/mydialog_fo</item>
+    </style>
 </resources>

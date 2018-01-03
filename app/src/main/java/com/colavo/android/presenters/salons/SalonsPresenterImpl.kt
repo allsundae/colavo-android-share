@@ -60,12 +60,16 @@ class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
 
         override fun onError(throwable: Throwable?) {
             Logger.log("SalonsSubscriber : response: Error")
+            salonlistView?.hideProgress()
             if(throwable != null) salonlistView?.onError(throwable)
         }
 
-        override fun onCompleted() {}
+        override fun onCompleted() {
+            salonlistView?.hideProgress()
+        }
 
         override fun onNext(pair: Pair<SalonModel, ResponseType>?) {
+            salonlistView?.hideProgress()
             when(pair?.second) {
                 ResponseType.ADDED -> salonlistView?.addSalon(pair?.first as SalonModel)
                 ResponseType.CHANGED -> salonlistView?.changeSalon(pair?.first as SalonModel)

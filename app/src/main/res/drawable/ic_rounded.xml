@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     >
     <solid
-        android:color="@color/customerPlaceholderColor"/>
+        android:color="@color/backgroundWhite"/>
 
     <corners android:radius="10dp"/>
     <padding

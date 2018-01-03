@@ -1,62 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/calendar_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundWhite">
+    android:layout_gravity="center"
+    android:background="@color/backgroundWhite"
+    android:gravity="center">
 
-    <include
+    <!--    <include
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         layout="@layout/toolbar"
 
-        />
+        />-->
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/backgroundWhite"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:minHeight="?attr/actionBarSize"
+        android:subtitleTextColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:theme="@style/MyToolbarStyle"
+        tools:ignore="missingPrefix">
 
-    <com.alamkanak.weekview.WeekView
+        <Spinner
+            android:id="@+id/spinner_designer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:fontName="custom1">
+            <!--                <TextView
+                    android:id="@+id/spinner_designer_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />-->
+        </Spinner>
+    </android.support.v7.widget.Toolbar>
+
+    <com.colavo.android.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/toolbar_height"
         android:layout_marginBottom="@dimen/height_bottombar"
-        android:background="?selectableItemBackground"
-        android:focusable="true"
+        android:layout_marginTop="@dimen/toolbar_height"
+        android:background="@color/backgroundWhite"
         android:clickable="true"
+        android:focusable="true"
 
-        app:noOfVisibleDays="3"
-        app:headerRowBackgroundColor="@color/backgroundWhite"
-        app:headerTodayTabColor="@color/colorTodayTab"
+        app:columnGap="0dp"
+        app:dayBackgroundColor="@color/colorCalendarBackground"
+        app:pastBackgroundColor="@color/colorCalendarPastBackground"
+        app:eventCornerRadius="8dp"
+        app:eventMarginVertical="2dp"
+        app:eventPadding="6dp"
+        app:eventTextColor="@color/primaryTextColor"
+        app:eventTextSize="10dp"
         app:headerColumnBackground="#ffffffff"
+
+
         app:headerColumnPadding="16dp"
         app:headerColumnTextColor="#4f000000"
-        app:todayHeaderTextColor="#474962"
+
+        app:headerRowBackgroundColor="@color/backgroundWhite"
         app:headerRowPadding="25dp"
-
-        app:dayBackgroundColor="@color/colorCalendarBackground"
-        app:todayBackgroundColor="@color/colorCalendarBackground"
-
-        app:eventTextColor="@color/primaryTextColor"
-        app:eventPadding="6dp"
-        app:eventCornerRadius="8dp"
-        app:eventTextSize="10dp"
-        app:eventMarginVertical="2dp"
+        app:headerTodayTabColor="@color/colorTodayTab"
+        app:hourHeight="90dp"
         app:hourSeparatorColor="#DDE0E2"
-        app:overlappingEventGap="2dp"
-
-        app:showNowLine="true"
+        app:noOfVisibleDays="5"
         app:nowLineColor="#FE7C92"
+
         app:nowLineThickness="2dp"
+        app:overlappingEventGap="0dp"
+        app:showNowLine="true"
 
         app:textSize="11sp"
-        app:hourHeight="80dp"
+        app:todayBackgroundColor="@color/colorCalendarBackground"
 
-        app:columnGap="2dp"
+        app:todayHeaderTextColor="#474962"
 
 
         />
-    <android.support.design.widget.FloatingActionButton
+    <!-- <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fab"
+        android:id="@+id/fab_calendar"
 
         android:layout_alignBottom="@+id/weekView"
         android:layout_alignParentEnd="true"
@@ -68,8 +102,7 @@
         app:pressedTranslationZ="32dp"
         app:rippleColor="@color/colorSecondary"
         android:tint="@color/backgroundWhite"
-        />
-
+        />-->
 
 
 </RelativeLayout>

@@ -5,7 +5,7 @@ import java.net.URL
 import java.sql.Timestamp
 
 
-open abstract class BaseCustomer(
+abstract class BaseCustomer(
         var uid: String,
         open var phone: String,
         open var national_phone: String,

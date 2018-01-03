@@ -10,25 +10,30 @@
     android:elevation="0dp"
     android:minHeight="?attr/actionBarSize"
     android:subtitleTextColor="@color/colorAccent"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:theme="@style/MyToolbarStyle"
     tools:ignore="missingPrefix"
-    app:font="custom1" android:focusable="true">
+    android:textStyle="bold"
+    android:focusable="true">
 
-    <RelativeLayout
+  <!--  <RelativeLayout
         android:id="@+id/toobar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:orientation="horizontal">><RelativeLayout
-            android:id="@+id/item_checkout"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="top|right"
-            android:orientation="vertical">
+        android:orientation="horizontal">
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/settings_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/list_1sttext"
+            android:textStyle="bold"
+            tools:text="User name" />
 
         <LinearLayout
             android:id="@+id/item_user_container"
@@ -39,18 +44,6 @@
             android:layout_toEndOf="@+id/item_profile_image"
             android:gravity="center_vertical"
             android:orientation="vertical">
-
-            <com.colavo.android.common.MyTextView
-                android:id="@+id/settings_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/list_1sttext"
-                android:textStyle="bold"
-                tools:text="User name" />
 
         </LinearLayout>
 
@@ -74,8 +67,6 @@
                 app:civ_border_width="0dp"
                 app:civ_fill_color="@color/customerPlaceholderColor" />
         </RelativeLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </android.support.v7.widget.Toolbar>
-
-    <!--android:background="@color/backgroundWhite"-->

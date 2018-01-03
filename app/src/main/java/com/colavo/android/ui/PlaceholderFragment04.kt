@@ -53,7 +53,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
     private val progressDialog: MaterialDialog by lazy {
-        MaterialDialog.Builder(this.context)
+        MaterialDialog.Builder(this.context!!)
                 .title(R.string.customers_loading)
                 .content(R.string.wait)
                 .progress(true, 0)
@@ -69,7 +69,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (context.applicationContext as App).addCustomerComponent().inject(this)
+        (context!!.applicationContext as App).addCustomerComponent().inject(this)
    // this works     (context.applicationContext as App).addCustomerComponent().inject(this)
         //   (context.applicationContext as App).addCustomerComponent().inject(this)
         //    (getActivity().getApplication() as App).addCustomerComponent().inject(this)
@@ -94,7 +94,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
@@ -104,8 +104,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         //  (application as App).addCustomerComponent().inject(this)
         customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
+        customers_recyclerView.setEmptyView(empty_customer)
 
-        fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
+        //fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
 
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
@@ -212,7 +213,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
             newFragment.setSharedElementReturnTransition(DetailsTransition())
         }
 
-        val transaction = fragmentManager.beginTransaction()
+        val transaction = fragmentManager!!.beginTransaction()
 //        transaction.addSharedElement(customer_name,"customer_name" )//logoTransitionName.toString()
         transaction.replace(R.id.customer_list_holder, newFragment) //container
         transaction.addToBackStack(null)
@@ -261,7 +262,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
     override fun showToast(event: String) {
-        context.toast(event)
+        context!!.toast(event)
     }
 
     override fun showSnackbar(event: String) {

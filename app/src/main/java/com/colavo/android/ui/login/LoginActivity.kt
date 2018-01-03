@@ -11,8 +11,12 @@ import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
+import android.text.Html
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import com.colavo.android.base.BaseActivity
 
-class LoginActivity : AppCompatActivity(), LoginView {
+
+class LoginActivity : BaseActivity(), LoginView {
 
     @Inject
     lateinit var loginPresenter: LoginPresenterImpl
@@ -29,6 +33,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
         registerButton.setOnClickListener { loginPresenter.register(name.text.toString(), password.text.toString()) }
 
         if(intent.extras?.getBoolean(SalonListActivity.EXTRA_SIGN_OUT) ?: false) loginPresenter.signOut()
+
+        val string = resources.getString(R.string.tnc)
+        guideline_text.text = Html.fromHtml(string)
+
     }
 
     override fun openSalonsActivity(uid: String) {

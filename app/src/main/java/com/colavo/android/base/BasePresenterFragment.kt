@@ -16,7 +16,7 @@ abstract class BasePresenterFragment<in VIEW: BaseView, P : BasePresenter<VIEW>>
 
     abstract fun onCreatePresenter(): P?
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         presenter = onCreatePresenter()
         presenter?.attachView(this as VIEW)
         return super.onCreateView(inflater, container, savedInstanceState)
