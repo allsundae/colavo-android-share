@@ -47,8 +47,8 @@ class CheckoutMapper {
                 if (customer.name != null)
                     checkoutModel.user_name = "TEST"customer.name //todo address lastEventUser
 
-                if (customer.image_urls[0].image_thumb_url != "")
-                    checkoutModel.user_image = customer.image_urls[0].image_thumb_url
+                if (customer.image_urls.image_thumb_url != "")
+                    checkoutModel.user_image = customer.image_urls.image_thumb_url
             }*/
             Logger.log("CHECKOUTMAPPER : createCheckoutWithEventAndUser : ${checkoutModel.checkout_uid}")
 
@@ -56,6 +56,7 @@ class CheckoutMapper {
         }
 
             fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity ): CheckoutModel { //,  customerEntity: CustomerEntity
+                Logger.log("(4) CHECKOUTMAPPER ")
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
                 checkoutModel.created_at = checkoutEntity.created_at
@@ -70,13 +71,14 @@ class CheckoutMapper {
                 checkoutModel.memo_key = checkoutEntity.memo_key
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
                 checkoutModel.cancel_reason = checkoutEntity.cancel_reason
+                //checkoutModel.services = checkoutEntity.services.toMutableList()
                 checkoutModel.services = HashMap(checkoutEntity.services)
                 checkoutModel.discounts = HashMap(checkoutEntity.discounts)
-                checkoutModel.logs = HashMap(checkoutEntity.logs)
+                checkoutModel.logs = checkoutEntity.logs.toMutableList()
                 checkoutModel.customer_name = customerEntity.name
                 checkoutModel.service_menus = "Cut, Perm"
-                checkoutModel.customer_image_full = customerEntity.image_urls[0].image_full_url
-                checkoutModel.customer_image_thumb = customerEntity.image_urls[0].image_thumb_url
+                checkoutModel.customer_image_full = customerEntity.image_urls.image_full_url
+                checkoutModel.customer_image_thumb = customerEntity.image_urls.image_thumb_url
 
                 val numOfItems = checkoutModel.services.size
                 Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")
@@ -90,7 +92,7 @@ class CheckoutMapper {
 
                if (customerEntity != null){
                     checkoutModel.user_name = customerEntity.name
-                    checkoutModel.user_image = customerEntity.image_urls[0].image_thumb_url
+                    checkoutModel.user_image = customerEntity.image_urls.image_thumb_url
                    Logger.log("CHECKOUTMAPPER : customerEntity.name : ${customerEntity.name}")
                 }
                 else {
@@ -113,8 +115,8 @@ class CheckoutMapper {
                     if (customer.name != null)
                         checkoutModel.user_name = customer.name //todo address lastEventUser
 
-                    if (customer.image_urls[0].image_thumb_url != "")
-                        checkoutModel.user_image = customer.image_urls[0].image_thumb_url
+                    if (customer.image_urls.image_thumb_url != "")
+                        checkoutModel.user_image = customer.image_urls.image_thumb_url
                 }*/
 
 

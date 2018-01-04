@@ -32,8 +32,10 @@ interface FirebaseAPI {
 
 
 
-    @GET("salon_customers/{id}/{id2}.json")
-    fun getCustomerBySalonCustomerId(@Path("id") salon_key: String, @Path("id2") customer_key: String): Observable<CustomerEntity>
+//    @GET("salon_customers/{salonid}/{customerid}.json")
+//    fun getCustomerBySalonCustomerId(@Path("salonid") salon_key: String, @Path("customerid") customer_key: String): Observable<CustomerEntity>
+    @GET("salon_customers/{salonid}/{id}.json")
+    fun getCustomerBySalonCustomerId(@Path("salonid") salon_key: String, @Path("id") customer_key: String): Observable<CustomerEntity>
 
     @GET("salon_customers/{id}.json")
     fun createCustomer(@Path("id") id: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>

@@ -42,15 +42,15 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
                                     //    val urls:ImageUrl = dataSnapshot.child("image_url").child("thumb").getValue(ImageUrl::class.java)
 
-                                        if ( dataSnapshot.child("image_url").child("thumb").value != null) {
-                                            customer.image_urls[0].image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+/*                                        if ( dataSnapshot.child("image_url").child("thumb").value != null) {
+                                            customer.image_urls.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
                                             Logger.log("Image Thumb Url : ${dataSnapshot.child("image_url").child("thumb").value.toString()}")
-                                            Logger.log("Image Thumb Url : ${customer.image_urls[0].image_thumb_url}")
+                                            Logger.log("Image Thumb Url : ${customer.image_urls.image_thumb_url}")
                                         }
 
                                         if ( dataSnapshot.child("image_url").child("full").value != null) {
-                                            customer.image_urls[0].image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
-                                        }
+                                            customer.image_urls.image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
+                                        }*/
 
 
                                                 //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()

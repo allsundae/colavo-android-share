@@ -40,11 +40,11 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
            // this.customerImage.loadUrl(customerModel.image)
 //            val thisThumbImage:String = customerModel.image_urls!!.getThumbUrl()
 
-           if (customerModel.image_urls[0].image_thumb_url != "") {
+           if (customerModel.image_urls.image_thumb_url != "") {
                val transForm = CircleTransform()
 
                 Picasso.with(context)
-                        .load(customerModel.image_urls[0].image_thumb_url) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(customerModel.image_urls.image_thumb_url) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)
                         .centerCrop()
                         .placeholder(R.drawable.ic_person_container)

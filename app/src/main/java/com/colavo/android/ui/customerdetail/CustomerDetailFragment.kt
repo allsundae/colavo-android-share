@@ -139,8 +139,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             val event = CustomerDetailModel()
             event.id = customer.uid
             event.customer_name = customer.name
-            event.customer_image_full_url = customer.image_urls[0].image_full_url
-            event.customer_image_thumb_url = customer.image_urls[0].image_thumb_url
+            event.customer_image_full_url = customer.image_urls.image_full_url
+            event.customer_image_thumb_url = customer.image_urls.image_thumb_url
             event.customer_key = customer.uid
 
             Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${event.customer_name}, ${event.customer_key}")

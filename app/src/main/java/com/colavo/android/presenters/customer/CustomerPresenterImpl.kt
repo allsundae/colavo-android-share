@@ -41,7 +41,7 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
             (customerUid: String
              , customerPhone: String
              , customerName: String
-             , customerImageUrls:List<ImageUrl>) {
+             , customerImageUrls:ImageUrl) {
         createCustomer.execute(
                 salonUid, customerUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
     }

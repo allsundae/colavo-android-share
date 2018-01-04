@@ -104,7 +104,7 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
     private fun getCustomerbySalonKey(salon_key: String?) : Observable<CustomerEntity>  {
         Logger.log("getCustomerbySalonKey: ${salon_key}")
         return retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(salon_key ?: "")
-    }
+}
 
 
 
@@ -140,8 +140,8 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        customer.image_urls[0].image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls[0].image_thumb_url})")
+ //                       customer.image_urls.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.image_thumb_url})")
                         finishedCallback.callback(customer)
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }

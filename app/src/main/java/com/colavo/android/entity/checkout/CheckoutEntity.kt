@@ -24,7 +24,13 @@ class  CheckoutEntity(
         @SerializedName("services")              @Expose  var services: HashMap<String, ServiceMenu> = hashMapOf("" to ServiceMenu(
                                                                                 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
+        @SerializedName("logs")                  @Expose  var logs: List<EventLogs> = mutableListOf(EventLogs(false))
+/*
+        @SerializedName("services")              @Expose  var services: List<ServiceMenu> = mutableListOf(ServiceMenu( 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
+        @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
         @SerializedName("logs")                  @Expose  var logs: HashMap<String, Boolean> = hashMapOf("" to false)
+*/
+
 ): BaseCheckout(checkout_uid, created_at, updated_at, begin_at, end_at, employee_only_event_title, booked_by_customer
         , salon_key, employee_key, customer_key, memo_key, checkout_key, cancel_reason) , Serializable
 
@@ -38,7 +44,7 @@ data class ServiceMenu (
         @SerializedName("salon_key")            @Expose var salon_key: String = "",
         @SerializedName("service_type_key")     @Expose var service_type_key: String = "",  //e.g. Cut
         @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-) : Serializable
+)
 
 data class DiscountMenu (
         @SerializedName("salon_key")            @Expose var salon_key: String = "",
@@ -47,7 +53,7 @@ data class DiscountMenu (
         @SerializedName("value")                @Expose var value: Double = 0.0,
         @SerializedName("created_at")           @Expose var created_at: Double = 0.0,
         @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-) : Serializable
+)
 
 data class EventLogs(
         @SerializedName("log_key")              @Expose var log_key: Boolean = false

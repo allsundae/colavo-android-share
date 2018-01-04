@@ -17,10 +17,12 @@ class CheckoutModel(
         memo_key: String = "",
         checkout_key: String = "",
         cancel_reason: String = "",
+
         var services: HashMap<String, ServiceMenu>  = hashMapOf("" to ServiceMenu(
                 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
-        var logs: HashMap<String, Boolean> = hashMapOf("" to false),
+        var logs: List<EventLogs> = mutableListOf(EventLogs(false)),
+
         var customer_name: String ="",
         var customer_image_thumb: String="",
         var customer_image_full: String="",

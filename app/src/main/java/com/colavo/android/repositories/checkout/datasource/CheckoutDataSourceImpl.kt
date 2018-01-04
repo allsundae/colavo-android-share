@@ -66,22 +66,23 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 }
 
                                 override fun onCancelled(error: DatabaseError?) {
+                                    Logger.log("(1) CHECKOUT ERROR : ${error.toString()}")
                                     subscriber.onError(error?.toException())
                                 }
 
                         })
             }
             /*. DEVELOPING */
-            .concatMap { response -> convertToCheckoutModel(response)}
+//            .concatMap { response -> convertToCheckoutModel(response)}
 /* TODO This is WORKING on GITHUB */
-/*
-            .concatMapEager {
-                pair -> Observable.zip(Observable.just(pair), Observable.just(customer)
-                                        .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                                        , { pair, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
-                                        )
-                            }
+            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)
+                    .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                    , { pair, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
+            ) }
+  /*          .flatMap { pair -> Observable.zip(Observable.just(pair), getUserById(pair.first.userId).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()),
+                    { pair, user -> MessageMapper.transformFromMessageEntityAndUser(pair.first, user, user.uid.equals(firebaseAuth.currentUser?.uid)) to pair.second } ) }
 */
+
 
     private fun convertToCheckoutModel(pair: Pair<CheckoutEntity, ResponseType>) : Observable< Pair<CheckoutModel, ResponseType>> {
         Logger.log("convertToCheckoutModel : checkout_uid: ${pair.first.checkout_uid}, customer_key: ${pair.first.customer_key}")
@@ -90,12 +91,12 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 .concatMapEager { test ->
                     Observable.zip(Observable.just(test), getCustomerbySalonCustomerKey((pair.first).salon_key, (pair.first).customer_key))
                     { WTF, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
-                }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                }.onBackpressureBuffer(10000).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
     }
 
 
     private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
-        Logger.log("(2) getCustomerbySalonKey: ${salon_key}, ${customer_key}")
+        Logger.log("(2) getCustomerbySalonCustomerKey: ${salon_key}, ${customer_key}")
 
 /*        val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
         return firebaseDatabase2.reference.child("salon_customers") // .child(checkout.author_employee_key)
@@ -113,7 +114,8 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                     }
                 })*/
 
-        return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key?:"")
+        return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
+     //   return retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(salon_key ?: "")
     }
 
 
@@ -193,8 +195,8 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        customer.image_urls[0]!!.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls[0].image_thumb_url})")
+                        customer.image_urls.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.image_thumb_url})")
                         finishedCallback.callback(customer)
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }
