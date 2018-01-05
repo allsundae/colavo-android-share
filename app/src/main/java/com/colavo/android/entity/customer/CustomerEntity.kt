@@ -20,30 +20,30 @@ class CustomerEntity(
     : BaseCustomer(uid, phone, national_phone, name, image_urls
                 , recent_appointment_begin_at, recent_appointment_end_at, is_removed, fund), Serializable
 
-/*        public ImageUrl(image_full_url: String, image_thumb_url: String) {
-            this.image_full_url = image_full_url
-            this.image_thumb_url = image_thumb_url
+/*        public ImageUrl(full: String, thumb: String) {
+            this.full = full
+            this.thumb = thumb
         }*/
 
 
 
 
 data class ImageUrl (
-        @SerializedName("full") @Expose var image_full_url: String = "",
-        @SerializedName("thumb") @Expose var image_thumb_url: String = ""
+        @SerializedName("full") @Expose var full: String = "",
+        @SerializedName("thumb") @Expose var thumb: String = ""
         )
 
 
 /*
 public class ImageUrl {
-    @SerializedName("full")   @Expose var image_full_url: String = ""
-    @SerializedName("thumb")  @Expose var image_thumb_url: String = ""
+    @SerializedName("full")   @Expose var full: String = ""
+    @SerializedName("thumb")  @Expose var thumb: String = ""
 
     fun getFullUrl(): String {
-        return image_full_url
+        return full
     }
 
     fun getThumbUrl(): String {
-        return image_thumb_url
+        return thumb
     }
 }*/

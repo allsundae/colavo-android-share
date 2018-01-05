@@ -62,6 +62,8 @@
     <string name="tnc"><![CDATA[
     콜라보헤어샵을 사용하면, 콜라보헤어샵의 <a href="http://www.colavo.kr">사용약관</a> 및 <a href="http://www.colavo.kr">개인정보 처리방침</a>에 동의한 것으로 간주합니다.
     ]]></string>
+    <string name="new_memo">새 메모</string>
+    <string name="title_activity_salon_main">헤어샵</string>
 
 
 </resources>

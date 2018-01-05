@@ -21,12 +21,16 @@ class CheckoutModel(
         var services: HashMap<String, ServiceMenu>  = hashMapOf("" to ServiceMenu(
                 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
-        var logs: List<EventLogs> = mutableListOf(EventLogs(false)),
+        var logs: HashMap<String, Boolean> = hashMapOf("" to false),
 
         var customer_name: String ="",
         var customer_image_thumb: String="",
         var customer_image_full: String="",
-        var service_menus: String=""
+        var service_menus: String="",
+
+        var memo_txt: String="",
+        var checkout_price: String="",
+        var checkout_paid_type: String=""
                     )
     : BaseCheckout(id, created_at, updated_at, begin_at, end_at
         , employee_only_event_title

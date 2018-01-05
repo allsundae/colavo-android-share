@@ -195,8 +195,8 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        customer.image_urls.image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.image_thumb_url})")
+                        customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.thumb})")
                         finishedCallback.callback(customer)
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }

@@ -4,13 +4,11 @@ import com.colavo.android.entity.checkout.BaseCheckout
 import com.colavo.android.entity.checkout.CheckoutEntity
 import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customer.CustomerEntity
-import com.colavo.android.entity.customer.CustomerModel
-import com.colavo.android.entity.event.EventEntity
-import com.colavo.android.entity.event.EventModel
-import com.colavo.android.entity.session.User
 import com.colavo.android.utils.Logger
-import com.colavo.android.utils.SimpleCallback
 import java.util.*
+import com.colavo.android.R.id.textView
+
+
 
 
 class CheckoutMapper {
@@ -47,8 +45,8 @@ class CheckoutMapper {
                 if (customer.name != null)
                     checkoutModel.user_name = "TEST"customer.name //todo address lastEventUser
 
-                if (customer.image_urls.image_thumb_url != "")
-                    checkoutModel.user_image = customer.image_urls.image_thumb_url
+                if (customer.image_urls.thumb != "")
+                    checkoutModel.user_image = customer.image_urls.thumb
             }*/
             Logger.log("CHECKOUTMAPPER : createCheckoutWithEventAndUser : ${checkoutModel.checkout_uid}")
 
@@ -74,25 +72,32 @@ class CheckoutMapper {
                 //checkoutModel.services = checkoutEntity.services.toMutableList()
                 checkoutModel.services = HashMap(checkoutEntity.services)
                 checkoutModel.discounts = HashMap(checkoutEntity.discounts)
-                checkoutModel.logs = checkoutEntity.logs.toMutableList()
+                checkoutModel.logs = HashMap(checkoutEntity.logs)
+
                 checkoutModel.customer_name = customerEntity.name
-                checkoutModel.service_menus = "Cut, Perm"
-                checkoutModel.customer_image_full = customerEntity.image_urls.image_full_url
-                checkoutModel.customer_image_thumb = customerEntity.image_urls.image_thumb_url
+                checkoutModel.service_menus = ""
+                checkoutModel.customer_image_full = customerEntity.image_urls.full
+                checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
 
                 val numOfItems = checkoutModel.services.size
                 Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")
 
- /*               for (x in 1..numOfItems) {
-                    checkoutModel.service_menus = checkoutEntity.services.name
+                var i = 0
+                for ((key, value) in checkoutModel.services) {
+                    println("$key -> $value")
+                    if (i == 0)
+                        checkoutModel.service_menus += value.name.toString()
+                    else
+                        checkoutModel.service_menus = checkoutModel.service_menus + ", " + value.name.toString()
+                    i = i+1
                 }
- */
+
                 Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutModel.customer_name} : ${checkoutModel.checkout_uid}")
 /*
 
                if (customerEntity != null){
                     checkoutModel.user_name = customerEntity.name
-                    checkoutModel.user_image = customerEntity.image_urls.image_thumb_url
+                    checkoutModel.user_image = customerEntity.image_urls.thumb
                    Logger.log("CHECKOUTMAPPER : customerEntity.name : ${customerEntity.name}")
                 }
                 else {
@@ -115,8 +120,8 @@ class CheckoutMapper {
                     if (customer.name != null)
                         checkoutModel.user_name = customer.name //todo address lastEventUser
 
-                    if (customer.image_urls.image_thumb_url != "")
-                        checkoutModel.user_image = customer.image_urls.image_thumb_url
+                    if (customer.image_urls.thumb != "")
+                        checkoutModel.user_image = customer.image_urls.thumb
                 }*/
 
 

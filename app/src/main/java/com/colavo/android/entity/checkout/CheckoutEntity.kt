@@ -24,7 +24,7 @@ class  CheckoutEntity(
         @SerializedName("services")              @Expose  var services: HashMap<String, ServiceMenu> = hashMapOf("" to ServiceMenu(
                                                                                 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
-        @SerializedName("logs")                  @Expose  var logs: List<EventLogs> = mutableListOf(EventLogs(false))
+        @SerializedName("logs")                  @Expose  var logs: HashMap<String, Boolean> = hashMapOf("" to false)
 /*
         @SerializedName("services")              @Expose  var services: List<ServiceMenu> = mutableListOf(ServiceMenu( 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
         @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
@@ -66,6 +66,26 @@ data class PaidType (
         @SerializedName("price")                    @Expose var price: Double = 0.0,
         @SerializedName("reserve_fund_rate")        @Expose var reserve_fund_rate: Double = 0.0
         )
+data class Memo (
+        @SerializedName("txt")                @Expose var txt: String = "",
+        @SerializedName("image_urls")         @Expose var image_urls: HashMap<String, Memo_Image>
+                                                                            = hashMapOf("" to Memo_Image(
+                0.0,"","","")),
+
+        @SerializedName("created_at")         @Expose var created_at: Double = 0.0,
+        @SerializedName("updated_at")         @Expose var updated_at: Double = 0.0,
+        @SerializedName("uid")                @Expose var uid: String = "",
+        @SerializedName("salon_key")          @Expose var salon_key: String = "",
+        @SerializedName("employee_key")       @Expose var employee_key: String = "",
+        @SerializedName("event_key")          @Expose var event_key: String = ""
+)
+
+data class Memo_Image (
+        @SerializedName("created_at")            @Expose var created_at: Double = 0.0,
+        @SerializedName("full")                  @Expose var full: String = "",
+        @SerializedName("thumb")                 @Expose var thumb: String = "",
+        @SerializedName("key")                   @Expose var key: String = ""
+)
 
 /*
         @SerializedName("price")                       @Expose override var price: Double = 0.0,

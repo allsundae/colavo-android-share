@@ -10,7 +10,6 @@ import android.view.animation.AlphaAnimation
 import com.colavo.android.ui.PlaceholderFragment04
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
@@ -139,8 +138,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             val event = CustomerDetailModel()
             event.id = customer.uid
             event.customer_name = customer.name
-            event.customer_image_full_url = customer.image_urls.image_full_url
-            event.customer_image_thumb_url = customer.image_urls.image_thumb_url
+            event.customer_image_full_url = customer.image_urls.full
+            event.customer_image_thumb_url = customer.image_urls.thumb
             event.customer_key = customer.uid
 
             Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${event.customer_name}, ${event.customer_key}")

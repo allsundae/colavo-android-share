@@ -61,6 +61,7 @@
     <string name="tnc"><![CDATA[
     By using Colavo, you agree to Colavo\'s <a href="http://www.colavo.kr">Terms of Usage</a> and <a href="http://www.colavo.kr">Privacy</a>
     ]]></string>
+    <string name="new_memo">New memo</string>
     <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
         <string name="logoTransitionName">customer_name</string>
         <string name="title_activity_salon_main">헤어샵</string>-->
