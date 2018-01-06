@@ -5,18 +5,18 @@
     <item android:drawable="@drawable/ic_icon"
             android:gravity="center_horizontal"
             android:top="200dp"
-            android:width="40dp"
-            android:height="40dp" />
+            android:width="70dp"
+            android:height="70dp" />
     <item
         android:drawable="@drawable/ic_logocolavo"
         android:gravity="center_horizontal"
-        android:top="270dp"
+        android:top="290dp"
         android:width="110dp"
         android:height="18dp" />
     <item
         android:drawable="@drawable/ic_copyright"
         android:gravity="center_horizontal|top"
-        android:top="610dp"
+        android:top="400dp"
         android:width="301dp"
         android:height="16dp" />
 

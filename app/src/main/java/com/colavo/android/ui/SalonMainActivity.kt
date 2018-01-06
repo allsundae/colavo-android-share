@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_salon_main.view.*
 import kotlinx.android.synthetic.main.fragment_01.*
 
 
-class SalonMainActivity : BasePresenterActivity<MainContract.View
+class   SalonMainActivity : BasePresenterActivity<MainContract.View
         , MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
 
     override fun onError(throwable: Throwable) {
@@ -71,7 +71,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
         container.setCurrentItem(0)
 
         // prevBottomNavigation = bottomBar.getItem(0)
-        container.setOffscreenPageLimit(5)
+        container.setOffscreenPageLimit(4)
         // for status bar color change
         val decor = window.decorView
         val tab1 : BottomBarTab = bottomBar.getTabAtPosition(0)

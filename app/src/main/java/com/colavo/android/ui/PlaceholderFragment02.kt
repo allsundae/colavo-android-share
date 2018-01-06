@@ -168,9 +168,13 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     override fun removeCheckout(checkoutEntity: CheckoutModel) {
         Logger.log("Checkout removed")
 
+/*
         val position = checkoutAdapter.items.indexOfFirst { it.checkout_uid.equals(checkoutEntity) }
         checkoutAdapter.items.removeAt(position)
         checkoutAdapter.notifyItemRemoved(position)
+*/
+        checkoutAdapter.items.removeAll{it.checkout_uid.equals(checkoutEntity.checkout_uid)}
+        checkoutAdapter.notifyDataSetChanged()
     }
 
     override fun showProgress() {

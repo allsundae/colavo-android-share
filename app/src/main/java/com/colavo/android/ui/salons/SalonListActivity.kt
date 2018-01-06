@@ -112,7 +112,7 @@ class SalonListActivity : BaseActivity()
 
     override fun addSalon(salonEntity: SalonModel) {
         salonsAdapter.items.add(salonEntity)
-        salonsAdapter.notifyItemInserted(salonsAdapter.itemCount - 1)
+        salonsAdapter.notifyItemInserted(salonsAdapter.itemCount )
     }
 
     override fun changeSalon(salonEntity: SalonModel) {
@@ -122,7 +122,7 @@ class SalonListActivity : BaseActivity()
     }
 
     override fun removeSalon(salonEntity: SalonModel) {
-        Logger.log("removed")
+        Logger.log("Salon removed")
         (salons_recyclerView.adapter as SalonsAdapter).items.removeAll { it.id.equals(salonEntity.id) }
         salons_recyclerView.adapter.notifyDataSetChanged()
     }

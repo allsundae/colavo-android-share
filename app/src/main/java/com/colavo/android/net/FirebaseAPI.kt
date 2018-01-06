@@ -1,6 +1,8 @@
 package com.colavo.android.net
 
 import com.colavo.android.entity.checkout.CheckoutEntity
+import com.colavo.android.entity.checkout.MemoEntity
+import com.colavo.android.entity.checkout.PaidoutEntity
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.event.EventEntity
 import com.colavo.android.entity.salon.SalonEntity
@@ -31,11 +33,15 @@ interface FirebaseAPI {
     fun getEventById(@Path("id") id: String): Observable<EventEntity>
 
 
-
-//    @GET("salon_customers/{salonid}/{customerid}.json")
-//    fun getCustomerBySalonCustomerId(@Path("salonid") salon_key: String, @Path("customerid") customer_key: String): Observable<CustomerEntity>
     @GET("salon_customers/{salonid}/{id}.json")
     fun getCustomerBySalonCustomerId(@Path("salonid") salon_key: String, @Path("id") customer_key: String): Observable<CustomerEntity>
+
+    @GET("memo/{id}.json")
+    fun getMemoByMemoId(@Path("id") memo_key: String ): Observable<MemoEntity?>
+
+    @GET("salon_checkouts/{salonid}/{id}.json")
+    fun getPaidoutBySalonCheckoutId(@Path("salonid") salon_key: String, @Path("id") checkout_key: String): Observable<PaidoutEntity>
+
 
     @GET("salon_customers/{id}.json")
     fun createCustomer(@Path("id") id: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>

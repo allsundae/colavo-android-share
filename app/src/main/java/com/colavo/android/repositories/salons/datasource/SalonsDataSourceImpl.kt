@@ -61,8 +61,11 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
 
                 })
             }
-            .concatMap { response -> convertToSalonModel(response)  }
-         //   .flatMap { response -> convertToSalonModel(response)  }
+           // .concatMap { response -> convertToSalonModel(response)  }
+            .concatMapEager { pair -> Observable.zip(Observable.just(pair),  getUserById(pair.first.owner_uid)
+                    .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+            , { pair, user -> SalonMapper.transformFromEntity(pair.first, user) to pair.second }
+                )}
 
     override fun createSalon(query: SalonsQuery.CreateSalon): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
@@ -75,22 +78,6 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
                                     { WTF, user -> SalonMapper.transformFromEntity(pair.first, user) to pair.second }
                                 }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
     }
-/*   private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
-        return getLastEvent((pair.first).lastEventId).concatMap { events ->
-            Observable.zip(Observable.just(events),
-                    getUserById(events?.userId)) { events, user ->
-                SalonMapper.createSalonWithEventAndUser(pair.first, events, user) to pair.second }
-        }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-    }  */
-
-
-    /*private fun convertToSalonModel(pair: Pair<SalonEntity, ResponseType>): Observable<Pair<SalonModel, ResponseType>> {
-        return getOwnerName((pair.first).owner_uid).concatMap { users ->
-            Observable.zip(Observable.just(users),
-                    getUserById(users?.uid)) { users, user ->
-                SalonMapper.createSalonWithEventAndUser(pair.first, user) to pair.second }
-        }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-    }*/
 
 
 

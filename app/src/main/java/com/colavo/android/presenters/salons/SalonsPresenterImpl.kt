@@ -10,9 +10,7 @@ import com.colavo.android.utils.Logger
 import rx.Subscriber
 import javax.inject.Inject
 
-/**
- * Created by RUS on 17.07.2016.
- */
+
 class SalonsPresenterImpl @Inject constructor(val getSalons: GetSalons,
                                               val createSalon: CreateSalon) : SalonsPresenter {
 

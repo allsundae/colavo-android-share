@@ -20,7 +20,7 @@
         android:paddingTop="@dimen/toolbar_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--android:background="?android:attr/selectableItemBackground"-->
-        <android.support.constraint.ConstraintLayout
+        <!--<android.support.constraint.ConstraintLayout
             android:id="@+id/empty_checkout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -66,12 +66,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_empty" />
-        </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>-->
+    <include
+        android:id="@+id/empty_checkout"
+        layout="@layout/base_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        />
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true" />
 

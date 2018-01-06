@@ -1,14 +1,10 @@
 package com.colavo.android.repositories.checkout.datasource.mapper
 
-import com.colavo.android.entity.checkout.BaseCheckout
-import com.colavo.android.entity.checkout.CheckoutEntity
-import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.utils.Logger
 import java.util.*
 import com.colavo.android.R.id.textView
-
-
+import com.colavo.android.entity.checkout.*
 
 
 class CheckoutMapper {
@@ -53,7 +49,7 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity ): CheckoutModel { //,  customerEntity: CustomerEntity
+            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity ): CheckoutModel { //, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity
                 Logger.log("(4) CHECKOUTMAPPER ")
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
@@ -78,9 +74,16 @@ class CheckoutMapper {
                 checkoutModel.service_menus = ""
                 checkoutModel.customer_image_full = customerEntity.image_urls.full
                 checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
+            //    checkoutModel.memo_txt = memoEntity!!.txt
+/*
 
-                val numOfItems = checkoutModel.services.size
-                Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")
+                checkoutModel.checkout_price = paidoutEntity.price.toString()
+                for ((key, value) in paidoutEntity.paid_types) {
+                    checkoutModel.checkout_paid_type = key.toString()
+                }*/
+
+                /*val numOfItems = checkoutModel.services.size
+                Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")*/
 
                 var i = 0
                 for ((key, value) in checkoutModel.services) {
@@ -93,36 +96,6 @@ class CheckoutMapper {
                 }
 
                 Logger.log("(4) CHECKOUTMAPPER : transformFromEntity : name : ${checkoutModel.customer_name} : ${checkoutModel.checkout_uid}")
-/*
-
-               if (customerEntity != null){
-                    checkoutModel.user_name = customerEntity.name
-                    checkoutModel.user_image = customerEntity.image_urls.thumb
-                   Logger.log("CHECKOUTMAPPER : customerEntity.name : ${customerEntity.name}")
-                }
-                else {
-                    checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
-                    checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC2p08Hh4w8DqdAkc%2Fprofiles%2Fprofile_thumb.png?alt=media&token=b674e47d-59de-467c-8cb8-52b59febf12e"
-                }
-*/
-
-/*
-
-                checkoutModel.user_name = "UNKNOWNPLAYER" //customerEntity.name
-                checkoutModel.user_image = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC-aZyWqiAP_LmHk7%2Fprofiles%2Fprofile_thumb.png?alt=media&token=37904776-f8a1-4f43-937d-edb25466b5b9"
-
-*/
-
- //               checkoutModel.customer_menu = "Menu 1, Menu 2"
-
-
-/*                if (customer != null) {
-                    if (customer.name != null)
-                        checkoutModel.user_name = customer.name //todo address lastEventUser
-
-                    if (customer.image_urls.thumb != "")
-                        checkoutModel.user_image = customer.image_urls.thumb
-                }*/
 
 
                 return checkoutModel

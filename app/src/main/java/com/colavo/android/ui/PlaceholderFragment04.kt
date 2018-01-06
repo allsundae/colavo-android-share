@@ -157,23 +157,25 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun changeCustomer(customerEntity: CustomerModel) {
         Logger.log("Customer changed")
 
-        val position = (customers_recyclerView.adapter as CustomerAdapter).items.indexOfFirst { it.uid.equals(customerEntity.uid) }
+ /*       val position = (customers_recyclerView.adapter as CustomerAdapter).items.indexOfFirst { it.uid.equals(customerEntity.uid) }
         (customers_recyclerView.adapter as CustomerAdapter).items[position] = customerEntity
-        customers_recyclerView.adapter.notifyItemChanged(position)
+        customers_recyclerView.adapter.notifyItemChanged(position)*/
 
-/*
+
         val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity.uid) }
         customerAdapter.items[position] = customerEntity
         customerAdapter.notifyItemChanged(position)
-*/
+
     }
 
     override fun removeCustomer(customerEntity: CustomerModel) {
         Logger.log("Customer removed")
 
-        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
+/*        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
         customerAdapter.items.removeAt(position)
-        customerAdapter.notifyItemRemoved(position)
+        customerAdapter.notifyItemRemoved(position)*/
+        customerAdapter.items.removeAll{it.uid.equals(customerEntity.uid)}
+        customerAdapter.notifyDataSetChanged()
     }
 
 

@@ -10,7 +10,7 @@
     android:elevation="0dp"
     android:minHeight="?attr/actionBarSize"
     android:subtitleTextColor="@color/colorAccent"
-    android:background="?attr/selectableItemBackgroundBorderless"
+    android:background="?attr/selectableItemBackground"
     android:theme="@style/MyToolbarStyle"
     tools:ignore="missingPrefix"
     android:textStyle="bold"
