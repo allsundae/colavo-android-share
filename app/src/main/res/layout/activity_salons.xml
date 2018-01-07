@@ -22,8 +22,13 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/ic_plus"
         app:elevation="24dp" />-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_layout_salon">
 
-    <include layout="@layout/content_salons" />
+        <include layout="@layout/content_salons" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         style="@style/BottomSheetTheme"

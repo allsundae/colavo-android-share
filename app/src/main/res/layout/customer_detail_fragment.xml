@@ -55,7 +55,7 @@
         android:fillViewport="true"
         android:paddingTop="@dimen/toolbar_height"
         android:paddingBottom="@dimen/height_bottombar"
-        app:behavior_overlapTop="100dp"
+        app:behavior_overlapTop="300dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -94,6 +94,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:letterSpacing="-0.05"
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="@dimen/list_Bigtext"
@@ -103,10 +104,9 @@
                         android:id="@+id/container_2ndline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
+                        android:layout_marginTop="@dimen/list_vertical_padding"
                         android:ellipsize="end"
                         android:fontFamily="sans-serif"
-                        android:letterSpacing="-0.05"
                         android:maxLines="1"
                         android:text="01047079934"
                         android:textAppearance="?attr/textAppearanceListItem"
@@ -121,6 +121,7 @@
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:focusable="true"
+                    android:isScrollContainer="true"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             <include
                 android:id="@+id/customer_detail_empty"

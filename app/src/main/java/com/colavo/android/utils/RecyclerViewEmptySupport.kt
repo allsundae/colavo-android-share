@@ -5,9 +5,6 @@ import android.support.v7.widget.RecyclerView.AdapterDataObserver
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
-import android.support.v7.widget.LinearSmoothScroller
-
-
 
 
 /**
@@ -15,6 +12,7 @@ import android.support.v7.widget.LinearSmoothScroller
  */
 class RecyclerViewEmptySupport : RecyclerView {
     private var emptyView: View? = null
+
     private val observer = object : AdapterDataObserver() {
         override fun onChanged() {
             checkIfEmpty()
@@ -39,6 +37,7 @@ class RecyclerViewEmptySupport : RecyclerView {
         if (emptyView != null && adapter != null) {
             val emptyViewVisible = adapter.itemCount == 0
             emptyView!!.setVisibility(if (emptyViewVisible) View.VISIBLE else View.GONE)
+
             visibility = if (emptyViewVisible) View.GONE else View.VISIBLE
         }
     }

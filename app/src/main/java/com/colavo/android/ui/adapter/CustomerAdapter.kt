@@ -39,7 +39,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
            // this.customerImage.loadUrl(customerModel.image)
 //            val thisThumbImage:String = customerModel.image_urls!!.getThumbUrl()
 
-           if (customerModel.image_urls.thumb != "") {
+           if (customerModel.image_urls.thumb != "" && customerModel.image_urls.thumb != null) {
                val transForm = CircleTransform()
 
                 Picasso.with(context)
@@ -47,7 +47,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
                         .resize(240, 240)
                         .centerCrop()
                         .placeholder(R.drawable.ic_person_container)
-                        .transform(transForm)
+                      //  .transform(transForm)
                         .into(this.customerImage)
 
             }

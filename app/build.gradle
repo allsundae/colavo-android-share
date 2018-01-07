@@ -110,6 +110,8 @@ dependencies {
     compile 'com.github.katoro:typekit:1.0.1'
     compile 'com.schibsted.spain:parallax-layer-layout:1.1.1'
     implementation 'com.simmorsal.recolor:recolor:1.1.0'
+    compile 'com.github.oxoooo:pull-back-layout:1.0.1'
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
 }
 
 repositories {

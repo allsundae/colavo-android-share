@@ -8,6 +8,11 @@
     android:background="@color/backgroundWhite"
     android:gravity="top|center_horizontal">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_layout_customer">
+
     <com.colavo.android.utils.RecyclerViewEmptySupport
         android:id="@+id/customers_recyclerView"
         android:layout_width="match_parent"
@@ -20,64 +25,43 @@
         android:paddingTop="@dimen/toolbar_height"
         android:paddingBottom="@dimen/height_bottombar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <!--android:background="?android:attr/selectableItemBackground"-->
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/empty_customer"
+        <include
+            android:id="@+id/empty_customer"
+            layout="@layout/base_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolBar_customer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundWhite"
-        >
-
-        <TextView
-            android:id="@+id/empty_view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
-            android:gravity="center"
-            android:text="@string/no_data_title"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            tools:text="@string/no_data_title" />
-
-        <TextView
-            android:id="@+id/empty_view_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/no_data_description"
-            app:fontName="Custom1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empty_view_title"
-            tools:text="@string/no_data_description"
-            tools:ignore="MissingPrefix" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="132dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_empty" />
-    </android.support.constraint.ConstraintLayout>
-
-
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:layout_height="?attr/actionBarSize"
         android:clickable="true"
-        android:focusable="true"
-        />
+        android:elevation="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:subtitleTextColor="@color/colorAccent"
+        android:background="?attr/selectableItemBackground"
+        android:theme="@style/MyToolbarStyle"
+        tools:ignore="missingPrefix"
+        android:textStyle="bold"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textSize="40sp"/>
+
+    </android.support.v7.widget.Toolbar>
 
   <!--  <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_customer"

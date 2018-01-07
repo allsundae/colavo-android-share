@@ -10,6 +10,7 @@ import com.colavo.android.interactors.customer.CreateCustomer
 import com.colavo.android.interactors.customer.GetSalonCustomer
 import com.colavo.android.interactors.salons.CreateSalon
 import com.colavo.android.interactors.salons.GetSalons
+import com.colavo.android.ui.PlaceholderFragment04
 import com.colavo.android.ui.customer.CustomerlistView
 import com.colavo.android.ui.salons.SalonlistView
 import com.colavo.android.utils.Logger
@@ -57,6 +58,8 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
         }
 
         override fun onCompleted() {
+            Logger.log("CreateCustomerSubscriber : onCompleted")
+            customerlistView?.updateNumberofCustomer()
 
         }
 

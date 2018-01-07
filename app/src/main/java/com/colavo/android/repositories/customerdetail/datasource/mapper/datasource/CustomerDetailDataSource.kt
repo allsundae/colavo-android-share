@@ -1,5 +1,6 @@
 package com.colavo.android.repositories.customerdetail.datasource
 
+import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customerdetail.CustomerDetailModel
 import com.colavo.android.entity.query.Handle
 import com.colavo.android.entity.query.customerdetail.CustomerDetailQuery
@@ -10,7 +11,7 @@ import rx.Observable
 interface CustomerDetailDataSource {
 
     @Handle(CustomerDetailQuery.GetCustomerEvents::class)
-    fun initialize(query: CustomerDetailQuery.GetCustomerEvents): Observable<Pair<CustomerDetailModel, ResponseType>>
+    fun initialize(query: CustomerDetailQuery.GetCustomerEvents): Observable<Pair<CheckoutModel, ResponseType>>
 
     /*@Handle(CustomerDetailQuery.CreateCustomerDetail::class)
     fun createCustomerDetail(query: CustomerDetailQuery.CreateCustomerDetail): Observable<FirebaseResponse>

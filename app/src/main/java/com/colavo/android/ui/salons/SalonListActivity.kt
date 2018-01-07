@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
 import com.simmorsal.recolor_project.ReColor
+import kotlinx.android.synthetic.main.fragment_04.*
 
 
 class SalonListActivity : BaseActivity()
@@ -94,6 +95,19 @@ class SalonListActivity : BaseActivity()
         salonsPresenter.attachView(this)
         salonsPresenter.initialize(firebaseAuth.currentUser!!.uid)
 
+        swipe_layout_salon.setOnRefreshListener(){
+            fun onRefresh(){
+                Logger.log("Refresh start : onRefresh Customer")
+                salonsAdapter.notifyDataSetChanged()
+/*
+                val ft = fragmentManager!!.beginTransaction()
+                ft.detach(this).attach(this).commit()
+*/
+                Logger.log("Refresh start : onRefresh done")
+            }
+            swipe_layout_salon.setRefreshing(false)
+            Logger.log("Refresh Done")
+        }
     }
 
     override fun showCreateSalonlistFragment() {

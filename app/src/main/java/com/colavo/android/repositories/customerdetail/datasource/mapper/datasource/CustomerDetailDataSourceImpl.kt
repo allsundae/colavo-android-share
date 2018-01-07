@@ -1,11 +1,14 @@
 package com.colavo.android.repositories.customerdetail.datasource
 
+import com.colavo.android.entity.checkout.CheckoutEntity
+import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customerdetail.CustomerDetailEntity
 import com.colavo.android.entity.customerdetail.CustomerDetailModel
 import com.colavo.android.entity.query.customerdetail.CustomerDetailQuery
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.net.FirebaseAPI
+import com.colavo.android.repositories.checkout.datasource.mapper.CheckoutMapper
 import com.colavo.android.repositories.customerdetail.datasource.mapper.CustomerDetailMapper
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.SimpleCallback
@@ -18,8 +21,8 @@ import javax.inject.Inject
 
 class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CustomerDetailDataSource {
 
-    override fun initialize(query: CustomerDetailQuery.GetCustomerEvents): Observable<Pair<CustomerDetailModel, ResponseType>>
-            = Observable.create<Pair<CustomerDetailEntity, ResponseType>>
+    override fun initialize(query: CustomerDetailQuery.GetCustomerEvents): Observable<Pair<CheckoutModel, ResponseType>>
+            = Observable.create<Pair<CheckoutEntity, ResponseType>>
                 { subscriber -> firebaseDatabase.reference.child("customer_events")
                         .child(query.customerUid)
                         .orderByChild("begin_at")//.equalTo(getCurrentFirebaseUserKey())
@@ -29,21 +32,21 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
 
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
-                                        val customerDetail = dataSnapshot.getValue(CustomerDetailEntity::class.java)
-                                        customerDetail.id = dataSnapshot.key
-                                        Logger.log("CUSTOMERDETAIL changed ${customerDetail.id}")
+                                        val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
+                                        customerDetail.checkout_uid = dataSnapshot.key
+                                        Logger.log("CUSTOMERDETAIL changed ${customerDetail.checkout_uid}")
                                         subscriber.onNext(customerDetail to ResponseType.CHANGED)
                                     }
                                 }
 
                                 override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
-                                        val customerDetail = dataSnapshot.getValue(CustomerDetailEntity::class.java)
-                                        customerDetail.id = dataSnapshot.key
+                                        val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
+                                        customerDetail.checkout_uid = dataSnapshot.key
 
                                         val numOfServices: Long = dataSnapshot.child("services").childrenCount
 
-                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail.id} (${numOfServices})")
+                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail.checkout_uid} (${numOfServices})")
 
                       /*                  for (num in numOfServices) {
 
@@ -58,74 +61,35 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
 
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
-                                        val customerDetail = dataSnapshot.getValue(CustomerDetailEntity::class.java)
-                                        customerDetail.id = dataSnapshot.key
+                                        val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
+                                        customerDetail.checkout_uid = dataSnapshot.key
                                         subscriber.onNext(customerDetail to ResponseType.REMOVED)
                                     }
                                 }
 
                                 override fun onCancelled(error: DatabaseError?) {
+                                    Logger.log("(1) CUSTOMER ERROR : ${error.toString()}")
                                     subscriber.onError(error?.toException())
                                 }
 
                         })
             }
-            /*. DEVELOPING */
-//            .concatMap { response -> convertToCustomerDetailModel(response)}
 /* TODO This is WORKING on GITHUB */
-            .concatMapEager {
-                pair -> Observable.zip(Observable.just(pair), Observable.just(pair.first)//getCustomerDetailbySalonKey(pair.first.salon_key) //getCustomerDetailbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
+            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getCustomerDetailbySalonKey(pair.first.salon_key) //getCustomerDetailbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
                                         .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                                        , { pair, test -> CustomerDetailMapper.transformFromEntity(pair.first) to pair.second }
+                                        , { pair, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
                                         )
                             }
 
 
-    private fun convertToCustomerDetailModel(pair: Pair<CustomerDetailEntity, ResponseType>) : Observable< Pair<CustomerDetailModel, ResponseType>> {
-        Logger.log("convertToCustomerDetailModel : customerDetail_uid: ${pair.first.id}, customer_key: ${pair.first.customer_key}")
 
-        var customer : CustomerEntity? = null
 
-        getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key, object : SimpleCallback<CustomerEntity>{
-            override fun callback(customerCallback: CustomerEntity){
-                customer = customerCallback
-                Logger.log("getCustomerbySalonCustomerKey : Callback : ${customerCallback.name} -> var customer : ${customer!!.name}")
-            }
-        })
-
-        return Observable.just(pair)
-                .concatMapEager { test ->
-                    Observable.zip(Observable.just(pair.first), Observable.just(customer!!))
-                    { WTF, arigato -> CustomerDetailMapper.transformFromEntity(pair.first) to pair.second }
-                } .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-
+    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
+        Logger.log("(2) getCustomerbySalonCustomerKey: $salon_key, $customer_key")
+        return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
     }
 
-    private fun getCustomerbySalonKey(salon_key: String?) : Observable<CustomerEntity>  {
-        Logger.log("getCustomerbySalonKey: ${salon_key}")
-        return retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(salon_key ?: "")
-}
 
-
-
-   /* override fun createCustomerDetail(query: CustomerDetailQuery.CreateCustomerDetail): Observable<FirebaseResponse>
-            = retrofit.create(FirebaseAPI::class.java)
-            .createCustomerDetail(query.salon_key
-                            , CustomerDetailEntity(customerDetail_uid = query.customerDetail_uid
-                                            ,salon_key = query.salon_key
-                                            ,event_key = query.event_key
-                                            ,price = query.price
-                                            ,is_manual_price = query.is_manual_price
-                                            ,reserve_fund = query.reserve_fund
-                                            ,paid_fund = query.paid_fund
-                                            ,author_employee_key = query.author_employee_key
-                                            ,paid_types = query.paid_types
-                                            ,created_at = query.created_at
-                                            ,updated_at = query.updated_at
-                                            ,reserveFund = query.reserveFund
-                                            ,paidFund = query.paidFund
-                                            ,tip = query.tip
-                                                ))*/
 
 
 

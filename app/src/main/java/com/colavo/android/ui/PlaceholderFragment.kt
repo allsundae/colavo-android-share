@@ -28,14 +28,20 @@ import android.util.TypedValue
 import android.view.*
 import android.view.animation.*
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.fragment_01.*
 import kotlinx.android.synthetic.main.popup_event_detail.view.*
 import com.colavo.android.poptip.OnCancelListener
 import com.colavo.android.poptip.OnSwipeDismissListener
 import com.colavo.android.poptip.SwipeDismissDirection
+import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.customer_item.*
+import kotlinx.android.synthetic.main.customer_item.view.*
 import kotlinx.android.synthetic.main.popup_event_detail.*
+import kotlinx.android.synthetic.main.spinner_designer.*
 import java.util.concurrent.TimeUnit
 
 
@@ -90,6 +96,21 @@ class PlaceholderFragment : BaseFragment()
         val designerAdapter = ArrayAdapter<String>(this.context!!, R.layout.spinner_designer, R.id.designer_name, designer_list)
         designerAdapter.setDropDownViewResource(R.layout.spinner_popup)
         spinner_designer.adapter = designerAdapter//setText(salon.name)
+
+/*
+        val transForm = CustomerAdapter.CircleTransform()
+        val designerImage: ImageView = customer_image
+            Picasso.with(context)
+                    .load("https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb") //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                    .resize(20, 20)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_person_container)
+                    .transform(transForm)
+                    .into(designerImage)
+*/
+
+
+
 
         // Show a toast message about the touched event.
         weekView.setOnEventClickListener(this)
