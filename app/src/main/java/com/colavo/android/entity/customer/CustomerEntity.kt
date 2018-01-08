@@ -20,30 +20,12 @@ class CustomerEntity(
     : BaseCustomer(uid, phone, national_phone, name, image_urls
                 , recent_appointment_begin_at, recent_appointment_end_at, is_removed, fund), Serializable
 
-/*        public ImageUrl(full: String, thumb: String) {
-            this.full = full
-            this.thumb = thumb
-        }*/
-
 
 
 
 data class ImageUrl (
         @SerializedName("full") @Expose var full: String = "",
         @SerializedName("thumb") @Expose var thumb: String = ""
-        )
+        ) : Serializable
 
 
-/*
-public class ImageUrl {
-    @SerializedName("full")   @Expose var full: String = ""
-    @SerializedName("thumb")  @Expose var thumb: String = ""
-
-    fun getFullUrl(): String {
-        return full
-    }
-
-    fun getThumbUrl(): String {
-        return thumb
-    }
-}*/

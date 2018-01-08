@@ -31,9 +31,9 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer.uid = dataSnapshot.key
-                                        Logger.log("changed ${customer.name}")
-                                        subscriber.onNext(customer to ResponseType.CHANGED)
+                                        customer?.uid = dataSnapshot.key
+                                        Logger.log("changed ${customer?.name}")
+                                        subscriber.onNext(customer!! to ResponseType.CHANGED)
                                     }
                                 }
 
@@ -43,29 +43,29 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                     //    val urls:ImageUrl = dataSnapshot.child("image_url").child("thumb").getValue(ImageUrl::class.java)
 
                                         if ( dataSnapshot.child("image_url").child("thumb").value != null) {
-                                            customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                                            customer?.image_urls?.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
                                             Logger.log("Image Thumb Url : ${dataSnapshot.child("image_url").child("thumb").value.toString()}")
-                                            Logger.log("Image Thumb Url : ${customer.image_urls.thumb}")
+                                            Logger.log("Image Thumb Url : ${customer?.image_urls?.thumb}")
                                         }
 
                                         if ( dataSnapshot.child("image_url").child("full").value != null) {
-                                            customer.image_urls.full = (dataSnapshot.child("image_url").child("full").value).toString()
+                                            customer?.image_urls?.full = (dataSnapshot.child("image_url").child("full").value).toString()
                                         }
 
 
                                                 //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()
                                     //    customer.image_urls?.thumb = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
-                                        customer.uid = dataSnapshot.key
-                                        Logger.log("added ${customer.name}")
-                                        subscriber.onNext(customer to ResponseType.ADDED)
+                                        customer?.uid = dataSnapshot.key
+                                        Logger.log("added ${customer?.name}")
+                                        subscriber.onNext(customer!! to ResponseType.ADDED)
                                     }
                                 }
 
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer.uid = dataSnapshot.key
-                                        subscriber.onNext(customer to ResponseType.REMOVED)
+                                        customer?.uid = dataSnapshot.key
+                                        subscriber.onNext(customer!! to ResponseType.REMOVED)
                                     }
                                 }
 

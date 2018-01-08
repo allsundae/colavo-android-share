@@ -33,20 +33,20 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        customerDetail.checkout_uid = dataSnapshot.key
-                                        Logger.log("CUSTOMERDETAIL changed ${customerDetail.checkout_uid}")
-                                        subscriber.onNext(customerDetail to ResponseType.CHANGED)
+                                        customerDetail?.checkout_uid = dataSnapshot.key
+                                        Logger.log("CUSTOMERDETAIL changed ${customerDetail?.checkout_uid}")
+                                        subscriber.onNext(customerDetail!! to ResponseType.CHANGED)
                                     }
                                 }
 
                                 override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        customerDetail.checkout_uid = dataSnapshot.key
+                                        customerDetail?.checkout_uid = dataSnapshot.key
 
                                         val numOfServices: Long = dataSnapshot.child("services").childrenCount
 
-                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail.checkout_uid} (${numOfServices})")
+                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail?.checkout_uid} (${numOfServices})")
 
                       /*                  for (num in numOfServices) {
 
@@ -55,15 +55,15 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
                                         customerDetail.customer_menu = dataSnapshot.child("services").childrenCount
                                         Logger.log("(5) added event ${customerDetail.customer_name} : ${service.name} : ${service.key}")
 */
-                                        subscriber.onNext(customerDetail to ResponseType.ADDED)
+                                        subscriber.onNext(customerDetail!! to ResponseType.ADDED)
                                     }
                                 }
 
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        customerDetail.checkout_uid = dataSnapshot.key
-                                        subscriber.onNext(customerDetail to ResponseType.REMOVED)
+                                        customerDetail?.checkout_uid = dataSnapshot.key
+                                        subscriber.onNext(customerDetail!! to ResponseType.REMOVED)
                                     }
                                 }
 
@@ -106,8 +106,8 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
  //                       customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.thumb})")
-                        finishedCallback.callback(customer)
+                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer?.name} (${customer?.image_urls?.thumb})")
+                        finishedCallback.callback(customer!!)
                         //subscriber.onNext(customer to ResponseType.ADDED)
                     }
 

@@ -42,20 +42,20 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.checkout_uid = dataSnapshot.key
-                                        Logger.log("CHECKOUT changed ${checkout.checkout_uid}")
-                                        subscriber.onNext(checkout to ResponseType.CHANGED)
+                                        checkout?.checkout_uid = dataSnapshot.key
+                                        Logger.log("CHECKOUT changed ${checkout?.checkout_uid}")
+                                        subscriber.onNext(checkout!! to ResponseType.CHANGED)
                                     }
                                 }
 
                                 override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.checkout_uid = dataSnapshot.key
-                                        Logger.log("(1) CHECKOUT ADDED : checkout_uid : ${checkout.checkout_uid}")
+                                        checkout?.checkout_uid = dataSnapshot.key
+                                        Logger.log("(1) CHECKOUT ADDED : checkout_uid : ${checkout?.checkout_uid}")
 
                                         // 1. get Customer
-                                        subscriber.onNext(checkout to ResponseType.ADDED)
+                                        subscriber.onNext(checkout!! to ResponseType.ADDED)
                                     }
 
                                 }
@@ -63,8 +63,8 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
-                                        checkout.checkout_uid = dataSnapshot.key
-                                        subscriber.onNext(checkout to ResponseType.REMOVED)
+                                        checkout?.checkout_uid = dataSnapshot.key
+                                        subscriber.onNext(checkout!! to ResponseType.REMOVED)
                                     }
                                 }
 

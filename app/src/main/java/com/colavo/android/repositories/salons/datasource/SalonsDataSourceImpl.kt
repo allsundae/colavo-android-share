@@ -32,26 +32,26 @@ class SalonsDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fireb
                     override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                         if(dataSnapshot != null) {
                             val salon = dataSnapshot.getValue(SalonEntity::class.java)
-                            salon.id = dataSnapshot.key
-                            Logger.log("changed ${salon.name}")
-                            subscriber.onNext(salon to ResponseType.CHANGED)
+                            salon?.id = dataSnapshot.key
+                            Logger.log("changed ${salon?.name}")
+                            subscriber.onNext(salon!! to ResponseType.CHANGED)
                         }
                     }
 
                     override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                         if(dataSnapshot != null) {
                             val salon = dataSnapshot.getValue(SalonEntity::class.java)
-                            salon.id = dataSnapshot.key
-                            Logger.log("added ${salon.name}")
-                            subscriber.onNext(salon to ResponseType.ADDED)
+                            salon?.id = dataSnapshot.key
+                            Logger.log("added ${salon?.name}")
+                            subscriber.onNext(salon!! to ResponseType.ADDED)
                         }
                     }
 
                     override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                         if(dataSnapshot != null) {
                             val salon = dataSnapshot.getValue(SalonEntity::class.java)
-                            salon.id = dataSnapshot.key
-                            subscriber.onNext(salon to ResponseType.REMOVED)
+                            salon?.id = dataSnapshot.key
+                            subscriber.onNext(salon!! to ResponseType.REMOVED)
                         }
                     }
 
