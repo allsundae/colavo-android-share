@@ -27,6 +27,8 @@ import com.colavo.android.repositories.customer.CustomerRepository
 import com.colavo.android.repositories.customer.datasource.CustomerDataSourceImpl
 import com.colavo.android.utils.HandleUtils
 import com.colavo.android.utils.Logger
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 import com.tsengvn.typekit.Typekit
 
 
@@ -42,6 +44,11 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (!FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+            Logger.log("FirebaseDatabase setPersistenceEnabled : TRUE")
+        }
 
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this,"NanumSquareR.ttf"))

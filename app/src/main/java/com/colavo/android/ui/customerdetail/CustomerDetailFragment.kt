@@ -31,6 +31,9 @@ import kotlinx.android.synthetic.main.fragment_02.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import javax.inject.Inject
+import android.net.Uri.fromParts
+import android.content.Intent
+import android.net.Uri
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
@@ -50,6 +53,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     companion object {
 //        fun newInstance() = CustomerDetailFragment()
+        var customerPhone = ""
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -63,6 +67,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (context!!.applicationContext as App).addCustomerDetailComponent().inject(this)
+
         setHasOptionsMenu(true)
      //   initInstancesDrawer()
     }
@@ -102,7 +107,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             checkout.customer_image_full = customer.customer_image_full
             checkout.customer_image_thumb = customer.customer_image_thumb
             checkout.customer_key = customer.customer_key
-
+            customerPhone = customer.customer_phone
             Logger.log("CustomerDetailFragment : name : ${customer.customer_name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 
 
@@ -148,6 +153,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             checkout.customer_name = customer.name
             checkout.customer_image_full = customer.image_urls.full
             checkout.customer_image_thumb = customer.image_urls.thumb
+            customerPhone = customer.phone
             checkout.customer_key = customer.uid
 
             Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${checkout.customer_name}, ${checkout.customer_key}")
@@ -263,14 +269,28 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_customer_detail, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_customer_detail, menu)
+
+        if (customerPhone == "" ) {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
+            menu.removeItem(R.id.action_customer_call)
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
             R.id.action_customer_call -> {
+                if (customerPhone !== "" ){
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
+                    startActivity(intent)
+                }
+                else {
+                    showToast(getString(R.string.err_phonenumber))
+                }
+
                 return true
             }
             R.id.action_customer_edit ->{

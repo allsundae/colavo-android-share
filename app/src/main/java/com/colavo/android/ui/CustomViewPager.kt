@@ -33,4 +33,5 @@ public class CustomViewPager(context: Context, attrs: AttributeSet) : ViewPager(
     fun setPagingEnabled(enabled: Boolean) {
         this.enabled = enabled
     }
+    
 }

@@ -64,6 +64,7 @@
     ]]></string>
     <string name="new_memo">새 메모</string>
     <string name="title_activity_salon_main">헤어샵</string>
+    <string name="err_phonenumber">이 고객은 전화번호가 등록되어 있지 않습니다.</string>
 
 
 </resources>

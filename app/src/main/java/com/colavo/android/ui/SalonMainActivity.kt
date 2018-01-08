@@ -1,6 +1,7 @@
 package com.colavo.android.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -29,6 +30,9 @@ import com.colavo.android.weekview.WeekView
 import com.roughike.bottombar.BottomBarTab
 import kotlinx.android.synthetic.main.activity_salon_main.view.*
 import kotlinx.android.synthetic.main.fragment_01.*
+import com.google.gson.Gson
+
+
 
 
 class   SalonMainActivity : BasePresenterActivity<MainContract.View
@@ -168,20 +172,6 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
         finish()
     }
 
-    override fun updatePager() { //WTF
-        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
-        if (pagerAdapter != null) pagerAdapter.notifyDataSetChanged()
-        val nearby = bottomBar.getTabWithId(R.id.action_stats)
-        nearby.setBadgeCount(5)
-        //mSectionsPagerAdapter?.notifyDataSetChanged()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        container.removeOnPageChangeListener(this)
-
-    }
-
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
     }
@@ -204,6 +194,18 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
 
     }
 
+    override fun updatePager() { //WTF
+        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
+
+        if (pagerAdapter != null) {
+            pagerAdapter!!.notifyDataSetChanged()
+            Logger.log("SalonMainActivity : updatePager : notifyDataSetChanged !")
+        }
+
+        val nearby = bottomBar.getTabWithId(R.id.action_stats)
+        nearby.setBadgeCount(5)
+    }
+
     override fun onSaveInstanceState(saveBundle: Bundle?) {
         val bundle = Bundle()
         val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
@@ -219,7 +221,29 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
         super.onSaveInstanceState(saveBundle)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        container.removeOnPageChangeListener(this)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val pref : SharedPreferences  = getSharedPreferences(SAVED_PREFS, 0)
+        val edit : SharedPreferences.Editor = pref.edit()
+        val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val gson = Gson()
+        val json = gson.toJson(salonModel)
+        Logger.log("onPause : ${salonModel.name} ${salonModel.id} ")
+       // val serializedSalonModel = salonModel.toString()
+        edit.putString(SAVED_SALON_ID, json)
+
+        edit.commit()
+    }
+
     companion object {
+        val SAVED_PREFS: String = "SAVED_PREFS"
+        val SAVED_SALON_ID: String = "SALON_ID"
         val SAVED_SALON_STATE: String = "SALON_STATE"
         val BUNDLE_KEY: String = "BUNDLE_KEY"
     }

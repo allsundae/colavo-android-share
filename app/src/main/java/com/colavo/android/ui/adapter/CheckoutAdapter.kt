@@ -15,6 +15,9 @@ import com.colavo.android.utils.Logger
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.checkout_item.view.*
+import android.support.v4.view.PagerAdapter.POSITION_NONE
+
+
 
 class CheckoutAdapter(val onItemClickListener: OnItemClickListener
                       , val items: MutableList<CheckoutModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -79,5 +82,9 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
             = ItemViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.checkout_item, parent, false))
 
     override fun getItemCount(): Int = items.size
+
+    fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
 
 }

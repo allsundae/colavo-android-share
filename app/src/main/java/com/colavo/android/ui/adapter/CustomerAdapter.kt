@@ -1,6 +1,7 @@
 package com.colavo.android.ui.adapter
 
 import android.graphics.*
+import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -99,4 +100,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
     override fun getItemCount(): Int = items.size
 
+    fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
+    }
 }

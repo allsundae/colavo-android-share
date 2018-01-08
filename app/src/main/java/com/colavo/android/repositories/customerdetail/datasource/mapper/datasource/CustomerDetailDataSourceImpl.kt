@@ -96,6 +96,7 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
     private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?, finishedCallback: SimpleCallback<CustomerEntity>)
     {
         val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
+        firebaseDatabase3.setPersistenceEnabled(true)
         firebaseDatabase3.reference.child("salon_customers")
                 //    .child(customerDetail.author_employee_key)
                 .child(salon_key)

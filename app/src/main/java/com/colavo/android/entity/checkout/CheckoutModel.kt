@@ -26,6 +26,7 @@ class CheckoutModel(
         var customer_name: String ="",
         var customer_image_thumb: String="",
         var customer_image_full: String="",
+        var customer_phone: String="",
         var service_menus: String="",
 
         var memo_txt: String="",

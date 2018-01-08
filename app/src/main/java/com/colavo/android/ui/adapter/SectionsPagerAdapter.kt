@@ -2,6 +2,7 @@ package com.colavo.android.ui.adapter
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.PagerAdapter
 import com.colavo.android.ui.*
 import java.util.*
 
@@ -32,4 +33,9 @@ class SectionsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdap
     }
 
     override fun getListItem(position: Int) = itemList[position]
+
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
+    }
+
 }

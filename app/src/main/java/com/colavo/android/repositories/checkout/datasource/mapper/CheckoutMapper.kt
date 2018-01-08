@@ -74,6 +74,7 @@ class CheckoutMapper {
                 checkoutModel.service_menus = ""
                 checkoutModel.customer_image_full = customerEntity.image_urls.full
                 checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
+                checkoutModel.customer_phone = customerEntity.phone
             //    checkoutModel.memo_txt = memoEntity!!.txt
 /*
 
