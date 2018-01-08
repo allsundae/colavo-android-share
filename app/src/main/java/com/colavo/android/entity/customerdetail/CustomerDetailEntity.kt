@@ -8,7 +8,7 @@ import java.io.Serializable
 
 
 class CustomerDetailEntity(
-        id: String="",
+     /*   id: String="",
        @SerializedName("created_at")            @Expose override var created_at: Double = 0.0,
        @SerializedName("updated_at")            @Expose override var updated_at: Double = 0.0,
        @SerializedName("begin_at")              @Expose override var begin_at: Double = 0.0,
@@ -36,34 +36,5 @@ class CustomerDetailEntity(
                         , salon_key, employee_key, customer_key, memo_key, checkout_key, cancel_reason
                         , services, discounts, logs
                         , customer_name, customer_image_full_url, customer_image_thumb_url, customer_menu, memo
-                                    ) , Serializable
-
-
-data class ServiceMenu (
-        var id: String="",
-        @SerializedName("created_at")           @Expose var created_at: Double = 0.0,
-        @SerializedName("duration_min")             @Expose var duration: Double = 0.0,         //e.g.  150min
-        @SerializedName("uniq_duration_min")        @Expose var uniq_duration: Double = 0.0,    //e.g.  120min
-        @SerializedName("key")                  @Expose var key: String = "",
-        @SerializedName("name")                 @Expose var name: String = "",                  // e.g. Digital Perm
-        @SerializedName("price")                @Expose var price: Double = 0.0,
-     //   @SerializedName("salon_key")            @Expose var salon_key: String = "",
-        @SerializedName("service_type_key")     @Expose var service_type_key: String = "",  //e.g. Cut
-        @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-        )
-
-data class DiscountMenu (
-        var id: String="",
-        @SerializedName("salon_key")            @Expose var salon_key: String = "",
-        @SerializedName("value_as_rate")        @Expose var value_as_rate: Boolean = false,
-        @SerializedName("name")                 @Expose var name: String = "",
-        @SerializedName("value")                @Expose var value: Double = 0.0,
-        @SerializedName("created_at")           @Expose var created_at: Double = 0.0,
-        @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-        )
-
-data class EventLogs(
-        var id: String=""
-     //   var id: String="",
-      //  @SerializedName("salon_key")              @Expose var log_key: Boolean = false
-        )
+                                    */)
+//, Serializable

@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -104,7 +103,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
 
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         //  (application as App).addCustomerComponent().inject(this)
         customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -160,7 +159,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         //todo
 /*
         val intent = Intent(this, SalonMainActivity::class.java)
-        intent.putExtra(SalonListActivity.EXTRA_CONVERSATION, salonModel)
+        intent.putExtra(SalonListActivity.EXTRA_SALONMODDEL, salonModel)
         startActivity(intent)
 
         */
@@ -225,7 +224,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(BUNDLE_EXTRA, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
         bundle.putString("SENDER","customer")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

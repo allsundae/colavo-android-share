@@ -2,7 +2,6 @@ package com.colavo.android.entity.checkout
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import rx.schedulers.TimeInterval
 import java.io.Serializable
 import java.util.*
 
@@ -23,7 +22,7 @@ class  CheckoutEntity(
         @SerializedName("cancel_reason")         @Expose override var cancel_reason: String = "",
         @SerializedName("services")              @Expose  var services: HashMap<String, ServiceMenu> = hashMapOf("" to ServiceMenu(
                                                                                 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
-        @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"",0.0,0.0, 0.0)),
+        @SerializedName("discounts")             @Expose  var discounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"","",0.0,0.0, 0.0)),
         @SerializedName("logs")                  @Expose  var logs: HashMap<String, Boolean> = hashMapOf("" to false)
 /*
         @SerializedName("services")              @Expose  var services: List<ServiceMenu> = mutableListOf(ServiceMenu( 0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
@@ -44,17 +43,18 @@ data class ServiceMenu (
         @SerializedName("salon_key")            @Expose var salon_key: String = "",
         @SerializedName("service_type_key")     @Expose var service_type_key: String = "",  //e.g. Cut
         @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-)
+) : Serializable
 
 data class DiscountMenu (
         @SerializedName("salon_key")            @Expose var salon_key: String = "",
         @SerializedName("value_as_rate")        @Expose var value_as_rate: Boolean = false,
+        @SerializedName("key")                  @Expose var key: String = "",
         @SerializedName("name")                 @Expose var name: String = "",
         @SerializedName("value")                @Expose var value: Double = 0.0,
         @SerializedName("created_at")           @Expose var created_at: Double = 0.0,
         @SerializedName("updated_at")           @Expose var updated_at: Double = 0.0
-)
+) : Serializable
 
 data class EventLogs(
         @SerializedName("log_key")              @Expose var log_key: Boolean = false
-)
+) : Serializable

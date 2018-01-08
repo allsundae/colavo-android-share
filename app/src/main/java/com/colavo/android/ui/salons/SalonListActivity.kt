@@ -14,8 +14,6 @@ import com.colavo.android.base.BaseActivity
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
-import com.colavo.android.ui.SalonMainActivity.Companion.BUNDLE_KEY
-import com.colavo.android.ui.SalonMainActivity.Companion.SAVED_SALON_STATE
 import com.colavo.android.ui.adapter.SalonsAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
@@ -26,7 +24,6 @@ import kotlinx.android.synthetic.main.content_salons.*
 import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
 import com.simmorsal.recolor_project.ReColor
-import kotlinx.android.synthetic.main.fragment_04.*
 
 
 class SalonListActivity : BaseActivity()
@@ -54,7 +51,7 @@ class SalonListActivity : BaseActivity()
                 val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
                 Logger.log("onRestoreInstanceState : ${salonModel.name} ")
                 val intent = Intent(this, SalonMainActivity::class.java)
-                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                intent.putExtra(EXTRA_SALONMODDEL, salonModel)
                 startActivity(intent)
                 finish()
         }
@@ -71,7 +68,7 @@ class SalonListActivity : BaseActivity()
                 val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
                 Logger.log("onCreate : ${salonModel.name} ")
                 val intent = Intent(this, SalonMainActivity::class.java)
-                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                intent.putExtra(EXTRA_SALONMODDEL, salonModel)
                 startActivity(intent)
                 finish()
         }
@@ -164,7 +161,7 @@ class SalonListActivity : BaseActivity()
         //TODO WTF
         val intent = Intent(this, SalonMainActivity::class.java)
         //val intent = Intent(this, CustomerListActivity::class.java)
-        intent.putExtra(EXTRA_CONVERSATION, salonModel)
+        intent.putExtra(EXTRA_SALONMODDEL, salonModel)
         startActivity(intent)
         finish()
     }
@@ -230,6 +227,6 @@ class SalonListActivity : BaseActivity()
     }
     companion object {
         val EXTRA_SIGN_OUT: String = "SIGN_OUT"
-        val EXTRA_CONVERSATION: String = "CONVERSATION"
+        val EXTRA_SALONMODDEL: String = "EXTRA_SALONMODEL"
     }
 }

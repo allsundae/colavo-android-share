@@ -28,21 +28,13 @@ class CustomerDetailMapper {
             customerDetailModel.memo_key = baseCustomerDetail.memo_key
             customerDetailModel.checkout_key = baseCustomerDetail.checkout_key
             customerDetailModel.cancel_reason = baseCustomerDetail.cancel_reason
-            customerDetailModel.services = baseCustomerDetail.services
-            customerDetailModel.discounts = baseCustomerDetail.discounts
-            customerDetailModel.logs = baseCustomerDetail.logs
-            customerDetailModel.customer_name = baseCustomerDetail.customer_name
-            customerDetailModel.customer_image_full_url = baseCustomerDetail.customer_image_full_url
-            customerDetailModel.customer_image_thumb_url = baseCustomerDetail.customer_image_thumb_url
-            customerDetailModel.customer_menu = baseCustomerDetail.customer_menu
-            customerDetailModel.memo = baseCustomerDetail.memo
 
             Logger.log("CUSTOMERDETAILMAPPER : createCustomerDetailWithEventAndUser : ${customerDetailModel.id}")
 
             return customerDetailModel
         }
 
-            fun transformFromEntity(customerDetailEntity: CustomerDetailEntity): CustomerDetailModel { //,  customerEntity: CustomerEntity
+       /*     fun transformFromEntity(customerDetailEntity: CustomerDetailEntity): CustomerDetailModel { //,  customerEntity: CustomerEntity
                 val customerDetailModel = CustomerDetailModel()
                 customerDetailModel.id = customerDetailEntity.id
                 customerDetailModel.created_at = customerDetailEntity.created_at
@@ -68,7 +60,7 @@ class CustomerDetailMapper {
                 Logger.log("(4) CUSTOMERDETAILMAPPER : transformFromEntity : name : ${customerDetailEntity.customer_name} : ${customerDetailModel.id}")
 
                 return customerDetailModel
-            }
+            }*/
 
 
     }

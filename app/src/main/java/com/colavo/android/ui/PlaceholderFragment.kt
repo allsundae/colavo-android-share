@@ -1,7 +1,6 @@
 package com.colavo.android.ui
 
 
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -28,21 +27,13 @@ import android.util.TypedValue
 import android.view.*
 import android.view.animation.*
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import kotlinx.android.synthetic.main.fragment_01.*
 import kotlinx.android.synthetic.main.popup_event_detail.view.*
 import com.colavo.android.poptip.OnCancelListener
 import com.colavo.android.poptip.OnSwipeDismissListener
 import com.colavo.android.poptip.SwipeDismissDirection
-import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.customer_item.*
-import kotlinx.android.synthetic.main.customer_item.view.*
-import kotlinx.android.synthetic.main.popup_event_detail.*
-import kotlinx.android.synthetic.main.spinner_designer.*
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -82,7 +73,7 @@ class PlaceholderFragment : BaseFragment()
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
         toolBar.title = ""//salon.name
       //  toolBar.setTitleTextAppearance(this.context!!,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)

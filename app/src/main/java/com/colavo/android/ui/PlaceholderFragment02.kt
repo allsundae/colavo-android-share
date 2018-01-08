@@ -3,7 +3,6 @@ package com.colavo.android.ui
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
@@ -22,17 +21,13 @@ import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.ui.checkout.CheckoutListView
 import com.colavo.android.ui.customerdetail.CustomerDetailFragment
 import com.colavo.android.ui.salons.SalonListActivity
-import com.colavo.android.utils.LinearLayoutManagerWithSmoothScroller
 import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_item.view.*
 import kotlinx.android.synthetic.main.fragment_02.*
-import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
-import android.support.v7.widget.LinearSmoothScroller
-import android.support.v7.widget.RecyclerView
 import android.support.v4.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.base_empty.*
 
@@ -55,7 +50,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
     companion object {
         fun newInstance() = PlaceholderFragment02()
-        val BUNDLE_EXTRA: String = "CHECKOUT"
+        val EXTRA_CHECKOUT: String = "CHECKOUT"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -85,7 +80,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
         setHasOptionsMenu(true)
 
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         //  (application as App).addCustomerComponent().inject(this)
         //checkout_recyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -215,7 +210,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(PlaceholderFragment02.BUNDLE_EXTRA, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
         bundle.putString("SENDER","checkout")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

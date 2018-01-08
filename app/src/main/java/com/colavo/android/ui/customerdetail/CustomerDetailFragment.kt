@@ -15,7 +15,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.base.BaseFragment
 import com.colavo.android.entity.checkout.CheckoutModel
-import com.colavo.android.entity.customerdetail.CustomerDetailModel
 import com.colavo.android.entity.event.EventModel
 import com.colavo.android.presenters.customerdetail.CustomerDetailPresenterImpl
 import com.colavo.android.ui.PlaceholderFragment02
@@ -23,15 +22,12 @@ import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.adapter.CustomerDetailAdapter
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.toast
-import com.skyfishjy.library.RippleBackground
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.base_empty.*
-import kotlinx.android.synthetic.main.base_empty.view.*
 import kotlinx.android.synthetic.main.fragment_02.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import javax.inject.Inject
-import android.net.Uri.fromParts
 import android.content.Intent
 import android.net.Uri
 
@@ -44,6 +40,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     lateinit var customerdetailAdapter: CustomerDetailAdapter
 
     var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+    var customerPhone = ""
 
     override fun getLayout() = R.layout.customer_detail_fragment
 
@@ -53,7 +50,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     companion object {
 //        fun newInstance() = CustomerDetailFragment()
-        var customerPhone = ""
+
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -96,11 +93,11 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
         val bundle:Bundle = arguments!!
         val sender : String = bundle.getString("SENDER")
-   //     val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
+   //     val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CHECKOUT) as CustomerModel
         customer_detail_recyclerView.setNestedScrollingEnabled(false);
 
         if (sender == "checkout") {
-            val customer = bundle.getSerializable(PlaceholderFragment02.BUNDLE_EXTRA) as CheckoutModel
+            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
             val checkout = CheckoutModel()
             checkout.checkout_uid = customer.customer_key
             checkout.customer_name = customer.customer_name
@@ -147,7 +144,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
         }
         else {
-            val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
+            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
             val checkout = CheckoutModel()
             checkout.checkout_uid = customer.uid
             checkout.customer_name = customer.name
@@ -260,7 +257,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
      override fun onItemClicked(item: CheckoutModel, position: Int, v:View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailFragment::class.java)
-        intent.putExtra(BUNDLE_EXTRA, item)
+        intent.putExtra(EXTRA_CHECKOUT, item)
         startActivity(intent)*/
     }
 
@@ -270,10 +267,10 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
         inflater.inflate(R.menu.menu_customer_detail, menu)
 
         if (customerPhone == "" ) {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
             menu.removeItem(R.id.action_customer_call)
         }
 
@@ -284,8 +281,11 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         when (id) {
             R.id.action_customer_call -> {
                 if (customerPhone !== "" ){
-                    val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
-                    startActivity(intent)
+                    val uri = Uri.parse("tel:customerPhone")
+                    val it = Intent(Intent.ACTION_DIAL, uri)
+                    startActivity(it)
+                    //val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
+                    //startActivity(intent)
                 }
                 else {
                     showToast(getString(R.string.err_phonenumber))

@@ -20,7 +20,6 @@ import javax.inject.Inject
 import com.colavo.android.weekview.WeekView
 import com.colavo.android.weekview.WeekViewEvent
 import com.colavo.android.utils.Logger
-import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 
@@ -60,7 +59,7 @@ class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickLi
             getSupportActionBar()?.setElevation(0F);
         }
 
-        val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
         supportActionBar?.title = salon.name
 
         eventAdapter = EventAdapter(this, mutableListOf<EventModel>())
