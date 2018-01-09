@@ -24,8 +24,8 @@ import com.colavo.android.utils.Logger
 import com.google.firebase.database.FirebaseDatabase
 import com.roughike.bottombar.BottomBarTab
 import com.google.gson.Gson
-
-
+import com.schibsted.spain.parallaxlayerlayout.SensorTranslationUpdater
+import kotlinx.android.synthetic.main.fragment_03.*
 
 
 class   SalonMainActivity : BasePresenterActivity<MainContract.View
@@ -109,6 +109,8 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
                     container.setCurrentItem(2)
                     container.setPagingEnabled(true)
                     setLightUI(false)
+                    val sensorTranslationUpdater = SensorTranslationUpdater(this)
+                    parallax.setTranslationUpdater(sensorTranslationUpdater)
                 }
                 R.id.action_customers -> {
                     container.setCurrentItem(3)

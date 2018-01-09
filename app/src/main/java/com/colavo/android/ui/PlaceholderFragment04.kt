@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_04.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
-import com.flipboard.bottomsheet.BottomSheetLayout
 import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.base_empty.*
@@ -63,8 +62,6 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
-
-    protected lateinit var bottomSheetLayout: BottomSheetLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

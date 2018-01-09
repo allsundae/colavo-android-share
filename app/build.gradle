@@ -103,15 +103,14 @@ dependencies {
     //    kapt 'com.google.dagger:dagger-android-processor:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.allattentionhere:fabulousfilter:0.0.4'
-    compile 'com.flipboard:bottomsheet-core:1.5.3'
-    compile 'com.flipboard:bottomsheet-commons:1.5.3'
+
     compile 'de.hdodenhof:circleimageview:2.2.0'
-    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.github.katoro:typekit:1.0.1'
     compile 'com.schibsted.spain:parallax-layer-layout:1.1.1'
     implementation 'com.simmorsal.recolor:recolor:1.1.0'
     compile 'com.github.oxoooo:pull-back-layout:1.0.1'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
 }
 
 repositories {
