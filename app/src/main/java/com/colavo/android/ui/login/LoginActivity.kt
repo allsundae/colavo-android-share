@@ -4,8 +4,8 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.colavo.android.App
 import com.colavo.android.R
+import com.colavo.android.App
 import com.colavo.android.presenters.login.LoginPresenterImpl
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.toast

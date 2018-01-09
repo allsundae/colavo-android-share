@@ -1,11 +1,12 @@
 package com.colavo.android.entity.checkout
 
+import com.google.firebase.database.IgnoreExtraProperties
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 
-
+@IgnoreExtraProperties
 class  CheckoutEntity(
         checkout_uid: String="",
         @SerializedName("created_at")            @Expose override var created_at: Double = 0.0,

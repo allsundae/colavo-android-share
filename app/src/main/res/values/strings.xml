@@ -63,6 +63,8 @@
     ]]></string>
     <string name="new_memo">New memo</string>
     <string name="err_phonenumber">Sorry, this customer doesn\'t have a phone number</string>
+    <string name="hint_password">Type in password (6 digits)</string>
+    <string name="hint_sign_in">Type in email address</string>
     <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
         <string name="logoTransitionName">customer_name</string>
         <string name="title_activity_salon_main">헤어샵</string>-->

@@ -77,11 +77,18 @@ class MainActivity : BaseActivity(){
                     val json = savedPref.getString(SAVED_SALON_ID, "")
                     val salonModel = gson.fromJson<SalonModel>(json, SalonModel::class.java)
 
-                    Logger.log("MainActivity : onCreate : ${salonModel.name} : ${salonModel.id} ")
-                    val intent = Intent(this, SalonMainActivity::class.java)
-                    intent.putExtra(SalonListActivity.EXTRA_SALONMODDEL, salonModel)
-                    startActivity(intent)
-                    finish()
+                    if (salonModel != null){
+                        Logger.log("MainActivity : onCreate : ${salonModel.name} : ${salonModel.id} ")
+                        val intent = Intent(this, SalonMainActivity::class.java)
+                        intent.putExtra(SalonListActivity.EXTRA_SALONMODDEL, salonModel)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        openLoginActivity()
+                        finish()
+                    }
+
                 }
                 else {
                     openLoginActivity()
