@@ -57,13 +57,13 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salon_main)
-        try{
+/*        try{
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             Logger.log(FirebaseDatabase.getInstance().toString())
         }catch (e : Exception){
             Logger.log("SetPresistenceEnabled:Fail"+FirebaseDatabase.getInstance().toString())
             e.printStackTrace()
-        }
+        }*/
 
         salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
@@ -234,7 +234,7 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
 
     override fun onPause() {
         super.onPause()
-/*        val pref : SharedPreferences  = getSharedPreferences(SAVED_PREFS, 0)
+        val pref : SharedPreferences  = getSharedPreferences(SAVED_PREFS, 0)
         val edit : SharedPreferences.Editor = pref.edit()
         val mSalonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
         val gson = Gson()
@@ -243,7 +243,7 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
        // val serializedSalonModel = salonModel.toString()
         edit.putString(SAVED_SALON_ID, json)
 
-        edit.apply()*/
+        edit.apply()
     }
 
     companion object {

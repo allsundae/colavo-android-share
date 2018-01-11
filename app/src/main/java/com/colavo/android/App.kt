@@ -45,10 +45,10 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (!FirebaseApp.getApps(this).isEmpty()) {
+/*        if (!FirebaseApp.getApps(this).isEmpty()) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true)
             Logger.log("FirebaseDatabase setPersistenceEnabled : TRUE")
-        }
+        }*/
 
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this,"NanumSquareR.ttf"))

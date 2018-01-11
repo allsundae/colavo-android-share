@@ -21,13 +21,6 @@ abstract class BasePresenterActivity<in VIEW: BaseView, P : BasePresenter<VIEW>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try{
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            Logger.log(FirebaseDatabase.getInstance().toString())
-        }catch (e : Exception){
-            Logger.log("SetPresistenceEnabled:Fail"+ FirebaseDatabase.getInstance().toString())
-            e.printStackTrace()
-        }
 
         presenter = onCreatePresenter()
         presenter?.attachView(this as VIEW)

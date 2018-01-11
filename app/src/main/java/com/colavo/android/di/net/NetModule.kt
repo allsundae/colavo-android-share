@@ -32,7 +32,7 @@ class NetModule {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
-                .client(okHttpClient)
+               // .client(okHttpClient)
                 .build()
 
 
