@@ -121,17 +121,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-
                         android:inputType="textEmailAddress"
                         android:textColor="@android:color/black"
                         android:textColorHint="@color/listTextSecondary"
-                        android:textSize="@dimen/list_1sttext" />
+
+                        android:textStyle="bold"
+                        android:textSize="@dimen/list_Bigtext" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:passwordToggleTintMode="src_atop"
+                    app:passwordToggleTint="@color/selector_password_visibility_toggle"
+                    app:passwordToggleEnabled="true"
                     android:hint="@string/hint_password">
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/password"
@@ -140,7 +144,9 @@
                         android:layout_marginBottom="10dp"
                         android:inputType="textPassword"
                         android:textColorHint="@color/listTextSecondary"
-                        android:textSize="@dimen/list_1sttext" />
+
+                        android:textStyle="bold"
+                        android:textSize="@dimen/list_Bigtext" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
