@@ -110,7 +110,6 @@ dependencies {
     implementation 'com.simmorsal.recolor:recolor:1.1.0'
     compile 'com.github.oxoooo:pull-back-layout:1.0.1'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
 }
 
 repositories {

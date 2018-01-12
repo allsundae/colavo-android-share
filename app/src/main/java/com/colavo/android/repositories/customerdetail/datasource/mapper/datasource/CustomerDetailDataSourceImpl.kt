@@ -2,6 +2,7 @@ package com.colavo.android.repositories.customerdetail.datasource
 
 import com.colavo.android.entity.checkout.CheckoutEntity
 import com.colavo.android.entity.checkout.CheckoutModel
+import com.colavo.android.entity.checkout.MemoEntity
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customerdetail.CustomerDetailEntity
 import com.colavo.android.entity.customerdetail.CustomerDetailModel
@@ -18,6 +19,14 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseReference
+import android.support.annotation.NonNull
+import com.colavo.android.entity.checkout.PaidoutEntity
+
 
 class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CustomerDetailDataSource {
 
@@ -44,17 +53,8 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
                                         val customerDetail = dataSnapshot.getValue(CheckoutEntity::class.java)
                                         customerDetail?.checkout_uid = dataSnapshot.key
 
-                                        val numOfServices: Long = dataSnapshot.child("services").childrenCount
+                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail?.checkout_uid} ")
 
-                                        Logger.log("(1) CUSTOMERDETAIL ADDED : event_key : ${customerDetail?.checkout_uid} (${numOfServices})")
-
-                      /*                  for (num in numOfServices) {
-
-                                        }
-
-                                        customerDetail.customer_menu = dataSnapshot.child("services").childrenCount
-                                        Logger.log("(5) added event ${customerDetail.customer_name} : ${service.name} : ${service.key}")
-*/
                                         subscriber.onNext(customerDetail!! to ResponseType.ADDED)
                                     }
                                 }
@@ -75,11 +75,14 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
                         })
             }
 /* TODO This is WORKING on GITHUB */
-            .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getCustomerDetailbySalonKey(pair.first.salon_key) //getCustomerDetailbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
-                                        .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                                        , { pair, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
-                                        )
-                            }
+            .concatMapEager { pair -> Observable.zip(Observable.just(pair)
+                                    , getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)
+                                    ,getPaidoutbySalonCheckoutKey(pair.first.salon_key, pair.first.checkout_key)
+                                    , getMemobyMemoKey(pair.first.memo_key)// /getCustomerDetailbySalonKey(pair.first.salon_key) //getCustomerDetailbySalonKey(pair.first.salon_key) //, getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)//getEventbySalonEventKey(pair.first.salon_key, pair.first.event_key)
+
+                                        , { pair, customer, paidout,  memo -> CheckoutMapper.transformFromEntity(pair.first, customer, paidout,  memo!!) to pair.second }
+
+            ).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())}
 
 
 
@@ -89,7 +92,47 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
         return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
     }
 
+    private fun getPaidoutbySalonCheckoutKey(salon_key: String?, checkout_key: String?) : Observable<PaidoutEntity>  {
+        if (checkout_key != null && checkout_key != "") {
+            Logger.log("(2-1) getPaidoutbySalonCheckoutKey: ${salon_key}, ${checkout_key}")
+            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", checkout_key ?: "")
+        }
+        else {
+            Logger.log("(2-1) getPaidoutbySalonCheckoutKey: NULL")
+            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", "-KtR0TiotgKqjtwEGkai")
+        }
+    }
 
+    private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  { //, finishedCallback: SimpleCallback<MemoEntity?>
+//        Logger.log("(2-1) getMemobyMemoKey: $memo_key")
+//        return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
+        if (memo_key != null && memo_key != ""){
+            Logger.log("(2-2) getMemobyMemoKey: $memo_key")
+            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "" )
+        }
+        else{
+            Logger.log("(2-2) getMemobyMemoKey: NULL")
+            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
+        }
+/*
+        val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
+        firebaseDatabase3.reference.child("memo")
+                .child(memo_key)
+                .addListenerForSingleValueEvent( object :ValueEventListener {
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val memo  = dataSnapshot.getValue(MemoEntity::class.java)
+                        finishedCallback.callback(memo)
+                        //                       customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                        Logger.log("(2.5) getMemobyMemoKey : memo_key: ${memo_key} (${memo?.txt.toString()})")
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        Logger.log("memo_key : FAILED: ${databaseError.code.toString()}")
+                    }
+                })*/
+
+    }
 
 
 

@@ -26,4 +26,4 @@ data class Memo_Image (
         @SerializedName("full")                  @Expose var full: String = "",
         @SerializedName("thumb")                 @Expose var thumb: String = "",
         @SerializedName("key")                   @Expose var key: String = ""
-)
+): Serializable

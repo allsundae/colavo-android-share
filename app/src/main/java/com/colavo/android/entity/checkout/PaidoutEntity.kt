@@ -28,4 +28,4 @@ data class PaidType (
         @SerializedName("name")                     @Expose var name: String = "",
         @SerializedName("price")                    @Expose var price: Double = 0.0,
         @SerializedName("reserve_fund_rate")        @Expose var reserve_fund_rate: Double = 0.0
-        )
+        ) : Serializable

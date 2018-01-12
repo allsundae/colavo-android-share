@@ -1,5 +1,6 @@
 package com.colavo.android.repositories.checkout.datasource.mapper
 
+import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.utils.Logger
 import java.util.*
@@ -49,7 +50,7 @@ class CheckoutMapper {
             return checkoutModel
         }
 
-            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity ): CheckoutModel { //, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity
+            fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity ): CheckoutModel { //, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity
                 Logger.log("(4) CHECKOUTMAPPER ")
                 val checkoutModel = CheckoutModel()
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
@@ -75,13 +76,23 @@ class CheckoutMapper {
                 checkoutModel.customer_image_full = customerEntity.image_urls.full
                 checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
                 checkoutModel.customer_phone = customerEntity.phone
-            //    checkoutModel.memo_txt = memoEntity!!.txt
-/*
+/*                checkoutModel.customer_name = "AHHHH"//customerEntity.name
+                checkoutModel.service_menus = ""
+                checkoutModel.customer_image_full = ""//customerEntity.image_urls.full
+                checkoutModel.customer_image_thumb = ""//customerEntity.image_urls.thumb
+                checkoutModel.customer_phone = "1818181818"//customerEntity.phone*/
+                if (checkoutEntity.memo_key != "") {
+                    checkoutModel.memo_txt = memoEntity.txt
+                }
+/*                else{
+                    checkoutModel.memo_txt = new_memo
+                }*/
+
 
                 checkoutModel.checkout_price = paidoutEntity.price.toString()
                 for ((key, value) in paidoutEntity.paid_types) {
                     checkoutModel.checkout_paid_type = key.toString()
-                }*/
+                }
 
                 /*val numOfItems = checkoutModel.services.size
                 Logger.log("(4) CHECKOUTMAPPER : numOfItems : ${numOfItems} ")*/

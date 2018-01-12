@@ -24,6 +24,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
 import com.colavo.android.utils.SimpleCallback
+import okhttp3.Dispatcher
+import okhttp3.OkHttpClient
+
+
 
 
 class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CheckoutDataSource {
@@ -76,13 +80,13 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                         })
             }
 /* TODO This is WORKING on GITHUB */
-            .concatMapEager { pair -> Observable.zip(Observable.just(pair)
+            .concatMapEager { pair -> Observable.zip(
+                    Observable.just(pair)
                     ,getCustomerbySalonCustomerKey(pair.first.salon_key, pair.first.customer_key)
-                   // ,getPaidoutbySalonCheckoutKey(pair.first.salon_key, pair.first.checkout_key)
-                   // ,getMemobyMemoKey(pair.first.memo_key)
-                    .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                    , { pair, customer -> CheckoutMapper.transformFromEntity(pair.first, customer) to pair.second }
-            ) }
+                    ,getPaidoutbySalonCheckoutKey(pair.first.salon_key, pair.first.checkout_key)
+                    ,getMemobyMemoKey(pair.first.memo_key)
+                    , { pair, customer, paidout,  memo -> CheckoutMapper.transformFromEntity(pair.first, customer, paidout!!, memo!!) to pair.second }
+            ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()) }
 
 
     private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
@@ -93,19 +97,33 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  {
 //        Logger.log("(2-1) getMemobyMemoKey: $memo_key")
 //        return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
+
+/*        val client = OkHttpClient()
+        val dispatcher = Dispatcher()
+        dispatcher.maxRequests = 3
+        client.dispatcher()*/
+
         if (memo_key != null && memo_key != ""){
-            Logger.log("(2-1) getMemobyMemoKey: $memo_key")
-            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
+            Logger.log("(2-2) getMemobyMemoKey: $memo_key")
+            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "" )
         }
         else{
-            Logger.log("(2-1) getMemobyMemoKey: NULL")
-            return Observable.empty()//Observable.just()//Observable.empty()
+            Logger.log("(2-2) getMemobyMemoKey: NULL")
+            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
+            //return Observable.empty()//Observable.just()//Observable.empty()
         }
     }
 
     private fun getPaidoutbySalonCheckoutKey(salon_key: String?, checkout_key: String?) : Observable<PaidoutEntity>  {
-        Logger.log("(2-2) getPaidoutbySalonCheckoutKey: ${salon_key}, ${checkout_key}")
-        return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId(salon_key ?: "", checkout_key ?: "")
+        if (checkout_key != null && checkout_key != "") {
+            Logger.log("(2-1) getPaidoutbySalonCheckoutKey: ${salon_key}, ${checkout_key}")
+            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", checkout_key ?: "")
+        }
+        else {
+            Logger.log("(2-1) getPaidoutbySalonCheckoutKey: NULL")
+            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", "-KtR0TiotgKqjtwEGkai")
+            //return Observable.never()
+        }
     }
 
     override fun createCheckout(query: CheckoutQuery.CreateCheckout): Observable<FirebaseResponse>

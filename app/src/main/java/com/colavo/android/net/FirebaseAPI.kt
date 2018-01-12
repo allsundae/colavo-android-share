@@ -36,7 +36,7 @@ interface FirebaseAPI {
     @GET("salon_customers/{salonid}/{id}.json")
     fun getCustomerBySalonCustomerId(@Path("salonid") salon_key: String, @Path("id") customer_key: String): Observable<CustomerEntity>
 
-    @GET("memo/{id}.json")
+    @GET("memos/{id}.json")
     fun getMemoByMemoId(@Path("id") memo_key: String ): Observable<MemoEntity?>
 
     @GET("salon_checkouts/{salonid}/{id}.json")
