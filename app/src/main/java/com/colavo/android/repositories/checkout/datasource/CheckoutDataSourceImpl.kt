@@ -26,6 +26,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.colavo.android.utils.SimpleCallback
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 
@@ -109,7 +112,9 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
         }
         else{
             Logger.log("(2-2) getMemobyMemoKey: NULL")
-            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
+            val empty = MemoEntity("", hashMapOf(),0.0,0.0,"","","","")
+            return Observable.just(empty)
+            //return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
             //return Observable.empty()//Observable.just()//Observable.empty()
         }
     }
@@ -121,7 +126,10 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
         }
         else {
             Logger.log("(2-1) getPaidoutbySalonCheckoutKey: NULL")
-            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", "-KtR0TiotgKqjtwEGkai")
+            val empty = PaidoutEntity(0.0, 0.0, 0.0, false
+                    , 0.0, 0.0, hashMapOf(),0.0
+            ,"", 0.0, 0.0)
+            return Observable.just(empty)
             //return Observable.never()
         }
     }

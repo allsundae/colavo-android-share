@@ -32,6 +32,7 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
         , MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
 
     override fun onError(throwable: Throwable) {
+
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

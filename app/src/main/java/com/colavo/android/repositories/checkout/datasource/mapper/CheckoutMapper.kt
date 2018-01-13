@@ -6,6 +6,7 @@ import com.colavo.android.utils.Logger
 import java.util.*
 import com.colavo.android.R.id.textView
 import com.colavo.android.entity.checkout.*
+import java.text.NumberFormat
 
 
 class CheckoutMapper {
@@ -76,11 +77,8 @@ class CheckoutMapper {
                 checkoutModel.customer_image_full = customerEntity.image_urls.full
                 checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
                 checkoutModel.customer_phone = customerEntity.phone
-/*                checkoutModel.customer_name = "AHHHH"//customerEntity.name
-                checkoutModel.service_menus = ""
-                checkoutModel.customer_image_full = ""//customerEntity.image_urls.full
-                checkoutModel.customer_image_thumb = ""//customerEntity.image_urls.thumb
-                checkoutModel.customer_phone = "1818181818"//customerEntity.phone*/
+
+
                 if (checkoutEntity.memo_key != "") {
                     checkoutModel.memo_txt = memoEntity.txt
                 }
@@ -88,8 +86,12 @@ class CheckoutMapper {
                     checkoutModel.memo_txt = new_memo
                 }*/
 
+                val currencyFormatter = NumberFormat.getCurrencyInstance()
+                currencyFormatter.setMinimumFractionDigits(0)
+                val cur = currencyFormatter.format(paidoutEntity.price.toInt())
 
-                checkoutModel.checkout_price = paidoutEntity.price.toString()
+                checkoutModel.checkout_price = cur.toString()
+
                 for ((key, value) in paidoutEntity.paid_types) {
                     checkoutModel.checkout_paid_type = key.toString()
                 }
