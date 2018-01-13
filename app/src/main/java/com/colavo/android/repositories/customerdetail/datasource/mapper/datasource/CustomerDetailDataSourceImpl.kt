@@ -92,6 +92,28 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
         return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
     }
 
+    private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  {
+//        Logger.log("(2-1) getMemobyMemoKey: $memo_key")
+//        return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
+
+/*        val client = OkHttpClient()
+        val dispatcher = Dispatcher()
+        dispatcher.maxRequests = 3
+        client.dispatcher()*/
+
+        if (memo_key != null && memo_key != ""){
+            Logger.log("(2-2) getMemobyMemoKey: $memo_key")
+            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "" )
+        }
+        else{
+            Logger.log("(2-2) getMemobyMemoKey: NULL")
+            val empty = MemoEntity("", hashMapOf(),0.0,0.0,"","","","")
+            return Observable.just(empty)
+            //return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
+            //return Observable.empty()//Observable.just()//Observable.empty()
+        }
+    }
+
     private fun getPaidoutbySalonCheckoutKey(salon_key: String?, checkout_key: String?) : Observable<PaidoutEntity>  {
         if (checkout_key != null && checkout_key != "") {
             Logger.log("(2-1) getPaidoutbySalonCheckoutKey: ${salon_key}, ${checkout_key}")
@@ -99,39 +121,12 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
         }
         else {
             Logger.log("(2-1) getPaidoutbySalonCheckoutKey: NULL")
-            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", "-KtR0TiotgKqjtwEGkai")
+            val empty = PaidoutEntity(0.0, 0.0, 0.0, false
+                    , 0.0, 0.0, hashMapOf(),0.0
+                    ,"", 0.0, 0.0)
+            return Observable.just(empty)
+            //return Observable.never()
         }
-    }
-
-    private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  { //, finishedCallback: SimpleCallback<MemoEntity?>
-//        Logger.log("(2-1) getMemobyMemoKey: $memo_key")
-//        return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
-        if (memo_key != null && memo_key != ""){
-            Logger.log("(2-2) getMemobyMemoKey: $memo_key")
-            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "" )
-        }
-        else{
-            Logger.log("(2-2) getMemobyMemoKey: NULL")
-            return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
-        }
-/*
-        val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
-        firebaseDatabase3.reference.child("memo")
-                .child(memo_key)
-                .addListenerForSingleValueEvent( object :ValueEventListener {
-
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val memo  = dataSnapshot.getValue(MemoEntity::class.java)
-                        finishedCallback.callback(memo)
-                        //                       customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getMemobyMemoKey : memo_key: ${memo_key} (${memo?.txt.toString()})")
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        Logger.log("memo_key : FAILED: ${databaseError.code.toString()}")
-                    }
-                })*/
-
     }
 
 

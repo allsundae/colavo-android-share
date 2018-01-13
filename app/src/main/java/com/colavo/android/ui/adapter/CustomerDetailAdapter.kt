@@ -12,9 +12,12 @@ import com.colavo.android.utils.Logger
 import com.squareup.picasso.Picasso
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.widget.Button
+import android.widget.LinearLayout
 import com.colavo.android.entity.checkout.CheckoutModel
 import kotlinx.android.synthetic.main.customer_detail_item.view.*
+import org.w3c.dom.Text
 
 class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
                             , val items: MutableList<CheckoutModel>
@@ -30,7 +33,9 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
                                val checkoutMenu: TextView = v.customer_detail_menu,
                                val checkoutImage: ImageView = v.customer_detail_customer_image,
                                val checkoutMemo: TextView = v.customer_detail_memo,
-                               val checkoutButton: Button = v.btn_customer_detail,
+                               val checkoutButton: TextView = v.btn_customer_detail,
+                               val checkoutButtonContainer: LinearLayout = v.btn_customer_detail_container,
+                               val checkoutButtonIcon: ImageView = v.btn_customer_detail_icon,
                                val checkoutTime: TextView = v.customer_detail_time_ampm
                             ) : RecyclerView.ViewHolder(v) {
 
@@ -48,8 +53,26 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.begin_at.toLong(), "MM/dd\nE") //this.checkoutTime.text = ConvertTimestampToDateandTime(customerDetailModel.begin_at.toLong(), "a\nh:mm")
             this.checkoutMenu.text = checkoutModel.service_menus
             if (checkoutModel.memo_txt != "")  this.checkoutMemo.text =  checkoutModel.memo_txt
-            if (checkoutModel.checkout_price != "") {
-                this.checkoutButton.text = checkoutModel.checkout_price
+            if (checkoutModel.checkout_key != null && checkoutModel.checkout_key != ""){
+                if (checkoutModel.checkout_price != "") {
+                    //  val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, )
+                    this.checkoutButton.text = checkoutModel.checkout_price
+                    //this.checkoutButtonContainer.setBackgroundColor(getColor(context, R.color.checkoutMemoTextColor))
+                    this.checkoutButtonContainer.setBackgroundResource(R.drawable.ic_button_line_checkout)
+//                    this.checkoutButtonContainer.setLayoutParams(lp)
+
+                    if (checkoutModel.checkout_paid_type == "credit_card"){
+                        checkoutButtonIcon.setImageResource(R.drawable.ic_creditcard)
+                    }
+                    else{
+                        checkoutButtonIcon.setImageResource(R.drawable.ic_cash)
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        checkoutButtonIcon.setColorFilter(context.getColor(R.color.colorAccent))
+                    }
+                    checkoutButtonIcon.visibility = View.VISIBLE
+
+                }
             }
 
            if (event.customer_image_thumb != "") {
