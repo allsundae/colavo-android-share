@@ -2,7 +2,6 @@ package com.colavo.android.repositories.customer.datasource
 
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
-import com.colavo.android.entity.customer.ImageUrl
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.customer.CustomerQuery
 import com.colavo.android.entity.response.FirebaseResponse
@@ -24,7 +23,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 { subscriber -> firebaseDatabase.reference.child("salon_customers")
                      //   .orderByChild("key").equalTo(query.customerUid)
                         .child(query.salonUid)
-                        .orderByChild("name").limitToFirst(500)
+                        .orderByChild("name")//.limitToFirst(500)
                         .addChildEventListener(object : ChildEventListener {
                                 override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                 }
@@ -32,9 +31,9 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer.uid = dataSnapshot.key
-                                        Logger.log("changed ${customer.name}")
-                                        subscriber.onNext(customer to ResponseType.CHANGED)
+                                        customer?.uid = dataSnapshot.key
+                                        Logger.log("changed ${customer?.name}")
+                                        subscriber.onNext(customer!! to ResponseType.CHANGED)
                                     }
                                 }
 
@@ -44,29 +43,29 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                     //    val urls:ImageUrl = dataSnapshot.child("image_url").child("thumb").getValue(ImageUrl::class.java)
 
                                         if ( dataSnapshot.child("image_url").child("thumb").value != null) {
-                                            customer.image_urls[0].image_thumb_url = (dataSnapshot.child("image_url").child("thumb").value).toString()
+                                            customer?.image_urls?.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
                                             Logger.log("Image Thumb Url : ${dataSnapshot.child("image_url").child("thumb").value.toString()}")
-                                            Logger.log("Image Thumb Url : ${customer.image_urls[0].image_thumb_url}")
+                                            Logger.log("Image Thumb Url : ${customer?.image_urls?.thumb}")
                                         }
 
                                         if ( dataSnapshot.child("image_url").child("full").value != null) {
-                                            customer.image_urls[0].image_full_url = (dataSnapshot.child("image_url").child("full").value).toString()
+                                            customer?.image_urls?.full = (dataSnapshot.child("image_url").child("full").value).toString()
                                         }
 
 
                                                 //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()
-                                    //    customer.image_urls?.image_thumb_url = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
-                                        customer.uid = dataSnapshot.key
-                                        Logger.log("added ${customer.name}")
-                                        subscriber.onNext(customer to ResponseType.ADDED)
+                                    //    customer.image_urls?.thumb = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
+                                        customer?.uid = dataSnapshot.key
+                                        Logger.log("added ${customer?.name}")
+                                        subscriber.onNext(customer!! to ResponseType.ADDED)
                                     }
                                 }
 
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer.uid = dataSnapshot.key
-                                        subscriber.onNext(customer to ResponseType.REMOVED)
+                                        customer?.uid = dataSnapshot.key
+                                        subscriber.onNext(customer!! to ResponseType.REMOVED)
                                     }
                                 }
 
@@ -109,7 +108,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
 
     private fun getCustomerbySalonKey(uid: String?)
-            : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerBySalonId(uid ?: "")
+            : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(uid ?: "")
 
 /*    private fun getNumberofCustomer : Int (){
 

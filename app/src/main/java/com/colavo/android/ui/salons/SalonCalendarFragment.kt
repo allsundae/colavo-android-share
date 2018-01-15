@@ -112,7 +112,7 @@ class SalonCalendarFragment : BaseFragment() {
 
     override fun openEventActivity(salonModel: SalonModel) {
         val intent = Intent(this, eventActivity::class.java)
-        intent.putExtra(EXTRA_CONVERSATION, salonModel)
+        intent.putExtra(EXTRA_SALONMODDEL, salonModel)
         startActivity(intent)
     }
 
@@ -156,7 +156,7 @@ class SalonCalendarFragment : BaseFragment() {
 
     companion object {
         val EXTRA_SIGN_OUT: String = "SIGN_OUT"
-        val EXTRA_CONVERSATION: String = "CONVERSATION"
+        val EXTRA_SALONMODDEL: String = "CONVERSATION"
     }
 
 }

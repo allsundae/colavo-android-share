@@ -1,8 +1,8 @@
 package com.colavo.android.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.view.MenuItem
@@ -10,31 +10,29 @@ import com.colavo.android.R
 import kotlinx.android.synthetic.main.activity_salon_main.*
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.View
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.adapter.SectionsPagerAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.ui.salons.SalonListActivity
-import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.base.view.BasePresenterActivity
 import com.colavo.android.main.presenter.MainContract
-import com.colavo.android.ui.adapter.SectionsPagerModel
 import com.colavo.android.utils.toast
 import com.colavo.android.view.main.presenter.MainPresenter
 import com.simmorsal.recolor_project.ReColor
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import com.colavo.android.utils.Logger
-import com.colavo.android.weekview.WeekView
+import com.google.firebase.database.FirebaseDatabase
 import com.roughike.bottombar.BottomBarTab
-import kotlinx.android.synthetic.main.activity_salon_main.view.*
-import kotlinx.android.synthetic.main.fragment_01.*
+import com.google.gson.Gson
+import com.schibsted.spain.parallaxlayerlayout.SensorTranslationUpdater
+import kotlinx.android.synthetic.main.fragment_03.*
 
 
-class SalonMainActivity : BasePresenterActivity<MainContract.View
+class   SalonMainActivity : BasePresenterActivity<MainContract.View
         , MainContract.Presenter>(), MainContract.View, ViewPager.OnPageChangeListener {
 
     override fun onError(throwable: Throwable) {
+
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -60,6 +58,15 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salon_main)
+/*        try{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            Logger.log(FirebaseDatabase.getInstance().toString())
+        }catch (e : Exception){
+            Logger.log("SetPresistenceEnabled:Fail"+FirebaseDatabase.getInstance().toString())
+            e.printStackTrace()
+        }*/
+
+        salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -71,7 +78,7 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
         container.setCurrentItem(0)
 
         // prevBottomNavigation = bottomBar.getItem(0)
-        container.setOffscreenPageLimit(5)
+        container.setOffscreenPageLimit(4)
         // for status bar color change
         val decor = window.decorView
         val tab1 : BottomBarTab = bottomBar.getTabAtPosition(0)
@@ -103,6 +110,8 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
                     container.setCurrentItem(2)
                     container.setPagingEnabled(true)
                     setLightUI(false)
+                    val sensorTranslationUpdater = SensorTranslationUpdater(this)
+                    parallax.setTranslationUpdater(sensorTranslationUpdater)
                 }
                 R.id.action_customers -> {
                     container.setCurrentItem(3)
@@ -168,20 +177,6 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
         finish()
     }
 
-    override fun updatePager() { //WTF
-        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
-        if (pagerAdapter != null) pagerAdapter.notifyDataSetChanged()
-        val nearby = bottomBar.getTabWithId(R.id.action_stats)
-        nearby.setBadgeCount(5)
-        //mSectionsPagerAdapter?.notifyDataSetChanged()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        container.removeOnPageChangeListener(this)
-
-    }
-
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
     }
@@ -204,24 +199,60 @@ class SalonMainActivity : BasePresenterActivity<MainContract.View
 
     }
 
-    override fun onSaveInstanceState(saveBundle: Bundle?) {
+    override fun updatePager() { //WTF
+        val pagerAdapter : PagerAdapter = container?.getAdapter()!!
+
+        if (pagerAdapter != null) {
+            pagerAdapter!!.notifyDataSetChanged()
+            Logger.log("SalonMainActivity : updatePager : notifyDataSetChanged !")
+        }
+
+        val nearby = bottomBar.getTabWithId(R.id.action_stats)
+        nearby.setBadgeCount(5)
+    }
+    /*
+      override fun onSaveInstanceState(saveBundle: Bundle?) {
         val bundle = Bundle()
-        val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
-        bundle.putSerializable(SAVED_SALON_STATE, salonModel)
-/*
+          val salonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+          bundle.putSerializable(SAVED_SALON_STATE, salonModel)
+  *//*
         bundle.putExtra("데이터키값", salon)
         //저장할 데이터를 번들객체에 저장해서, 다시 복구시 넘어갈 번들안에 계층적으로 저장했다가..
         //복구시에 번들 안에서 다시 이 저장된 번들객체를 추출해서 처리하게 됩니다.
-*/
+*//*
         saveBundle?.putParcelable(BUNDLE_KEY, bundle)
 
         Logger.log("onSaveInstanceState : ${salonModel.name} ")
         super.onSaveInstanceState(saveBundle)
     }
+*/
+
+    override fun onDestroy() {
+        super.onDestroy()
+        container.removeOnPageChangeListener(this)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val pref : SharedPreferences  = getSharedPreferences(SAVED_PREFS, 0)
+        val edit : SharedPreferences.Editor = pref.edit()
+        val mSalonModel = intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+        val gson = Gson()
+        val json = gson.toJson(mSalonModel)
+        Logger.log("onPause : ${mSalonModel.name} ${mSalonModel.id} ")
+       // val serializedSalonModel = salonModel.toString()
+        edit.putString(SAVED_SALON_ID, json)
+
+        edit.apply()
+    }
 
     companion object {
+        val SAVED_PREFS: String = "SAVED_PREFS"
+        val SAVED_SALON_ID: String = "SALON_ID"
         val SAVED_SALON_STATE: String = "SALON_STATE"
         val BUNDLE_KEY: String = "BUNDLE_KEY"
+        var salonModel = SalonModel()
     }
 
 }

@@ -10,13 +10,11 @@ import android.view.animation.AlphaAnimation
 import com.colavo.android.ui.PlaceholderFragment04
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.colavo.android.App
 import com.colavo.android.base.BaseFragment
 import com.colavo.android.entity.checkout.CheckoutModel
-import com.colavo.android.entity.customerdetail.CustomerDetailModel
 import com.colavo.android.entity.event.EventModel
 import com.colavo.android.presenters.customerdetail.CustomerDetailPresenterImpl
 import com.colavo.android.ui.PlaceholderFragment02
@@ -25,10 +23,13 @@ import com.colavo.android.ui.adapter.CustomerDetailAdapter
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.toast
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.base_empty.*
 import kotlinx.android.synthetic.main.fragment_02.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import javax.inject.Inject
+import android.content.Intent
+import android.net.Uri
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
@@ -39,6 +40,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     lateinit var customerdetailAdapter: CustomerDetailAdapter
 
     var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+    var customerPhone = ""
 
     override fun getLayout() = R.layout.customer_detail_fragment
 
@@ -48,6 +50,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     companion object {
 //        fun newInstance() = CustomerDetailFragment()
+
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -61,6 +64,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (context!!.applicationContext as App).addCustomerDetailComponent().inject(this)
+
         setHasOptionsMenu(true)
      //   initInstancesDrawer()
     }
@@ -89,19 +93,19 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
         val bundle:Bundle = arguments!!
         val sender : String = bundle.getString("SENDER")
-   //     val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
-
+   //     val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CHECKOUT) as CustomerModel
+        customer_detail_recyclerView.setNestedScrollingEnabled(false);
 
         if (sender == "checkout") {
-            val customer = bundle.getSerializable(PlaceholderFragment02.BUNDLE_EXTRA) as CheckoutModel
-            val event = CustomerDetailModel()
-            event.id = customer.customer_key
-            event.customer_name = customer.customer_name
-            event.customer_image_full_url = customer.customer_image_full
-            event.customer_image_thumb_url = customer.customer_image_thumb
-            event.customer_key = customer.customer_key
-
-            Logger.log("CustomerDetailFragment : name : ${customer.customer_name} -> ${event.customer_name}, ${event.customer_key}")
+            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
+            val checkout = CheckoutModel()
+            checkout.checkout_uid = customer.customer_key
+            checkout.customer_name = customer.customer_name
+            checkout.customer_image_full = customer.customer_image_full
+            checkout.customer_image_thumb = customer.customer_image_thumb
+            checkout.customer_key = customer.customer_key
+            customerPhone = customer.customer_phone
+            Logger.log("CustomerDetailFragment : name : ${customer.customer_name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 
 
             val layoutManager = LinearLayoutManager(this.context)
@@ -109,23 +113,26 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             layoutManager.stackFromEnd = true
             customer_detail_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
 
-            customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CustomerDetailModel>(), event)
+            customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CheckoutModel>(), checkout)
             customer_detail_recyclerView.adapter = customerdetailAdapter
+
             customer_detail_recyclerView.setEmptyView(customer_detail_empty)
+            if (customer_detail_empty.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
+            else ripplebg.stopRippleAnimation()
 
             customerdetailPresenter.attachView(this)
-            customerdetailPresenter.initialize(event.customer_key)
+            customerdetailPresenter.initialize(checkout.customer_key)
 
-            container_1stline.text = event.customer_name
+            container_1stline.text = checkout.customer_name
             container_2ndline.setText(R.string.customer)
-            if (event.customer_image_thumb_url != ""){
+            if (checkout.customer_image_thumb != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
                 val transForm = CustomerAdapter.CircleTransform()
                 Picasso.with(context)
-                        .load(event.customer_image_thumb_url)
+                        .load(checkout.customer_image_thumb)
                         .resize(280, 280)
                         .centerCrop()
                         //.placeholder(R.drawable.ic_customer_holder_person)
@@ -133,17 +140,20 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                         .noPlaceholder()
                         .into(this.container_image)
             }
+            toolBar.inflateMenu(R.menu.menu_customer_detail_checkout)
+
         }
         else {
-            val customer = bundle.getSerializable(PlaceholderFragment04.BUNDLE_EXTRA) as CustomerModel
-            val event = CustomerDetailModel()
-            event.id = customer.uid
-            event.customer_name = customer.name
-            event.customer_image_full_url = customer.image_urls[0].image_full_url
-            event.customer_image_thumb_url = customer.image_urls[0].image_thumb_url
-            event.customer_key = customer.uid
+            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+            val checkout = CheckoutModel()
+            checkout.checkout_uid = customer.uid
+            checkout.customer_name = customer.name
+            checkout.customer_image_full = customer.image_urls.full
+            checkout.customer_image_thumb = customer.image_urls.thumb
+            customerPhone = customer.phone
+            checkout.customer_key = customer.uid
 
-            Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${event.customer_name}, ${event.customer_key}")
+            Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 /*
             customer_detail_recyclerView.layoutManager = LinearLayoutManager(this.context)
             customer_detail_recyclerView.adapter = customerdetailAdapter
@@ -153,23 +163,26 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             layoutManager.stackFromEnd = true
             customer_detail_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
 
-            customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CustomerDetailModel>(), event) //mutableListOf(event))
+            customerdetailAdapter = CustomerDetailAdapter(this, mutableListOf<CheckoutModel>(), checkout) //mutableListOf(checkout))
             customer_detail_recyclerView.adapter = customerdetailAdapter
+
             customer_detail_recyclerView.setEmptyView(customer_detail_empty)
+            if (customer_detail_empty.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
+            else ripplebg.stopRippleAnimation()
 
             customerdetailPresenter.attachView(this)
-            customerdetailPresenter.initialize(event.customer_key)
+            customerdetailPresenter.initialize(checkout.customer_key)
 
-            container_1stline.text = event.customer_name
+            container_1stline.text = checkout.customer_name
             container_2ndline.setText(R.string.customer)
-            if (event.customer_image_thumb_url != ""){
+            if (checkout.customer_image_thumb != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
                 val transForm = CustomerAdapter.CircleTransform()
                 Picasso.with(context)
-                        .load(event.customer_image_thumb_url)
+                        .load(checkout.customer_image_thumb)
                         .resize(280, 280)
                         .centerCrop()
                         //.placeholder(R.drawable.ic_customer_holder_person)
@@ -178,7 +191,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                         .into(this.container_image)
             }
 
-
+          //  toolBar.inflateMenu(R.menu.menu_customer_detail)
 
         }
 
@@ -208,7 +221,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         toolBar.setTitle ("") //R.string.bottom_navi_4
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
-        toolBar.inflateMenu(R.menu.menu_customer_detail)
+
 
 
    //     fragmentManager.addOnBackStackChangedListener { this }
@@ -218,6 +231,9 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             }
         })
 
+        /*val emptyViewRipple = ripplebg as RippleBackground
+        if (customer_detail_empty.visibility == View.VISIBLE) emptyViewRipple.startRippleAnimation()
+        */
 
 
 
@@ -238,26 +254,43 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
 
 
-    override fun onItemClicked(item: CustomerDetailModel, position: Int, v:View) {
+     override fun onItemClicked(item: CheckoutModel, position: Int, v:View) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailFragment::class.java)
-        intent.putExtra(BUNDLE_EXTRA, item)
+        intent.putExtra(EXTRA_CHECKOUT, item)
         startActivity(intent)*/
     }
 
 
-    override fun onLongItemClicked(item: CustomerDetailModel) {
+     override fun onLongItemClicked(item: CheckoutModel) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_customer_detail, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.menu_customer_detail, menu)
+
+        if (customerPhone == "" ) {
+            menu.removeItem(R.id.action_customer_call)
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
             R.id.action_customer_call -> {
+                if (customerPhone !== "" ){
+                    val uri = Uri.parse("tel:customerPhone")
+                    val it = Intent(Intent.ACTION_DIAL, uri)
+                    startActivity(it)
+                    //val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
+                    //startActivity(intent)
+                }
+                else {
+                    showToast(getString(R.string.err_phonenumber))
+                }
+
                 return true
             }
             R.id.action_customer_edit ->{
@@ -287,7 +320,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     override fun showSnackbar(event: String) {
     }
 
-    override fun setCustomerDetaillist(customerEntities: List<CustomerDetailModel>?) {
+    override fun setCustomerDetaillist(customerEntities: List<CheckoutModel>?) {
     }
 
     override fun showProgress() {
@@ -306,26 +339,29 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addCustomerDetail(customerDetailEntity: CustomerDetailModel) {
+    override fun addCustomerDetail(customerDetailEntity: CheckoutModel) {
         customerdetailAdapter.items.add(customerDetailEntity)
         customerdetailAdapter.notifyItemInserted(customerdetailAdapter.itemCount)
-        Logger.log("CustomerDetail addCustomerDetail : ${customerDetailEntity.id} (${customerdetailAdapter.itemCount})")
+        Logger.log("CustomerDetail addCustomerDetail : ${customerDetailEntity.checkout_uid} (${customerdetailAdapter.itemCount})")
     }
 
-    override fun changeCustomerDetail(customerDetailEntity: CustomerDetailModel) {
+    override fun changeCustomerDetail(customerDetailEntity: CheckoutModel) {
         Logger.log("CustomerDetail changed")
 
-        val position = (checkout_recyclerView.adapter as CustomerDetailAdapter).items.indexOfFirst { it.id.equals(customerDetailEntity.id) }
+        val position = (checkout_recyclerView.adapter as CustomerDetailAdapter).items.indexOfFirst { it.checkout_uid.equals(customerDetailEntity.checkout_uid) }
         (checkout_recyclerView.adapter as CustomerDetailAdapter).items[position] = customerDetailEntity
-        checkout_recyclerView.adapter.notifyItemChanged(position)
+        //checkout_recyclerView.adapter.notifyItemChanged(position)
+        checkout_recyclerView.adapter.notifyDataSetChanged()
     }
 
-    override fun removeCustomerDetail(customerDetailEntity: CustomerDetailModel) {
+    override fun removeCustomerDetail(customerDetailEntity: CheckoutModel) {
         Logger.log("CustomerDetail removed")
 
-        val position = customerdetailAdapter.items.indexOfFirst { it.id.equals(customerDetailEntity) }
+/*        val position = customerdetailAdapter.items.indexOfFirst { it.checkout_uid.equals(customerDetailEntity) }
         customerdetailAdapter.items.removeAt(position)
-        customerdetailAdapter.notifyItemRemoved(position)
+        customerdetailAdapter.notifyItemRemoved(position)*/
+        customerdetailAdapter.items.removeAll{it.checkout_uid.equals(customerDetailEntity.checkout_uid)}
+        customerdetailAdapter.notifyDataSetChanged()
     }
 }
 

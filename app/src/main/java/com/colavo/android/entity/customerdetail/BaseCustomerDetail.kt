@@ -1,5 +1,8 @@
 package com.colavo.android.entity.customerdetail
 
+import com.colavo.android.entity.checkout.DiscountMenu
+import com.colavo.android.entity.checkout.EventLogs
+import com.colavo.android.entity.checkout.ServiceMenu
 import java.io.Serializable
 
 
@@ -16,13 +19,6 @@ abstract class BaseCustomerDetail(
         open var customer_key: String,
         open var memo_key: String,
         open var checkout_key: String,
-        open var cancel_reason: String,
-        open var services: List<ServiceMenu>,
-        open var discounts: List<DiscountMenu>,
-        open var logs: List<EventLogs>,
-        open var customer_name: String,
-        open var customer_image_full_url: String,
-        open var customer_image_thumb_url: String,
-        open var customer_menu: String,
-        open var memo: String
+        open var cancel_reason: String
+
 ): Serializable

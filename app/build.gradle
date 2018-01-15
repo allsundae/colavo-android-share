@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.colavo.android"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName '0.2'
     //    multiDexEnabled true
@@ -83,19 +83,19 @@ dependencies {
     compile "com.android.support:design:$buildToolsVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:transition:$buildToolsVersion"
-    compile 'com.google.firebase:firebase-core:9.0.2'
-    compile 'com.google.firebase:firebase-auth:9.0.2'
-    compile 'com.google.firebase:firebase-database:9.0.2'
-    compile 'com.google.firebase:firebase-storage:9.0.2'
-    compile 'com.google.firebase:firebase-crash:9.0.2'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'io.reactivex:rxandroid:1.2.0'
+    compile "com.google.firebase:firebase-core:$firebaseVersion"
+    compile "com.google.firebase:firebase-auth:$firebaseVersion"
+    compile "com.google.firebase:firebase-database:$firebaseVersion"
+    compile "com.google.firebase:firebase-storage:$firebaseVersion"
+    compile "com.google.firebase:firebase-crash:$firebaseVersion"
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxkotlin:0.60.0'
-    compile 'joda-time:joda-time:2.9.4'
+    compile 'joda-time:joda-time:2.9.9'
     compile 'com.roughike:bottom-bar:2.3.1'
-    kapt 'com.google.dagger:dagger-compiler:2.4'
+    kapt 'com.google.dagger:dagger-compiler:2.11'
 
     //    compile 'com.github.douglasjunior:android-simple-tooltip:0.2.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
@@ -103,13 +103,13 @@ dependencies {
     //    kapt 'com.google.dagger:dagger-android-processor:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.allattentionhere:fabulousfilter:0.0.4'
-    compile 'com.flipboard:bottomsheet-core:1.5.3'
-    compile 'com.flipboard:bottomsheet-commons:1.5.3'
+
     compile 'de.hdodenhof:circleimageview:2.2.0'
-    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.github.katoro:typekit:1.0.1'
     compile 'com.schibsted.spain:parallax-layer-layout:1.1.1'
     implementation 'com.simmorsal.recolor:recolor:1.1.0'
+    compile 'com.github.oxoooo:pull-back-layout:1.0.1'
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
 }
 
 repositories {

@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.colavo.android.base.BaseActivity
 import com.colavo.android.base.BaseView
 import com.colavo.android.base.presenter.BasePresenter
+import com.colavo.android.utils.Logger
+import com.google.firebase.database.FirebaseDatabase
 import com.tsengvn.typekit.TypekitContextWrapper
 
 /**
@@ -19,6 +21,7 @@ abstract class BasePresenterActivity<in VIEW: BaseView, P : BasePresenter<VIEW>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         presenter = onCreatePresenter()
         presenter?.attachView(this as VIEW)
     }

@@ -14,8 +14,6 @@ import com.colavo.android.base.BaseActivity
 import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.salons.SalonsPresenterImpl
 import com.colavo.android.ui.SalonMainActivity
-import com.colavo.android.ui.SalonMainActivity.Companion.BUNDLE_KEY
-import com.colavo.android.ui.SalonMainActivity.Companion.SAVED_SALON_STATE
 import com.colavo.android.ui.adapter.SalonsAdapter
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
@@ -53,7 +51,7 @@ class SalonListActivity : BaseActivity()
                 val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
                 Logger.log("onRestoreInstanceState : ${salonModel.name} ")
                 val intent = Intent(this, SalonMainActivity::class.java)
-                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                intent.putExtra(EXTRA_SALONMODDEL, salonModel)
                 startActivity(intent)
                 finish()
         }
@@ -70,7 +68,7 @@ class SalonListActivity : BaseActivity()
                 val salonModel = bundle.getSerializable(SalonMainActivity.SAVED_SALON_STATE) as SalonModel
                 Logger.log("onCreate : ${salonModel.name} ")
                 val intent = Intent(this, SalonMainActivity::class.java)
-                intent.putExtra(EXTRA_CONVERSATION, salonModel)
+                intent.putExtra(EXTRA_SALONMODDEL, salonModel)
                 startActivity(intent)
                 finish()
         }
@@ -94,6 +92,19 @@ class SalonListActivity : BaseActivity()
         salonsPresenter.attachView(this)
         salonsPresenter.initialize(firebaseAuth.currentUser!!.uid)
 
+        swipe_layout_salon.setOnRefreshListener(){
+            fun onRefresh(){
+                Logger.log("Refresh start : onRefresh Customer")
+                salonsAdapter.notifyDataSetChanged()
+/*
+                val ft = fragmentManager!!.beginTransaction()
+                ft.detach(this).attach(this).commit()
+*/
+                Logger.log("Refresh start : onRefresh done")
+            }
+            swipe_layout_salon.setRefreshing(false)
+            Logger.log("Refresh Done")
+        }
     }
 
     override fun showCreateSalonlistFragment() {
@@ -112,7 +123,7 @@ class SalonListActivity : BaseActivity()
 
     override fun addSalon(salonEntity: SalonModel) {
         salonsAdapter.items.add(salonEntity)
-        salonsAdapter.notifyItemInserted(salonsAdapter.itemCount - 1)
+        salonsAdapter.notifyItemInserted(salonsAdapter.itemCount )
     }
 
     override fun changeSalon(salonEntity: SalonModel) {
@@ -122,7 +133,7 @@ class SalonListActivity : BaseActivity()
     }
 
     override fun removeSalon(salonEntity: SalonModel) {
-        Logger.log("removed")
+        Logger.log("Salon removed")
         (salons_recyclerView.adapter as SalonsAdapter).items.removeAll { it.id.equals(salonEntity.id) }
         salons_recyclerView.adapter.notifyDataSetChanged()
     }
@@ -150,7 +161,7 @@ class SalonListActivity : BaseActivity()
         //TODO WTF
         val intent = Intent(this, SalonMainActivity::class.java)
         //val intent = Intent(this, CustomerListActivity::class.java)
-        intent.putExtra(EXTRA_CONVERSATION, salonModel)
+        intent.putExtra(EXTRA_SALONMODDEL, salonModel)
         startActivity(intent)
         finish()
     }
@@ -216,6 +227,6 @@ class SalonListActivity : BaseActivity()
     }
     companion object {
         val EXTRA_SIGN_OUT: String = "SIGN_OUT"
-        val EXTRA_CONVERSATION: String = "CONVERSATION"
+        val EXTRA_SALONMODDEL: String = "EXTRA_SALONMODEL"
     }
 }

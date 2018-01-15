@@ -15,7 +15,7 @@ class CreateCustomer @Inject constructor(customerRepository: CustomerRepository)
             , customerUid: String
             , customerPhone: String
             ,  customerName: String
-            ,  customerImageUrls: List<ImageUrl>
+            ,  customerImageUrls: ImageUrl
                 , subscriber: Subscriber<FirebaseResponse>)
             = super.execute(CustomerQuery.CreateCustomer(
             salonUid, customerUid, customerPhone, customerName, customerImageUrls ), subscriber)

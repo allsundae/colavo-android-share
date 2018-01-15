@@ -17,7 +17,7 @@ interface CustomerPresenter : BasePresenter {
             customerUid: String
             , customerPhone: String
             , customerName: String
-            , customerImageUrl: List<ImageUrl>
+            , customerImageUrl: ImageUrl
     )
 
     override fun onDestroy()

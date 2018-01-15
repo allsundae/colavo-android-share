@@ -26,9 +26,9 @@ import kotlinx.android.synthetic.main.fragment_04.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
-import com.flipboard.bottomsheet.BottomSheetLayout
 import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.utils.toast
+import kotlinx.android.synthetic.main.base_empty.*
 import kotlinx.android.synthetic.main.customer_item.view.*
 import java.io.ByteArrayOutputStream
 
@@ -63,8 +63,6 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     lateinit var firebaseAuth: FirebaseAuth
 
 
-    protected lateinit var bottomSheetLayout: BottomSheetLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,36 +79,54 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
+
         val title = R.string.bottom_navi_4
-        toolBar?.setTitle (title) //R.string.bottom_navi_4
-        toolBar?.inflateMenu(menu_customer)
-        Logger.log("TOOLBAR DISPLAYED : ${title} ${customerAdapter.itemCount}")
+        toolBar_customer.setTitle (title)
+
         //TODO update number of customers
     }
 
-    override fun updateNumberofCustomer(){
+    public override fun updateNumberofCustomer(){
+        val title : String = getString(R.string.customer) + " (${customerAdapter.itemCount})"
+        toolBar_customer.setTitle(title)
 
-        toolBar?.setTitle ("${R.string.bottom_navi_4} ${customerAdapter.itemCount}" )
         Logger.log("TOOLBAR UPDATED : ${customerAdapter.itemCount}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolBar_customer.inflateMenu(menu_customer)
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
 
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         //  (application as App).addCustomerComponent().inject(this)
         customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
         customers_recyclerView.setEmptyView(empty_customer)
+        if (empty_customer.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
+        else ripplebg.stopRippleAnimation()
 
         //fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
 
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
+        swipe_layout_customer.setOnRefreshListener(){
+            fun onRefresh(){
+                Logger.log("Refresh start : onRefresh Customer")
+//                customerAdapter.notifyDataSetChanged()
+                updateNumberofCustomer()
+
+                val ft = fragmentManager?.beginTransaction()
+                ft?.detach(this)?.attach(this)?.commit()
+
+                Logger.log("Refresh start : onRefresh done")
+            }
+            swipe_layout_customer.setRefreshing(false)
+            Logger.log("Refresh Done")
+        }
 
     }
 
@@ -140,7 +156,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         //todo
 /*
         val intent = Intent(this, SalonMainActivity::class.java)
-        intent.putExtra(SalonListActivity.EXTRA_CONVERSATION, salonModel)
+        intent.putExtra(SalonListActivity.EXTRA_SALONMODDEL, salonModel)
         startActivity(intent)
 
         */
@@ -151,29 +167,33 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         customerAdapter.items.add(customerEntity)
         customerAdapter.notifyItemInserted(customerAdapter.itemCount)
+        updateNumberofCustomer()
         Logger.log("Customer added : ${customerEntity.name} (${customerAdapter.itemCount})")
     }
 
     override fun changeCustomer(customerEntity: CustomerModel) {
         Logger.log("Customer changed")
 
-        val position = (customers_recyclerView.adapter as CustomerAdapter).items.indexOfFirst { it.uid.equals(customerEntity.uid) }
+ /*       val position = (customers_recyclerView.adapter as CustomerAdapter).items.indexOfFirst { it.uid.equals(customerEntity.uid) }
         (customers_recyclerView.adapter as CustomerAdapter).items[position] = customerEntity
-        customers_recyclerView.adapter.notifyItemChanged(position)
+        customers_recyclerView.adapter.notifyItemChanged(position)*/
 
-/*
+
         val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity.uid) }
         customerAdapter.items[position] = customerEntity
         customerAdapter.notifyItemChanged(position)
-*/
+        updateNumberofCustomer()
     }
 
     override fun removeCustomer(customerEntity: CustomerModel) {
         Logger.log("Customer removed")
 
-        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
+/*        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
         customerAdapter.items.removeAt(position)
-        customerAdapter.notifyItemRemoved(position)
+        customerAdapter.notifyItemRemoved(position)*/
+        customerAdapter.items.removeAll{it.uid.equals(customerEntity.uid)}
+        customerAdapter.notifyDataSetChanged()
+        updateNumberofCustomer()
     }
 
 
@@ -201,7 +221,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(BUNDLE_EXTRA, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
         bundle.putString("SENDER","customer")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

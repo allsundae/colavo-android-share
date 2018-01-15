@@ -1,5 +1,6 @@
 package com.colavo.android.interactors.customerdetail
 
+import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.customerdetail.CustomerDetailModel
 import com.colavo.android.entity.query.customerdetail.CustomerDetailQuery
 import com.colavo.android.repositories.customerdetail.CustomerDetailRepository
@@ -11,7 +12,7 @@ import javax.inject.Inject
 @UseCase
 class GetCustomerEvents @Inject constructor(customerDetailRepository: CustomerDetailRepository) : CustomerDetailUseCase(customerDetailRepository) {
 
-    fun execute(customerUid:String, subscriber: Subscriber<Pair<CustomerDetailModel, ResponseType>>)
+    fun execute(customerUid:String, subscriber: Subscriber<Pair<CheckoutModel, ResponseType>>)
             = super.execute(CustomerDetailQuery.GetCustomerEvents(customerUid), subscriber)
 
 }

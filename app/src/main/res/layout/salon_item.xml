@@ -44,12 +44,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:letterSpacing="-0.05"
             android:ellipsize="end"
+            android:letterSpacing="-0.05"
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/list_1sttext"
+
             tools:text="Salon name" />
         <!--        <ImageView
                     android:id="@+id/imageView"

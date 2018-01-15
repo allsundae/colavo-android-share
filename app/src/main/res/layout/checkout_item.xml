@@ -1,116 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
+    android:background="?selectableItemBackground"
     android:gravity="top"
     android:orientation="horizontal"
-    android:background="?selectableItemBackgroundBorderless"
     android:paddingBottom="@dimen/list_vertical_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/list_vertical_padding">
 
-    <RelativeLayout
-        android:id="@+id/item_time"
-        android:layout_width="26dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/list_inside_margin_hor"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/checkout_time_ampm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:maxLines="2"
-            android:text="PM\n12:88"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/listTextSecondary"
-            android:textSize="@dimen/list_Timetext" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/item_profile_image"
+    <LinearLayout
+        android:id="@+id/checkout_time_image_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/list_inside_margin_hor"
-        android:layout_toRightOf="@+id/item_time"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/checkout_customer_image"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_customer_holder_person_smaller"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="0dp"
-            app:civ_fill_color="@color/customerPlaceholderColor" />
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/item_time"
+            android:layout_width="34dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/checkout_time_ampm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:maxLines="2"
+                android:text="PM\n12:88"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/listTextSecondary"
+                android:textSize="@dimen/list_Timetext" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_inside_margin_hor"
+            android:layout_toEndOf="@+id/item_time"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/checkout_customer_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_customer_holder_person_smaller"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp"
+                app:civ_fill_color="@color/customerPlaceholderColor" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_toRightOf="@+id/item_profile_image"
-        android:gravity="center_vertical"
+        android:layout_toEndOf="@+id/checkout_time_image_container"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/checkout_customer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/list_2ndtext"
-            tools:text="Customer name" />
+        <LinearLayout
+            android:id="@+id/item_name_menu_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/checkout_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/customer_name"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:letterSpacing="-0.05"
-            android:maxLines="1"
-            android:text="Menus"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/listTextSecondary"
-            android:textSize="@dimen/list_2ndtext" />
+            <LinearLayout
+                android:id="@+id/item_name_menu"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/checkout_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/list_2ndtext"
+                    tools:text="Customer name" />
+
+                <TextView
+                    android:id="@+id/checkout_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/list_divider_margin"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:letterSpacing="-0.05"
+                    android:maxLines="3"
+                    android:text="Menus"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/listTextSecondary"
+                    android:textSize="@dimen/list_2ndtext" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_checkout_container"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/list_inside_margin_hor"
+                android:background="@drawable/ic_button_line"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingEnd="@dimen/list_inside_margin_hor"
+                android:paddingStart="@dimen/list_inside_margin_hor"
+                android:paddingTop="4dp">
+
+                <ImageView
+                    android:id="@+id/btn_checkout_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_creditcard"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btn_checkout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="2dp"
+                    android:text="@string/checkout_Text"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/buttonSecondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_below="@id/item_name_menu_checkout"
+            android:layout_marginTop="@dimen/list_vertical_padding"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/ic_rectangular" />
 
             <TextView
                 android:id="@+id/checkout_memo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/customer_name"
-                android:drawableLeft="@drawable/ic_rectangular"
+                android:drawableStart="@drawable/ic_rectangular"
                 android:drawableTint="@color/checkoutMemoTextColor"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
@@ -118,7 +175,7 @@
                 android:fontFamily="sans-serif"
                 android:letterSpacing="-0.05"
                 android:maxLines="2"
-                android:text="New memo"
+                android:text="@string/new_memo"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/checkoutMemoTextColor"
                 android:textSize="@dimen/list_2ndtext" />
@@ -126,25 +183,5 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/item_checkout"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:gravity="top|right"
-        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_checkout"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentEnd="false"
-            android:background="@drawable/ic_button_line"
-            android:text="@string/checkout_Text"
-            android:textColor="@color/buttonSecondary"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

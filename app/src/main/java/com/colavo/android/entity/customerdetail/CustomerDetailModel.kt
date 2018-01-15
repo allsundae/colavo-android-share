@@ -1,6 +1,9 @@
 package com.colavo.android.entity.customerdetail
 
+import com.colavo.android.entity.checkout.DiscountMenu
+import com.colavo.android.entity.checkout.ServiceMenu
 import java.io.Serializable
+import java.util.*
 
 
 class CustomerDetailModel(
@@ -17,9 +20,10 @@ class CustomerDetailModel(
         memo_key: String = "",
         checkout_key: String = "",
         cancel_reason: String = "",
-        services: List<ServiceMenu>  = mutableListOf(ServiceMenu("", 0.0,0.0,0.0,"", "", 0.0, "",  0.0)),
-        discounts: List<DiscountMenu> = mutableListOf(DiscountMenu("","",false,"",0.0,0.0, 0.0)),
-        logs: List<EventLogs> = mutableListOf(EventLogs("")),
+        ervices: HashMap<String, ServiceMenu> = hashMapOf("" to ServiceMenu(
+           0.0,0.0,0.0,"", "", 0.0, "", "", 0.0)),
+        iscounts: HashMap<String, DiscountMenu> = hashMapOf("" to DiscountMenu("",false,"","",0.0,0.0, 0.0)),
+        ogs: HashMap<String, Boolean> = hashMapOf("" to false),
         customer_name: String ="",
         customer_image_full_url: String ="",
         customer_image_thumb_url: String ="",
@@ -28,6 +32,4 @@ class CustomerDetailModel(
 ) : BaseCustomerDetail(id, created_at, updated_at, begin_at, end_at
                                 , employee_only_event_title
                                 , booked_by_customer, salon_key, employee_key, customer_key
-                                , memo_key, checkout_key, cancel_reason
-                                , services, discounts, logs
-                                , customer_name, customer_image_full_url, customer_image_thumb_url, customer_menu, memo), Serializable
+                                , memo_key, checkout_key, cancel_reason), Serializable

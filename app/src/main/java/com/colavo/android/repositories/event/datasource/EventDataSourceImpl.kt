@@ -35,25 +35,25 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                         override fun onChildChanged(dataSnapshot: DataSnapshot?, p1: String?) {
                             if(dataSnapshot != null) {
                                 val event = dataSnapshot.getValue(EventEntity::class.java)
-                                event.id = dataSnapshot.key
-                                subscriber.onNext(event to ResponseType.CHANGED)
+                                event?.id = dataSnapshot.key
+                                subscriber.onNext(event!! to ResponseType.CHANGED)
                             }
                         }
 
                         override fun onChildAdded(dataSnapshot: DataSnapshot?, p1: String?) {
                             if(dataSnapshot != null) {
                                 val event = dataSnapshot.getValue(EventEntity::class.java)
-                                event.id = dataSnapshot.key
-                                Logger.log("added ${event.id}")
-                                subscriber.onNext(event to ResponseType.ADDED)
+                                event?.id = dataSnapshot.key
+                                Logger.log("added ${event?.id}")
+                                subscriber.onNext(event!! to ResponseType.ADDED)
                             }
                         }
 
                         override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                             if(dataSnapshot != null) {
                                 val event = dataSnapshot.getValue(EventEntity::class.java)
-                                event.id = dataSnapshot.key
-                                subscriber.onNext(event to ResponseType.REMOVED)
+                                event?.id = dataSnapshot.key
+                                subscriber.onNext(event!! to ResponseType.REMOVED)
                             }
                         }
 
@@ -83,7 +83,7 @@ class EventDataSourceImpl(val retrofit: Retrofit,
                 .doOnNext { updateEvent(event) }*/
     }
 
-    private fun getSalonCustomerById(salonKey: String) : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonCustomerKey(salonKey) //, customerKey: String
+    private fun getSalonCustomerById(salonKey: String) : Observable<CustomerEntity> = retrofit.create(FirebaseAPI::class.java).getCustomerbySalonKey(salonKey) //, customerKey: String
 /*    private fun getServiceById(services: List<ServiceMenu>) : Observable<ServiceMenu> = retrofit.create(FirebaseAPI::class.java).getServiceById(services)
     private fun getDiscountById(discounts: List<DiscountMenu>) : Observable<DiscountMenu> = retrofit.create(FirebaseAPI::class.java).getDiscountById(discounts)
     private fun getLogById(logs: List<EventLogs>) : Observable<EventLogs> = retrofit.create(FirebaseAPI::class.java).getLogById(logs)*/

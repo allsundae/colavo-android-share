@@ -1,7 +1,6 @@
 package com.colavo.android.ui
 
 
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -35,8 +34,6 @@ import com.colavo.android.poptip.OnSwipeDismissListener
 import com.colavo.android.poptip.SwipeDismissDirection
 import com.colavo.android.ui.login.LoginActivity
 import com.colavo.android.utils.Logger
-import kotlinx.android.synthetic.main.popup_event_detail.*
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -76,7 +73,7 @@ class PlaceholderFragment : BaseFragment()
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
         toolBar.title = ""//salon.name
       //  toolBar.setTitleTextAppearance(this.context!!,ToolbarTitleText)
         toolBar.inflateMenu(R.menu.salon_main)
@@ -90,6 +87,21 @@ class PlaceholderFragment : BaseFragment()
         val designerAdapter = ArrayAdapter<String>(this.context!!, R.layout.spinner_designer, R.id.designer_name, designer_list)
         designerAdapter.setDropDownViewResource(R.layout.spinner_popup)
         spinner_designer.adapter = designerAdapter//setText(salon.name)
+
+/*
+        val transForm = CustomerAdapter.CircleTransform()
+        val designerImage: ImageView = customer_image
+            Picasso.with(context)
+                    .load("https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb") //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                    .resize(20, 20)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_person_container)
+                    .transform(transForm)
+                    .into(designerImage)
+*/
+
+
+
 
         // Show a toast message about the touched event.
         weekView.setOnEventClickListener(this)

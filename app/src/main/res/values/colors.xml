@@ -10,6 +10,7 @@
     <color name="dividerTextColor">#6D6D72</color>
 
     <color name="buttonSecondary">#a499eb</color>
+    <color name="colorButtonCheckout">#F1F0FC</color>
     <color name="listTextSecondary">#8050667C</color>
     <color name="foreground_material_light">#000000</color>
     <color name="colorIntroOval">#c1dfcf</color>

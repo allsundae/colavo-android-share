@@ -21,18 +21,15 @@ import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.ui.checkout.CheckoutListView
 import com.colavo.android.ui.customerdetail.CustomerDetailFragment
 import com.colavo.android.ui.salons.SalonListActivity
-import com.colavo.android.utils.LinearLayoutManagerWithSmoothScroller
 import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_item.view.*
 import kotlinx.android.synthetic.main.fragment_02.*
-import kotlinx.android.synthetic.main.toolbar.*
 import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
-import android.support.v7.widget.LinearSmoothScroller
-import android.support.v7.widget.RecyclerView
-
+import android.support.v4.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.base_empty.*
 
 
 /**
@@ -53,7 +50,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
     companion object {
         fun newInstance() = PlaceholderFragment02()
-        val BUNDLE_EXTRA: String = "CHECKOUT"
+        val EXTRA_CHECKOUT: String = "CHECKOUT"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -76,16 +73,14 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Toolbar
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        toolBar.setTitle (bottom_navi_2)
-        toolBar.inflateMenu(menu_checkout)
+        (activity as AppCompatActivity).setSupportActionBar(toolBar_checkout)
+        toolBar_checkout.setTitle (bottom_navi_2)
+        toolBar_checkout.inflateMenu(menu_checkout)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
 
         setHasOptionsMenu(true)
 
-        checkoutAdapter = CheckoutAdapter(this, mutableListOf<CheckoutModel>())
-        checkout_recyclerView.adapter = checkoutAdapter
-
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_CONVERSATION) as SalonModel
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         //  (application as App).addCustomerComponent().inject(this)
         //checkout_recyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -98,24 +93,40 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
-      //  layoutManager.scrollToPosition(1)
-/*        smoothScroller.setTargetPosition(1)
-        layoutManager.startSmoothScroll(smoothScroller)*/
-        //layoutManager.smoothScrollToPosition(1)
-        layoutManager.scrollToPosition(1)
+
+
         checkout_recyclerView.layoutManager = layoutManager //LinearLayoutManager(this.context)
-
-
 
      //   val list = rootView.findViewById(R.id.list1) as RecyclerViewEmptySupport
      //   checkout_recyclerView.setLayoutManager(LinearLayoutManager(context))
         checkout_recyclerView.setEmptyView(empty_checkout)
+        if (empty_checkout.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
+        else ripplebg.stopRippleAnimation()
+
+        checkoutAdapter = CheckoutAdapter(this, mutableListOf<CheckoutModel>())
+        checkout_recyclerView.adapter = checkoutAdapter
 
         checkoutPresenter.attachView(this)
         checkoutPresenter.initialize(salon.id)
 
+        val mSwipeRefreshLayout = swipe_layout as SwipeRefreshLayout
+        mSwipeRefreshLayout.setOnRefreshListener(){
+            fun onRefresh(){
+                Logger.log("Refresh start : onRefresh Checkout")
+                checkoutAdapter.notifyDataSetChanged()
+/*
+                val ft = fragmentManager!!.beginTransaction()
+                ft.detach(this).attach(this).commit()
+*/
+                Logger.log("Refresh start : onRefresh done")
+            }
+            mSwipeRefreshLayout.setRefreshing(false)
+            Logger.log("Refresh Done")
+        }
+
 
     }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -154,23 +165,30 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
         checkoutAdapter.items.add(checkoutEntity)
         checkoutAdapter.notifyItemInserted(checkoutAdapter.itemCount)
+        checkout_recyclerView.scrollToPosition(checkoutAdapter.itemCount - 1)
+        Logger.log("layoutManager.scrollToPosition : ${checkoutAdapter.itemCount}")
+
         Logger.log("Checkout addCheckout : ${checkoutEntity.checkout_uid} (${checkoutAdapter.itemCount})")
     }
 
     override fun changeCheckout(checkoutEntity: CheckoutModel) {
         Logger.log("Checkout changed")
 
-        val position = (checkout_recyclerView.adapter as CheckoutAdapter).items.indexOfFirst { it.checkout_uid.equals(checkoutEntity.checkout_uid) }
-        (checkout_recyclerView.adapter as CheckoutAdapter).items[position] = checkoutEntity
-        checkout_recyclerView.adapter.notifyItemChanged(position)
+        val position = checkoutAdapter.items.indexOfFirst { it.checkout_uid.equals(checkoutEntity.checkout_uid) }
+        checkoutAdapter.items[position] = checkoutEntity
+        checkoutAdapter.notifyItemChanged(position)
     }
 
     override fun removeCheckout(checkoutEntity: CheckoutModel) {
         Logger.log("Checkout removed")
 
+/*
         val position = checkoutAdapter.items.indexOfFirst { it.checkout_uid.equals(checkoutEntity) }
         checkoutAdapter.items.removeAt(position)
         checkoutAdapter.notifyItemRemoved(position)
+*/
+        checkoutAdapter.items.removeAll{it.checkout_uid.equals(checkoutEntity.checkout_uid)}
+        checkoutAdapter.notifyDataSetChanged()
     }
 
     override fun showProgress() {
@@ -192,7 +210,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(PlaceholderFragment02.BUNDLE_EXTRA, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
         bundle.putString("SENDER","checkout")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

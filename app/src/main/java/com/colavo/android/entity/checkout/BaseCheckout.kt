@@ -7,22 +7,16 @@ import java.sql.Timestamp
 
 abstract class BaseCheckout(
         var checkout_uid: String,
-        open var salon_key: String,                 //required,,,,
-        open var event_key: String,                //required
-        open var price: Double,                //required,,,,,,,,,
-        open var is_manual_price: Boolean,
-        open var reserve_fund: Double,
-        open var paid_fund: Double,
-        open var author_employee_key: String,
-        open var paid_types: List<PaidType>,    //required
-        open var created_at: Double,         //required
-        open var updated_at: Double,              //required
-        open var reserveFund: Double,
-        open var paidFund: Double,
-        open var tip: Double,
+        open var created_at: Double,
+        open var updated_at: Double,
+        open var begin_at: Double,
+        open var end_at: Double,
+        open var employee_only_event_title: String,
+        open var booked_by_customer: Boolean,
+        open var salon_key: String,
+        open var employee_key: String,
         open var customer_key: String,
-        open var customer_name: String,
-        open var customer_image_thumb: String,
-        open var customer_image_full: String,
-        open var customer_menu: String
+        open var memo_key: String,
+        open var checkout_key: String,
+        open var cancel_reason: String
 )

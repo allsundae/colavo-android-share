@@ -17,10 +17,6 @@ import com.colavo.android.base.BaseFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.toolbar.*
-import lecho.lib.hellocharts.model.*
-import lecho.lib.hellocharts.view.LineChartView
-import lecho.lib.hellocharts.util.ChartUtils
-import lecho.lib.hellocharts.view.PieChartView
 import java.util.*
 import android.widget.LinearLayout
 import com.colavo.android.R.string.loading
@@ -39,17 +35,6 @@ import kotlinx.android.synthetic.main.fragment_03.*
  * Created by macbookpro on 2017. 9. 13..
  */
 class PlaceholderFragment03 : BaseFragment() {
-
-    private var chart_pie: PieChartView? = null
-    private var data: PieChartData? = null
-
-    private var hasLabels = false
-    private var hasLabelsOutside = false
-    private var hasCenterCircle = false
-    private var hasCenterText1 = false
-    private var hasCenterText2 = false
-    private var isExploded = false
-    private var hasLabelForSelected = false
 
 /*    override fun getLayout(position: Int) = when (position) {
         1 -> R.layout.fragment_01
@@ -109,7 +94,7 @@ class PlaceholderFragment03 : BaseFragment() {
         val data = LineChartData()
         data.lines = lines*/
 
-        val sensorTranslationUpdater = SensorTranslationUpdater((activity as AppCompatActivity).applicationContext)
+        val sensorTranslationUpdater = SensorTranslationUpdater(this.activity)
         parallax.setTranslationUpdater(sensorTranslationUpdater)
          //parallax.setTranslationUpdater(ColavoAnimatedTranslationUpdater(0.1f))
 
