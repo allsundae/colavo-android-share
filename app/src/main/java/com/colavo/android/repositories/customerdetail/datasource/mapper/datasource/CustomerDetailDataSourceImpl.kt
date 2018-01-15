@@ -117,7 +117,7 @@ class CustomerDetailDataSourceImpl @Inject constructor(val retrofit: Retrofit, v
     private fun getPaidoutbySalonCheckoutKey(salon_key: String?, checkout_key: String?) : Observable<PaidoutEntity>  {
         if (checkout_key != null && checkout_key != "") {
             Logger.log("(2-1) getPaidoutbySalonCheckoutKey: ${salon_key}, ${checkout_key}")
-            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId("KtA1nZ5MFIYgIoeJ3YQ", checkout_key ?: "")
+            return retrofit.create(FirebaseAPI::class.java).getPaidoutBySalonCheckoutId(salon_key ?: "", checkout_key ?: "")  //"KtA1nZ5MFIYgIoeJ3YQ"
         }
         else {
             Logger.log("(2-1) getPaidoutbySalonCheckoutKey: NULL")
