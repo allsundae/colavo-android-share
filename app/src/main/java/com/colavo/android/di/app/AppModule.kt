@@ -6,9 +6,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by RUS on 03.08.2016.
- */
 @Module
 class AppModule(val app: App) {
 
