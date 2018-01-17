@@ -20,9 +20,6 @@ import com.colavo.android.ui.PlaceholderFragment04
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Created by RUS on 03.08.2016.
- */
 @Component(modules = arrayOf(AppModule::class, FirebaseModule::class, NetModule::class))
 @Singleton
 interface AppComponent {

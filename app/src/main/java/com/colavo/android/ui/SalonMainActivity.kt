@@ -207,8 +207,8 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
             Logger.log("SalonMainActivity : updatePager : notifyDataSetChanged !")
         }
 
-        val nearby = bottomBar.getTabWithId(R.id.action_stats)
-        nearby.setBadgeCount(5)
+        val nearby = bottomBar.getTabWithId(R.id.action_calendar)
+        nearby.setBadgeCount(((Math.random() * 10) + 1).toInt())
     }
     /*
       override fun onSaveInstanceState(saveBundle: Bundle?) {
