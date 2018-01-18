@@ -52,7 +52,7 @@
     <string name="action_edit_customer">고객정보 수정</string>
     <string name="action_prohibit">예약 금지</string>
     <string name="action_cancel">취소</string>
-    <string name="checkout_Text">결재</string>
+    <string name="checkout_Text">결제</string>
     <string name="btn_edit_profile">프로필 편집</string>
     <string name="customer">고객</string>
     <string name="no_data_title">기록이 없습니다</string>
@@ -67,4 +67,6 @@
     <string name="err_phonenumber">이 고객은 전화번호가 등록되어 있지 않습니다.</string>
     <string name="hint_password">비밀번호를 입력하세요. (6자리)</string>
     <string name="hint_sign_in">이메일을 입력하세요.</string>
+    <string name="phone_number">전화번호</string>
+    <string name="done">완료</string>
 </resources>

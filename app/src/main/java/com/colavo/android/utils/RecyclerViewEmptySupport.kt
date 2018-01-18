@@ -1,10 +1,15 @@
 package com.colavo.android.utils
 
 import android.content.Context
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.AdapterDataObserver
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ProgressBar
+import com.colavo.android.R
+import com.colavo.android.common.MyTextView
+import kotlinx.android.synthetic.main.base_empty.view.*
 
 
 /**
@@ -12,6 +17,7 @@ import android.view.View
  */
 class RecyclerViewEmptySupport : RecyclerView {
     private var emptyView: View? = null
+//    val mProgressBar: ProgressBar? = findViewById<ProgressBar>(R.id.progressBar)
 
     private val observer = object : AdapterDataObserver() {
         override fun onChanged() {
@@ -19,6 +25,7 @@ class RecyclerViewEmptySupport : RecyclerView {
         }
 
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+//            mProgressBar!!.visibility = View.GONE
             checkIfEmpty()
         }
 

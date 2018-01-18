@@ -8,9 +8,6 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.observers.Subscribers
 import rx.schedulers.Schedulers
 
-/**
- * Created by RUS on 17.07.2016.
- */
 abstract class SalonsUseCase(val salonsRepository: SalonsRepository) : BaseUseCase() {
 
     protected fun <T> execute(query: SalonsQuery, subscriber: Subscriber<T> = Subscribers.empty()) {

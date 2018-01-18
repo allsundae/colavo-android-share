@@ -43,19 +43,12 @@ interface FirebaseAPI {
     fun getPaidoutBySalonCheckoutId(@Path("salonid") salon_key: String, @Path("id") checkout_key: String): Observable<PaidoutEntity>
 
 
-    @GET("salon_customers/{id}.json")
-    fun createCustomer(@Path("id") id: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>
-
-    // Doing
-    @GET("salon_events/-KxLewgRxUVdD-10r-9k/{id}.json")
-    fun getEventbySalonEventKey( @Path("id" ) event_key: String): Observable<EventEntity>
-
     @GET("salon_customers/{id}.json") //todo
     fun getCustomerbySalonKey(@Path("id") salon_key: String): Observable<CustomerEntity>
-//    fun getCustomerbySalonCustomerKey(@Path("salon") salon_key: String, @Path("customer") customer_key: String): Observable<CustomerEntity>
 
-    @GET("test/{id}.json") //todo
-    fun getCustomerbyCustomerKey(@Path("id") salon_customer_key: String): Observable<CustomerEntity>
+    @POST("salon_customers/{salonid}.json")
+    fun createCustomer(@Path("salonid") salon_key: String, @Body customerEntity: CustomerEntity): Observable<FirebaseResponse>
+
 
     @GET("salon_checkouts/{id}.json")
     fun getCheckoutBySalonId(@Path("id") salon_key: String): Observable<CheckoutEntity>

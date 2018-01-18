@@ -8,7 +8,7 @@ interface CustomerlistView : BaseView {
 
     fun setCustomerlist(customerEntities: List<CustomerModel>?)
 
-    fun showCreateCustomerlistFragment()
+    fun showCreateCustomerFragment()
 
     fun openCustomerFragment(customerModel: CustomerModel)
 

@@ -5,7 +5,6 @@ import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.checkout.MemoEntity
 import com.colavo.android.entity.checkout.PaidoutEntity
 import com.colavo.android.entity.customer.CustomerEntity
-import com.colavo.android.entity.event.EventEntity
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.checkout.CheckoutQuery
 import com.colavo.android.entity.response.FirebaseResponse
@@ -21,12 +20,7 @@ import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
-import com.colavo.android.utils.SimpleCallback
-import okhttp3.Dispatcher
-import okhttp3.OkHttpClient
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 
@@ -98,13 +92,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     }
 
     private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  {
-//        Logger.log("(2-1) getMemobyMemoKey: $memo_key")
-//        return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId(memo_key ?: "")
-
-/*        val client = OkHttpClient()
-        val dispatcher = Dispatcher()
-        dispatcher.maxRequests = 3
-        client.dispatcher()*/
 
         if (memo_key != null && memo_key != ""){
             Logger.log("(2-2) getMemobyMemoKey: $memo_key")
@@ -114,8 +101,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
             Logger.log("(2-2) getMemobyMemoKey: NULL")
             val empty = MemoEntity("", hashMapOf(),0.0,0.0,"","","","")
             return Observable.just(empty)
-            //return retrofit.create(FirebaseAPI::class.java).getMemoByMemoId("-K_cG1-gLk_jJRK7cA7Q" )
-            //return Observable.empty()//Observable.just()//Observable.empty()
         }
     }
 
@@ -130,7 +115,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                     , 0.0, 0.0, hashMapOf(),0.0
             ,"", 0.0, 0.0)
             return Observable.just(empty)
-            //return Observable.never()
         }
     }
 
@@ -156,72 +140,6 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                 ))
 
     }
-
-/*    private fun convertToCheckoutModel(pair: Pair<CheckoutEntity, ResponseType>)
-            : Observable<Pair<CheckoutModel, ResponseType>> {
-        return getCheckoutbySalonKey((pair.first).uid)
-                .concatMap { checkouts -> Observable.zip(Observable.just(checkouts), getCheckoutbySalonKey(checkouts?.uid))
-                              { checkouts, checkout -> CheckoutMapper.createCheckoutWithEventAndUser(pair.first, checkout) to pair.second }
-                             }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-
-    private fun getCheckoutbySalonKey(salon_key: String?)
-            : Observable<CheckoutEntity> = retrofit.create(FirebaseAPI::class.java).getCheckoutBySalonId(salon_key?: "")
-
-    private fun getEventbySalonEventKey(salon_key: String?, event_key: String?)
-            : Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventbySalonEventKey(event_key ?: "")
-
-    private fun getEventEntitybySalonEventKey(salon_key: String?, event_key: String?)
-            : Observable<EventEntity> = retrofit.create(FirebaseAPI::class.java).getEventbySalonEventKey(event_key ?: "")
-
-    private fun getEventbySalonEventKey(salon_key: String?, event_key: String?, eventCallback: SimpleCallback<EventEntity>)
-    {
-        val firebaseDatabase2: FirebaseDatabase = FirebaseDatabase.getInstance()
-        firebaseDatabase2.reference.child("salon_events")
-                .child(salon_key)
-                .child(event_key)
-                .addListenerForSingleValueEvent( object :ValueEventListener {
-                    override fun onDataChange(dataSnapshot2: DataSnapshot) {
-                        val event : EventEntity = dataSnapshot2.getValue(EventEntity::class.java)
-                        for (i in 0..event.services.size){
-               //             event.services[i].key = dataSnapshot2.child("services").key[i]
-               //             event.services[i].name = dataSnapshot2.child("services").child("")
-                        }
-
-                        Logger.log("getEventbySalonEventKey : customer_key: ${event.services.size}")
-                        eventCallback.callback(event)
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        val customer_Key = "CUSTOMER_KEY READ FAILED: " + databaseError.code
-                        Logger.log("getCustomerKeybySalonEventKey : CUSTOMER_KEY READ FAILED: ${databaseError.code.toString()}")
-                    }
-                })
-
-    }
-
-    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?, finishedCallback: SimpleCallback<CustomerEntity>)
-    {
-        val firebaseDatabase3: FirebaseDatabase = FirebaseDatabase.getInstance()
-        firebaseDatabase3.reference.child("salon_customers")
-                //    .child(checkout.author_employee_key)
-                .child(salon_key)
-                .child(customer_key)
-                .addListenerForSingleValueEvent( object :ValueEventListener {
-
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val customer  = dataSnapshot.getValue(CustomerEntity::class.java)
-                        customer.image_urls.thumb = (dataSnapshot.child("image_url").child("thumb").value).toString()
-                        Logger.log("(2.5) getCustomerbySalonCustomerKey : customer_name: ${customer.name} (${customer.image_urls.thumb})")
-                        finishedCallback.callback(customer)
-                        //subscriber.onNext(customer to ResponseType.ADDED)
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        Logger.log("getCustomerbySalonCustomerKey : FAILED: ${databaseError.code.toString()}")
-                    }
-                })
-
-    }*/
 
 
     private fun getCurrentFirebaseUserKey() : String {
