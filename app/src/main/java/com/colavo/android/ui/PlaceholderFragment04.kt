@@ -165,7 +165,8 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         newFragment.setArguments(bundle)
 
         val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.container, newFragment) //container
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.parent_enter, R.animator.parent_exit)
+        transaction.replace(R.id.containerLayout, newFragment) //container
         transaction.addToBackStack(null)
         transaction.commit()
     }

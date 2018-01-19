@@ -45,7 +45,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
     @Inject
     lateinit var customerCreatePresenter: CustomerCreatePresenterImpl
 
-    lateinit var imageURL : ImageUrl
+    var imageURL : ImageUrl = ImageUrl("","")
 
 
     override fun getLayout() = R.layout.customer_create
@@ -53,7 +53,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (context!!.applicationContext as App).addCustomerDetailComponent().inject(this)
+        (context!!.applicationContext as App).addCustomerComponent().inject(this)
         setHasOptionsMenu(true)
     }
 

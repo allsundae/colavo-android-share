@@ -3,7 +3,6 @@ package com.colavo.android.di.app
 import com.colavo.android.di.checkout.CheckoutComponent
 import com.colavo.android.di.checkout.CheckoutModule
 import com.colavo.android.di.customer.CustomerComponent
-import com.colavo.android.di.customer.CustomerCreateModule
 import com.colavo.android.di.customer.CustomerModule
 import com.colavo.android.di.customerdetail.CustomerDetailComponent
 import com.colavo.android.di.customerdetail.CustomerDetailModule
@@ -30,7 +29,6 @@ interface AppComponent {
     fun addCustomerComponent(customerModule: CustomerModule): CustomerComponent
     fun addCheckoutComponent(checkoutModule: CheckoutModule): CheckoutComponent
     fun addCustomerDetailComponent(customerDetailModule: CustomerDetailModule): CustomerDetailComponent
-    fun addCustomerCreateComponent(customerCreateModule: CustomerCreateModule): CustomerCreateComponent
 
     fun inject(mainActivity: MainActivity)
   //  fun inject(placeholderFragment04: PlaceholderFragment04)
