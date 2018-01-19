@@ -87,14 +87,23 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <EditText
+<!--                    <EditText
                         android:id="@+id/input_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/phone_number"
-                        android:inputType="phone" />
+                        android:inputType="phone" />-->
+                    <net.rimoto.intlphoneinput.IntlPhoneInput
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/input_phone"
+                        app:flagPaddingBottom="4dp"
+                        app:flagPaddingEnd="4dp"
+                        app:flagPaddingStart="4dp"
+                        app:flagPaddingTop="4dp"
+                        />
                 </LinearLayout>
 
             </LinearLayout>

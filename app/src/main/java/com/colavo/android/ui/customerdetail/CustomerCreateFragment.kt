@@ -75,14 +75,20 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
     }
 
     private fun checkField(salon: SalonModel) {
+        var myInternationalNumber: String =""
 
         if (input_name.text.toString()=="") {
             showSnackbar (getString(R.string.err_name))
         }
-        //TODO check phone number
-
         else{
-            customerCreatePresenter.createCustomer(salon.id, input_name.text.toString(), input_phone.text.toString(), imageURL)
+            if (input_phone.isValid()) {
+                myInternationalNumber = input_phone.getNumber()
+                customerCreatePresenter.createCustomer(salon.id, input_name.text.toString(), myInternationalNumber, imageURL) //input_phone.text.toString()
+            }
+            else
+            {
+                showSnackbar (getString(R.string.err_phone_notvalid))
+            }
         }
 
     }

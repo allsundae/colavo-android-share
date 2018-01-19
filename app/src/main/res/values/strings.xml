@@ -72,6 +72,7 @@
     <string name="success_create_customer">Customer successfully added</string>
     <string name="err_create_customer">Customer didn\'t added. please try again</string>
     <string name="err_phone_duplicated">This number is registerd already. check it again please.</string>
+    <string name="err_phone_notvalid">This phone number is not valid. check it again please.</string>
     <string name="success_phone">Phone number can be registered.</string>
     <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
         <string name="logoTransitionName">customer_name</string>
