@@ -12,6 +12,10 @@
     android:clickable="true"
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="16dp">
+    <ooo.oxo.library.widget.PullBackLayout
+        android:id="@+id/puller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/create_customer"
@@ -134,4 +138,5 @@
 
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
+    </ooo.oxo.library.widget.PullBackLayout>
 </android.support.constraint.ConstraintLayout>

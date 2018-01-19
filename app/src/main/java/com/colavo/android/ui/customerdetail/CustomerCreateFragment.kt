@@ -37,9 +37,14 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.presenters.customerdetail.CustomerCreatePresenterImpl
 import com.colavo.android.utils.showSnackBar
 import kotlinx.android.synthetic.main.customer_create.*
+import android.text.method.Touch.onTouchEvent
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
+import ooo.oxo.library.widget.PullBackLayout
 
 
-class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
+
+class CustomerCreateFragment : BaseFragment(), CustomerCreateView, PullBackLayout.Callback {
 
 
     @Inject
@@ -54,7 +59,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (context!!.applicationContext as App).addCustomerComponent().inject(this)
-        setHasOptionsMenu(true)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +69,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
 
         val salon = bundle.getSerializable(PlaceholderFragment04.EXTRA_SALON) as SalonModel
         customerCreatePresenter.attachView(createCustomerView = this)
-
+        puller.setCallback(this)
 
 //TODO        create_customer_image.setOnClickListener{customerCreatePresenter.createCustomerImage()}
         doneButton.setOnClickListener{customerCreatePresenter.createCustomer(salon.id, input_name.text.toString(), input_phone.text.toString(), imageURL )}
@@ -93,6 +98,49 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
     override fun hideCreateProgress() {
         doneButton.visibility = View.VISIBLE
         doneProgress.visibility = View.GONE
+    }
+
+   /* fun onTouchEvent(event: MotionEvent): Boolean {
+        // I only care if the event is an UP action
+        if (event.action == MotionEvent.ACTION_UP) {
+            //and only is the ListFragment shown.
+            if (isListFragmentShown) {
+                // create a rect for storing the fragment window rect
+                val r = Rect(0, 0, 0, 0)
+                // retrieve the fragment's windows rect
+                currentFragment.getView().getHitRect(r)
+                // check if the event position is inside the window rect
+                val intersects = r.contains(event.x.toInt(), event.y.toInt())
+                // if the event is not inside then we can close the fragment
+                if (!intersects) {
+                    Log.d(TAG, "pressed outside the listFragment")
+                    val fragmentTransaction: FragmentTransaction
+                    fragmentTransaction = fragmentManager.beginTransaction()
+                    fragmentTransaction.remove(currentFragment).commit()
+                    // notify that we consumed this event
+                    return true
+                }
+            }
+        }
+        //let the system handle the event
+        return super.onTouchEvent(event)
+    }*/
+
+    override fun onPullStart() {
+        // fade out Action Bar ...
+        // show Status Bar ...
+    }
+
+    override fun onPull(progress: Float) {
+        // set the opacity of the window's background
+    }
+
+    override fun onPullCancel() {
+        // fade in Action Bar
+    }
+
+    override fun onPullComplete() {
+        //supportFinishAfterTransition()
     }
 
 }
