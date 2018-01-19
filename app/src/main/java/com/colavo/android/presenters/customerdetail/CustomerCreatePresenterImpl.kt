@@ -1,5 +1,8 @@
 package com.colavo.android.presenters.customerdetail
 
+import android.support.v4.content.res.TypedArrayUtils.getString
+import android.support.v7.app.AppCompatActivity
+import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.ImageUrl
 import com.colavo.android.entity.response.FirebaseResponse
@@ -40,10 +43,12 @@ class CustomerCreatePresenterImpl @Inject constructor(val createCustomer: Create
         override fun onError(e: Throwable) {
             createCustomerView?.hideCreateProgress()
             createCustomerView?.onError(e)
+            createCustomerView?.onCreatedFailed()
         }
 
         override fun onCompleted() {
             createCustomerView?.hideCreateProgress()
+            createCustomerView?.onCreatedSuccess()
         }
     }
 

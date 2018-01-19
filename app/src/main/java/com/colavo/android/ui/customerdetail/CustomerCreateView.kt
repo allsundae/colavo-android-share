@@ -10,4 +10,7 @@ interface CustomerCreateView : BaseView {
 
     fun hideCreateProgress()
 
+    fun onCreatedSuccess()
+    fun onCreatedFailed()
+
 }

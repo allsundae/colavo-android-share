@@ -69,4 +69,10 @@
     <string name="hint_sign_in">이메일을 입력하세요.</string>
     <string name="phone_number">전화번호</string>
     <string name="done">완료</string>
+
+    <string name="err_name">이름은 필수 입니다. 확인해 주세요.</string>
+    <string name="success_create_customer">고객이 성공적으로 등록되었습니다</string>
+    <string name="err_create_customer">고객 등록이 실패했습니다 다시 한번 확인해 주세요</string>
+    <string name="err_phone_duplicated">이 번호는 이미 등록된 번호입니다. 다시 한번 확인해 주세요.</string>
+    <string name="success_phone">등록 가능한 전화번호 입니다.</string>
 </resources>

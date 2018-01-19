@@ -37,6 +37,9 @@ import kotlinx.android.synthetic.main.base_empty.*
 import kotlinx.android.synthetic.main.customer_item.view.*
 import kotlinx.android.synthetic.main.fragment_01.*
 import java.io.ByteArrayOutputStream
+import android.support.design.widget.Snackbar
+
+
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
@@ -120,7 +123,11 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
-        swipe_layout_customer.setOnRefreshListener(){
+        fab_customer.setOnClickListener(View.OnClickListener { view ->
+            showCreateCustomerFragment()
+        })
+
+        swipe_layout_customer.setOnRefreshListener{
             fun onRefresh(){
                 Logger.log("Refresh start : onRefresh Customer")
 //                customerAdapter.notifyDataSetChanged()
@@ -136,8 +143,6 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         }
 
     }
-
-
 
 
     override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
