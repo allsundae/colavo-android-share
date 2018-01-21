@@ -684,8 +684,6 @@ class PlaceholderFragment : BaseFragment()
 
       objectTo.startAnimation(scaleAnim)*/
 
-
-
         var alphaAnimator = ObjectAnimator.ofFloat(objectTo, "alpha", 1f, 0.7f)
 
         if (zoomIn == true){

@@ -96,8 +96,8 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
     override fun createCustomer(query: CustomerQuery.CreateCustomer): Observable<FirebaseResponse>
             = retrofit.create(FirebaseAPI::class.java)
             .createCustomer(query.salonUid
-                            , CustomerEntity(uid = query.customerUid, phone = query.customerPhone
-                                                , name = query.customerName, image_urls = query.customerImageUrls))
+                            , CustomerEntity( phone = query.customerPhone
+                                                , name = query.customerName, image_urls = query.customerImageUrls, fund = 0.0, is_removed = false))
 
 /*    private fun convertToCustomerModel(pair: Pair<CustomerEntity, ResponseType>)
             : Observable<Pair<CustomerModel, ResponseType>> {

@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
@@ -27,10 +31,15 @@ import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 import com.colavo.android.ui.animations.DetailsTransition
+import com.colavo.android.ui.customerdetail.CustomerCreateFragment
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.base_empty.*
 import kotlinx.android.synthetic.main.customer_item.view.*
+import kotlinx.android.synthetic.main.fragment_01.*
 import java.io.ByteArrayOutputStream
+import android.support.design.widget.Snackbar
+
+
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
@@ -49,7 +58,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     companion object {
         fun newInstance() = PlaceholderFragment04()
-        val BUNDLE_EXTRA: String = "CUSTOMER"
+        val EXTRA_SALON: String = "CUSTOMER"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -78,7 +87,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     override fun onStart() {
         super.onStart()
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        (activity as AppCompatActivity).setSupportActionBar(toolBar_customer)
 
         val title = R.string.bottom_navi_4
         toolBar_customer.setTitle (title)
@@ -95,6 +104,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showProgress()
 
         toolBar_customer.inflateMenu(menu_customer)
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
@@ -113,7 +123,11 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
-        swipe_layout_customer.setOnRefreshListener(){
+        fab_customer.setOnClickListener(View.OnClickListener { view ->
+            showCreateCustomerFragment()
+        })
+
+        swipe_layout_customer.setOnRefreshListener{
             fun onRefresh(){
                 Logger.log("Refresh start : onRefresh Customer")
 //                customerAdapter.notifyDataSetChanged()
@@ -131,13 +145,11 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     }
 
 
-
-
     override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
         //customers_recyclerView.adapter = CustomerAdapter(this, customerEntities!!.toMutableList()) //todo
     }
 
-    override fun showCreateCustomerlistFragment() {
+    override fun showCreateCustomerFragment() {
         //todo
 /*        MaterialDialog.Builder(this.context)
                 .title(R.string.create_conversation)
@@ -150,6 +162,18 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
                         , input.toString()
                         , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
                 )}.show()*/
+        val newFragment = CustomerCreateFragment()
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+
+        val bundle = Bundle(1)
+        bundle.putSerializable(EXTRA_SALON, salon)
+        newFragment.setArguments(bundle)
+
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.parent_enter, R.animator.parent_exit)
+        transaction.replace(R.id.containerLayout, newFragment) //container
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun openCustomerFragment(customerModel: CustomerModel) {
@@ -164,7 +188,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun addCustomer(customerEntity: CustomerModel) {
-
+        hideProgress()
         customerAdapter.items.add(customerEntity)
         customerAdapter.notifyItemInserted(customerAdapter.itemCount)
         updateNumberofCustomer()
@@ -198,11 +222,13 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun showProgress() {
-        progressDialog.show()
+        progressBar.visibility = View.VISIBLE
+        //progressDialog.show()
     }
 
     override fun hideProgress() {
-        progressDialog.hide()
+        progressBar.visibility = View.GONE
+        //progressDialog.hide()
     }
 
     override fun onItemClicked(item: CustomerModel, position: Int, v: View) {
@@ -296,5 +322,71 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerPresenter.onDestroy()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_customer, menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.action_create_customer -> {
+                showCreateCustomerFragment()
+                return true
+            }
+      /*      R.id.action_create_event ->{
+                //               val dialogFrag = CreateFabFragment.newInstance()
+//                dialogFrag.setParentFab(fab_calendar)
+//                dialogFrag.show((activity as AppCompatActivity).getSupportFragmentManager(), dialogFrag.getTag())
+                return true
+            }
+            R.id.action_day_view -> {
+                if (mWeekViewType != TYPE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_DAY_VIEW
+                    weekView.numberOfVisibleDays = 1
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                }
+                return true
+            }
+            R.id.action_three_day_view -> {
+                if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_THREE_DAY_VIEW
+                    weekView.numberOfVisibleDays = 3
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics).toInt()
+                }
+                return true
+            }
+            R.id.action_week_view -> {
+                if (mWeekViewType != TYPE_WEEK_VIEW) {
+                    item.isChecked = !item.isChecked
+                    mWeekViewType = TYPE_WEEK_VIEW
+                    weekView.numberOfVisibleDays = 7
+
+                    // Lets change some dimensions to best fit the view.
+                    weekView.columnGap = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics).toInt()
+                    weekView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt()
+                    weekView.eventTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10f, resources.displayMetrics).toInt()
+                }
+                return true
+            }
+
+            R.id.action_sign_out -> {
+                openLoginActivity()
+                return true
+            }*/
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 }

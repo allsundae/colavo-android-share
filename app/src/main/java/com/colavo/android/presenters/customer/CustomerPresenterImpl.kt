@@ -2,17 +2,11 @@ package com.colavo.android.presenters.customer
 
 import com.colavo.android.entity.customer.CustomerModel
 import com.colavo.android.entity.customer.ImageUrl
-import com.colavo.android.entity.query.customer.CustomerQuery
-import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.interactors.customer.CreateCustomer
 import com.colavo.android.interactors.customer.GetSalonCustomer
-import com.colavo.android.interactors.salons.CreateSalon
-import com.colavo.android.interactors.salons.GetSalons
-import com.colavo.android.ui.PlaceholderFragment04
 import com.colavo.android.ui.customer.CustomerlistView
-import com.colavo.android.ui.salons.SalonlistView
 import com.colavo.android.utils.Logger
 import rx.Subscriber
 import javax.inject.Inject
@@ -35,16 +29,16 @@ class CustomerPresenterImpl @Inject constructor(val getCustomer: GetSalonCustome
     }
 
     override fun onCreateCustomerButtonClicked() {
-        customerlistView?.showCreateCustomerlistFragment()
+        customerlistView?.showCreateCustomerFragment()
     }
 
     override fun createCustomer
-            (customerUid: String
+            (salonUid: String
              , customerPhone: String
              , customerName: String
              , customerImageUrls:ImageUrl) {
         createCustomer.execute(
-                salonUid, customerUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
+                salonUid, customerPhone, customerName, customerImageUrls, CreateCustomerSubscriber())
     }
 
     override fun onDestroy() {
