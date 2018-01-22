@@ -11,13 +11,13 @@
         android:drawable="@drawable/ic_logocolavo"
         android:gravity="center_horizontal"
         android:top="300dp"
-        android:width="76dp"
-        android:height="12dp" />
+        android:width="90dp"
+        android:height="14dp" />
     <item
         android:drawable="@mipmap/ic_copyright"
         android:gravity="center_horizontal"
         android:top="600dp"
-        android:width="301dp"
-        android:height="16dp" />
+        android:width="281dp"
+        android:height="13dp" />
 
 </layer-list>

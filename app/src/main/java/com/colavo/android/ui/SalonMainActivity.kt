@@ -110,8 +110,8 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
                     container.setCurrentItem(2)
                     container.setPagingEnabled(true)
                     setLightUI(false)
-                    val sensorTranslationUpdater = SensorTranslationUpdater(this)
-                    parallax.setTranslationUpdater(sensorTranslationUpdater)
+/*                    val sensorTranslationUpdater = SensorTranslationUpdater(this)
+                    parallax.setTranslationUpdater(sensorTranslationUpdater)*/
                 }
                 R.id.action_customers -> {
                     container.setCurrentItem(3)

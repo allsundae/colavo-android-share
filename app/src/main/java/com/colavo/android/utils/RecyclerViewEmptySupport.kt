@@ -1,6 +1,7 @@
 package com.colavo.android.utils
 
 import android.content.Context
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.AdapterDataObserver
 import android.support.v7.widget.RecyclerView
@@ -12,12 +13,14 @@ import com.colavo.android.common.MyTextView
 import kotlinx.android.synthetic.main.base_empty.view.*
 
 
-/**
- * Created by macbookpro on 2017. 12. 22..
- */
+
 class RecyclerViewEmptySupport : RecyclerView {
     private var emptyView: View? = null
 //    val mProgressBar: ProgressBar? = findViewById<ProgressBar>(R.id.progressBar)
+
+    init {
+
+    }
 
     private val observer = object : AdapterDataObserver() {
         override fun onChanged() {
@@ -44,9 +47,12 @@ class RecyclerViewEmptySupport : RecyclerView {
         if (emptyView != null && adapter != null) {
             val emptyViewVisible = adapter.itemCount == 0
             emptyView!!.setVisibility(if (emptyViewVisible) View.VISIBLE else View.GONE)
+            //empty_group?.setVisibility(View.VISIBLE)
 
             visibility = if (emptyViewVisible) View.GONE else View.VISIBLE
         }
+
+
     }
 
     override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
@@ -61,6 +67,7 @@ class RecyclerViewEmptySupport : RecyclerView {
     fun setEmptyView(emptyView: View) {
         this.emptyView = emptyView
         checkIfEmpty()
+
     }
 
 

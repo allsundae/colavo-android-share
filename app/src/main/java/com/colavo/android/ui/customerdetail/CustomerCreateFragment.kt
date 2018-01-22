@@ -77,7 +77,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
         val salon = bundle.getSerializable(PlaceholderFragment04.EXTRA_SALON) as SalonModel
         customerCreatePresenter.attachView(createCustomerView = this)
 
-        input_phone.setEmptyDefault("")
+        input_phone.setEmptyDefault(null)
 
         mCropImageView = CropImageView//(CropImageView) findViewById(R.id.CropImageView);
 //TODO        create_customer_image.setOnClickListener{customerCreatePresenter.createCustomerImage()}
@@ -135,7 +135,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
         if (input_name.text.toString()=="") {
             showSnackbar (getString(R.string.err_name))
         }
-        else if (input_phone.text.toString()=="") {
+        else if (input_phone.text == null) {
             uploadFile()
             customerCreatePresenter.createCustomer(salon.id, input_name.text.toString(), myInternationalNumber, imageURL) //input_phone.text.toString()
         }
@@ -370,7 +370,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
         return Uri.fromFile(tempFile)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
 
             val imageUri = getPickImageResultUri(data)

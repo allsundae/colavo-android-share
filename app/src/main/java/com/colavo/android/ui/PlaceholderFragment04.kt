@@ -222,12 +222,20 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
 
     override fun showProgress() {
-        progressBar.visibility = View.VISIBLE
+        empty_progress.visibility = View.VISIBLE
+        val handler = Handler()
+        handler.postDelayed({
+            empty_group?.visibility = View.VISIBLE
+            empty_progress.visibility = View.GONE
+        }, 500)
+
+        //empty_group.visibility = View.GONE
         //progressDialog.show()
     }
 
     override fun hideProgress() {
-        progressBar.visibility = View.GONE
+        empty_progress.visibility = View.GONE
+        empty_group.visibility = View.VISIBLE
         //progressDialog.hide()
     }
 
