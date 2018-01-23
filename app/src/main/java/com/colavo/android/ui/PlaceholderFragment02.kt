@@ -3,6 +3,7 @@ package com.colavo.android.ui
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
@@ -72,6 +73,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showProgress()
         // Toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolBar_checkout)
         toolBar_checkout.setTitle (bottom_navi_2)
@@ -162,6 +164,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     }
 
     override fun addCheckout(checkoutEntity: CheckoutModel) {
+        hideProgress()
 
         checkoutAdapter.items.add(checkoutEntity)
         checkoutAdapter.notifyItemInserted(checkoutAdapter.itemCount)
@@ -192,12 +195,24 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     }
 
     override fun showProgress() {
-        progressDialog.show()
+        empty_progress.visibility = View.VISIBLE
+        val handler = Handler()
+        handler.postDelayed({
+            empty_group?.visibility = View.VISIBLE
+            empty_progress.visibility = View.GONE
+        }, 500)
+
+
+        //empty_group.visibility = View.GONE
+        //progressDialog.show()
     }
 
     override fun hideProgress() {
-        progressDialog.hide()
+        empty_progress.visibility = View.GONE
+        empty_group.visibility = View.VISIBLE
+        //progressDialog.hide()
     }
+
     override fun onItemClicked(item: CheckoutModel, position: Int, v: View) {
         Toast.makeText(context, "Clicked ${item.customer_name} : ${position}" , Toast.LENGTH_LONG).show()
 

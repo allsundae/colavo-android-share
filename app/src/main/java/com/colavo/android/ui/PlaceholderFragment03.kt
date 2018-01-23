@@ -94,7 +94,7 @@ class PlaceholderFragment03 : BaseFragment() {
         val data = LineChartData()
         data.lines = lines*/
 
-        val sensorTranslationUpdater = SensorTranslationUpdater(this.activity)
+        val sensorTranslationUpdater = SensorTranslationUpdater(context)
         parallax.setTranslationUpdater(sensorTranslationUpdater)
          //parallax.setTranslationUpdater(ColavoAnimatedTranslationUpdater(0.1f))
 

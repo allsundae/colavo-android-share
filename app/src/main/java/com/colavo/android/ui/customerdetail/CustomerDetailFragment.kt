@@ -30,6 +30,8 @@ import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import javax.inject.Inject
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
+import kotlinx.android.synthetic.main.base_empty.view.*
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
@@ -95,6 +97,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         val sender : String = bundle.getString("SENDER")
    //     val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CHECKOUT) as CustomerModel
         customer_detail_recyclerView.setNestedScrollingEnabled(false);
+        showProgress()
 
         if (sender == "checkout") {
             val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
@@ -324,11 +327,22 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun showProgress() {
-        progressDialog.show()
+        empty_progress.visibility = View.VISIBLE
+
+        val handler = Handler()
+        handler.postDelayed({
+            empty_group?.visibility = View.VISIBLE
+            empty_progress.visibility = View.GONE
+        }, 500)
+
+        //empty_group.visibility = View.GONE
+        //progressDialog.show()
     }
 
     override fun hideProgress() {
-        progressDialog.hide()
+        empty_progress.visibility = View.GONE
+        empty_group.visibility = View.VISIBLE
+        //progressDialog.hide()
     }
 
     override fun showReceiptFragment(eventModel: EventModel) {
@@ -340,14 +354,15 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun addCustomerDetail(customerDetailEntity: CheckoutModel) {
+        hideProgress()
         customerdetailAdapter.items.add(customerDetailEntity)
         customerdetailAdapter.notifyItemInserted(customerdetailAdapter.itemCount)
         Logger.log("CustomerDetail addCustomerDetail : ${customerDetailEntity.checkout_uid} (${customerdetailAdapter.itemCount})")
     }
 
     override fun changeCustomerDetail(customerDetailEntity: CheckoutModel) {
+        hideProgress()
         Logger.log("CustomerDetail changed")
-
         val position = (checkout_recyclerView.adapter as CustomerDetailAdapter).items.indexOfFirst { it.checkout_uid.equals(customerDetailEntity.checkout_uid) }
         (checkout_recyclerView.adapter as CustomerDetailAdapter).items[position] = customerDetailEntity
         //checkout_recyclerView.adapter.notifyItemChanged(position)
