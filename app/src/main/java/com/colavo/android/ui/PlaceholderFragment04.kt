@@ -38,12 +38,20 @@ import kotlinx.android.synthetic.main.customer_item.view.*
 import kotlinx.android.synthetic.main.fragment_01.*
 import java.io.ByteArrayOutputStream
 import android.support.design.widget.Snackbar
-
-
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
+import android.text.TextUtils
+import android.widget.ImageView
+import android.widget.TextView
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
+import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection
+import java.util.*
 
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
-        , CustomerAdapter.OnItemClickListener {
+        , CustomerAdapter.OnItemClickListener, SearchView.OnQueryTextListener {
     /* Transition */
     private val MOVE_DEFAULT_TIME: Long = 1000
     private val FADE_DEFAULT_TIME: Long = 300
@@ -55,6 +63,8 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     lateinit var customerAdapter: CustomerAdapter
 
     override fun getLayout() = R.layout.fragment_04
+
+    private var sectionAdapter: SectionedRecyclerViewAdapter? = null
 
     companion object {
         fun newInstance() = PlaceholderFragment04()
@@ -95,7 +105,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         //TODO update number of customers
     }
 
-    public override fun updateNumberofCustomer(){
+    override fun updateNumberofCustomer(){
         val title : String = getString(R.string.customer) + " (${customerAdapter.itemCount})"
         toolBar_customer.setTitle(title)
 
@@ -107,26 +117,46 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         showProgress()
 
         toolBar_customer.inflateMenu(menu_customer)
-        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
-        customers_recyclerView.adapter = customerAdapter
 
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
-
-        //  (application as App).addCustomerComponent().inject(this)
-        customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
-        customers_recyclerView.setEmptyView(empty_customer)
         if (empty_customer.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
         else ripplebg.stopRippleAnimation()
 
-        //fab_customer.setOnClickListener { customerPresenter.onCreateCustomerButtonClicked()}
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+
+
+//        sectionAdapter = SectionedRecyclerViewAdapter()
+
+/*
+        var alphabet = 'A'
+        while (alphabet <= 'Z') {
+            val contacts = getContactsWithLetter(alphabet)
+
+            if (contacts.size > 0) {
+                val contactsSection = ContactsSection(alphabet.toString(), contacts)
+                sectionAdapter!!.addSection(contactsSection)
+            }
+            alphabet++
+        }
+*/
+
+        customers_recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
+        customers_recyclerView.adapter = customerAdapter
+//        customers_recyclerView.adapter = sectionAdapter
+        customers_recyclerView.setEmptyView(empty_customer)
 
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
 
+
+
+
+        // Fab button
         fab_customer.setOnClickListener(View.OnClickListener { view ->
             showCreateCustomerFragment()
         })
-
+        // Pull to refresh
         swipe_layout_customer.setOnRefreshListener{
             fun onRefresh(){
                 Logger.log("Refresh start : onRefresh Customer")
@@ -163,10 +193,11 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
                         , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
                 )}.show()*/
         val newFragment = CustomerCreateFragment()
-        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+  //      val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
-        val bundle = Bundle(1)
-        bundle.putSerializable(EXTRA_SALON, salon)
+        val bundle = Bundle(2)
+//        bundle.putSerializable(EXTRA_SALON, salon)
+        bundle.putString("SENDER","create")
         newFragment.setArguments(bundle)
 
         val transaction = fragmentManager!!.beginTransaction()
@@ -227,7 +258,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         handler.postDelayed({
             empty_group?.visibility = View.VISIBLE
             empty_progress.visibility = View.GONE
-        }, 500)
+        }, 700)
 
         //empty_group.visibility = View.GONE
         //progressDialog.show()
@@ -333,6 +364,121 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_customer, menu)
+
+        val item = menu.findItem(R.id.action_search)
+        val searchView = MenuItemCompat.getActionView(item) as SearchView
+        searchView.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextChange(query: String): Boolean {
+
+        // getSectionsMap requires library version 1.0.4+
+        for (section in sectionAdapter?.getSectionsMap()!!.values) {
+            if (section is FilterableSection) {
+                (section as FilterableSection).filter(query)
+            }
+        }
+        sectionAdapter?.notifyDataSetChanged()
+
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return false
+    }
+
+    private fun getContactsWithLetter(letter: Char): List<String> {
+        val contacts = ArrayList<String>()
+
+        for (contact in resources.getStringArray(R.array.names)) {
+            if (contact[0] == letter) {
+                contacts.add(contact)
+            }
+        }
+
+        return contacts
+    }
+
+
+    private inner class ContactsSection internal constructor(internal var title: String, internal var list: List<String>)
+        : StatelessSection(SectionParameters.Builder(R.layout.section_ex7_item)
+            .headerResourceId(R.layout.section_ex7_header)
+            .build()), FilterableSection {
+        internal var filteredList: MutableList<String>
+
+        init {
+            this.filteredList = ArrayList(list)
+        }
+
+
+        override fun getContentItemsTotal(): Int {
+            return filteredList.size
+        }
+
+        override fun getItemViewHolder(view: View): RecyclerView.ViewHolder {
+            return ItemViewHolder(view)
+        }
+
+        override fun onBindItemViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val itemHolder = holder as ItemViewHolder
+
+            val name = filteredList[position]
+
+            itemHolder.tvItem.setText(name)
+            //itemHolder.imgItem.setImageResource(if (name.hashCode() % 2 == 0) R.drawable.ic_face_black_48dp else R.drawable.ic_tag_faces_black_48dp)
+
+            itemHolder.rootView.setOnClickListener(View.OnClickListener { Toast.makeText(context, String.format("Clicked on position #%s of Section %s", sectionAdapter!!.getPositionInSection(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show() })
+        }
+
+        override fun getHeaderViewHolder(view: View): RecyclerView.ViewHolder {
+            return HeaderViewHolder(view)
+        }
+
+        override fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder?) {
+            val headerHolder = holder as HeaderViewHolder?
+
+            headerHolder!!.tvTitle.setText(title)
+        }
+
+        override fun filter(query: String) {
+            if (TextUtils.isEmpty(query)) {
+                filteredList = ArrayList(list)
+                this.isVisible = true
+            } else {
+                filteredList.clear()
+                for (value in list) {
+                    if (value.toLowerCase().contains(query.toLowerCase())) {
+                        filteredList.add(value)
+                    }
+                }
+
+                this.isVisible = !filteredList.isEmpty()
+            }
+        }
+    }
+
+    private inner class HeaderViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+
+        public val tvTitle: TextView
+
+        init {
+
+            tvTitle = view.findViewById(R.id.tvTitle) as TextView
+        }
+    }
+
+    private inner class ItemViewHolder internal constructor(val rootView: View) : RecyclerView.ViewHolder(rootView) {
+        private val imgItem: ImageView
+        val tvItem: TextView
+
+        init {
+            imgItem = rootView.findViewById(R.id.imgItem) as ImageView
+            tvItem = rootView.findViewById(R.id.tvItem) as TextView
+        }
+    }
+
+    internal interface FilterableSection {
+        fun filter(query: String)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

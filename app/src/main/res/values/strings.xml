@@ -51,6 +51,7 @@
     <string name="action_edit_customer">Edit customer\'s info</string>
     <string name="action_prohibit">Prohibit reservation</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_search">Search</string>
     <string name="checkout_Text">Checkout</string>
     <string name="btn_edit_profile">Edit profile</string>
     <string name="customer">Customer</string>
@@ -61,7 +62,7 @@
     <string name="tnc"><![CDATA[
     By using Colavo, you agree to Colavo\'s <a href="http://www.colavo.kr">Terms of Usage</a> and <a href="http://www.colavo.kr">Privacy</a>
     ]]></string>
-    <string name="new_memo">New memo</string>
+    <string name="new_memo">Add note &amp; photo</string>
 
     <string name="err_phonenumber">Sorry, this customer doesn\'t have a phone number.</string>
     <string name="hint_password">Type in password (6 digits)</string>
@@ -74,6 +75,7 @@
     <string name="err_phone_duplicated">This number is registerd already. check it again please.</string>
     <string name="err_phone_notvalid">This phone number is not valid. check it again please.</string>
     <string name="success_phone">Phone number can be registered.</string>
+    <string name="fund">Points</string>
     <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
         <string name="logoTransitionName">customer_name</string>
         <string name="title_activity_salon_main">헤어샵</string>-->

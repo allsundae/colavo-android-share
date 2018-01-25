@@ -39,6 +39,7 @@ class NetModule {
 
     companion object {
         val BASE_URL: String = "https://jhone-364e5.firebaseio.com/"
+        val BASE_STORAGE_URL: String = "gs://jhone-364e5.appspot.com"
 
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(FirebaseUserIdTokenInterceptor())

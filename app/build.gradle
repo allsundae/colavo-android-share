@@ -112,6 +112,8 @@ dependencies {
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
     compile 'net.rimoto:intlphoneinput:1.0.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
+    compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.1.3'
 }
 
 repositories {

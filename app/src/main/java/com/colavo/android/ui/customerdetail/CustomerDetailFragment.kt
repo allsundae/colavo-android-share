@@ -29,9 +29,19 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import javax.inject.Inject
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Handler
+import com.colavo.android.entity.salon.SalonModel
+import com.colavo.android.ui.animations.DetailsTransition
+import com.colavo.android.ui.salons.SalonListActivity
+import com.colavo.android.ui.salons.SalonListActivity.Companion.EXTRA_SALONMODDEL
+import com.colavo.android.utils.CircleTransform
+import com.colavo.android.utils.currencyFormatter
 import kotlinx.android.synthetic.main.base_empty.view.*
+import kotlinx.android.synthetic.main.customer_item.view.*
+import java.io.ByteArrayOutputStream
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
@@ -52,7 +62,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     companion object {
 //        fun newInstance() = CustomerDetailFragment()
-
+            val EXTRA_CUSTOMER_DETAIL: String = "CUSTOMER"
     }
 
     private val progressDialog: MaterialDialog by lazy {
@@ -107,6 +117,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             checkout.customer_image_full = customer.customer_image_full
             checkout.customer_image_thumb = customer.customer_image_thumb
             checkout.customer_key = customer.customer_key
+            checkout.customer_fund = customer.customer_fund
             customerPhone = customer.customer_phone
             Logger.log("CustomerDetailFragment : name : ${customer.customer_name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 
@@ -127,13 +138,13 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             customerdetailPresenter.initialize(checkout.customer_key)
 
             container_1stline.text = checkout.customer_name
-            container_2ndline.setText(R.string.customer)
+            container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(customer.customer_fund)//setText(R.string.customer)
             if (checkout.customer_image_thumb != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
-                val transForm = CustomerAdapter.CircleTransform()
+                val transForm = CircleTransform()
                 Picasso.with(context)
                         .load(checkout.customer_image_thumb)
                         .resize(280, 280)
@@ -177,13 +188,13 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             customerdetailPresenter.initialize(checkout.customer_key)
 
             container_1stline.text = checkout.customer_name
-            container_2ndline.setText(R.string.customer)
+            container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(customer.fund)//setText(R.string.customer)
             if (checkout.customer_image_thumb != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
-                val transForm = CustomerAdapter.CircleTransform()
+                val transForm = CircleTransform()
                 Picasso.with(context)
                         .load(checkout.customer_image_thumb)
                         .resize(280, 280)
@@ -258,7 +269,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
 
      override fun onItemClicked(item: CheckoutModel, position: Int, v:View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*        val intent = Intent(this, CustomerDetailFragment::class.java)
         intent.putExtra(EXTRA_CHECKOUT, item)
         startActivity(intent)*/
@@ -297,7 +308,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                 return true
             }
             R.id.action_customer_edit ->{
-                return true
+                showCreateCustomerFragment()
             }
             R.id.action_customer_prohibit -> {
                 return true
@@ -305,6 +316,47 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+     fun showCreateCustomerFragment() {
+        //todo
+/*        MaterialDialog.Builder(this.context)
+                .title(R.string.create_conversation)
+                .content(R.string.input_salon_name)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .positiveText(R.string.create_conversation)
+                .input("", "", false) { dialog, input -> customerPresenter?.createCustomer(
+                        "customerUid"
+                        , "010-4707-9934"
+                        , input.toString()
+                        , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
+                )}.show()*/
+        val newFragment = CustomerCreateFragment()
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+         val frombundle:Bundle = arguments!!
+
+        val customer = frombundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+
+         container_image.buildDrawingCache()
+         val bitmap = container_image.getDrawingCache()
+         val bs = ByteArrayOutputStream()
+         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, bs)
+         val byteArray = bs.toByteArray()
+
+         val bundle = Bundle(4)
+         bundle.putSerializable(EXTRA_CUSTOMER_DETAIL, customer)
+         //bundle.putSerializable(EXTRA_SALONMODDEL, salon)
+         bundle.putString("SENDER","edit")
+         bundle.putByteArray("BYTE", byteArray)
+         newFragment.setArguments(bundle)
+
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.parent_enter, R.animator.parent_exit)
+        transaction.replace(R.id.containerLayout, newFragment) //container
+        transaction.addToBackStack(null)
+        transaction.commit()
+         /*                 */
+
     }
 
     override fun onDestroy() {
@@ -333,7 +385,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         handler.postDelayed({
             empty_group?.visibility = View.VISIBLE
             empty_progress.visibility = View.GONE
-        }, 500)
+        }, 700)
 
         //empty_group.visibility = View.GONE
         //progressDialog.show()
@@ -346,11 +398,11 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun showReceiptFragment(eventModel: EventModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showMemoFragment(eventModel: EventModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun addCustomerDetail(customerDetailEntity: CheckoutModel) {
@@ -378,6 +430,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         customerdetailAdapter.items.removeAll{it.checkout_uid.equals(customerDetailEntity.checkout_uid)}
         customerdetailAdapter.notifyDataSetChanged()
     }
+
+
 }
 
 

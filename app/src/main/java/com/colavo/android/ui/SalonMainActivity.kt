@@ -33,7 +33,7 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
 
     override fun onError(throwable: Throwable) {
 
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showToast(event: String) {
@@ -41,7 +41,7 @@ class   SalonMainActivity : BasePresenterActivity<MainContract.View
     }
 
     override fun showSnackbar(event: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
     // Set up the ViewPager with the sections adapter.
 

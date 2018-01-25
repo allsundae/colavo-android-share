@@ -108,7 +108,7 @@
                         android:ellipsize="end"
                         android:fontFamily="sans-serif"
                         android:maxLines="1"
-                        android:text="01047079934"
+                        android:text="point"
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="@color/listTextSecondary"
                         android:textSize="@dimen/list_2ndtext" />

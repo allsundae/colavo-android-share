@@ -1,7 +1,9 @@
 package com.colavo.android.ui.adapter
 
+import android.content.Context
 import android.graphics.*
 import android.support.v4.view.PagerAdapter
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +15,22 @@ import com.colavo.android.entity.customer.CustomerModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.customer_item.view.*
 import com.squareup.picasso.Transformation
-
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+import android.support.v7.widget.RecyclerView.ViewHolder
+import android.util.TypedValue
+import butterknife.internal.Utils
+import com.colavo.android.App
+import android.util.DisplayMetrics
+import com.colavo.android.ui.event.eventActivity
+import com.colavo.android.utils.CircleTransform
+import com.colavo.android.utils.convertDpToPixel
 
 
 class CustomerAdapter(val onItemClickListener: OnItemClickListener
-                      , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                      , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+        //, FastScrollRecyclerView.SectionedAdapter, FastScrollRecyclerView.MeasurableAdapter
+        {
+
 
     interface OnItemClickListener {
         fun onItemClicked(item: CustomerModel, position: Int, v: View)
@@ -31,6 +44,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
         init {
           //TODO
+
         }
 
         fun bind(customerModel: CustomerModel) {
@@ -59,38 +73,23 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
     }
 
-    public class CircleTransform : Transformation {
-        override fun transform(source: Bitmap): Bitmap {
-            val size = Math.min(source.width, source.height)
-
-            val x = (source.width - size) / 2
-            val y = (source.height - size) / 2
-
-            val squaredBitmap = Bitmap.createBitmap(source, x, y, size, size)
-            if (squaredBitmap != source) {
-                source.recycle()
-            }
-
-            val bitmap = Bitmap.createBitmap(size, size, source.config)
-
-            val canvas = Canvas(bitmap)
-            val paint = Paint()
-            val shader = BitmapShader(squaredBitmap,
-                    Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            paint.setShader(shader)
-            paint.setAntiAlias(true)
-
-            val r = size / 2f
-            canvas.drawCircle(r, r, r, paint)
-
-            squaredBitmap.recycle()
-            return bitmap
-        }
-
-        override fun key(): String {
-            return "circle"
-        }
+/*
+   override fun getSectionName(position: Int): String {
+        return position.toString()
     }
+    override fun getViewTypeHeight(recyclerView: RecyclerView?, viewType: Int): Int {
+        */
+/*val params = recyclerView?.layoutParams
+        return params!!.height
+        *//*
+
+        //val px : Int = convertDpToPixel(60f, ).toInt()
+        return 240
+       // showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+*/
+
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int)
             = (holder as ItemViewHolder).bind(items[position])

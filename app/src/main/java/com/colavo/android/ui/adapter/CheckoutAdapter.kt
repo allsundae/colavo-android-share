@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.v4.content.ContextCompat.getDrawable
 import android.widget.LinearLayout
+import com.colavo.android.utils.CircleTransform
 
 
 class CheckoutAdapter(val onItemClickListener: OnItemClickListener
@@ -98,7 +99,7 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 //            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()
 
            if (checkoutModel.customer_image_thumb != "") {
-               val transForm = CustomerAdapter.CircleTransform()
+               val transForm = CircleTransform()
 
                 Picasso.with(context)
                         .load(checkoutModel.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"

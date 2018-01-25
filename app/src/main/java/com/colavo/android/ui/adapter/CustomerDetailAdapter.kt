@@ -16,6 +16,7 @@ import android.os.Build
 import android.widget.Button
 import android.widget.LinearLayout
 import com.colavo.android.entity.checkout.CheckoutModel
+import com.colavo.android.utils.CircleTransform
 import kotlinx.android.synthetic.main.customer_detail_item.view.*
 import org.w3c.dom.Text
 
@@ -76,7 +77,7 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
             }
 
            if (event.customer_image_thumb != "") {
-               val transForm = CustomerAdapter.CircleTransform()
+               val transForm = CircleTransform()
 
                 Picasso.with(context)
                         .load(event.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"

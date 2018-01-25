@@ -40,7 +40,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         , CheckoutAdapter.OnItemClickListener{
 
     override fun onLongItemClicked(item: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     @Inject
@@ -200,7 +200,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         handler.postDelayed({
             empty_group?.visibility = View.VISIBLE
             empty_progress.visibility = View.GONE
-        }, 500)
+        }, 700)
 
 
         //empty_group.visibility = View.GONE

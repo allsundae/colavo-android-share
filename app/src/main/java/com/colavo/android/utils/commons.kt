@@ -1,8 +1,12 @@
 package com.colavo.android.utils
 
-import android.graphics.Color
+import android.content.Context
+import android.graphics.*
 import java.util.*
-
+import android.util.DisplayMetrics
+import com.squareup.picasso.Transformation
+import java.security.AccessController.getContext
+import java.text.NumberFormat
 
 
 /**
@@ -40,7 +44,51 @@ fun Int.getFormattedDuration(): String {
 // TODO: how to do "flags & ~flag" in kotlin?
 fun Int.removeFlag(flag: Int) = (this or flag) - flag
 
+fun convertDpToPixel(dp: Float, context: Context): Float {
+    val resources = context.getResources()
+    val metrics = resources.getDisplayMetrics()
+    return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+}
 
+fun currencyFormatter(inputValue: Double): String? {
+    val currencyFormatter = NumberFormat.getCurrencyInstance()
+    currencyFormatter.setMinimumFractionDigits(0)
+    val cur = currencyFormatter.format(inputValue.toInt())
+    return cur
+}
+
+public class CircleTransform : Transformation {
+    override fun transform(source: Bitmap): Bitmap {
+        val size = Math.min(source.width, source.height)
+
+        val x = (source.width - size) / 2
+        val y = (source.height - size) / 2
+
+        val squaredBitmap = Bitmap.createBitmap(source, x, y, size, size)
+        if (squaredBitmap != source) {
+            source.recycle()
+        }
+
+        val bitmap = Bitmap.createBitmap(size, size, source.config)
+
+        val canvas = Canvas(bitmap)
+        val paint = Paint()
+        val shader = BitmapShader(squaredBitmap,
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        paint.setShader(shader)
+        paint.setAntiAlias(true)
+
+        val r = size / 2f
+        canvas.drawCircle(r, r, r, paint)
+
+        squaredBitmap.recycle()
+        return bitmap
+    }
+
+    override fun key(): String {
+        return "circle"
+    }
+}
 // You could do it as well generic, that's what I do in my lib:
 
 interface SimpleCallback<T> {
