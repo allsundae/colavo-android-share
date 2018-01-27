@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import com.colavo.android.R
 import com.colavo.android.entity.customer.CustomerModel
 import android.view.animation.AlphaAnimation
-import com.colavo.android.ui.PlaceholderFragment04
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
@@ -18,7 +17,6 @@ import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.event.EventModel
 import com.colavo.android.presenters.customerdetail.CustomerDetailPresenterImpl
 import com.colavo.android.ui.PlaceholderFragment02
-import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.adapter.CustomerDetailAdapter
 import com.colavo.android.utils.Logger
 import com.colavo.android.utils.toast
@@ -31,28 +29,27 @@ import javax.inject.Inject
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
+import android.os.Message
 import com.colavo.android.entity.salon.SalonModel
-import com.colavo.android.ui.animations.DetailsTransition
 import com.colavo.android.ui.salons.SalonListActivity
-import com.colavo.android.ui.salons.SalonListActivity.Companion.EXTRA_SALONMODDEL
 import com.colavo.android.utils.CircleTransform
 import com.colavo.android.utils.currencyFormatter
-import kotlinx.android.synthetic.main.base_empty.view.*
-import kotlinx.android.synthetic.main.customer_item.view.*
 import java.io.ByteArrayOutputStream
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         , CustomerDetailAdapter.OnItemClickListener  {
 
+
     @Inject
     lateinit var customerdetailPresenter: CustomerDetailPresenterImpl
     lateinit var customerdetailAdapter: CustomerDetailAdapter
 
     var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+    private var customer = CustomerModel()
     var customerPhone = ""
+
 
     override fun getLayout() = R.layout.customer_detail_fragment
 
@@ -107,19 +104,22 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         val sender : String = bundle.getString("SENDER")
    //     val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CHECKOUT) as CustomerModel
         customer_detail_recyclerView.setNestedScrollingEnabled(false);
+
         showProgress()
 
         if (sender == "checkout") {
-            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
-            val checkout = CheckoutModel()
-            checkout.checkout_uid = customer.customer_key
-            checkout.customer_name = customer.customer_name
-            checkout.customer_image_full = customer.customer_image_full
-            checkout.customer_image_thumb = customer.customer_image_thumb
-            checkout.customer_key = customer.customer_key
-            checkout.customer_fund = customer.customer_fund
-            customerPhone = customer.customer_phone
-            Logger.log("CustomerDetailFragment : name : ${customer.customer_name} -> ${checkout.customer_name}, ${checkout.customer_key}")
+         //   val checkout = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
+            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+            var checkout = CheckoutModel()
+
+            checkout.checkout_uid = customer.uid
+            checkout.customer_name = customer.name
+            checkout.customer_image_full = customer.image_urls.full
+            checkout.customer_image_thumb = customer.image_urls.thumb
+            checkout.customer_key = customer.uid
+            checkout.customer_fund = customer.fund
+            customerPhone = customer.national_phone
+            Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 
 
             val layoutManager = LinearLayoutManager(this.context)
@@ -138,7 +138,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             customerdetailPresenter.initialize(checkout.customer_key)
 
             container_1stline.text = checkout.customer_name
-            container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(customer.customer_fund)//setText(R.string.customer)
+            container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(customer.fund)//setText(R.string.customer)
             if (checkout.customer_image_thumb != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
@@ -158,7 +158,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
         }
         else {
-            val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+            customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
             val checkout = CheckoutModel()
             checkout.checkout_uid = customer.uid
             checkout.customer_name = customer.name
@@ -253,6 +253,19 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     }
 
+    override fun refresh() {
+        val transaction : android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
+        transaction?.detach(this)?.attach(this)?.commit()
+        showSnackbar("refresh()")
+
+/*        val currentFragment = activity!!.fragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment instanceof "NAME OF YOUR FRAGMENT CLASS") {
+            FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
+            fragTransaction.detach(currentFragment);
+            fragTransaction.attach(currentFragment);
+            fragTransaction.commit();}
+    } */
+    }
 
     fun startAlphaAnimation(v: View, duration: Long, visibility: Int) {
         val alphaAnimation = if (visibility == View.VISIBLE)
@@ -265,6 +278,13 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         v.startAnimation(alphaAnimation)
     }
 
+    private inner class YourDialogFragmentDismissHandler : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            refresh()
+            // refresh your textview's here
+        }
+    }
 
 
 
@@ -295,7 +315,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         when (id) {
             R.id.action_customer_call -> {
                 if (customerPhone !== "" ){
-                    val uri = Uri.parse("tel:customerPhone")
+                    val uri = Uri.parse("tel:${customerPhone}")
                     val it = Intent(Intent.ACTION_DIAL, uri)
                     startActivity(it)
                     //val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", customerPhone, null))
@@ -367,6 +387,12 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     override fun onError(throwable: Throwable) {
         showToast(throwable.toString())
     }
+
+    override fun onResume() {
+        super.onResume()
+        //customerdetailAdapter.notifyDataSetChanged()
+    }
+
 
     override fun showToast(event: String) {
         context!!.toast(event)

@@ -197,7 +197,6 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-base-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.0.2" level="project" />
-    <orderEntry type="library" name="net.rimoto:intlphoneinput-1.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-storage-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:27.0.2@jar" level="project" />
@@ -235,5 +234,6 @@
     <orderEntry type="library" name="com.android.support:cardview-v7-26.1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-11.8.0" level="project" />
+    <orderEntry type="module" module-name="intlphoneinput" />
   </component>
 </module>

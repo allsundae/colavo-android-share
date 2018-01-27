@@ -41,6 +41,10 @@ import com.colavo.android.utils.Logger
  */
 class PlaceholderFragment : BaseFragment()
         , WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+    override fun refresh() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private val TYPE_DAY_VIEW = 1
     private val TYPE_THREE_DAY_VIEW = 2
     private val TYPE_WEEK_VIEW = 3

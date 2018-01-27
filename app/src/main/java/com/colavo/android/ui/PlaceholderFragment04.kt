@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -27,7 +26,6 @@ import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_04.*
-import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 import com.colavo.android.ui.animations.DetailsTransition
@@ -35,9 +33,7 @@ import com.colavo.android.ui.customerdetail.CustomerCreateFragment
 import com.colavo.android.utils.toast
 import kotlinx.android.synthetic.main.base_empty.*
 import kotlinx.android.synthetic.main.customer_item.view.*
-import kotlinx.android.synthetic.main.fragment_01.*
 import java.io.ByteArrayOutputStream
-import android.support.design.widget.Snackbar
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -52,6 +48,7 @@ import java.util.*
 
 class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         , CustomerAdapter.OnItemClickListener, SearchView.OnQueryTextListener {
+
     /* Transition */
     private val MOVE_DEFAULT_TIME: Long = 1000
     private val FADE_DEFAULT_TIME: Long = 300
@@ -159,14 +156,14 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         // Pull to refresh
         swipe_layout_customer.setOnRefreshListener{
             fun onRefresh(){
-                Logger.log("Refresh start : onRefresh Customer")
-//                customerAdapter.notifyDataSetChanged()
+                showSnackbar("Refresh start : onRefresh Customer")
+                customerAdapter.notifyDataSetChanged()
                 updateNumberofCustomer()
 
                 val ft = fragmentManager?.beginTransaction()
                 ft?.detach(this)?.attach(this)?.commit()
 
-                Logger.log("Refresh start : onRefresh done")
+                showSnackbar("Refresh start : onRefresh done")
             }
             swipe_layout_customer.setRefreshing(false)
             Logger.log("Refresh Done")
@@ -174,6 +171,11 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     }
 
+    override fun refresh() {
+        val transaction: android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
+        transaction?.detach(this)?.attach(this)?.commit()
+        showSnackbar("refresh()")
+    }
 
     override fun setCustomerlist(customerEntities: List<CustomerModel>?) {
         //customers_recyclerView.adapter = CustomerAdapter(this, customerEntities!!.toMutableList()) //todo

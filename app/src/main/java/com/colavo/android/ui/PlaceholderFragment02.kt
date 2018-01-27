@@ -30,6 +30,7 @@ import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 import android.support.v4.widget.SwipeRefreshLayout
+import com.colavo.android.entity.customer.CustomerModel
 import kotlinx.android.synthetic.main.base_empty.*
 
 
@@ -38,6 +39,9 @@ import kotlinx.android.synthetic.main.base_empty.*
  */
 class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         , CheckoutAdapter.OnItemClickListener{
+    override fun refresh() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onLongItemClicked(item: CheckoutModel) {
         showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -216,6 +220,15 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     override fun onItemClicked(item: CheckoutModel, position: Int, v: View) {
         Toast.makeText(context, "Clicked ${item.customer_name} : ${position}" , Toast.LENGTH_LONG).show()
 
+        var customer = CustomerModel()
+        customer.phone = item.customer_phone
+        customer.name = item.customer_name
+        customer.national_phone = item.customer_phone
+        customer.fund = item.customer_fund
+        customer.image_urls.thumb = item.customer_image_thumb
+        customer.image_urls.full = item.customer_image_full
+        customer.uid = item.customer_key
+
         v.checkout_customer_image.buildDrawingCache()
         val bitmap = v.checkout_customer_image.getDrawingCache()
         val bs = ByteArrayOutputStream()
@@ -225,7 +238,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, customer)
         bundle.putString("SENDER","checkout")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

@@ -3,10 +3,8 @@ package com.colavo.android.ui.customerdetail
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.colavo.android.R
-import com.colavo.android.ui.PlaceholderFragment04
 import android.view.*
 import com.colavo.android.App
 import com.colavo.android.base.BaseFragment
@@ -28,33 +26,23 @@ import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.os.Parcelable
-import android.support.annotation.NonNull
+import android.os.*
 import android.system.ErrnoException
 import com.colavo.android.di.net.NetModule.Companion.BASE_STORAGE_URL
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
-import com.colavo.android.ui.PlaceholderFragment04.Companion.EXTRA_SALON
-import com.colavo.android.ui.adapter.CustomerAdapter
 import com.colavo.android.ui.customerdetail.CustomerDetailFragment.Companion.EXTRA_CUSTOMER_DETAIL
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.Logger
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.customer_detail_fragment.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
+class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
     @Inject
     lateinit var customerCreatePresenter: CustomerCreatePresenterImpl
 
@@ -73,6 +61,10 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
 
     }
 
+    override fun refresh() {
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,8 +74,10 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
 
         val sender : String = bundle.getString("SENDER")
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+        mCropImageView = CropImageView
 
         if (sender == "edit") {
+
             customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel
             if (customer.image_urls.full != ""){
                 val byteArray = bundle.getByteArray("BYTE")
@@ -92,13 +86,16 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
             }
 
             input_name.setText(customer.name)
-            //input_phone.setEmptyDefault("customer.national_phone")
-            input_phone.setNumber(customer.national_phone)
+            input_phone.setEmptyDefault("customer.phone")
+            if (customer.phone != null && customer.phone != "") {
+                input_phone.number = customer.phone
+            }
         }
         else {
             input_phone.setEmptyDefault(null)
-            mCropImageView = CropImageView//(CropImageView) findViewById(R.id.CropImageView);
         }
+
+
 
         doneButton.setOnClickListener{ checkField(salon, sender) }
 
@@ -145,54 +142,42 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
 
         // back to parent view
         fragmentManager?.popBackStackImmediate()
+
+        val fragment = CustomerDetailFragment()
+        fragment.refresh()
+
+
     }
 
     private fun checkField(salon: SalonModel, editmode: String) {
         var myInternationalNumber: String =""
+        var myPlainNumber: String = ""
 
         if (input_name.text.toString()=="") {
             showSnackbar (getString(R.string.err_name))
         }
         else if (input_phone.text == null) {
-            writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, imageURL)
-            //customerCreatePresenter.writeNewCustomer(salon.id, input_name.text.toString(), myInternationalNumber, imageURL) //input_phone.text.toString()
+            writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myPlainNumber, imageURL)
         }
         else{
             if (input_phone.isValid() ) {
+                myPlainNumber = input_phone.getText()
                 myInternationalNumber = input_phone.getNumber()
-                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, imageURL)
-                //customerCreatePresenter.writeNewCustomer(salon.id, input_name.text.toString(), myInternationalNumber, imageURL) //input_phone.text.toString()
+                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myPlainNumber, imageURL)
             }
             else
             {
                 showSnackbar (getString(R.string.err_phone_notvalid))
             }
         }
-
     }
 
     //결과 처리
-/*    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            filePath = data!!.data
-            Log.d(TAG, "uri:" + filePath.toString())
-            try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                val bitmap = MediaStore.Images.Media.getBitmap( (context!!.applicationContext as App).getContentResolver(), filePath)
-                create_customer_image.setImageBitmap(bitmap)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-        }
-    }*/
 
     //upload the file
-    private fun writeNewCustomer(editmode: String, salonKey: String, name: String, phone: String, imageUrl: ImageUrl) {
+    private fun writeNewCustomer(editmode: String, salonKey: String, name: String, international_phone: String, plain_phone: String, imageUrl: ImageUrl) {
         showToast(filePath.toString())
-        var newCustomerEntity = CustomerEntity ("",phone, phone, name, imageUrl )
+        var newCustomerEntity = CustomerEntity ("",plain_phone, international_phone, name, imageUrl )
         var mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salonKey)
         var newCustomerKey: String = mDatabase.push().key
   /*      val bundle: Bundle = arguments!!
@@ -235,7 +220,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
                         showToast ("Upload completed." ) //getString(R.string.success_create_customer)
                         Logger.log ("Upload completed. : " + taskSnapshot.downloadUrl.toString() + "\n imageFull : " + imageFull ) //getString(R.string.success_create_customer)
                         Logger.log ("(1) mImage : " + mImage.toString() ) //Logger.log ("(2) mImage : " + mImage.toString() + "\t imageFull:" + imageFull )
-                        newCustomerEntity = CustomerEntity (newCustomerKey, phone, phone, name, mImage )
+                        newCustomerEntity = CustomerEntity (newCustomerKey, plain_phone, international_phone, name, mImage )
 
                         writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
                     }
@@ -254,9 +239,6 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
             //showToast ("Select photo first.") //getString(R.string.success_create_customer)
             writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
         }
-
-
-
     }
 
     private fun writeNewUser(mDatabase: DatabaseReference, newCustomerKey: String, newCustomerEntity: CustomerEntity) {
@@ -384,7 +366,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
      * Crop the image and set it back to the cropping view.
      */
     fun onCropImageClick(view: View) {
-        val cropped = mCropImageView!!.getCroppedImage(500, 500)
+        val cropped = mCropImageView?.getCroppedImage(500, 500)
         if (cropped != null) {
             //mCropImageView!!.setImageBitmap(cropped)
             try {
@@ -427,6 +409,7 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
         if (resultCode == Activity.RESULT_OK) {
 
             val imageUri = getPickImageResultUri(data)
+            Logger.log("onActivityResult: imageUri : ${imageUri}")
 
             // For API >= 23 we need to check specifically that we have permissions to read external storage,
             // but we don't know if we need to for the URI so the simplest is to try open the stream and see if we get error.
@@ -450,8 +433,8 @@ class CustomerCreateFragment : BaseFragment(), CustomerCreateView {
             }
 
             if (!requirePermissions) {
-                showToast ("Didn't needed PERMISSION " + mCropImageUri.toString())
-                mCropImageView!!.setImageUriAsync(imageUri)
+                Logger.log ("Didn't needed PERMISSION " + mCropImageUri.toString() +"\t ${imageUri.toString()}")
+                mCropImageView?.setImageUriAsync(imageUri)
             }
         }
     }

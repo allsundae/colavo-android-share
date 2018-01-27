@@ -23,14 +23,17 @@ import com.google.firebase.database.FirebaseDatabase
  * Created by macbookpro on 2017. 9. 13..
  */
 class PlaceholderFragment05 : BaseFragment() {
+    override fun refresh() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-/*    override fun getLayout(position: Int) = when (position) {
-        1 -> R.layout.fragment_01
-        2 -> R.layout.fragment_02
-        3 -> R.layout.fragment_03
-        4 -> R.layout.fragment_04
-        else -> R.layout.fragment_05
-    }*/
+    /*    override fun getLayout(position: Int) = when (position) {
+            1 -> R.layout.fragment_01
+            2 -> R.layout.fragment_02
+            3 -> R.layout.fragment_03
+            4 -> R.layout.fragment_04
+            else -> R.layout.fragment_05
+        }*/
     override fun getLayout() = R.layout.fragment_05
 
     companion object {
