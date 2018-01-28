@@ -77,16 +77,18 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
             }
 
            if (event.customer_image_thumb != "") {
-               val transForm = CircleTransform()
+//               val transForm = CircleTransform()
 
                 Picasso.with(context)
                         .load(event.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)
                         .centerCrop()
-                        .placeholder(R.drawable.ic_customer_holder_person)
-                        .transform(transForm)
+                        .placeholder(R.drawable.ic_person_container)
+//                        .transform(transForm)
                         .into(this.checkoutImage)
-            }
+            }else{
+               this.checkoutImage.setImageResource(R.drawable.ic_person_container)
+           }
 
             Logger.log("CustomerDetailAdapter : bind : ${event.customer_name} : ${event.customer_image_thumb}")
 

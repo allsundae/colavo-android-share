@@ -11,19 +11,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.colavo.android.R
+import com.colavo.android.R.drawable.*
 import com.colavo.android.entity.customer.CustomerModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.customer_item.view.*
-import com.squareup.picasso.Transformation
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
-import android.util.TypedValue
-import butterknife.internal.Utils
-import com.colavo.android.App
-import android.util.DisplayMetrics
-import com.colavo.android.ui.event.eventActivity
-import com.colavo.android.utils.CircleTransform
-import com.colavo.android.utils.convertDpToPixel
 
 
 class CustomerAdapter(val onItemClickListener: OnItemClickListener
@@ -51,21 +42,21 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
             val context = itemView.context
             this.customerName.text = customerModel.name
             this.customerPhone.text = customerModel.phone
-           // this.customerImage.loadUrl(customerModel.image)
-//            val thisThumbImage:String = customerModel.image_urls!!.getThumbUrl()
+      //      Picasso.with(customerImage!!.context).cancelRequest(customerImage!!)
 
-           if (customerModel.image_urls.thumb != "" && customerModel.image_urls.thumb != null) {
-               val transForm = CircleTransform()
-
+           if (customerModel.image_url.thumb != "" && customerModel.image_url.thumb != null && customerModel.image_url != null) {
+               //val transForm = CircleTransform()
                 Picasso.with(context)
-                        .load(customerModel.image_urls.thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(customerModel.image_url.thumb)
                         .resize(240, 240)
                         .centerCrop()
-                        .placeholder(R.drawable.ic_person_container)
+                        .placeholder(ic_person_container)
+                        .error(ic_person_container)
                       //  .transform(transForm)
                         .into(this.customerImage)
-
-            }
+            }else{
+               this.customerImage.setImageResource(R.drawable.ic_person_container)
+           }
 
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel, position, v) }

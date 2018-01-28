@@ -53,7 +53,7 @@
     <string name="action_prohibit">예약 금지</string>
     <string name="action_cancel">취소</string>
     <string name="action_search">검색</string>
-    <string name="checkout_Text">결제</string>
+    <string name="checkout_Text">가격확정</string>
     <string name="btn_edit_profile">프로필 편집</string>
     <string name="customer">고객</string>
     <string name="no_data_title">기록이 없습니다</string>

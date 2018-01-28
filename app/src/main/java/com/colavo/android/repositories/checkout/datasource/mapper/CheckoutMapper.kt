@@ -44,8 +44,8 @@ class CheckoutMapper {
                 if (customer.name != null)
                     checkoutModel.user_name = "TEST"customer.name //todo address lastEventUser
 
-                if (customer.image_urls.thumb != "")
-                    checkoutModel.user_image = customer.image_urls.thumb
+                if (customer.image_url.thumb != "")
+                    checkoutModel.user_image = customer.image_url.thumb
             }*/
             Logger.log("CHECKOUTMAPPER : createCheckoutWithEventAndUser : ${checkoutModel.checkout_uid}")
 
@@ -75,8 +75,8 @@ class CheckoutMapper {
 
                 checkoutModel.customer_name = customerEntity.name
                 checkoutModel.service_menus = ""
-                checkoutModel.customer_image_full = customerEntity.image_urls.full
-                checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
+                checkoutModel.customer_image_full = customerEntity.image_url.full
+                checkoutModel.customer_image_thumb = customerEntity.image_url.thumb
                 checkoutModel.customer_phone = customerEntity.phone
                 checkoutModel.customer_fund = customerEntity.fund
 

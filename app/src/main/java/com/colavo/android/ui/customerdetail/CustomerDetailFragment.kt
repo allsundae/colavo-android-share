@@ -35,7 +35,15 @@ import com.colavo.android.entity.salon.SalonModel
 import com.colavo.android.ui.salons.SalonListActivity
 import com.colavo.android.utils.CircleTransform
 import com.colavo.android.utils.currencyFormatter
+import com.google.firebase.database.FirebaseDatabase
 import java.io.ByteArrayOutputStream
+import com.google.firebase.database.DatabaseError
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import com.colavo.android.entity.customer.CustomerEntity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+
+
 
 
 class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
@@ -49,6 +57,9 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     var collapsingToolbarLayout: CollapsingToolbarLayout? = null
     private var customer = CustomerModel()
     var customerPhone = ""
+
+    var currentSalonUid = ""
+    var currentCustomerUid = ""
 
 
     override fun getLayout() = R.layout.customer_detail_fragment
@@ -107,15 +118,19 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
         showProgress()
 
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+        currentSalonUid = salon.id
+
         if (sender == "checkout") {
          //   val checkout = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
             val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+            currentCustomerUid = customer.uid
             var checkout = CheckoutModel()
 
             checkout.checkout_uid = customer.uid
             checkout.customer_name = customer.name
-            checkout.customer_image_full = customer.image_urls.full
-            checkout.customer_image_thumb = customer.image_urls.thumb
+            checkout.customer_image_full = customer.image_url.full
+            checkout.customer_image_thumb = customer.image_url.thumb
             checkout.customer_key = customer.uid
             checkout.customer_fund = customer.fund
             customerPhone = customer.national_phone
@@ -160,10 +175,12 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         else {
             customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
             val checkout = CheckoutModel()
+            currentCustomerUid = customer.uid
+
             checkout.checkout_uid = customer.uid
             checkout.customer_name = customer.name
-            checkout.customer_image_full = customer.image_urls.full
-            checkout.customer_image_thumb = customer.image_urls.thumb
+            checkout.customer_image_full = customer.image_url.full
+            checkout.customer_image_thumb = customer.image_url.thumb
             customerPhone = customer.phone
             checkout.customer_key = customer.uid
 
@@ -186,6 +203,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
             customerdetailPresenter.attachView(this)
             customerdetailPresenter.initialize(checkout.customer_key)
+
+
 
             container_1stline.text = checkout.customer_name
             container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(customer.fund)//setText(R.string.customer)
@@ -254,9 +273,39 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
     override fun refresh() {
-        val transaction : android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
-        transaction?.detach(this)?.attach(this)?.commit()
-        showSnackbar("refresh()")
+  //      val transaction : android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
+  //      transaction?.detach(this)?.attach(this)?.commit()
+  //      showSnackbar("refresh()")
+
+        var newCustomer = CustomerModel()
+//        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
+        val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(currentSalonUid).child(currentCustomerUid)
+        mDatabase.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)
+
+                container_1stline.text = newCustomer?.name
+                container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(newCustomer?.fund!!)
+                if (newCustomer?.image_url?.thumb != ""){
+                    Picasso.with(context)
+                            .load(newCustomer?.image_url?.thumb)
+                            .resize(280, 280)
+                            .centerCrop()
+                            .noPlaceholder()
+                            .into(container_image)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                showSnackbar("Failed to read value." + error.toException().toString())
+            }
+        })
+
+        customerdetailAdapter.notifyDataSetChanged()
+
+
+
 
 /*        val currentFragment = activity!!.fragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment instanceof "NAME OF YOUR FRAGMENT CLASS") {

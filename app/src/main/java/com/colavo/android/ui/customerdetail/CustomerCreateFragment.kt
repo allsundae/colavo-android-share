@@ -79,15 +79,18 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         if (sender == "edit") {
 
             customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel
-            if (customer.image_urls.full != ""){
+            if (customer.image_url.full != ""){
                 val byteArray = bundle.getByteArray("BYTE")
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 create_customer_image.setImageBitmap(decodedBitmap)
+                imageURL.full = customer.image_url.full
             }
+            if (customer.image_url.thumb != "") imageURL.thumb = customer.image_url.thumb
 
             input_name.setText(customer.name)
-            input_phone.setEmptyDefault("customer.phone")
+//            input_phone.setEmptyDefault("customer.phone")
             if (customer.phone != null && customer.phone != "") {
+
                 input_phone.number = customer.phone
             }
         }
@@ -141,10 +144,14 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         }
 
         // back to parent view
-        fragmentManager?.popBackStackImmediate()
-
         val fragment = CustomerDetailFragment()
         fragment.refresh()
+
+        fragmentManager?.popBackStackImmediate()
+
+
+
+       // checkoutAdapter.notifyDataSetChanged()
 
 
     }
@@ -183,13 +190,13 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
   /*      val bundle: Bundle = arguments!!
         customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel*/
 
-        if (editmode == "edit" && customer.uid != "") {
-            newCustomerKey = customer.uid
-        }
-
         var imageFull : String = ""
         var imageThumb : String = ""
         var mImage : ImageUrl = ImageUrl()
+
+        if (editmode == "edit" && customer.uid != "") {
+            newCustomerKey = customer.uid
+        }
 
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
@@ -237,6 +244,9 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
                     }
         } else {
             //showToast ("Select photo first.") //getString(R.string.success_create_customer)
+            imageFull = imageUrl.full
+            imageThumb = imageUrl.thumb
+            mImage = ImageUrl(full = imageFull, thumb = imageThumb)
             writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
         }
     }

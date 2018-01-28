@@ -225,8 +225,8 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         customer.name = item.customer_name
         customer.national_phone = item.customer_phone
         customer.fund = item.customer_fund
-        customer.image_urls.thumb = item.customer_image_thumb
-        customer.image_urls.full = item.customer_image_full
+        customer.image_url.thumb = item.customer_image_thumb
+        customer.image_url.full = item.customer_image_full
         customer.uid = item.customer_key
 
         v.checkout_customer_image.buildDrawingCache()

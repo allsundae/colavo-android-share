@@ -183,22 +183,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     override fun showCreateCustomerFragment() {
         //todo
-/*        MaterialDialog.Builder(this.context)
-                .title(R.string.create_conversation)
-                .content(R.string.input_salon_name)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .positiveText(R.string.create_conversation)
-                .input("", "", false) { dialog, input -> customerPresenter?.createCustomer(
-                        "customerUid"
-                        , "010-4707-9934"
-                        , input.toString()
-                        , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
-                )}.show()*/
         val newFragment = CustomerCreateFragment()
-  //      val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         val bundle = Bundle(2)
-//        bundle.putSerializable(EXTRA_SALON, salon)
         bundle.putString("SENDER","create")
         newFragment.setArguments(bundle)
 
