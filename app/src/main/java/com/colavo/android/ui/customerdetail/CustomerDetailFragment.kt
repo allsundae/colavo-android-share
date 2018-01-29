@@ -40,6 +40,7 @@ import java.io.ByteArrayOutputStream
 import com.google.firebase.database.DatabaseError
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import com.colavo.android.entity.customer.CustomerEntity
+import com.colavo.android.repositories.customer.datasource.mapper.CustomerMapper.Companion.transformFromEntity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 
@@ -56,8 +57,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     var collapsingToolbarLayout: CollapsingToolbarLayout? = null
     private var customer = CustomerModel()
-    var customerPhone = ""
 
+    var customerPhone = ""
     var currentSalonUid = ""
     var currentCustomerUid = ""
 
@@ -115,6 +116,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         val sender : String = bundle.getString("SENDER")
    //     val customer = bundle.getSerializable(PlaceholderFragment04.EXTRA_CHECKOUT) as CustomerModel
         customer_detail_recyclerView.setNestedScrollingEnabled(false);
+        customer_detail_recyclerView.setItemViewCacheSize(20)
+        customer_detail_recyclerView.isDrawingCacheEnabled = true
 
         showProgress()
 
@@ -124,14 +127,14 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         if (sender == "checkout") {
          //   val checkout = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CheckoutModel
             val customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
-            currentCustomerUid = customer.uid
+            currentCustomerUid = customer.key
             var checkout = CheckoutModel()
 
-            checkout.checkout_uid = customer.uid
+            checkout.checkout_uid = customer.key
             checkout.customer_name = customer.name
             checkout.customer_image_full = customer.image_url.full
             checkout.customer_image_thumb = customer.image_url.thumb
-            checkout.customer_key = customer.uid
+            checkout.customer_key = customer.key
             checkout.customer_fund = customer.fund
             customerPhone = customer.national_phone
             Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${checkout.customer_name}, ${checkout.customer_key}")
@@ -159,13 +162,13 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
-                val transForm = CircleTransform()
+                //val transForm = CircleTransform()
                 Picasso.with(context)
                         .load(checkout.customer_image_thumb)
                         .resize(280, 280)
                         .centerCrop()
                         //.placeholder(R.drawable.ic_customer_holder_person)
-                        .transform(transForm)
+                  //      .transform(transForm)
                         .noPlaceholder()
                         .into(this.container_image)
             }
@@ -175,14 +178,14 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         else {
             customer = bundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
             val checkout = CheckoutModel()
-            currentCustomerUid = customer.uid
+            currentCustomerUid = customer.key
 
-            checkout.checkout_uid = customer.uid
+            checkout.checkout_uid = customer.key
             checkout.customer_name = customer.name
             checkout.customer_image_full = customer.image_url.full
             checkout.customer_image_thumb = customer.image_url.thumb
-            customerPhone = customer.phone
-            checkout.customer_key = customer.uid
+            customerPhone = customer.national_phone
+            checkout.customer_key = customer.key
 
             Logger.log("CustomerDetailFragment : name : ${customer.name} -> ${checkout.customer_name}, ${checkout.customer_key}")
 /*
@@ -213,13 +216,13 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                 val decodedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 container_image.setImageBitmap(decodedBitmap)
 
-                val transForm = CircleTransform()
+            //    val transForm = CircleTransform()
                 Picasso.with(context)
                         .load(checkout.customer_image_thumb)
                         .resize(280, 280)
                         .centerCrop()
                         //.placeholder(R.drawable.ic_customer_holder_person)
-                        .transform(transForm)
+              //          .transform(transForm)
                         .noPlaceholder()
                         .into(this.container_image)
             }
@@ -255,9 +258,8 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
+        refresh(currentSalonUid, currentCustomerUid)
 
-
-   //     fragmentManager.addOnBackStackChangedListener { this }
         toolBar.setNavigationOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
                 (activity as AppCompatActivity).onBackPressed()
@@ -272,23 +274,26 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     }
 
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String) {
   //      val transaction : android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
   //      transaction?.detach(this)?.attach(this)?.commit()
   //      showSnackbar("refresh()")
 
-        var newCustomer = CustomerModel()
+        var newCustomer = CustomerEntity()
 //        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
-        val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(currentSalonUid).child(currentCustomerUid)
+        val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salonId).child(customerId)
         mDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)
+                newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                customer = transformFromEntity(newCustomer)
 
-                container_1stline.text = newCustomer?.name
-                container_2ndline.text = getString(R.string.fund) + " " + currencyFormatter(newCustomer?.fund!!)
-                if (newCustomer?.image_url?.thumb != ""){
+                container_1stline?.text = newCustomer.name
+                container_2ndline?.text = getString(R.string.fund) + " " + currencyFormatter(newCustomer.fund)
+                customerPhone = newCustomer.national_phone
+
+                if (newCustomer.image_url.thumb != ""){
                     Picasso.with(context)
-                            .load(newCustomer?.image_url?.thumb)
+                            .load(newCustomer.image_url.thumb)
                             .resize(280, 280)
                             .centerCrop()
                             .noPlaceholder()
@@ -302,7 +307,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             }
         })
 
-        customerdetailAdapter.notifyDataSetChanged()
+//        customerdetailAdapter.notifyDataSetChanged()
 
 
 
@@ -330,7 +335,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     private inner class YourDialogFragmentDismissHandler : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            refresh()
+            //refresh()
             // refresh your textview's here
         }
     }
@@ -388,23 +393,15 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
     }
 
      fun showCreateCustomerFragment() {
-        //todo
-/*        MaterialDialog.Builder(this.context)
-                .title(R.string.create_conversation)
-                .content(R.string.input_salon_name)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .positiveText(R.string.create_conversation)
-                .input("", "", false) { dialog, input -> customerPresenter?.createCustomer(
-                        "customerUid"
-                        , "010-4707-9934"
-                        , input.toString()
-                        , Map({ 'name':'Future Studio Steak House', 'name':'Future Studio Steak House' })
-                )}.show()*/
+
+         // for Empty screen
+        // if (empty_checkout.visibility == View.VISIBLE) ripplebg!!.stopRippleAnimation()
+
         val newFragment = CustomerCreateFragment()
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
          val frombundle:Bundle = arguments!!
 
-        val customer = frombundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
+        //val customer = frombundle.getSerializable(PlaceholderFragment02.EXTRA_CHECKOUT) as CustomerModel
 
          container_image.buildDrawingCache()
          val bitmap = container_image.getDrawingCache()
@@ -439,6 +436,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
 
     override fun onResume() {
         super.onResume()
+
         //customerdetailAdapter.notifyDataSetChanged()
     }
 

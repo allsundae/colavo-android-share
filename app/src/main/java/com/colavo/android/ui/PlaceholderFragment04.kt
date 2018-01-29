@@ -141,7 +141,8 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
 //        customers_recyclerView.adapter = sectionAdapter
-        customers_recyclerView.setEmptyView(empty_customer)
+
+        customers_recyclerView.isDrawingCacheEnabled = true
 
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)
@@ -171,7 +172,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
     }
 
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String)  {
         val transaction: android.support.v4.app.FragmentTransaction? = fragmentManager?.beginTransaction()
         transaction?.detach(this)?.attach(this)?.commit()
         showSnackbar("refresh()")
@@ -223,7 +224,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
         customers_recyclerView.adapter.notifyItemChanged(position)*/
 
 
-        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity.uid) }
+        val position = customerAdapter.items.indexOfFirst { it.key.equals(customerEntity.key) }
         customerAdapter.items[position] = customerEntity
         customerAdapter.notifyItemChanged(position)
         updateNumberofCustomer()
@@ -235,7 +236,7 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 /*        val position = customerAdapter.items.indexOfFirst { it.uid.equals(customerEntity) }
         customerAdapter.items.removeAt(position)
         customerAdapter.notifyItemRemoved(position)*/
-        customerAdapter.items.removeAll{it.uid.equals(customerEntity.uid)}
+        customerAdapter.items.removeAll{it.key.equals(customerEntity.key)}
         customerAdapter.notifyDataSetChanged()
         updateNumberofCustomer()
     }

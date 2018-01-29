@@ -11,7 +11,7 @@ class CustomerMapper {
 
         fun createCustomerWithEventAndUser(baseCustomer: BaseCustomer, customer: CustomerEntity?): CustomerModel { //eventEntity: EventEntity?,
             val customerModel = CustomerModel ()
-            customerModel.uid = baseCustomer.uid
+            customerModel.key = baseCustomer.key
             customerModel.phone = baseCustomer.phone
             customerModel.national_phone = baseCustomer.national_phone
             customerModel.name = baseCustomer.name
@@ -32,7 +32,7 @@ class CustomerMapper {
 
             fun transformFromEntity(customerEntity: CustomerEntity): CustomerModel {
                 val customerModel = CustomerModel()
-                customerModel.uid = customerEntity.uid
+                customerModel.key = customerEntity.key
                 customerModel.phone = customerEntity.phone
                 customerModel.national_phone = customerEntity.national_phone
                 customerModel.name = customerEntity.name

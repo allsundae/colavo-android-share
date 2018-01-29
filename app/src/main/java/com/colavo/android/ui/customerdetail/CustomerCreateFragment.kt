@@ -61,7 +61,7 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
 
     }
 
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String)  {
 
     }
 
@@ -77,7 +77,6 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         mCropImageView = CropImageView
 
         if (sender == "edit") {
-
             customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel
             if (customer.image_url.full != ""){
                 val byteArray = bundle.getByteArray("BYTE")
@@ -97,8 +96,6 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         else {
             input_phone.setEmptyDefault(null)
         }
-
-
 
         doneButton.setOnClickListener{ checkField(salon, sender) }
 
@@ -144,11 +141,14 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         }
 
         // back to parent view
-        val fragment = CustomerDetailFragment()
-        fragment.refresh()
+        val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
 
         fragmentManager?.popBackStackImmediate()
+/*        val fragment = CustomerDetailFragment()
+        fragment.refresh(salon.id, customer.uid)*/
 
+// for Empty screen
+        //if (empty_checkout.visibility == View.VISIBLE) ripplebg!!.startRippleAnimation()
 
 
        // checkoutAdapter.notifyDataSetChanged()
@@ -158,19 +158,19 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
 
     private fun checkField(salon: SalonModel, editmode: String) {
         var myInternationalNumber: String =""
-        var myPlainNumber: String = ""
+        var myLocalNumber: String = ""
 
         if (input_name.text.toString()=="") {
             showSnackbar (getString(R.string.err_name))
         }
-        else if (input_phone.text == null) {
-            writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myPlainNumber, imageURL)
+        else if (input_phone.text == null || input_phone.text == "") {
+            writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL)
         }
         else{
             if (input_phone.isValid() ) {
-                myPlainNumber = input_phone.getText()
+                myLocalNumber = input_phone.getText()
                 myInternationalNumber = input_phone.getNumber()
-                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myPlainNumber, imageURL)
+                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL)
             }
             else
             {
@@ -182,21 +182,21 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
     //결과 처리
 
     //upload the file
-    private fun writeNewCustomer(editmode: String, salonKey: String, name: String, international_phone: String, plain_phone: String, imageUrl: ImageUrl) {
-        showToast(filePath.toString())
-        var newCustomerEntity = CustomerEntity ("",plain_phone, international_phone, name, imageUrl )
-        var mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salonKey)
-        var newCustomerKey: String = mDatabase.push().key
-  /*      val bundle: Bundle = arguments!!
-        customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel*/
+    private fun writeNewCustomer(editmode: String, salonKey: String, name: String, international_phone: String, local_phone: String, imageUrl: ImageUrl) {
+        //showToast(filePath.toString())
+        val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salonKey)
+        var newCustomerKey: String = ""
+
+        if (editmode == "edit") {
+            newCustomerKey = customer.key
+        } else newCustomerKey = mDatabase.push().key
 
         var imageFull : String = ""
         var imageThumb : String = ""
         var mImage : ImageUrl = ImageUrl()
 
-        if (editmode == "edit" && customer.uid != "") {
-            newCustomerKey = customer.uid
-        }
+        var newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, imageUrl )
+        Logger.log ("writeNewCustomer : $salonKey \t $newCustomerKey")
 
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
@@ -209,8 +209,8 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
             val storage = FirebaseStorage.getInstance()
 
             //Unique한 파일명을 만들자.
-            val formatter = SimpleDateFormat("yyyyMMHH_mmss")
-            val now = Date()
+            //val formatter = SimpleDateFormat("yyyyMMHH_mmss")
+            //val now = Date()
             val filename = "profile" + ".png" //+ formatter.format(now)
             //storage 주소와 폴더 파일명을 지정해 준다.
             val storageRef = storage.getReferenceFromUrl(BASE_STORAGE_URL).child("images/customers/$newCustomerKey/profiles/$filename") //"gs://jhone-364e5.appspot.com"
@@ -219,17 +219,17 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
                     //성공시
                     .addOnSuccessListener { taskSnapshot ->
                         progressDialog.dismiss() //업로드 진행 Dialog 상자 닫기
-                        //newCustomerEntity.setImageUrl(taskSnapshot.downloadUrl.toString(), taskSnapshot.downloadUrl.toString())
                         imageFull = taskSnapshot.downloadUrl.toString()
                         imageThumb = taskSnapshot.downloadUrl.toString()
                         mImage = ImageUrl(full = imageFull, thumb = imageThumb)
 
                         showToast ("Upload completed." ) //getString(R.string.success_create_customer)
-                        Logger.log ("Upload completed. : " + taskSnapshot.downloadUrl.toString() + "\n imageFull : " + imageFull ) //getString(R.string.success_create_customer)
+                        Logger.log ("Upload completed. : " + taskSnapshot.downloadUrl.toString() + "\t imageFull : " + imageFull ) //getString(R.string.success_create_customer)
                         Logger.log ("(1) mImage : " + mImage.toString() ) //Logger.log ("(2) mImage : " + mImage.toString() + "\t imageFull:" + imageFull )
-                        newCustomerEntity = CustomerEntity (newCustomerKey, plain_phone, international_phone, name, mImage )
-
-                        writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
+                        newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, mImage )
+                        if (newCustomerKey != null || newCustomerKey !="") {
+                            writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
+                        } else showToast("Create failed. Please try again.")
                     }
                     //실패시
                     .addOnFailureListener {
@@ -242,12 +242,14 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
                         //dialog에 진행률을 퍼센트로 출력해 준다
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "% ...")
                     }
-        } else {
-            //showToast ("Select photo first.") //getString(R.string.success_create_customer)
+        }
+        else {
             imageFull = imageUrl.full
             imageThumb = imageUrl.thumb
             mImage = ImageUrl(full = imageFull, thumb = imageThumb)
-            writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
+            if (newCustomerKey != null || newCustomerKey !="") {
+                writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
+            } else showToast("Create failed. Please try again.")
         }
     }
 

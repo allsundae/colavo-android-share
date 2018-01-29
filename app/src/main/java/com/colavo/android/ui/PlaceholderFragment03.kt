@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_03.*
  * Created by macbookpro on 2017. 9. 13..
  */
 class PlaceholderFragment03 : BaseFragment() {
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String)  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

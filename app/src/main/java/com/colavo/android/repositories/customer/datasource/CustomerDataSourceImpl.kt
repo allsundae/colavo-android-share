@@ -32,7 +32,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer?.uid = dataSnapshot.key
+                                        customer?.key = dataSnapshot.key
                                         Logger.log("changed ${customer?.name}")
                                         subscriber.onNext(customer!! to ResponseType.CHANGED)
                                     }
@@ -57,7 +57,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                                                 //dataSnapshot.child("image_url").child("thumb").getValue<ImageUrl>(ImageUrl::class.java).toString()
                                     //    customer.image_url?.thumb = "https://firebasestorage.googleapis.com/v0/b/colavo-ae9bd.appspot.com/o/images%2Fcustomers%2F-KusC3nS4hFb0KfQiCy9%2Fprofiles%2Fprofile_thumb.png?alt=media&token=44a4b1fa-e1a7-4e29-9a7a-a54009a2c6ac"//dataSnapshot.child("image_url").child("thumb").value.toString()
-                                        customer?.uid = dataSnapshot.key
+                                        customer?.key = dataSnapshot.key
                                         Logger.log("added ${customer?.name}")
                                         subscriber.onNext(customer!! to ResponseType.ADDED)
                                     }
@@ -66,7 +66,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                 override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
                                     if(dataSnapshot != null) {
                                         val customer = dataSnapshot.getValue(CustomerEntity::class.java)
-                                        customer?.uid = dataSnapshot.key
+                                        customer?.key = dataSnapshot.key
                                         subscriber.onNext(customer!! to ResponseType.REMOVED)
                                     }
                                 }
@@ -78,7 +78,7 @@ class CustomerDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                             })
             }
-          .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonKey(pair.first.uid)
+          .concatMapEager { pair -> Observable.zip(Observable.just(pair), getCustomerbySalonKey(pair.first.key)
                   .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                         , { pair, u -> CustomerMapper.transformFromEntity(pair.first) to pair.second }
                      ) }

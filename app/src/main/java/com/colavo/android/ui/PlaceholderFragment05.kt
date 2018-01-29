@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase
  * Created by macbookpro on 2017. 9. 13..
  */
 class PlaceholderFragment05 : BaseFragment() {
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String)  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

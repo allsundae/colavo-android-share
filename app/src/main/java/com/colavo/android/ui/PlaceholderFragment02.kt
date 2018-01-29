@@ -32,6 +32,7 @@ import javax.inject.Inject
 import android.support.v4.widget.SwipeRefreshLayout
 import com.colavo.android.entity.customer.CustomerModel
 import kotlinx.android.synthetic.main.base_empty.*
+import kotlinx.android.synthetic.main.fragment_04.*
 
 
 /**
@@ -39,7 +40,7 @@ import kotlinx.android.synthetic.main.base_empty.*
  */
 class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         , CheckoutAdapter.OnItemClickListener{
-    override fun refresh() {
+    override fun refresh(salonId: String, customerId: String)  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -106,6 +107,9 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
      //   val list = rootView.findViewById(R.id.list1) as RecyclerViewEmptySupport
      //   checkout_recyclerView.setLayoutManager(LinearLayoutManager(context))
         checkout_recyclerView.setEmptyView(empty_checkout)
+        checkout_recyclerView.setItemViewCacheSize(20)
+        checkout_recyclerView.isDrawingCacheEnabled = true
+
         if (empty_checkout.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
         else ripplebg.stopRippleAnimation()
 
@@ -227,7 +231,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         customer.fund = item.customer_fund
         customer.image_url.thumb = item.customer_image_thumb
         customer.image_url.full = item.customer_image_full
-        customer.uid = item.customer_key
+        customer.key = item.customer_key
 
         v.checkout_customer_image.buildDrawingCache()
         val bitmap = v.checkout_customer_image.getDrawingCache()

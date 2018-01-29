@@ -41,7 +41,7 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
         fun bind(customerModel: CustomerModel) {
             val context = itemView.context
             this.customerName.text = customerModel.name
-            this.customerPhone.text = customerModel.phone
+            this.customerPhone.text = customerModel.national_phone
       //      Picasso.with(customerImage!!.context).cancelRequest(customerImage!!)
 
            if (customerModel.image_url.thumb != "" && customerModel.image_url.thumb != null && customerModel.image_url != null) {
