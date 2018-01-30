@@ -1,14 +1,11 @@
 package com.colavo.android.entity.customer
 
-import com.google.firebase.database.IgnoreExtraProperties
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.*
 
-@IgnoreExtraProperties
 class CustomerEntity(
-        @SerializedName("key")                        @Expose override var key: String = "", //international number,
+        @SerializedName("key")                          @Expose override var key: String = "", //international number,
         @SerializedName("phone")                        @Expose override var phone: String = "", //international number
         @SerializedName("national_phone")               @Expose override var national_phone: String = "", //local number
         @SerializedName("name")                         @Expose override var name: String = "",

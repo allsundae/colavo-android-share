@@ -140,9 +140,9 @@ class PlaceholderFragment04 : BaseFragment(), CustomerlistView
 
         customerAdapter = CustomerAdapter(this, mutableListOf<CustomerModel>())
         customers_recyclerView.adapter = customerAdapter
-//        customers_recyclerView.adapter = sectionAdapter
-
+        customers_recyclerView.setItemViewCacheSize(20)
         customers_recyclerView.isDrawingCacheEnabled = true
+        customers_recyclerView.setHasFixedSize(true)
 
         customerPresenter.attachView(this)
         customerPresenter.initialize(salon.id)

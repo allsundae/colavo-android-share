@@ -2,7 +2,6 @@ package com.colavo.android.repositories.customer.datasource
 
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.entity.customer.CustomerModel
-import com.colavo.android.entity.customer.ImageUrl
 import com.google.firebase.database.*
 import com.colavo.android.entity.query.customer.CustomerQuery
 import com.colavo.android.entity.response.FirebaseResponse

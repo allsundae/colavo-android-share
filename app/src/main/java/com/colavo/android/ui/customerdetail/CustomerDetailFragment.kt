@@ -287,7 +287,10 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
                 customer = transformFromEntity(newCustomer)
-                var customerImage = customer_detail_fragment_container.findViewById(R.id.container_image) as ImageView
+                var customerImage : ImageView = container_image
+                if (container_image == null) {
+                    customerImage = customer_detail_fragment_container?.findViewById(R.id.container_image) as ImageView
+                }
 
                 container_1stline?.text = newCustomer.name
                 container_2ndline?.text = getString(R.string.fund) + " " + currencyFormatter(newCustomer.fund)
@@ -459,7 +462,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
         val handler = Handler()
         handler.postDelayed({
             empty_group?.visibility = View.VISIBLE
-            empty_progress.visibility = View.GONE
+            empty_progress?.visibility = View.GONE
         }, 700)
 
         //empty_group.visibility = View.GONE

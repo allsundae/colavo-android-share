@@ -15,8 +15,14 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.widget.Button
 import android.widget.LinearLayout
+import com.colavo.android.R.id.*
 import com.colavo.android.entity.checkout.CheckoutModel
+import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.utils.CircleTransform
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.customer_detail_item.view.*
 import org.w3c.dom.Text
 
@@ -46,9 +52,36 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
 
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
-            //val textview: TextView = container_1stline as TextView
-            //val str: String = container_1stline.text.toString()
-           // this.checkoutName.text = container_1st.text.toString()//customerDetailModel.customer_name
+            var newCustomer = CustomerEntity()
+
+            val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(checkoutModel.salon_key).child(checkoutModel.customer_key)
+            mDatabase.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                    Logger.log ("CustomerDetailAdapter onDataChange : ${newCustomer.name.toString()}")
+                    event.customer_name = newCustomer.name
+                    event.customer_image_full = newCustomer.image_url.full
+                    event.customer_image_thumb = newCustomer.image_url.thumb
+                    event.customer_phone = newCustomer.phone
+                    event.customer_fund = newCustomer.fund
+
+                    checkoutName.text = event.customer_name
+
+                    if (newCustomer.image_url.thumb != ""){
+                        Picasso.with(context)
+                                .load(newCustomer.image_url.thumb)
+                                .resize(280, 280)
+                                .centerCrop()
+                                .noPlaceholder()
+                                .into(checkoutImage)
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Logger.log("Failed to read value." + error.toException().toString())
+                }
+            })
 
             this.checkoutName.text = event.customer_name //customerDetailModel.customer_name
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.begin_at.toLong(), "MM/dd\nE") //this.checkoutTime.text = ConvertTimestampToDateandTime(customerDetailModel.begin_at.toLong(), "a\nh:mm")
@@ -62,23 +95,16 @@ class CustomerDetailAdapter(val onItemClickListener: OnItemClickListener
                     this.checkoutButtonContainer.setBackgroundResource(R.drawable.ic_button_line_checkout)
 //                    this.checkoutButtonContainer.setLayoutParams(lp)
 
-                    if (checkoutModel.checkout_paid_type == "credit_card"){
-                        checkoutButtonIcon.setImageResource(R.drawable.ic_creditcard)
-                    }
-                    else{
-                        checkoutButtonIcon.setImageResource(R.drawable.ic_cash)
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        checkoutButtonIcon.setColorFilter(context.getColor(R.color.colorAccent))
-                    }
-                    checkoutButtonIcon.visibility = View.VISIBLE
+                    if (checkoutModel.checkout_paid_type == "credit_card"){ checkoutButtonIcon.setImageResource(R.drawable.ic_creditcard) }
+                    else{checkoutButtonIcon.setImageResource(R.drawable.ic_cash)}
 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {checkoutButtonIcon.setColorFilter(context.getColor(R.color.colorAccent)) }
+                    checkoutButtonIcon.visibility = View.VISIBLE
                 }
             }
 
            if (event.customer_image_thumb != "") {
 //               val transForm = CircleTransform()
-
                 Picasso.with(context)
                         .load(event.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)

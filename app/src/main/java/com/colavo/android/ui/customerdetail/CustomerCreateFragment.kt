@@ -195,7 +195,7 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
         var imageThumb : String = ""
         var mImage : ImageUrl = ImageUrl()
 
-        var newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, imageUrl )
+        var newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, imageUrl)
         Logger.log ("writeNewCustomer : $salonKey \t $newCustomerKey")
 
         //업로드할 파일이 있으면 수행
@@ -254,6 +254,8 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
     }
 
     private fun writeNewUser(mDatabase: DatabaseReference, newCustomerKey: String, newCustomerEntity: CustomerEntity) {
+        Logger.log(newCustomerEntity.toString())
+
         mDatabase.child(newCustomerKey).setValue(newCustomerEntity).addOnSuccessListener {
             onCreatedSuccess()
         }.addOnFailureListener {

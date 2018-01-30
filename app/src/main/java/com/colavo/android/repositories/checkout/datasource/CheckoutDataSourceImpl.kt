@@ -109,11 +109,11 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
             ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()) }
 
 
-    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
+/*    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
         Logger.log("(2) getCustomerbySalonCustomerKey: $salon_key, $customer_key")
         return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
-    }
-    /*private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
+    }*/
+    private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
         Logger.log("(2) getCustomerbySalonCustomerKey: $salon_key, $customer_key")
         // return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
         //    val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salon_key).child(customer_key)
@@ -130,13 +130,14 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
-                        val customer = CustomerMapper.transformFromEntity(newCustomer)
+                        Logger.log ("getCustomerbySalonCustomerKey onDataChange : ${newCustomer.name.toString()}")
+                       // val customer = CustomerMapper.transformFromEntity(newCustomer)
                         subscriber.onNext(newCustomer)
                         subscriber.onCompleted()
                     }
                 })
         }
-    }*/
+    }
 
     private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  {
 

@@ -18,7 +18,8 @@
         app:rb_radius="32dp"
         app:rb_rippleAmount="3"
         app:rb_scale="6"
-        app:rb_type="strokeRipple">
+        app:rb_type="strokeRipple"
+        android:visibility="gone">
     </com.skyfishjy.library.RippleBackground>
 
     <ProgressBar

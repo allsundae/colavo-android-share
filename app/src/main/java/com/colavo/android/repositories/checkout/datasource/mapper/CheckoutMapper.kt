@@ -1,12 +1,18 @@
 package com.colavo.android.repositories.checkout.datasource.mapper
 
 import com.colavo.android.R
+import com.colavo.android.R.id.checkout_customer_name
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.utils.Logger
 import java.util.*
 import com.colavo.android.R.id.textView
 import com.colavo.android.entity.checkout.*
+import com.colavo.android.repositories.customer.datasource.mapper.CustomerMapper
 import com.colavo.android.utils.currencyFormatter
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.NumberFormat
 
 
@@ -55,6 +61,26 @@ class CheckoutMapper {
             fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity ): CheckoutModel { //, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity
                 Logger.log("(4) CHECKOUTMAPPER ")
                 val checkoutModel = CheckoutModel()
+
+                /*val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(checkoutEntity.salon_key).child(checkoutEntity.customer_key)
+                var newCustomer = customerEntity
+                mDatabase.addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                        //("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                        Logger.log ("CheckoutMapper onDataChange : ${newCustomer.name.toString()}")
+                        checkoutModel.customer_name = newCustomer.name
+                        checkoutModel.customer_image_full = newCustomer.image_url.full
+                        checkoutModel.customer_image_thumb = newCustomer.image_url.thumb
+                        checkoutModel.customer_phone = newCustomer.phone
+                        checkoutModel.customer_fund = newCustomer.fund
+
+                    }
+                })*/
+
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
                 checkoutModel.created_at = checkoutEntity.created_at
                 checkoutModel.updated_at = checkoutEntity.updated_at
