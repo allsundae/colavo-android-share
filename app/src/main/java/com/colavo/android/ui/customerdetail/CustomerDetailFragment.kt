@@ -39,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.io.ByteArrayOutputStream
 import com.google.firebase.database.DatabaseError
 import android.databinding.adapters.TextViewBindingAdapter.setText
+import android.widget.ImageView
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.repositories.customer.datasource.mapper.CustomerMapper.Companion.transformFromEntity
 import com.google.firebase.database.DataSnapshot
@@ -286,6 +287,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
                 customer = transformFromEntity(newCustomer)
+                var customerImage = customer_detail_fragment_container.findViewById(R.id.container_image) as ImageView
 
                 container_1stline?.text = newCustomer.name
                 container_2ndline?.text = getString(R.string.fund) + " " + currencyFormatter(newCustomer.fund)
@@ -297,7 +299,7 @@ class CustomerDetailFragment : BaseFragment(), CustomerDetailListView
                             .resize(280, 280)
                             .centerCrop()
                             .noPlaceholder()
-                            .into(container_image)
+                            .into(customerImage)
                 }
 
             }

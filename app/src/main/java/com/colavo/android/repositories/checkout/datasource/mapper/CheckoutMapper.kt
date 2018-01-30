@@ -72,9 +72,9 @@ class CheckoutMapper {
                 checkoutModel.services = HashMap(checkoutEntity.services)
                 checkoutModel.discounts = HashMap(checkoutEntity.discounts)
                 checkoutModel.logs = HashMap(checkoutEntity.logs)
+                checkoutModel.service_menus = ""
 
                 checkoutModel.customer_name = customerEntity.name
-                checkoutModel.service_menus = ""
                 checkoutModel.customer_image_full = customerEntity.image_url.full
                 checkoutModel.customer_image_thumb = customerEntity.image_url.thumb
                 checkoutModel.customer_phone = customerEntity.phone

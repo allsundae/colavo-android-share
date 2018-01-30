@@ -1,5 +1,6 @@
 package com.colavo.android.repositories.checkout.datasource
 
+import com.colavo.android.R
 import com.colavo.android.entity.checkout.CheckoutEntity
 import com.colavo.android.entity.checkout.CheckoutModel
 import com.colavo.android.entity.checkout.MemoEntity
@@ -11,7 +12,9 @@ import com.colavo.android.entity.response.FirebaseResponse
 import com.colavo.android.entity.response.ResponseType
 import com.colavo.android.net.FirebaseAPI
 import com.colavo.android.repositories.checkout.datasource.mapper.CheckoutMapper
+import com.colavo.android.repositories.customer.datasource.mapper.CustomerMapper
 import com.colavo.android.utils.Logger
+import com.colavo.android.utils.currencyFormatter
 import retrofit2.Retrofit
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -21,10 +24,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
-
-
-
-
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.customer_detail_fragment.*
+import rx.lang.kotlin.toSingletonObservable
 
 
 class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val firebaseDatabase: FirebaseDatabase) : CheckoutDataSource {
@@ -45,6 +47,7 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         val checkout = dataSnapshot.getValue(CheckoutEntity::class.java)
                                         checkout?.checkout_uid = dataSnapshot.key
                                         Logger.log("CHECKOUT changed ${checkout?.checkout_uid}")
+
                                         subscriber.onNext(checkout!! to ResponseType.CHANGED)
                                     }
                                 }
@@ -56,6 +59,26 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
                                         Logger.log("(1) CHECKOUT ADDED : checkout_uid : ${checkout?.checkout_uid}")
 
                                         // 1. get Customer
+                                       /* val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(query.salonUid).child(checkout?.customer_key)
+                                        var newCustomer = CustomerEntity()
+                                        mDatabase.addValueEventListener(object : ValueEventListener {
+                                            override fun onCancelled(p0: DatabaseError?) {
+                                                //("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                            }
+
+                                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                                newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                                                checkoutModel.customer_name = newCustomer.name
+                                                checkoutModel.customer_image_full = newCustomer.image_url.full
+                                                checkoutModel.customer_image_thumb = newCustomer.image_url.thumb
+                                                checkoutModel.customer_phone = newCustomer.phone
+                                                checkoutModel.customer_fund = newCustomer.fund
+
+                                                val customer = CustomerMapper.transformFromEntity(newCustomer)
+
+                                            }
+                                        })*/
+
                                         subscriber.onNext(checkout!! to ResponseType.ADDED)
                                     }
 
@@ -90,6 +113,30 @@ class CheckoutDataSourceImpl @Inject constructor(val retrofit: Retrofit, val fir
         Logger.log("(2) getCustomerbySalonCustomerKey: $salon_key, $customer_key")
         return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
     }
+    /*private fun getCustomerbySalonCustomerKey(salon_key: String?, customer_key: String?) : Observable<CustomerEntity>  {
+        Logger.log("(2) getCustomerbySalonCustomerKey: $salon_key, $customer_key")
+        // return retrofit.create(FirebaseAPI::class.java).getCustomerBySalonCustomerId(salon_key ?: "", customer_key ?: "")
+        //    val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salon_key).child(customer_key)
+        var newCustomer = CustomerEntity()
+
+        return Observable.create<CustomerEntity>
+        { subscriber -> firebaseDatabase.reference.child("salon_customers")
+                .child(salon_key)
+                .child(customer_key)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                        val customer = CustomerMapper.transformFromEntity(newCustomer)
+                        subscriber.onNext(newCustomer)
+                        subscriber.onCompleted()
+                    }
+                })
+        }
+    }*/
 
     private fun getMemobyMemoKey(memo_key: String?) : Observable<MemoEntity?>  {
 

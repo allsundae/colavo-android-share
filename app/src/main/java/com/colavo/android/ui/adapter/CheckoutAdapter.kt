@@ -51,6 +51,9 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
+
+
+
             this.checkoutName.text = checkoutModel.customer_name
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
             this.checkoutMenu.text = checkoutModel.service_menus
