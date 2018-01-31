@@ -101,7 +101,7 @@ class PlaceholderFragment05 : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
-        inflater.inflate(R.menu.menu_customer, menu)
+        inflater.inflate(R.menu.menu_settings, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

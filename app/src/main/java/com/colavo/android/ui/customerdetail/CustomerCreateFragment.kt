@@ -57,8 +57,6 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (context!!.applicationContext as App).addCustomerComponent().inject(this)
-       // setHasOptionsMenu(true)
-
     }
 
     override fun refresh(salonId: String, customerId: String)  {
@@ -72,11 +70,11 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
 
         customerCreatePresenter.attachView(createCustomerView = this)
 
-        val sender : String = bundle.getString("SENDER")
+        val editmode : String = bundle.getString("SENDER")
         val salon = (activity as AppCompatActivity).intent.extras.getSerializable(SalonListActivity.EXTRA_SALONMODDEL) as SalonModel
         mCropImageView = CropImageView
 
-        if (sender == "edit") {
+        if (editmode == "edit") {
             customer = bundle.getSerializable(EXTRA_CUSTOMER_DETAIL) as CustomerModel
             if (customer.image_url.full != ""){
                 val byteArray = bundle.getByteArray("BYTE")
@@ -87,17 +85,16 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
             if (customer.image_url.thumb != "") imageURL.thumb = customer.image_url.thumb
 
             input_name.setText(customer.name)
-//            input_phone.setEmptyDefault("customer.phone")
             if (customer.phone != null && customer.phone != "") {
-
                 input_phone.number = customer.phone
             }
         }
-        else {
+        else { // For create customer
+            customer = CustomerModel()
             input_phone.setEmptyDefault(null)
         }
 
-        doneButton.setOnClickListener{ checkField(salon, sender) }
+        doneButton.setOnClickListener{ checkField(salon, customer , editmode) }
 
         touch_outside.setOnClickListener({ v -> dismissFragment() }) //(activity as AppCompatActivity).finish() })
         BottomSheetBehavior.from(bottom_sheet)
@@ -156,21 +153,37 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
 
     }
 
-    private fun checkField(salon: SalonModel, editmode: String) {
+    private fun checkField(salon: SalonModel, customer:CustomerModel , editmode: String) {
         var myInternationalNumber: String =""
         var myLocalNumber: String = ""
+        var newCustomerModel = CustomerModel()
+
+        if (editmode == "edit"){
+            newCustomerModel = customer
+            Logger.log ("checkField: $editmode : ${customer.name} -> ${newCustomerModel.name}")
+        }
 
         if (input_name.text.toString()=="") {
             showSnackbar (getString(R.string.err_name))
         }
         else if (input_phone.text == null || input_phone.text == "") {
-            writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL)
+            newCustomerModel.name = input_name.text.toString()
+            Logger.log ("checkField: $editmode : phone number is absent : ${newCustomerModel.name}")
+            writeNewCustomer(editmode, salon.id, newCustomerModel)
+          //  writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL)
         }
-        else{
-            if (input_phone.isValid() ) {
-                myLocalNumber = input_phone.getText()
+        else {
+            if (input_phone.isValid) {
+                newCustomerModel.name = input_name.text.toString()
+                newCustomerModel.national_phone = input_phone.getText().toString()
+                newCustomerModel.phone = input_phone.getNumber().toString()
+                Logger.log ("checkField: $editmode : phone number is VALID : ${newCustomerModel.name}")
+
+                writeNewCustomer(editmode, salon.id, newCustomerModel)
+
+                /* myLocalNumber = input_phone.getText()
                 myInternationalNumber = input_phone.getNumber()
-                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL)
+                writeNewCustomer(editmode, salon.id, input_name.text.toString(), myInternationalNumber, myLocalNumber, imageURL) */
             }
             else
             {
@@ -182,20 +195,22 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
     //결과 처리
 
     //upload the file
-    private fun writeNewCustomer(editmode: String, salonKey: String, name: String, international_phone: String, local_phone: String, imageUrl: ImageUrl) {
-        //showToast(filePath.toString())
+    //private fun writeNewCustomer(editmode: String, salonKey: String, name: String, international_phone: String, local_phone: String, imageUrl: ImageUrl) {
+    private fun writeNewCustomer(editmode: String, salonKey: String, customerModel: CustomerModel) {
         val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(salonKey)
         var newCustomerKey: String = ""
+        var newCustomerEntity = CustomerEntity()
 
         if (editmode == "edit") {
-            newCustomerKey = customer.key
+            newCustomerKey = customerModel.key
         } else newCustomerKey = mDatabase.push().key
 
         var imageFull : String = ""
         var imageThumb : String = ""
         var mImage : ImageUrl = ImageUrl()
 
-        var newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, imageUrl)
+        newCustomerEntity = CustomerEntity (key = newCustomerKey, phone = customerModel.phone, national_phone = customerModel.national_phone, name = customerModel.name, image_url =  customerModel.image_url, is_removed = customerModel.is_removed)
+
         Logger.log ("writeNewCustomer : $salonKey \t $newCustomerKey")
 
         //업로드할 파일이 있으면 수행
@@ -226,7 +241,7 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
                         showToast ("Upload completed." ) //getString(R.string.success_create_customer)
                         Logger.log ("Upload completed. : " + taskSnapshot.downloadUrl.toString() + "\t imageFull : " + imageFull ) //getString(R.string.success_create_customer)
                         Logger.log ("(1) mImage : " + mImage.toString() ) //Logger.log ("(2) mImage : " + mImage.toString() + "\t imageFull:" + imageFull )
-                        newCustomerEntity = CustomerEntity (newCustomerKey, international_phone, local_phone, name, mImage )
+                        newCustomerEntity = CustomerEntity (key = newCustomerKey, phone = customerModel.phone, national_phone = customerModel.national_phone, name = customerModel.name, image_url =  mImage, is_removed = customerModel.is_removed)
                         if (newCustomerKey != null || newCustomerKey !="") {
                             writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
                         } else showToast("Create failed. Please try again.")
@@ -243,10 +258,12 @@ class CustomerCreateFragment() : BaseFragment(), CustomerCreateView {
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "% ...")
                     }
         }
-        else {
-            imageFull = imageUrl.full
-            imageThumb = imageUrl.thumb
+        else {  // Not updated profile image
+            imageFull = customerModel.image_url.full
+            imageThumb = customerModel.image_url.thumb
             mImage = ImageUrl(full = imageFull, thumb = imageThumb)
+            newCustomerEntity = CustomerEntity (key = newCustomerKey, phone = customerModel.phone, national_phone = customerModel.national_phone, name = customerModel.name, image_url =  mImage, is_removed = customerModel.is_removed)
+
             if (newCustomerKey != null || newCustomerKey !="") {
                 writeNewUser(mDatabase, newCustomerKey, newCustomerEntity)
             } else showToast("Create failed. Please try again.")

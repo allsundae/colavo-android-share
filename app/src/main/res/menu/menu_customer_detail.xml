@@ -15,5 +15,9 @@
         android:id="@+id/action_customer_prohibit" android:title="@string/action_prohibit"
         android:orderInCategory="300" app:showAsAction="never"
         ></item>
+    <item
+        android:id="@+id/action_customer_prohibit_cancel" android:title="@string/action_prohibit_cancel"
+        android:orderInCategory="400" app:showAsAction="never"
+        ></item>
 
 </menu>
