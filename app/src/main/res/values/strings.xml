@@ -50,10 +50,16 @@
     <string name="action_call">Call</string>
     <string name="action_edit_customer">Edit customer\'s info</string>
     <string name="action_prohibit">Prohibit reservation</string>
+    <string name="action_prohibit_cancel">Cancel prohibit reservation</string>
+    <string name="action_prohibit_body">Prohibited customer can\'t make a reservation.</string>
+    <string name="action_prohibit_body_with_reservation">Customers with reservations. Do you want to prohibit? (Prohibited customer can\'t make a reservation.)</string>
+
     <string name="action_cancel">Cancel</string>
+    <string name="action_search">Search</string>
     <string name="checkout_Text">Checkout</string>
     <string name="btn_edit_profile">Edit profile</string>
     <string name="customer">Customer</string>
+    <string name="customer_prohibited">Prohibited customer</string>
     <string name="no_data_title">No data ;(</string>
     <string name="no_data_description">Please add some data here</string>
     <string name="modify">Modify</string>
@@ -61,7 +67,7 @@
     <string name="tnc"><![CDATA[
     By using Colavo, you agree to Colavo\'s <a href="http://www.colavo.kr">Terms of Usage</a> and <a href="http://www.colavo.kr">Privacy</a>
     ]]></string>
-    <string name="new_memo">New memo</string>
+    <string name="new_memo">Add note &amp; photo</string>
 
     <string name="err_phonenumber">Sorry, this customer doesn\'t have a phone number.</string>
     <string name="hint_password">Type in password (6 digits)</string>
@@ -69,11 +75,14 @@
     <string name="phone_number">Phone number</string>
     <string name="done">Done</string>
     <string name="err_name">Name is needed. check it please.</string>
-    <string name="success_create_customer">Customer successfully added</string>
-    <string name="err_create_customer">Customer didn\'t added. please try again</string>
+    <string name="success_create_customer">Customer successfully added.</string>
+    <string name="update_succeed">Updated successfully.</string>
+    <string name="update_failed">Updated failed.</string>
+    <string name="err_create_customer">Customer didn\'t added. please try again.</string>
     <string name="err_phone_duplicated">This number is registerd already. check it again please.</string>
     <string name="err_phone_notvalid">This phone number is not valid. check it again please.</string>
     <string name="success_phone">Phone number can be registered.</string>
+    <string name="fund">Points</string>
     <!--    &lt;!&ndash; Shared element transition &ndash;&gt;
         <string name="logoTransitionName">customer_name</string>
         <string name="title_activity_salon_main">헤어샵</string>-->

@@ -27,6 +27,7 @@ class CheckoutModel(
         var customer_image_thumb: String="",
         var customer_image_full: String="",
         var customer_phone: String="",
+        var customer_fund: Double=0.0,
         var service_menus: String="",
 
         var memo_txt: String="",
@@ -38,24 +39,3 @@ class CheckoutModel(
         , booked_by_customer, salon_key, employee_key, customer_key
         , memo_key, checkout_key, cancel_reason), Serializable
 
-/*
-checkout_uid: String = "",
-salon_key: String ="",
-event_key: String = "",
-price: Double = 0.0,
-is_manual_price: Boolean = false,
-reserve_fund: Double = 0.0,
-paid_fund: Double = 0.0,
-author_employee_key: String = "",
-paid_types: List<PaidType> = mutableListOf(PaidType("","","", 0.0, 0.0)),
-created_at: Double = 0.0,
-updated_at: Double = 0.0,
-reserveFund: Double = 0.0,
-paidFund: Double = 0.0,
-tip: Double = 0.0,
-customer_key: String = "",
-customer_name: String ="",
-customer_image_thumb: String="",
-customer_image_full: String="",
-customer_menu: String=""
-*/

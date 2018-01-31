@@ -77,7 +77,7 @@ dependencies {
 
     // Test
 
-    //compile project(':weekviewlib')
+    compile project(':intlphoneinput')
     compile "com.android.support:appcompat-v7:$buildToolsVersion"
     compile "com.android.support:recyclerview-v7:$buildToolsVersion"
     compile "com.android.support:design:$buildToolsVersion"
@@ -110,8 +110,11 @@ dependencies {
     implementation 'com.simmorsal.recolor:recolor:1.1.0'
     compile 'com.github.oxoooo:pull-back-layout:1.0.1'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
-    compile 'net.rimoto:intlphoneinput:1.0.1'
+ //   compile 'net.rimoto:intlphoneinput:1.0.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
+    compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.1.3'
+    compile 'com.github.quiin:unifiedContactPicker:1.0.0'
 }
 
 repositories {

@@ -1,11 +1,18 @@
 package com.colavo.android.repositories.checkout.datasource.mapper
 
 import com.colavo.android.R
+import com.colavo.android.R.id.checkout_customer_name
 import com.colavo.android.entity.customer.CustomerEntity
 import com.colavo.android.utils.Logger
 import java.util.*
 import com.colavo.android.R.id.textView
 import com.colavo.android.entity.checkout.*
+import com.colavo.android.repositories.customer.datasource.mapper.CustomerMapper
+import com.colavo.android.utils.currencyFormatter
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.NumberFormat
 
 
@@ -43,8 +50,8 @@ class CheckoutMapper {
                 if (customer.name != null)
                     checkoutModel.user_name = "TEST"customer.name //todo address lastEventUser
 
-                if (customer.image_urls.thumb != "")
-                    checkoutModel.user_image = customer.image_urls.thumb
+                if (customer.image_url.thumb != "")
+                    checkoutModel.user_image = customer.image_url.thumb
             }*/
             Logger.log("CHECKOUTMAPPER : createCheckoutWithEventAndUser : ${checkoutModel.checkout_uid}")
 
@@ -54,6 +61,26 @@ class CheckoutMapper {
             fun transformFromEntity(checkoutEntity: CheckoutEntity, customerEntity: CustomerEntity, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity ): CheckoutModel { //, paidoutEntity: PaidoutEntity, memoEntity: MemoEntity
                 Logger.log("(4) CHECKOUTMAPPER ")
                 val checkoutModel = CheckoutModel()
+
+                /*val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(checkoutEntity.salon_key).child(checkoutEntity.customer_key)
+                var newCustomer = customerEntity
+                mDatabase.addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                        //("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                        Logger.log ("CheckoutMapper onDataChange : ${newCustomer.name.toString()}")
+                        checkoutModel.customer_name = newCustomer.name
+                        checkoutModel.customer_image_full = newCustomer.image_url.full
+                        checkoutModel.customer_image_thumb = newCustomer.image_url.thumb
+                        checkoutModel.customer_phone = newCustomer.phone
+                        checkoutModel.customer_fund = newCustomer.fund
+
+                    }
+                })*/
+
                 checkoutModel.checkout_key = checkoutEntity.checkout_key
                 checkoutModel.created_at = checkoutEntity.created_at
                 checkoutModel.updated_at = checkoutEntity.updated_at
@@ -71,12 +98,13 @@ class CheckoutMapper {
                 checkoutModel.services = HashMap(checkoutEntity.services)
                 checkoutModel.discounts = HashMap(checkoutEntity.discounts)
                 checkoutModel.logs = HashMap(checkoutEntity.logs)
+                checkoutModel.service_menus = ""
 
                 checkoutModel.customer_name = customerEntity.name
-                checkoutModel.service_menus = ""
-                checkoutModel.customer_image_full = customerEntity.image_urls.full
-                checkoutModel.customer_image_thumb = customerEntity.image_urls.thumb
+                checkoutModel.customer_image_full = customerEntity.image_url.full
+                checkoutModel.customer_image_thumb = customerEntity.image_url.thumb
                 checkoutModel.customer_phone = customerEntity.phone
+                checkoutModel.customer_fund = customerEntity.fund
 
 
                 if (checkoutEntity.memo_key != "") {
@@ -86,10 +114,7 @@ class CheckoutMapper {
                     checkoutModel.memo_txt = new_memo
                 }*/
 
-                val currencyFormatter = NumberFormat.getCurrencyInstance()
-                currencyFormatter.setMinimumFractionDigits(0)
-                val cur = currencyFormatter.format(paidoutEntity.price.toInt())
-
+                val cur = currencyFormatter(paidoutEntity.price)
                 checkoutModel.checkout_price = cur.toString()
 
                 for ((key, value) in paidoutEntity.paid_types) {
@@ -114,6 +139,8 @@ class CheckoutMapper {
 
                 return checkoutModel
             }
+
+
 
 
     }

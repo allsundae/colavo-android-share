@@ -26,21 +26,21 @@ import java.util.*
 
 class eventActivity : AppCompatActivity(), eventView, EventAdapter.OnItemClickListener, WeekView.EventClickListener
                 , MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener{
-
-    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?, translatedRect: Rect?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onMonthChange(newYear: Int, newMonth: Int): MutableList<out WeekViewEvent> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun onEventClick(event: WeekViewEvent?, eventRect: RectF?, translatedRect: Rect?) {
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
     override fun onEventLongPress(event: WeekViewEvent?, eventRect: RectF?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onEmptyViewLongPress(time: Calendar?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     @Inject

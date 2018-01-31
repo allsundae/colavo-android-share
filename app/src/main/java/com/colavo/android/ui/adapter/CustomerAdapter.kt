@@ -1,7 +1,9 @@
 package com.colavo.android.ui.adapter
 
+import android.content.Context
 import android.graphics.*
 import android.support.v4.view.PagerAdapter
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +11,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.colavo.android.R
+import com.colavo.android.R.drawable.*
 import com.colavo.android.entity.customer.CustomerModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.customer_item.view.*
-import com.squareup.picasso.Transformation
-
 
 
 class CustomerAdapter(val onItemClickListener: OnItemClickListener
-                      , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                      , val items: MutableList<CustomerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+        //, FastScrollRecyclerView.SectionedAdapter, FastScrollRecyclerView.MeasurableAdapter
+        {
+
 
     interface OnItemClickListener {
         fun onItemClicked(item: CustomerModel, position: Int, v: View)
@@ -31,27 +35,28 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
         init {
           //TODO
+
         }
 
         fun bind(customerModel: CustomerModel) {
             val context = itemView.context
             this.customerName.text = customerModel.name
-            this.customerPhone.text = customerModel.phone
-           // this.customerImage.loadUrl(customerModel.image)
-//            val thisThumbImage:String = customerModel.image_urls!!.getThumbUrl()
+            this.customerPhone.text = customerModel.national_phone
+      //      Picasso.with(customerImage!!.context).cancelRequest(customerImage!!)
 
-           if (customerModel.image_urls.thumb != "" && customerModel.image_urls.thumb != null) {
-               val transForm = CircleTransform()
-
+           if (customerModel.image_url.thumb != "" && customerModel.image_url.thumb != null && customerModel.image_url != null) {
+               //val transForm = CircleTransform()
                 Picasso.with(context)
-                        .load(customerModel.image_urls.thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                        .load(customerModel.image_url.thumb)
                         .resize(240, 240)
                         .centerCrop()
-                        .placeholder(R.drawable.ic_person_container)
+                        .placeholder(ic_person_container)
+                        .error(ic_person_container)
                       //  .transform(transForm)
                         .into(this.customerImage)
-
-            }
+            }else{
+               this.customerImage.setImageResource(R.drawable.ic_person_container)
+           }
 
 
             this.itemView.setOnClickListener { onItemClickListener.onItemClicked(customerModel, position, v) }
@@ -59,38 +64,23 @@ class CustomerAdapter(val onItemClickListener: OnItemClickListener
 
     }
 
-    public class CircleTransform : Transformation {
-        override fun transform(source: Bitmap): Bitmap {
-            val size = Math.min(source.width, source.height)
-
-            val x = (source.width - size) / 2
-            val y = (source.height - size) / 2
-
-            val squaredBitmap = Bitmap.createBitmap(source, x, y, size, size)
-            if (squaredBitmap != source) {
-                source.recycle()
-            }
-
-            val bitmap = Bitmap.createBitmap(size, size, source.config)
-
-            val canvas = Canvas(bitmap)
-            val paint = Paint()
-            val shader = BitmapShader(squaredBitmap,
-                    Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            paint.setShader(shader)
-            paint.setAntiAlias(true)
-
-            val r = size / 2f
-            canvas.drawCircle(r, r, r, paint)
-
-            squaredBitmap.recycle()
-            return bitmap
-        }
-
-        override fun key(): String {
-            return "circle"
-        }
+/*
+   override fun getSectionName(position: Int): String {
+        return position.toString()
     }
+    override fun getViewTypeHeight(recyclerView: RecyclerView?, viewType: Int): Int {
+        */
+/*val params = recyclerView?.layoutParams
+        return params!!.height
+        *//*
+
+        //val px : Int = convertDpToPixel(60f, ).toInt()
+        return 240
+       // showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+*/
+
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int)
             = (holder as ItemViewHolder).bind(items[position])

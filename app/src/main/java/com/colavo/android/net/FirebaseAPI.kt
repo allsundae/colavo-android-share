@@ -11,9 +11,6 @@ import com.colavo.android.entity.session.User
 import retrofit2.http.*
 import rx.Observable
 
-/**
- * Created by RUS on 17.07.2016.
- */
 interface FirebaseAPI {
 
     @PUT("users/{id}.json")

@@ -24,7 +24,22 @@
         android:clickable="true"
         android:paddingTop="@dimen/toolbar_height"
         android:paddingBottom="@dimen/height_bottombar"
+        app:fastScrollPopupBgColor="@color/colorAccent"
+        app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+        app:fastScrollPopupTextSize="56sp"
+        app:fastScrollPopupBackgroundSize="88dp"
+        app:fastScrollThumbColor="@color/colorAccent"
+        app:fastScrollTrackColor="#1f000000"
+        app:fastScrollPopupPosition="adjacent"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <!--app:fastScrollEnabled="true"
+
+        app:fastScrollHorizontalThumbDrawable="@drawable/fastscroll_thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/fastscroll_line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/fastscroll_thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/fastscroll_line_drawable"-->
         <include
             android:id="@+id/empty_customer"
             layout="@layout/base_empty"

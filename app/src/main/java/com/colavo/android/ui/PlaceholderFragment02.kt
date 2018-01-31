@@ -30,7 +30,9 @@ import com.colavo.android.utils.toast
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 import android.support.v4.widget.SwipeRefreshLayout
+import com.colavo.android.entity.customer.CustomerModel
 import kotlinx.android.synthetic.main.base_empty.*
+import kotlinx.android.synthetic.main.fragment_04.*
 
 
 /**
@@ -38,9 +40,12 @@ import kotlinx.android.synthetic.main.base_empty.*
  */
 class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         , CheckoutAdapter.OnItemClickListener{
+    override fun refresh(salonId: String, customerId: String)  {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onLongItemClicked(item: CheckoutModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     @Inject
@@ -102,6 +107,9 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
      //   val list = rootView.findViewById(R.id.list1) as RecyclerViewEmptySupport
      //   checkout_recyclerView.setLayoutManager(LinearLayoutManager(context))
         checkout_recyclerView.setEmptyView(empty_checkout)
+        checkout_recyclerView.setItemViewCacheSize(20)
+        checkout_recyclerView.isDrawingCacheEnabled = true
+
         if (empty_checkout.visibility == View.VISIBLE) ripplebg.startRippleAnimation()
         else ripplebg.stopRippleAnimation()
 
@@ -200,7 +208,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         handler.postDelayed({
             empty_group?.visibility = View.VISIBLE
             empty_progress.visibility = View.GONE
-        }, 500)
+        }, 700)
 
 
         //empty_group.visibility = View.GONE
@@ -216,6 +224,15 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
     override fun onItemClicked(item: CheckoutModel, position: Int, v: View) {
         Toast.makeText(context, "Clicked ${item.customer_name} : ${position}" , Toast.LENGTH_LONG).show()
 
+        var customer = CustomerModel()
+        customer.phone = item.customer_phone
+        customer.name = item.customer_name
+        customer.national_phone = item.customer_phone
+        customer.fund = item.customer_fund
+        customer.image_url.thumb = item.customer_image_thumb
+        customer.image_url.full = item.customer_image_full
+        customer.key = item.customer_key
+
         v.checkout_customer_image.buildDrawingCache()
         val bitmap = v.checkout_customer_image.getDrawingCache()
         val bs = ByteArrayOutputStream()
@@ -225,7 +242,7 @@ class PlaceholderFragment02 : BaseFragment(), CheckoutListView
         val newFragment = CustomerDetailFragment()
 
         val bundle = Bundle(3)
-        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, item)
+        bundle.putSerializable(PlaceholderFragment02.EXTRA_CHECKOUT, customer)
         bundle.putString("SENDER","checkout")
         bundle.putByteArray("BYTE", byteArray)
         newFragment.setArguments(bundle)

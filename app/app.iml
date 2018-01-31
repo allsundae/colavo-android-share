@@ -142,6 +142,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/split-apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/splits-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/kotlin" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
@@ -150,17 +151,21 @@
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="com.github.quiin:unifiedContactPicker-1.0.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-crash-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-27.0.2" level="project" />
+    <orderEntry type="library" name="com.simplecityapps:recyclerview-fastscroll-1.0.16" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-iid-11.8.0" level="project" />
     <orderEntry type="library" name="de.hdodenhof:circleimageview-2.2.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.8.0" level="project" />
+    <orderEntry type="library" name="com.hootsuite.android:nachos-1.0.0" level="project" />
     <orderEntry type="library" name="com.github.katoro:typekit-1.0.1" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.2.10@jar" level="project" />
     <orderEntry type="library" name="io.reactivex:rxandroid-1.2.1" level="project" />
     <orderEntry type="library" name="com.skyfishjy.ripplebackground:library-1.0.1" level="project" />
     <orderEntry type="library" name="com.android.databinding:library-1.3.1" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-auth-license-11.8.0" level="project" />
+    <orderEntry type="library" name="io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter-1.1.3" level="project" />
     <orderEntry type="library" name="joda-time:joda-time:2.9.9@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-basement-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
@@ -194,12 +199,13 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-base-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.0.2" level="project" />
-    <orderEntry type="library" name="net.rimoto:intlphoneinput-1.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-storage-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:27.0.2@jar" level="project" />
     <orderEntry type="library" name="com.android.support:design-27.0.2" level="project" />
     <orderEntry type="library" name="com.github.oxoooo:pull-back-layout-1.0.1" level="project" />
+    <orderEntry type="library" name="com.github.ivbaranov:materiallettericon-0.2.2" level="project" />
+    <orderEntry type="library" name="com.makeramen:roundedimageview-2.3.0" level="project" />
     <orderEntry type="library" name="org.glassfish:javax.annotation:10.0-b28@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-iid-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.theartofdev.edmodo:android-image-cropper-2.6.0" level="project" />
@@ -213,6 +219,7 @@
     <orderEntry type="library" name="com.android.databinding:adapters-1.3.1" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-11.8.0" level="project" />
     <orderEntry type="library" name="com.squareup.okio:okio:1.13.0@jar" level="project" />
+    <orderEntry type="library" name="com.bignerdranch.android:expandablerecyclerview-3.0.0-RC1" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.googlecode.libphonenumber:libphonenumber:7.7.2@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-database-connection-11.8.0" level="project" />
@@ -232,5 +239,6 @@
     <orderEntry type="library" name="com.android.support:cardview-v7-26.1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-11.8.0" level="project" />
+    <orderEntry type="module" module-name="intlphoneinput" />
   </component>
 </module>

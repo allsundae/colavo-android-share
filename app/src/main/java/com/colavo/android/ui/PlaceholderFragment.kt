@@ -41,6 +41,10 @@ import com.colavo.android.utils.Logger
  */
 class PlaceholderFragment : BaseFragment()
         , WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+    override fun refresh(salonId: String, customerId: String)  {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private val TYPE_DAY_VIEW = 1
     private val TYPE_THREE_DAY_VIEW = 2
     private val TYPE_WEEK_VIEW = 3
@@ -160,7 +164,7 @@ class PlaceholderFragment : BaseFragment()
         event = WeekViewEvent(2, "Tony Stark\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor02)
         events.add(event)
-
+/*
         startTime = Calendar.getInstance()
         startTime.set(Calendar.HOUR_OF_DAY, 5)
         startTime.set(Calendar.MINUTE, 0)
@@ -425,7 +429,7 @@ class PlaceholderFragment : BaseFragment()
         endTime.set(Calendar.MONTH, newMonth - 1)
         event = WeekViewEvent(22, "도토리어린이\n", getEventTitle(startTime), startTime, endTime)
         event.color = ContextCompat.getColor(this.context!!,R.color.eventColor01)
-        events.add(event)
+        events.add(event)*/
 
         return events
     }

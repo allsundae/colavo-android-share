@@ -34,4 +34,7 @@ abstract class BaseFragment : Fragment()  {
         }
     }
 
+//    abstract fun refresh()
+
+    abstract fun refresh(salonId: String, customerId: String)
 }

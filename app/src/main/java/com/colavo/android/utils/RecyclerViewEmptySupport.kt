@@ -10,11 +10,12 @@ import android.view.View
 import android.widget.ProgressBar
 import com.colavo.android.R
 import com.colavo.android.common.MyTextView
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import kotlinx.android.synthetic.main.base_empty.view.*
 
 
 
-class RecyclerViewEmptySupport : RecyclerView {
+class RecyclerViewEmptySupport : FastScrollRecyclerView {
     private var emptyView: View? = null
 //    val mProgressBar: ProgressBar? = findViewById<ProgressBar>(R.id.progressBar)
 

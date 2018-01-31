@@ -11,12 +11,12 @@ class CustomerMapper {
 
         fun createCustomerWithEventAndUser(baseCustomer: BaseCustomer, customer: CustomerEntity?): CustomerModel { //eventEntity: EventEntity?,
             val customerModel = CustomerModel ()
-            customerModel.uid = baseCustomer.uid
+            customerModel.key = baseCustomer.key
             customerModel.phone = baseCustomer.phone
             customerModel.national_phone = baseCustomer.national_phone
             customerModel.name = baseCustomer.name
-            customerModel.image_urls.full = baseCustomer.image_urls.full
-            customerModel.image_urls.thumb = baseCustomer.image_urls.thumb
+            customerModel.image_url.full = baseCustomer.image_url.full
+            customerModel.image_url.thumb = baseCustomer.image_url.thumb
             customerModel.recent_appointment_begin_at = baseCustomer.recent_appointment_begin_at
             customerModel.recent_appointment_end_at = baseCustomer.recent_appointment_end_at
             customerModel.is_removed = baseCustomer.is_removed
@@ -32,12 +32,12 @@ class CustomerMapper {
 
             fun transformFromEntity(customerEntity: CustomerEntity): CustomerModel {
                 val customerModel = CustomerModel()
-                customerModel.uid = customerEntity.uid
+                customerModel.key = customerEntity.key
                 customerModel.phone = customerEntity.phone
                 customerModel.national_phone = customerEntity.national_phone
                 customerModel.name = customerEntity.name
-                customerModel.image_urls.full = customerEntity.image_urls.full// customerEntity.image_urls!!.full
-                customerModel.image_urls.thumb = customerEntity.image_urls.thumb
+                customerModel.image_url.full = customerEntity.image_url.full// customerEntity.image_url!!.full
+                customerModel.image_url.thumb = customerEntity.image_url.thumb
                 customerModel.recent_appointment_begin_at = customerEntity.recent_appointment_begin_at
                 customerModel.recent_appointment_end_at = customerEntity.recent_appointment_end_at
                 customerModel.is_removed = customerEntity.is_removed

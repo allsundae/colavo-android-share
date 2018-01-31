@@ -22,6 +22,12 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.v4.content.ContextCompat.getDrawable
 import android.widget.LinearLayout
+import com.colavo.android.entity.customer.CustomerEntity
+import com.colavo.android.utils.CircleTransform
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class CheckoutAdapter(val onItemClickListener: OnItemClickListener
@@ -50,6 +56,40 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 
         fun bind(checkoutModel: CheckoutModel) {
             val context = itemView.context
+
+            val mDatabase = FirebaseDatabase.getInstance().getReference().child("salon_customers").child(checkoutModel.salon_key).child(checkoutModel.customer_key)
+            var newCustomer = CustomerEntity()
+            mDatabase.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError?) {
+                    //("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    newCustomer = dataSnapshot.getValue(CustomerEntity::class.java)!!
+                    Logger.log ("CheckoutAdapter onDataChange : ${newCustomer.name.toString()}")
+                    checkoutModel.customer_name = newCustomer.name
+                    checkoutModel.customer_image_full = newCustomer.image_url.full
+                    checkoutModel.customer_image_thumb = newCustomer.image_url.thumb
+                    checkoutModel.customer_phone = newCustomer.phone
+                    checkoutModel.customer_fund = newCustomer.fund
+
+                    checkoutName.text = checkoutModel.customer_name
+                    if (checkoutModel.customer_image_thumb != "") {
+                        //val transForm = CircleTransform()
+
+                        Picasso.with(context)
+                                .load(checkoutModel.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
+                                .resize(240, 240)
+                                .centerCrop()
+                                .placeholder(R.drawable.ic_person_container)
+                                //.transform(transForm)
+                                .into(checkoutImage)
+                    }else{
+                        checkoutImage.setImageResource(R.drawable.ic_person_container)
+                    }
+                }
+            })
+
             this.checkoutName.text = checkoutModel.customer_name
             this.checkoutTime.text = ConvertTimestampToDateandTime(checkoutModel.created_at.toLong(), "a\nh:mm")
             this.checkoutMenu.text = checkoutModel.service_menus
@@ -95,19 +135,21 @@ class CheckoutAdapter(val onItemClickListener: OnItemClickListener
 
 
            // this.checkoutImage.loadUrl(checkoutModel.image)
-//            val thisThumbImage:String = checkoutModel.image_urls!!.getThumbUrl()
+//            val thisThumbImage:String = checkoutModel.image_url!!.getThumbUrl()
 
            if (checkoutModel.customer_image_thumb != "") {
-               val transForm = CustomerAdapter.CircleTransform()
+               //val transForm = CircleTransform()
 
                 Picasso.with(context)
                         .load(checkoutModel.customer_image_thumb) //"https://firebasestorage.googleapis.com/v0/b/jhone-364e5.appspot.com/o/profile.jpeg?alt=media&token=f267631e-f6fd-4c90-bace-e7cc823442bb"
                         .resize(240, 240)
                         .centerCrop()
                         .placeholder(R.drawable.ic_person_container)
-                        .transform(transForm)
+                        //.transform(transForm)
                         .into(this.checkoutImage)
-            }
+            }else{
+               this.checkoutImage.setImageResource(R.drawable.ic_person_container)
+           }
 
             Logger.log("CheckoutAdapter : bind : ${checkoutModel.customer_name} (${position}) \t ${checkoutModel.customer_image_thumb}")
 

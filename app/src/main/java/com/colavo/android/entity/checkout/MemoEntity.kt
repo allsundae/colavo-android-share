@@ -9,7 +9,7 @@ import java.util.*
 
 class  MemoEntity(
         @SerializedName("txt")                @Expose var txt: String = "",
-        @SerializedName("image_urls")         @Expose var image_urls: HashMap<String, Memo_Image>
+        @SerializedName("image_url")         @Expose var image_url: HashMap<String, Memo_Image>
                                                                  = hashMapOf("" to Memo_Image(0.0,"","","")),
         @SerializedName("created_at")         @Expose var created_at: Double = 0.0,
         @SerializedName("updated_at")         @Expose var updated_at: Double = 0.0,
